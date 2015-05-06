@@ -19,8 +19,28 @@ export DATABASE_URL=postgres://docker:docker@docker.local:5432/docker
 
 From there, the app should be runnable as normal.
 
+Create your virtual environment:
+
+```sh
+mkvirtualenv scuole-dev
+```
+
+Then install the requirements:
+
+```sh
+pip install -r requirements/local.txt
+```
+
+Check for any migrations:
+
 ```sh
 python manage.py migrate
-...
+```
+
+Then see if it'll run:
+
+```sh
 python manage.py runserver
 ```
+
+All good? Let's go!
