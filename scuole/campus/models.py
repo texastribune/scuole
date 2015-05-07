@@ -103,7 +103,6 @@ class Campus(models.Model):
     # CPST20SA
     teacher_20y_plus_salary = models.FloatField(
         help_text="Teacher more than 20 years experience base salary average")
-    # s
     # CPSTEXPA
     teacher_experience = models.FloatField(
         help_text="Average teacher experience at campus")
