@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(help_text='Geographic name for region', max_length=20)),
                 ('region_id', models.CharField(help_text='Region identifier', max_length=2)),
+                ('slug', models.SlugField()),
                 ('state', models.ForeignKey(related_name='regions', to='states.State')),
             ],
         ),
