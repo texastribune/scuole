@@ -1,120 +1,45 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, unicode_literals
+
 from django.db import models
-from django.utils.text import slugify
+from django.utils.encoding import python_2_unicode_compatible
+
+from scuole.districts.models import District
 
 
+@python_2_unicode_compatible
 class Campus(models.Model):
+    # CCD - SCHNAM
+    name = models.CharField(
+        help_text="Campus name", max_length=200)
     slug = models.SlugField()
-    # CCD fields
-    name = models.CharField(help_text="Campus name", max_length=200)
+    # TEA - CAMPUS
+    tea_id = models.CharField(
+        help_text="TEA campus identifier", max_length=10)
+    # CCD - PHONE
     phone = models.CharField(
         help_text="Campus phone number", max_length=10)
+    # CCD - LCITY
     city = models.CharField(
-        help_text="Campus city", max_length=200)
+        help_text="Campus location city", max_length=200)
+    # CCD - LZIP
     zip = models.CharField(
-        help_text="Campus zip", max_length=5)
+        help_text="Campus location zip", max_length=5)
+    # CCD - LZIP4
     zip4 = models.CharField(
         help_text="Campus +4 zip", max_length=4)
+    #CCD - STATUS
     status = models.CharField(
         help_text="Campus NCES status code", max_length=1)
+    # CCD - ULOCALE
     locale = models.CharField(
         help_text="Campus NCES urban-centric locale code", max_length=2)
+    # CCD - LATCOD
     latitude = models.FloatField(help_text="Campus latitude")
+    # CCD - LONCOD
     longitude = models.FloatField(help_text="Campus longitude")
-    # TAPR fields
-    # C_RATING
-    rating = models.CharField(
-        help_text="Campus rating", max_length=1)
-    # CAMPUS
-    campus_id = models.CharField(
-        help_text="Campus ID", max_length=10)
-    # CFLCHART
-    charter = models.CharField(
-        help_text="Chartered campus", max_length=1)
-    # COUNTY
-    county = models.CharField(
-        help_text="County number campus is located", max_length=100)
-    # DISTRICT
-    district = models.CharField(
-        help_text="District number campus is located", max_length=100)
-    # GRDSPAN
-    grade_span = models.CharField(
-        help_text="Campus span of grade levels based on enrollment",
-        max_length=6)
-    # GRDTYPE
-    level = models.CharField(
-        help_text="Campus type: Elementary, Middle, Senior or Both",
-        max_length=1)
-    # student breakdown 2014
-    # CPETALLC
-    all_students = models.IntegerField(
-        help_text="Campus total student enrollment")
-    # CPETBLAP
-    african_american = models.FloatField(
-        help_text="Percent of African American students enrolled at campus")
-    # CPETHISP
-    hispanic = models.FloatField(
-        help_text="Percent of Hispanic students enrolled at campus")
-    # CPETASIP
-    asian = models.FloatField(
-        help_text="Percent of Asian students enrolled at campus")
-    # CPETINDP
-    native_american = models.FloatField(
-        help_text="Percent of Native American students enrolled at campus")
-    # CPETTWOP
-    two_or_more = models.FloatField(
-        help_text="Percent of students of two-or-more races enrolled at campus")
-    # CPETWHIP
-    white = models.FloatField(
-        help_text="Percent of white students enrolled at campus")
-    # CPETRSKP
-    at_risk = models.FloatField(
-        help_text="Percent of at-risk students enrolled at campus")
-    # CPETBILP
-    esl = models.FloatField(
-        help_text="Percent of ESL students enrolled at campus")
-    # CPETECOP
-    econ_disadv = models.FloatField(
-        help_text="Percent of economocally disadvantaged students enrolled at campus")
-    # CPETSPEP
-    special_ed = models.FloatField(
-        help_text="Percent of special education students enrolled at campus")
-    # Teacher and staff breakdown 2014
-    # CPSATOFC
-    total_staff = models.FloatField(
-        help_text="Total full time staff at campus")
-    # CPSSTOSA
-    admin_salary = models.FloatField(
-        help_text="School admin total base salary average at campus")
-    # CPSTTOSA
-    teacher_salary = models.FloatField(
-        help_text="Teacher full time base salary average at campus")
-    # CPST00SA
-    beginning_salary = models.FloatField(
-        help_text="Teacher beginning base salary average at campus")
-    # CPST01SA
-    teacher_1_5y_salary = models.FloatField(
-        help_text="Teacher 1-5 years experience base salary average at campus")
-    # CPST06SA
-    teacher_6_10y_salary = models.FloatField(
-        help_text="Teacher 6-10 years experience base salary average at campus")
-    # CPST11SA
-    teacher_11_20y_salary = models.FloatField(
-        help_text="Teacher 11-20 years experience base salary average at campus")
-    # CPST20SA
-    teacher_20y_plus_salary = models.FloatField(
-        help_text="Teacher more than 20 years experience base salary average")
-    # CPSTEXPA
-    teacher_experience = models.FloatField(
-        help_text="Average teacher experience at campus")
-    #  CPSTKIDR
-    teacher_student_ratio = models.FloatField(
-        help_text="Teacher student ratio at campus")
+    district = models.ForeignKey(
+        District, related_name="campuses", null=True, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.slug = slugify(self.name)[:50]
-
-        super(Campus, self).save(*args, **kwargs)
