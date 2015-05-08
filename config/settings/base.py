@@ -71,6 +71,8 @@ THIRD_PARTY_APPS = (
 )
 
 LOCAL_APPS = (
+    'scuole.districts',
+    'scuole.regions',
     'scuole.states',
 )
 
@@ -190,3 +192,9 @@ USE_L10N = True
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#use-tz
 USE_TZ = True
+
+#########################
+# GENERAL CONFIGURATION #
+#########################
+
+DATA_FOLDER = env('DATA_FOLDER', path.join(ROOT_DIR, 'data'))
