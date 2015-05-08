@@ -1,10 +1,13 @@
-from django.db import models
+from __future__ import unicode_literals\
 
-# Create your models here.
+from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
+
+
 class County(models.Model):
-    district = model.CharField(
-        help_text="Districts located withinin county", max_length=200)
-    campus = model.CharField(
-        help_text="Campuses located within county", max_length=200)
-    region = model.CharField(
-        help_text="Region located within county", max_length=100)
+    name = models.CharField(help_text="County name", max_length=100)
+    slug = models.SlugField()
+    fips = models.IntegerField(help_text="County fips code")
+
+    def __str__(self):
+        return self.name
