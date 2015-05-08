@@ -72,6 +72,7 @@ THIRD_PARTY_APPS = (
 
 LOCAL_APPS = (
     'scuole.districts',
+    'scuole.regions',
     'scuole.states',
 )
 
