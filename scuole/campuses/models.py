@@ -15,31 +15,50 @@ class Campus(models.Model):
     slug = models.SlugField()
     # TEA - CAMPUS
     tea_id = models.CharField(
-        help_text="TEA campus identifier", max_length=10)
+        help_text="TEA campus identifier",
+        max_length=10)
     # CCD - PHONE
     phone = models.CharField(
-        help_text="Campus phone number", max_length=10)
+        help_text="Campus phone number",
+        max_length=10)
+    # CCD - LSTREE
+    street = models.CharField(
+        help_text="Campus location street",
+        max_length=100)
     # CCD - LCITY
     city = models.CharField(
-        help_text="Campus location city", max_length=200)
+        help_text="Campus location city",
+        max_length=200)
+    # CCD - LSTREE
+    street = models.CharField(
+        help_text="Campus location street address",
+        max_length=200)
+    # CCD - LSTATE
+    state = models.CharField(
+        help_text="Campus location state",
+        max_length=5)
     # CCD - LZIP
-    zip = models.CharField(
-        help_text="Campus location zip", max_length=5)
+    zip_code = models.CharField(
+        help_text="Campus location zip",
+        max_length=5)
     # CCD - LZIP4
-    zip4 = models.CharField(
-        help_text="Campus +4 zip", max_length=4)
+    zip_code4 = models.CharField(
+        help_text="Campus +4 zip",
+        max_length=4)
     #CCD - STATUS
     status = models.CharField(
-        help_text="Campus NCES status code", max_length=1)
+        help_text="Campus NCES status code",
+        max_length=1)
     # CCD - ULOCALE
     locale = models.CharField(
-        help_text="Campus NCES urban-centric locale code", max_length=2)
+        help_text="Campus NCES urban-centric locale code",
+        max_length=2)
     # CCD - LATCOD
     latitude = models.FloatField(help_text="Campus latitude")
     # CCD - LONCOD
     longitude = models.FloatField(help_text="Campus longitude")
     district = models.ForeignKey(
-        District, related_name="campuses", null=True, blank=True)
+        District, related_name="campuses")
 
     def __str__(self):
         return self.name

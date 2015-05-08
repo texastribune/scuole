@@ -7,6 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('regions', '0001_initial'),
     ]
 
     operations = [
@@ -24,6 +25,7 @@ class Migration(migrations.Migration):
                 ('zip_code4', models.CharField(help_text='District office +4 ZIP Code', max_length=4)),
                 ('latitude', models.FloatField(help_text='District office latitude')),
                 ('longitude', models.FloatField(help_text='District office longitude')),
+                ('region', models.ForeignKey(related_name='districts', blank=True, to='regions.Region', null=True)),
             ],
         ),
     ]

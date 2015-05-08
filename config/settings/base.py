@@ -71,6 +71,7 @@ THIRD_PARTY_APPS = (
 )
 
 LOCAL_APPS = (
+    'scuole.campuses',
     'scuole.districts',
     'scuole.regions',
     'scuole.states',
@@ -197,4 +198,4 @@ USE_TZ = True
 # GENERAL CONFIGURATION #
 #########################
 
-DATA_FOLDER = env('DATA_FOLDER', path.join(ROOT_DIR, 'data'))
+DATA_FOLDER = env('DATA_FOLDER', path.join(ROOT_DIR, '../scuole-data'))
