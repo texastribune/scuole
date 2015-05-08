@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from scuole.states.models import State
+from ..states.models import State
 
 
 @python_2_unicode_compatible
