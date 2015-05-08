@@ -72,6 +72,7 @@ THIRD_PARTY_APPS = (
 
 LOCAL_APPS = (
     'scuole.districts',
+    'scuole.states',
 )
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#installed-apps
