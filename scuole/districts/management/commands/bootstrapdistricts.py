@@ -48,6 +48,7 @@ class Command(BaseCommand):
 
     def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
+        self.stdout.write('Creating {}...'.format(ccd_match['NAME']))
 
         return District(
             name=ccd_match['NAME'],
