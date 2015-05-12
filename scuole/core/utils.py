@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import re
+import string
 
 
 def string_replace(text, key_dict):
@@ -76,6 +77,7 @@ def massage_names(text, key_dict):
     """
     A function to combine all the powers of name cleaning provided in `utils`.
     """
+    text = string.capwords(text)
     text = string_replace(text, key_dict)
     text = cap_after_dash(text)
     text = cap_after_parenthesis(text)
