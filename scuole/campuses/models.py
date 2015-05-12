@@ -21,10 +21,6 @@ class Campus(models.Model):
     phone = models.CharField(
         help_text="Campus phone number",
         max_length=10)
-    # CCD - LSTREE
-    street = models.CharField(
-        help_text="Campus location street",
-        max_length=100)
     # CCD - LCITY
     city = models.CharField(
         help_text="Campus location city",
