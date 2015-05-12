@@ -198,4 +198,4 @@ USE_TZ = True
 # GENERAL CONFIGURATION #
 #########################
 
-DATA_FOLDER = env('DATA_FOLDER', path.join(ROOT_DIR, '../scuole-data'))
+DATA_FOLDER = env('DATA_FOLDER', path.join(ROOT_DIR, 'data'))
