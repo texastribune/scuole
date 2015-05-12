@@ -42,7 +42,7 @@ class Campus(models.Model):
     MID_SIZE_CITY = '12',
     SMALL_CITY = '13',
     LARGE_SUBURB = '21',
-    MID_SIZE_SUBURB = '22'.
+    MID_SIZE_SUBURB = '22',
     SMALL_SUBURB = '23',
     FRINGE_TOWN = '31',
     DISTANT_TOWN = '32',
