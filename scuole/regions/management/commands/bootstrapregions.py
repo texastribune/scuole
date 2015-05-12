@@ -37,8 +37,11 @@ class Command(BaseCommand):
             Region.objects.bulk_create(regions)
 
     def create_region(self, region):
+        name = string.capwords(region['REGNNAME'].split(': ')[1])
+        self.stdout.write('Creating {}...'.format(name))
+
         return Region(
-            name=string.capwords(region['REGNNAME'].split(': ')[1]),
+            name=name,
             region_id=region['REGION'],
             slug=slugify(int(region['REGION'])),
             state=self.texas,
