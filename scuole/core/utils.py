@@ -73,7 +73,7 @@ def acad_to_academy(text):
     return re.sub('Acad(?!(emy|emies|emia))', 'Academy', text)
 
 
-def massage_names(text, key_dict):
+def massage_name(text, key_dict):
     """
     A function to combine all the powers of name cleaning provided in `utils`.
     """
