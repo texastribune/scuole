@@ -8,8 +8,9 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 
-from ...models import Campus
 from scuole.districts.models import District
+
+from ...models import Campus
 
 
 class Command(BaseCommand):
