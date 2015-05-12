@@ -7,6 +7,16 @@ def string_replace(text, key_dict):
     """
     A function to convert text in a string to another string if
     it matches any of the keys in the provided pattern dictionary.
+
+    Usage:
+    from core.utils import string_replace
+
+    KEY_DICT = {
+        'Isd': 'ISD',
+    }
+
+    s = string_replace('Beaumont Isd', KEY_DICT)
+    print s #  'Beaumont ISD'
     """
     rx = re.compile('|'.join(map(re.escape, key_dict)))
 
