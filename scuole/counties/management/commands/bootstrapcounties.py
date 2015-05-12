@@ -32,6 +32,9 @@ class Command(BaseCommand):
             County.objects.bulk_create(counties)
 
     def create_county(self, county):
+        self.stdout.write(
+            'Creating {} County...'.format(county['County Name']))
+
         return County(
             name=county['County Name'],
             slug=slugify(county['County Name']),
