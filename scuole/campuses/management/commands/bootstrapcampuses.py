@@ -61,7 +61,7 @@ class Command(BaseCommand):
             zip_code=ccd_match['LZIP'],
             zip_code4=ccd_match['LZIP4'],
             status=ccd_match['STATUS'],
-            locale=ccd_match['ULOCALE'],
+            locale=ccd_match['ULOCAL'],
             latitude=ccd_match['LATCOD'],
             longitude=ccd_match['LONCOD'],
             district=District.objects.get(tea_id=campus['DISTRICT']),

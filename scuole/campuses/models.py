@@ -45,7 +45,7 @@ class Campus(models.Model):
     status = models.CharField(
         help_text="Campus NCES status code",
         max_length=1)
-    # CCD - ULOCALE
+    # CCD - ULOCAL
     locale = models.CharField(
         help_text="Campus NCES urban-centric locale code",
         max_length=2)
