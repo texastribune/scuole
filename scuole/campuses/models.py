@@ -23,29 +23,25 @@ class Campus(models.Model):
         max_length=10)
     # CCD - LSTREE
     street = models.CharField(
-        help_text="Campus location street",
+        help_text="Campus street",
         max_length=100)
     # CCD - LCITY
     city = models.CharField(
-        help_text="Campus location city",
-        max_length=200)
-    # CCD - LSTREE
-    street = models.CharField(
-        help_text="Campus location street address",
+        help_text="Campus city",
         max_length=200)
     # CCD - LSTATE
     state = models.CharField(
-        help_text="Campus location state",
+        help_text="Campus state",
         max_length=5)
     # CCD - LZIP
     zip_code = models.CharField(
-        help_text="Campus location zip",
+        help_text="Campus ZIP Code",
         max_length=5)
     # CCD - LZIP4
     zip_code4 = models.CharField(
-        help_text="Campus +4 zip",
+        help_text="Campus +4 ZIP Code",
         max_length=4)
-    #CCD - STATUS
+    # CCD - STATUS
     status = models.CharField(
         help_text="Campus NCES status code",
         max_length=1)
@@ -57,8 +53,7 @@ class Campus(models.Model):
     latitude = models.FloatField(help_text="Campus latitude")
     # CCD - LONCOD
     longitude = models.FloatField(help_text="Campus longitude")
-    district = models.ForeignKey(
-        District, related_name="campuses")
+    district = models.ForeignKey(District, related_name="campuses")
 
     def __str__(self):
         return self.name
