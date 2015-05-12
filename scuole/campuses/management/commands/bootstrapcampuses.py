@@ -49,6 +49,7 @@ class Command(BaseCommand):
 
     def create_campus(self, campus):
         ccd_match = self.ccd_data[campus['CAMPUS']]
+        self.stdout.write('Creating {}...'.format(ccd_match['SCHNAM']))
 
         return Campus(
             name=ccd_match['SCHNAM'],
