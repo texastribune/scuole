@@ -10,17 +10,17 @@ from scuole.districts.models import District
 @python_2_unicode_compatible
 class Campus(models.Model):
     # CCD campus status choices
-    OPERATIONAL = '1',
-    CLOSED = '2',
-    OPENED = '3',
-    ADDED_TO_SURVEY = '4',
-    NEW_AFFILIATION = '5',
-    TEMPORARILY_CLOSED = '6',
-    SCHEDULED_OPENING = '7',
-    REOPENED = '8',
+    OPERATIONAL = '1'
+    CLOSED = '2'
+    OPENED = '3'
+    ADDED_TO_SURVEY = '4'
+    NEW_AFFILIATION = '5'
+    TEMPORARILY_CLOSED = '6'
+    SCHEDULED_OPENING = '7'
+    REOPENED = '8'
 
     STATUS_CHOICES = (
-        (OPERATIONAL, 
+        (OPERATIONAL,
             'School was operational at the time of the last report and is currently operational.'),
         (CLOSED,
             'School has closed since the time of the last report.'),
