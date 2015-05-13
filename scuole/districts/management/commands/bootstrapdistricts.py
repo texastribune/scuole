@@ -11,7 +11,9 @@ from django.utils.text import slugify
 from scuole.core.utils import massage_name
 from scuole.core.replacements import ISD_REPLACEMENT
 
+from scuole.counties.models import County
 from scuole.regions.models import Region
+
 from ...models import District
 
 
@@ -52,6 +54,7 @@ class Command(BaseCommand):
     def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
         name = massage_name(ccd_match['NAME'], ISD_REPLACEMENT)
+        county = County.objects.get(fips=ccd_match['CONUM'][-3:])
 
         self.stdout.write('Creating {}...'.format(name))
 
@@ -67,4 +70,5 @@ class Command(BaseCommand):
             latitude=ccd_match['LATCOD'],
             longitude=ccd_match['LONCOD'],
             region=Region.objects.get(region_id=district['REGION']),
+            county=county,
         )
