@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+from scuole.counties.models import County
 from scuole.regions.models import Region
 
 
@@ -42,6 +43,8 @@ class District(models.Model):
     longitude = models.FloatField(help_text='District office longitude')
     region = models.ForeignKey(
         Region, related_name='districts', null=True, blank=True)
+    county = models.ForeignKey(
+        County, related_name='districts', null=True, blank=True)
 
     def __str__(self):
         return self.name
