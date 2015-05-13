@@ -49,3 +49,8 @@ class CoreUtilsTest(TestCase):
 
         self.assertNotEquals(
             converted, 'La Academyemia de Estrellas')
+
+    def test_cap_following_o_apostrophe(self):
+        converted = utils.cap_following_o_apostrophe("O'donnell ISD")
+
+        self.assertEquals(converted, "O'Donnell ISD")

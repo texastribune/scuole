@@ -73,6 +73,21 @@ def acad_to_academy(text):
     return re.sub('Acad(?!(emy|emies|emia))', 'Academy', text)
 
 
+def cap_following_o_apostrophe(text):
+    """
+    A function to capitalize letters that follow `O'`.
+
+    Usage:
+    from core.utils import cap_following_o_apostrophe
+
+    replace_str = "O'donnell ISD"
+
+    print cap_following_o_apostrophe(replace_str)
+    # "O'Donnell ISD"
+    """
+    return re.sub("O\'[a-z]", lambda x: x.group(0).upper(), text)
+
+
 def massage_name(text, key_dict):
     """
     A function to combine all the powers of name cleaning provided in `utils`.
@@ -82,5 +97,6 @@ def massage_name(text, key_dict):
     text = cap_after_dash(text)
     text = cap_after_parenthesis(text)
     text = acad_to_academy(text)
+    text = cap_following_o_apostrophe(text)
 
     return text
