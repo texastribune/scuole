@@ -12,7 +12,7 @@ class District(models.Model):
     # CCD - NAME
     name = models.CharField(
         help_text='District name', max_length=200)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=75)
     # TEA - STID
     tea_id = models.CharField(
         help_text='TEA district identifier',
