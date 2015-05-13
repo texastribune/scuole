@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 import csv
 import os
+import string
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -38,6 +39,6 @@ class Command(BaseCommand):
         return County(
             name=county['County Name'],
             slug=slugify(county['County Name']),
-            fips=county['FIPS #'],
+            fips=string.zfill(county['FIPS #'], 3),
             state=self.texas,
         )
