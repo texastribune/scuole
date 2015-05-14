@@ -7,6 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('counties', '0002_auto_20150512_1542'),
         ('regions', '0001_initial'),
     ]
 
@@ -16,7 +17,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(help_text='District name', max_length=200)),
-                ('slug', models.SlugField()),
+                ('slug', models.SlugField(max_length=75)),
                 ('tea_id', models.CharField(help_text='TEA district identifier', max_length=6)),
                 ('street', models.CharField(help_text='District street', max_length=200)),
                 ('city', models.CharField(help_text='District office city', max_length=100)),
@@ -25,6 +26,7 @@ class Migration(migrations.Migration):
                 ('zip_code4', models.CharField(help_text='District office +4 ZIP Code', max_length=4)),
                 ('latitude', models.FloatField(help_text='District office latitude')),
                 ('longitude', models.FloatField(help_text='District office longitude')),
+                ('county', models.ForeignKey(related_name='districts', blank=True, to='counties.County', null=True)),
                 ('region', models.ForeignKey(related_name='districts', blank=True, to='regions.Region', null=True)),
             ],
         ),

@@ -6,10 +6,16 @@ import os
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
+from django.db.models import Count
 from django.utils.text import slugify
 
-from ...models import District
+from scuole.core.utils import massage_name
+from scuole.core.replacements import ISD_REPLACEMENT
+
+from scuole.counties.models import County
 from scuole.regions.models import Region
+
+from ...models import District
 
 
 class Command(BaseCommand):
@@ -34,6 +40,7 @@ class Command(BaseCommand):
                 districts.append(self.create_district(row))
 
             District.objects.bulk_create(districts)
+            self.dedupe_districts()
 
     def load_ccd_file(self, file):
         payload = {}
@@ -48,11 +55,15 @@ class Command(BaseCommand):
 
     def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
-        self.stdout.write('Creating {}...'.format(ccd_match['NAME']))
+        name = massage_name(ccd_match['NAME'], ISD_REPLACEMENT)
+        county = County.objects.get(fips=ccd_match['CONUM'][-3:])
+        slug = slugify(name)
+
+        self.stdout.write('Creating {}...'.format(name))
 
         return District(
-            name=ccd_match['NAME'],
-            slug=slugify(ccd_match['NAME']),
+            name=name,
+            slug=slug,
             tea_id=district['DISTRICT'],
             street=ccd_match['LSTREE'],
             city=ccd_match['LCITY'],
@@ -62,4 +73,28 @@ class Command(BaseCommand):
             latitude=ccd_match['LATCOD'],
             longitude=ccd_match['LONCOD'],
             region=Region.objects.get(region_id=district['REGION']),
+            county=county,
         )
+
+    def dedupe_districts(self):
+        dupes = District.objects.values(
+            'name', 'slug').annotate(
+            Count('slug')).values('name').filter(slug__count__gt=1)
+
+        for district in District.objects.filter(name__in=dupes):
+            self.stdout.write('Deduping {name} in {county} County...'.format(
+                name=district.name,
+                county=district.county.name
+            ))
+
+            district.slug = slugify('{name} {county}'.format(
+                name=district.name,
+                county=district.county.name
+            ))
+
+            district.name = '{name} ({county} County)'.format(
+                name=district.name,
+                county=district.county.name
+            )
+
+            district.save()
