@@ -9,35 +9,6 @@ from scuole.districts.models import District
 
 @python_2_unicode_compatible
 class Campus(models.Model):
-    # CCD campus status choices
-    OPERATIONAL = '1'
-    CLOSED = '2'
-    OPENED = '3'
-    ADDED_TO_SURVEY = '4'
-    NEW_AFFILIATION = '5'
-    TEMPORARILY_CLOSED = '6'
-    SCHEDULED_OPENING = '7'
-    REOPENED = '8'
-
-    STATUS_CHOICES = (
-        (OPERATIONAL,
-            'School was operational at the time of the last report and is currently operational.'),
-        (CLOSED,
-            'School has closed since the time of the last report.'),
-        (OPENED,
-        	'School has been opened since the time of the last report.'),
-        (ADDED_TO_SURVEY,
-        	'School was in existence, but not reported in a previous year’s CCD school universe survey, and is now being added.'),
-        (NEW_AFFILIATION,
-        	'School was listed in previous year’s CCD school universe as being affiliated with a different education agency.'),
-        (TEMPORARILY_CLOSED,
-        	'School is temporarily closed and may reopen within 3 years.'),
-        (SCHEDULED_OPENING,
-        	'School is scheduled to be operational within 2 years.'),
-        (REOPENED,
-        	'School was closed on a previous year’s file but has reopened.'),
-    )
-
     # CCD campus locale choices
     LARGE_CITY = '11'
     MID_SIZE_CITY = '12'
@@ -110,12 +81,6 @@ class Campus(models.Model):
     zip_code4 = models.CharField(
         help_text="Campus +4 ZIP Code",
         max_length=4)
-    # CCD - STATUS
-    status = models.CharField(
-        help_text="Campus NCES status code",
-        max_length=1,
-        choices=STATUS_CHOICES,
-        default=OPERATIONAL)
     # CCD - ULOCAL
     locale = models.CharField(
         help_text="Campus NCES urban-centric locale code",
