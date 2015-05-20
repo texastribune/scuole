@@ -19,7 +19,7 @@ from ...models import District
 
 
 class Command(BaseCommand):
-    help = 'Bootstraps District models using TEA and CCD data.'
+    help = 'Bootstraps District models using TEA, FAST and CCD data.'
 
     def handle(self, *args, **options):
         ccd_file_location = os.path.join(

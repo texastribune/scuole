@@ -30,13 +30,18 @@ LOCALE_MAP = {
 
 
 class Command(BaseCommand):
-    help = 'Bootstraps Campus models using TEA and CCD data.'
+    help = 'Bootstraps Campus models using TEA, FAST and CCD data.'
 
     def handle(self, *args, **options):
         ccd_file_location = os.path.join(
             settings.DATA_FOLDER, 'ccd', 'tx-campuses-ccd.csv')
 
         self.ccd_data = self.load_ccd_file(ccd_file_location)
+
+        fast_file_location = os.path.join(
+            settings.DATA_FOLDER, 'fast-names', 'fast-campus.csv')
+
+        self.fast_data = self.load_fast_file(fast_file_location)
 
         tea_file = os.path.join(
             settings.DATA_FOLDER,
@@ -63,16 +68,28 @@ class Command(BaseCommand):
 
         return payload
 
+    def load_fast_file(self, file):
+        payload = {}
+
+        with open(file, 'rb') as f:
+            reader = csv.DictReader(f)
+
+            for row in reader:
+                payload[row['Campus Number']] = row
+
+        return payload
+        print 'hi!'
+
     def create_campus(self, campus):
         ccd_match = self.ccd_data[campus['CAMPUS']]
         self.stdout.write('Creating {}...'.format(ccd_match['SCHNAM']))
-
+        name = self.fast_data[campus['Campus Name']]
         low_grade, high_grade = campus['GRDSPAN'].split(' - ')
         district = District.objects.get(tea_id=campus['DISTRICT'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
 
         return Campus(
-            name=ccd_match['SCHNAM'],
+            name=name['Campus Name'],
             slug=slugify(ccd_match['SCHNAM']),
             tea_id=campus['CAMPUS'],
             phone=ccd_match['PHONE'],
