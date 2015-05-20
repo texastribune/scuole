@@ -47,7 +47,8 @@ class Campus(models.Model):
     # CCD - SCHNAM
     name = models.CharField(
         help_text='Campus name', max_length=200)
-    slug = models.SlugField()
+    slug = models.SlugField(
+        max_length=150)
     # TEA - CAMPUS
     tea_id = models.CharField(
         help_text='TEA campus identifier',

@@ -71,16 +71,16 @@ class Command(BaseCommand):
 
     def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
-        name = self.fast_data[district['District Name']]
+        fast_match = self.fast_data[str(int(district['DISTRICT']))]
         # name = massage_name(ccd_match['NAME'], ISD_REPLACEMENT)
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
-        slug = slugify(name)
+        # slug = slugify(name)
 
-        self.stdout.write('Creating {}...'.format(name))
+        # self.stdout.write('Creating {}...'.format(name))
 
         return District(
-            name=name['District Name'],
-            slug=slug,
+            name=fast_match['District Name'],
+            slug=slugify(fast_match['District Name']),
             tea_id=district['DISTRICT'],
             street=ccd_match['LSTREE'],
             city=ccd_match['LCITY'],
