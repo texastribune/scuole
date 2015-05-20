@@ -6,11 +6,11 @@ import os
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.db.models import Count
+# from django.db.models import Count
 from django.utils.text import slugify
 
-from scuole.core.utils import massage_name
-from scuole.core.replacements import ISD_REPLACEMENT
+# from scuole.core.utils import massage_name
+# from scuole.core.replacements import ISD_REPLACEMENT
 
 from scuole.counties.models import County
 from scuole.regions.models import Region
@@ -27,6 +27,11 @@ class Command(BaseCommand):
 
         self.ccd_data = self.load_ccd_file(ccd_file_location)
 
+        fast_file_location = os.path.join(
+            settings.DATA_FOLDER, 'fast-names', 'fast-district.csv')
+
+        self.fast_data = self.load_fast_file(fast_file_location)
+
         tea_file = os.path.join(
             settings.DATA_FOLDER,
             'tapr', '2013-14', 'district', 'district-reference.csv')
@@ -40,7 +45,7 @@ class Command(BaseCommand):
                 districts.append(self.create_district(row))
 
             District.objects.bulk_create(districts)
-            self.dedupe_districts()
+            # self.dedupe_districts()
 
     def load_ccd_file(self, file):
         payload = {}
@@ -53,16 +58,28 @@ class Command(BaseCommand):
 
         return payload
 
+    def load_fast_file(self, file):
+        payload = {}
+
+        with open(file, 'rb') as f:
+            reader = csv.DictReader(f)
+
+            for row in reader:
+                payload[row['District Number']] = row
+
+        return payload
+
     def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
-        name = massage_name(ccd_match['NAME'], ISD_REPLACEMENT)
+        name = self.fast_data[district['District Name']]
+        # name = massage_name(ccd_match['NAME'], ISD_REPLACEMENT)
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
         slug = slugify(name)
 
         self.stdout.write('Creating {}...'.format(name))
 
         return District(
-            name=name,
+            name=name['District Name'],
             slug=slug,
             tea_id=district['DISTRICT'],
             street=ccd_match['LSTREE'],
@@ -76,25 +93,25 @@ class Command(BaseCommand):
             county=county,
         )
 
-    def dedupe_districts(self):
-        dupes = District.objects.values(
-            'name', 'slug').annotate(
-            Count('slug')).values('name').filter(slug__count__gt=1)
+    # def dedupe_districts(self):
+    #     dupes = District.objects.values(
+    #         'name', 'slug').annotate(
+    #         Count('slug')).values('name').filter(slug__count__gt=1)
 
-        for district in District.objects.filter(name__in=dupes):
-            self.stdout.write('Deduping {name} in {county} County...'.format(
-                name=district.name,
-                county=district.county.name
-            ))
+    #     for district in District.objects.filter(name__in=dupes):
+    #         self.stdout.write('Deduping {name} in {county} County...'.format(
+    #             name=district.name,
+    #             county=district.county.name
+    #         ))
 
-            district.slug = slugify('{name} {county}'.format(
-                name=district.name,
-                county=district.county.name
-            ))
+    #         district.slug = slugify('{name} {county}'.format(
+    #             name=district.name,
+    #             county=district.county.name
+    #         ))
 
-            district.name = '{name} ({county} County)'.format(
-                name=district.name,
-                county=district.county.name
-            )
+    #         district.name = '{name} ({county} County)'.format(
+    #             name=district.name,
+    #             county=district.county.name
+    #         )
 
-            district.save()
+    #         district.save()
