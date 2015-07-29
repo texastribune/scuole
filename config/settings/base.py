@@ -1,6 +1,4 @@
 """
-Django settings for scuole project.
-
 For more information on this file, see
 https://docs.djangoproject.com/en/1.8/topics/settings/
 
@@ -8,29 +6,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
-from __future__ import absolute_import, unicode_literals
 from os import environ, path
 
-import dj_database_url
-
 from django.core.exceptions import ImproperlyConfigured
-
-###########
-# HELPERS #
-###########
-
-
-def env(setting, default=None):
-    """ Get the environment setting or return exception """
-    try:
-        return environ[setting]
-    except KeyError:
-        if default is not None:
-            return default
-        else:
-            error_msg = ('The {} env variable was not found '
-                         'and no default was set!').format(setting)
-            raise ImproperlyConfigured(error_msg)
 
 ######################
 # PATH CONFIGURATION #
@@ -45,13 +23,28 @@ ROOT_DIR = path.abspath(path.join(path.dirname(BASE_FILE), '..', '..'))
 # Absolute filesystem path to the Django project's app folder
 APPS_DIR = path.join(ROOT_DIR, 'scuole')
 
-#######################
-# DEBUG CONFIGURATION #
-#######################
+###########
+# HELPERS #
+###########
 
-DEBUG = False
 
-TEMPLATE_DEBUG = DEBUG
+def env(setting, default=None):
+    """ Get the environment setting or return exception """
+    try:
+        variable = environ[setting]
+        if variable == 'True':
+            return True
+        elif variable == 'False':
+            return False
+        else:
+            return variable
+    except KeyError:
+        if default is not None:
+            return default
+        else:
+            error_msg = ('The {} env variable was not found '
+                         'and no default was set!').format(setting)
+            raise ImproperlyConfigured(error_msg)
 
 #####################
 # APP CONFIGURATION #
@@ -61,6 +54,7 @@ DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -84,8 +78,8 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 ############################
 # MIDDLEWARE CONFIGURATION #
 ############################
-# https://docs.djangoproject.com/en/1.8/topics/http/middleware/
 
+# https://docs.djangoproject.com/en/1.8/topics/http/middleware/
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -97,103 +91,54 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-##########################
-# TEMPLATE CONFIGURATION #
-##########################
+#####################
+# URL CONFIGURATION #
+#####################
 
-# https://docs.djangoproject.com/en/1.8/topics/templates/#configuration
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            path.join(APPS_DIR, 'templates'),
-        ],
-        'OPTIONS': {
-            'context_processors': [
-                'django.contrib.auth.context_processors.auth',
-                'django.template.context_processors.debug',
-                'django.template.context_processors.i18n',
-                'django.template.context_processors.media',
-                'django.template.context_processors.static',
-                'django.template.context_processors.tz',
-                'django.contrib.messages.context_processors.messages',
-            ],
-            'loaders': [
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
-            ],
-        },
-    },
-]
+# https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-ROOT_URLCONF
+ROOT_URLCONF = 'config.urls'
 
-##########################
-# DATABASE CONFIGURATION #
-##########################
-
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-DATABASES = {
-    'default':  dj_database_url.config(default='postgres://localhost/scuole')
-}
-
-DATABASES['default']['ATOMIC_REQUESTS'] = True
+# https://docs.djangoproject.com/en/1.8/ref/settings/#wsgi-application
+WSGI_APPLICATION = 'config.wsgi.application'
 
 #############################
 # STATIC FILE CONFIGURATION #
 #############################
-
-# https://docs.djangoproject.com/en/1.8/ref/settings/#static-root
-STATIC_ROOT = path.join(APPS_DIR, 'assets')
+# https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#static-url
 STATIC_URL = '/static/'
+
+# https://docs.djangoproject.com/en/1.8/ref/settings/#static-root
+STATIC_ROOT = path.join(APPS_DIR, 'assets')
 
 # https://docs.djangoproject.com/en/1.8/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = (
     path.join(APPS_DIR, 'static'),
 )
 
-# https://docs.djangoproject.com/en/1.8/ref/contrib/staticfiles/#staticfiles-finders
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
-
-############################
-# MEDIA FILE CONFIGURATION #
-############################
-
-# https://docs.djangoproject.com/en/1.8/ref/settings/#media-root
-MEDIA_ROOT = path.join(APPS_DIR, 'media')
-
-# https://docs.djangoproject.com/en/1.8/ref/settings/#media-url
-MEDIA_URL = '/media/'
-
-#####################
-# URL CONFIGURATION #
-#####################
-
-ROOT_URLCONF = 'config.urls'
-
-# https://docs.djangoproject.com/en/1.8/ref/settings/#wsgi-application
-WSGI_APPLICATION = 'config.wsgi.application'
-
 #########################
 # GENERAL CONFIGURATION #
 #########################
+# https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#language-code
 LANGUAGE_CODE = 'en-us'
 
+# https://docs.djangoproject.com/en/1.8/ref/settings/#time-zone
 TIME_ZONE = 'UTC'
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#use-i18n
 USE_I18N = True
 
-# https://docs.djangoproject.com/en/1.8/ref/settings/#use-l10n
+# https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-USE_L10N
 USE_L10N = True
 
-# https://docs.djangoproject.com/en/1.8/ref/settings/#use-tz
+# https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-USE_TZ
 USE_TZ = True
+
+# https://docs.djangoproject.com/en/1.8/ref/settings/#site-id
+SITE_ID = 1
 
 #########################
 # GENERAL CONFIGURATION #

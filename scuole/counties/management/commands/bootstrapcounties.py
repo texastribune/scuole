@@ -39,6 +39,6 @@ class Command(BaseCommand):
         return County(
             name=county['County Name'],
             slug=slugify(county['County Name']),
-            fips=string.zfill(county['FIPS #'], 3),
+            fips=county['FIPS #'].zfill(3),
             state=self.texas,
         )

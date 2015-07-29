@@ -26,7 +26,7 @@ class Command(BaseCommand):
             'region',
             'region-reference.csv')
 
-        with open(regions_file, 'rb') as f:
+        with open(regions_file, 'r') as f:
             reader = csv.DictReader(f)
 
             regions = []
