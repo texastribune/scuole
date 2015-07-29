@@ -3,7 +3,7 @@
 
 Public Schools 3!
 
-# Setup
+## Setup
 
 This project assumes you are using the provided docker postgreSQL database build. Make sure docker is up and running, then run:
 
@@ -44,3 +44,13 @@ python manage.py runserver
 ```
 
 All good? Let's go!
+
+## Admin
+
+This likely won't have an admin interface, but you are welcome to use it to check out how things are getting loaded. First, you'll need to create a super user. (If you ever blow away your database, you'll have to do it again!)
+
+```sh
+python manage.py createsuperuser
+```
+
+Then, after a `python manage.py runserver`, you can visit http://localhost:8000/admin and use the credentials you setup to get access. Every thing will be set to read-only, so there's no risk of borking anything.
