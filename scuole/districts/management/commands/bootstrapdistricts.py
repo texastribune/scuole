@@ -24,7 +24,7 @@ class Command(BaseCommand):
         self.ccd_data = self.load_ccd_file(ccd_file_location)
 
         fast_file_location = os.path.join(
-            settings.DATA_FOLDER, 'fast-names', 'fast-district.csv')
+            settings.DATA_FOLDER, 'fast', 'fast-district.csv')
 
         self.fast_data = self.load_fast_file(fast_file_location)
 
