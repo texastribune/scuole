@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 For more information on this file, see
 https://docs.djangoproject.com/en/1.8/topics/settings/
@@ -5,6 +6,7 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
+from __future__ import absolute_import, unicode_literals
 
 from os import environ, path
 
