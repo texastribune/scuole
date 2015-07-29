@@ -60,3 +60,11 @@ TEMPLATES = [
 INSTALLED_APPS += (
     'debug_toolbar',
 )
+
+###################################
+# DJANGO EXTENSIONS CONFIGURATION #
+###################################
+
+INSTALLED_APPS += (
+    'django_extensions',
+)

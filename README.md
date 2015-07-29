@@ -53,4 +53,4 @@ This likely won't have an admin interface, but you are welcome to use it to chec
 python manage.py createsuperuser
 ```
 
-Then, after a `python manage.py runserver`, you can visit http://localhost:8000/admin and use the credentials you setup to get access. Every thing will be set to read-only, so there's no risk of borking anything.
+Then, after a `python manage.py runserver`, you can visit [http://localhost:8000/admin](http://localhost:8000/admin) and use the credentials you setup to get access. Every thing will be set to read-only, so there's no risk of borking anything.
