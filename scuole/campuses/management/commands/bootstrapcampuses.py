@@ -71,7 +71,7 @@ class Command(BaseCommand):
     def load_fast_file(self, file):
         payload = {}
 
-        with open(file, 'rU') as f:
+        with open(file, 'r') as f:
             reader = csv.DictReader(f)
 
             for row in reader:
@@ -80,10 +80,9 @@ class Command(BaseCommand):
         return payload
 
     def create_campus(self, campus):
-        print campus
         ccd_match = self.ccd_data[campus['CAMPUS']]
-        self.stdout.write('Creating {}...'.format(ccd_match['SCHNAM']))
         fast_match = self.fast_data[str(int(campus['CAMPUS']))]
+        self.stdout.write('Creating {}...'.format(fast_match['Campus Name']))
         low_grade, high_grade = campus['GRDSPAN'].split(' - ')
         district = District.objects.get(tea_id=campus['DISTRICT'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])

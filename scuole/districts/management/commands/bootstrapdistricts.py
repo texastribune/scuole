@@ -56,7 +56,7 @@ class Command(BaseCommand):
     def load_fast_file(self, file):
         payload = {}
 
-        with open(file, 'rb') as f:
+        with open(file, 'r') as f:
             reader = csv.DictReader(f)
 
             for row in reader:
@@ -67,6 +67,7 @@ class Command(BaseCommand):
     def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
         fast_match = self.fast_data[str(int(district['DISTRICT']))]
+        self.stdout.write('Creating {}...'.format(fast_match['District Name']))
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
 
         return District(
