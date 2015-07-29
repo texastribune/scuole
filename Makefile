@@ -26,3 +26,14 @@ docker/pg-interactive:
 		--link ${APP}-db:postgres \
 		postgres:9.4 \
 		/bin/bash
+
+local/reset-db:
+	dropdb scuole
+	createdb scuole
+	python manage.py migrate
+
+data/base:
+	python manage.py bootstrapregions
+	python manage.py bootstrapcounties
+	python manage.py bootstrapdistricts
+	python manage.py bootstrapcampuses
