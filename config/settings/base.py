@@ -72,6 +72,7 @@ LOCAL_APPS = (
     'scuole.districts',
     'scuole.regions',
     'scuole.states',
+    'scuole.stats',
 )
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#installed-apps
