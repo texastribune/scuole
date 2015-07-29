@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*$py.class
 
 # C extensions
 *.so
@@ -47,8 +48,10 @@ coverage.xml
 *.mo
 *.pot
 
-# Django stuff:
+# Django stuff
 *.log
+
+# Virtual environments
 .env
 
 # Sphinx documentation
@@ -56,3 +59,20 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Project assets
+scuole/assets
+
+# OSX
+.DS_Store
+._*
+
+# Sass
+.sass-cache/
+*.css.map
+
+# Node.js
+node_modules
+
+# Bower
+bower_components

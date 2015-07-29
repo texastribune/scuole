@@ -42,7 +42,7 @@ class Command(BaseCommand):
             settings.DATA_FOLDER,
             'tapr', '2013-14', 'campus', 'campus-reference.csv')
 
-        with open(tea_file, 'rb') as f:
+        with open(tea_file, 'r') as f:
             reader = csv.DictReader(f)
 
             campuses = []
@@ -55,7 +55,7 @@ class Command(BaseCommand):
     def load_ccd_file(self, file):
         payload = {}
 
-        with open(file, 'rb') as f:
+        with open(file, 'r') as f:
             reader = csv.DictReader(f)
 
             for row in reader:
