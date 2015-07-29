@@ -98,5 +98,8 @@ class Campus(models.Model):
     district = models.ForeignKey(District, related_name='campuses')
     county = models.ForeignKey(County, related_name='campuses')
 
+    class Meta:
+        verbose_name_plural = 'campuses'
+
     def __str__(self):
         return self.name
