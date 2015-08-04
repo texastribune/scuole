@@ -4,7 +4,8 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from ..states.models import State
+from scuole.states.models import State
+from scuole.stats.models import SchoolYear, StatsBase
 
 
 @python_2_unicode_compatible
@@ -17,3 +18,16 @@ class Region(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.name, self.region_id)
+
+
+@python_2_unicode_compatible
+class RegionStats(StatsBase):
+    region = models.ForeignKey(Region, related_name='stats')
+    year = models.ForeignKey(SchoolYear, related_name='region_stats')
+
+    class Meta:
+        unique_together = ('region', 'year',)
+        verbose_name_plural = 'Region stats'
+
+    def __str__(self):
+        return '{0} {1}'.format(self.year.name, self.region.name)
