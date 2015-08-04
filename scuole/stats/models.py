@@ -28,16 +28,34 @@ class StatsBase(models.Model):
     """
 
     # Student counts
-    all_students_count = models.IntegerField('Number of students')
+    all_students_count = models.IntegerField(
+        'Number of students', null=True, blank=True)
     african_american_count = models.IntegerField(
-        'Number of African American students')
-    asian_count = models.IntegerField('Number of Asian students')
-    hispanic_count = models.IntegerField('Number of Hispanic students')
+        'Number of African American students', null=True, blank=True)
+    asian_count = models.IntegerField(
+        'Number of Asian students', null=True, blank=True)
+    hispanic_count = models.IntegerField(
+        'Number of Hispanic students', null=True, blank=True)
     pacific_islander_count = models.IntegerField(
-        'Number of Pacific Islander students')
+        'Number of Pacific Islander students', null=True, blank=True)
     two_or_more_races_count = models.IntegerField(
-        'Number of Two or More Races students')
-    white_count = models.IntegerField('Number of White students')
+        'Number of Two or More Races students', null=True, blank=True)
+    white_count = models.IntegerField(
+        'Number of White students', null=True, blank=True)
+
+    # Student percents
+    african_american_percent = models.FloatField(
+        'Percent of African American students', null=True, blank=True)
+    asian_percent = models.FloatField(
+        'Percent of Asian students', null=True, blank=True)
+    hispanic_percent = models.FloatField(
+        'Percent of Hispanic students', null=True, blank=True)
+    pacific_islander_percent = models.FloatField(
+        'Percent of Pacific Islander students', null=True, blank=True)
+    two_or_more_races_percent = models.FloatField(
+        'Percent of Two or More Races students', null=True, blank=True)
+    white_percent = models.FloatField(
+        'Percent of White students', null=True, blank=True)
 
     class Meta:
         abstract = True
