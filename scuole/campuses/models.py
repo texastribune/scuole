@@ -6,6 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.counties.models import County
 from scuole.districts.models import District
+from scuole.stats.models import SchoolYear, StatsBase
 
 
 @python_2_unicode_compatible
@@ -103,3 +104,16 @@ class Campus(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@python_2_unicode_compatible
+class CampusStats(StatsBase):
+    campus = models.ForeignKey(Campus, related_name='stats')
+    year = models.ForeignKey(SchoolYear, related_name='campus_stats')
+
+    class Meta:
+        unique_together = ('campus', 'year',)
+        verbose_name_plural = 'Campus stats'
+
+    def __str__(self):
+        return '{0} {1}'.format(self.year.name, self.campus.name)
