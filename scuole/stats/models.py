@@ -29,10 +29,14 @@ class StatsBase(models.Model):
 
     # Student counts
     all_students_count = models.IntegerField('Number of students')
+    african_american_count = models.IntegerField(
+        'Number of African American students')
     asian_count = models.IntegerField('Number of Asian students')
     hispanic_count = models.IntegerField('Number of Hispanic students')
     pacific_islander_count = models.IntegerField(
         'Number of Pacific Islander students')
+    two_or_more_races_count = models.IntegerField(
+        'Number of Two or More Races students')
     white_count = models.IntegerField('Number of White students')
 
     class Meta:
