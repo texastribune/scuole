@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+from localflavor.us.models import USStateField
+
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -9,7 +11,7 @@ from scuole.stats.models import SchoolYear, StatsBase
 
 @python_2_unicode_compatible
 class State(models.Model):
-    name = models.CharField('State name', max_length=50)
+    name = USStateField('State name')
     slug = models.SlugField()
 
     def __str__(self):

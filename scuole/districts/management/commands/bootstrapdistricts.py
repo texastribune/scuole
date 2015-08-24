@@ -77,8 +77,9 @@ class Command(BaseCommand):
             street=ccd_match['LSTREE'],
             city=ccd_match['LCITY'],
             state=ccd_match['LSTATE'],
-            zip_code=ccd_match['LZIP'],
-            zip_code4=ccd_match['LZIP4'],
+            zip_code='{LZIP}-{LZIP4}'.format(
+                LZIP=ccd_match['LZIP'],
+                LZIP4=ccd_match['LZIP4']),
             latitude=ccd_match['LATCOD'],
             longitude=ccd_match['LONCOD'],
             region=Region.objects.get(region_id=district['REGION']),

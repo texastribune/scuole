@@ -8,8 +8,8 @@ def create_texas(apps, schema_editor):
     State = apps.get_model('states', 'State')
 
     State.objects.create(
-        name='Texas',
-        slug='texas',
+        name='TX',
+        slug='tx',
     )
 
 
