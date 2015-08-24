@@ -20,7 +20,7 @@ class Command(BaseCommand):
 
         file_location = os.path.join(
             settings.DATA_FOLDER, 'tapr', '2013-2014',
-            'district', 'district-staff-and-student-information.csv')
+            'district', 'staff-and-student-information.csv')
 
         self.data = self.load_file(file_location)
 
