@@ -9,7 +9,7 @@ from scuole.stats.models import SchoolYear, StatsBase
 
 @python_2_unicode_compatible
 class State(models.Model):
-    name = models.CharField(help_text="State name", max_length=50)
+    name = models.CharField('State name', max_length=50)
     slug = models.SlugField()
 
     def __str__(self):

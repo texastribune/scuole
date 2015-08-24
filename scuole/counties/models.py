@@ -9,9 +9,9 @@ from scuole.states.models import State
 
 @python_2_unicode_compatible
 class County(models.Model):
-    name = models.CharField(help_text='County name', max_length=100)
+    name = models.CharField('County name', max_length=100)
     slug = models.SlugField()
-    fips = models.CharField(help_text='County FIPS place code', max_length=3)
+    fips = models.CharField('County FIPS place code', max_length=3)
     state = models.ForeignKey(State, related_name='counties')
 
     class Meta:

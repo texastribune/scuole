@@ -46,55 +46,34 @@ class Campus(models.Model):
     )
 
     # CCD - SCHNAM
-    name = models.CharField(
-        help_text='Campus name', max_length=200)
-    slug = models.SlugField(
-        max_length=150)
+    name = models.CharField('Campus name', max_length=200)
+    slug = models.SlugField(max_length=150)
     # TEA - CAMPUS
-    tea_id = models.CharField(
-        help_text='TEA campus identifier',
-        max_length=10)
+    tea_id = models.CharField('TEA campus identifier', max_length=10)
     # CCD - PHONE
-    phone = models.CharField(
-        help_text='Campus phone number',
-        max_length=10)
+    phone = models.CharField('Campus phone number', max_length=10)
     # CCD - LSTREE
-    street = models.CharField(
-        help_text='Campus street',
-        max_length=100)
+    street = models.CharField('Campus street', max_length=100)
     # CCD - LCITY
-    city = models.CharField(
-        help_text='Campus city',
-        max_length=200)
+    city = models.CharField('Campus city', max_length=200)
     # CCD - LSTATE
-    state = models.CharField(
-        help_text='Campus state',
-        max_length=5)
+    state = models.CharField('Campus state', max_length=5)
     # CCD - LZIP
-    zip_code = models.CharField(
-        help_text='Campus ZIP Code',
-        max_length=5)
+    zip_code = models.CharField('Campus ZIP Code', max_length=5)
     # CCD - LZIP4
-    zip_code4 = models.CharField(
-        help_text='Campus +4 ZIP Code',
-        max_length=4)
+    zip_code4 = models.CharField('Campus +4 ZIP Code', max_length=4)
     # CCD - ULOCAL
     locale = models.CharField(
-        help_text='Campus NCES urban-centric locale identifier',
-        max_length=15)
+        'Campus NCES urban-centric locale identifier', max_length=15)
     # CCD - LATCOD
-    latitude = models.FloatField(help_text='Campus latitude')
+    latitude = models.FloatField('Campus latitude')
     # CCD - LONCOD
-    longitude = models.FloatField(help_text='Campus longitude')
+    longitude = models.FloatField('Campus longitude')
     # TEA - GRDSPAN
     low_grade = models.CharField(
-        help_text='Lowest grade offered',
-        max_length=2,
-        choices=GRADE_CHOICES)
+        'Lowest grade offered', max_length=2, choices=GRADE_CHOICES)
     high_grade = models.CharField(
-        help_text='Highest grade offered',
-        max_length=2,
-        choices=GRADE_CHOICES)
+        'Highest grade offered', max_length=2, choices=GRADE_CHOICES)
 
     district = models.ForeignKey(District, related_name='campuses')
     county = models.ForeignKey(County, related_name='campuses')

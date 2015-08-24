@@ -10,9 +10,8 @@ from scuole.stats.models import SchoolYear, StatsBase
 
 @python_2_unicode_compatible
 class Region(models.Model):
-    name = models.CharField(
-        help_text='Geographic name for region', max_length=20)
-    region_id = models.CharField(help_text='Region identifier', max_length=2)
+    name = models.CharField('Geographic name for region', max_length=20)
+    region_id = models.CharField('Region identifier', max_length=2)
     slug = models.SlugField()
     state = models.ForeignKey(State, related_name='regions')
 
