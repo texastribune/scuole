@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from localflavor.us.models import USStateField
+from localflavor.us.models import USStateField, USZipCodeField
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -25,10 +25,8 @@ class District(models.Model):
     # CCD - LSTATE
     state = USStateField(
         'District office abbreviated state location', max_length=2)
-    # CCD - LZIP
-    zip_code = models.CharField('District office ZIP Code', max_length=5)
-    # CCD - LZIP4
-    zip_code4 = models.CharField('District office +4 ZIP Code', max_length=4)
+    # CCD - LZIP-LZIP4
+    zip_code = USZipCodeField('District ZIP Code')
     # CCD - LATCOD
     latitude = models.FloatField('District office latitude')
     # CCD - LONCOD

@@ -17,7 +17,7 @@ class Command(BaseCommand):
     help = 'Bootstraps County models using DSHS county list.'
 
     def handle(self, *args, **options):
-        self.texas = State.objects.get(name='Texas')
+        self.texas = State.objects.get(name='TX')
 
         counties_file = os.path.join(
             settings.DATA_FOLDER, 'counties', 'counties.csv')

@@ -17,7 +17,7 @@ class Command(BaseCommand):
     help = 'Bootstraps Region models using TEA data.'
 
     def handle(self, *args, **options):
-        self.texas = State.objects.get(name='Texas')
+        self.texas = State.objects.get(name='TX')
 
         regions_file = os.path.join(
             settings.DATA_FOLDER,
