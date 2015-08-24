@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+from localflavor.us.models import USStateField
+
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -57,7 +59,7 @@ class Campus(models.Model):
     # CCD - LCITY
     city = models.CharField('Campus city', max_length=200)
     # CCD - LSTATE
-    state = models.CharField('Campus state', max_length=5)
+    state = USStateField('Campus state', max_length=2)
     # CCD - LZIP
     zip_code = models.CharField('Campus ZIP Code', max_length=5)
     # CCD - LZIP4
