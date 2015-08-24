@@ -64,7 +64,7 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
-
+    'localflavor',
 )
 
 LOCAL_APPS = (
