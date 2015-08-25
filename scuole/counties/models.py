@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+from slugify import slugify
+
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -19,3 +21,8 @@ class County(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(County, self).save(*args, **kwargs)

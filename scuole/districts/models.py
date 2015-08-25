@@ -2,6 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from localflavor.us.models import USStateField, USZipCodeField
+from slugify import slugify
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -38,6 +39,11 @@ class District(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(District, self).save(*args, **kwargs)
 
 
 @python_2_unicode_compatible

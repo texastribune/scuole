@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+from slugify import slugify
+
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -17,6 +19,11 @@ class Region(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.name, self.region_id)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Region, self).save(*args, **kwargs)
 
 
 @python_2_unicode_compatible

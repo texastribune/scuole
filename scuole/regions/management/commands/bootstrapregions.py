@@ -7,9 +7,8 @@ import string
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.utils.text import slugify
 
-from ...models import Region
+from ...forms import RegionAddForm
 from scuole.states.models import State
 
 
@@ -29,20 +28,27 @@ class Command(BaseCommand):
         with open(regions_file, 'r') as f:
             reader = csv.DictReader(f)
 
-            regions = []
+            count = 0
+            errors = []
 
             for row in reader:
-                regions.append(self.create_region(row))
+                data = self.reformat_data(row)
+                form = RegionAddForm(data)
 
-            Region.objects.bulk_create(regions)
+                if form.is_valid():
+                    region_instance = form.save(commit=False)
+                    region_instance.state = self.texas
+                    region_instance.save()
+                    count += 1
+                else:
+                    errors.append(form.errors)
 
-    def create_region(self, region):
-        name = string.capwords(region['REGNNAME'].split(': ')[1])
-        self.stdout.write('Creating {}...'.format(name))
+            self.stdout.write('Regions created: {}'.format(count))
+            if errors:
+                self.stderr.write('Errors: {}'.format(len(errors)))
 
-        return Region(
-            name=name,
-            region_id=region['REGION'],
-            slug=slugify(int(region['REGION'])),
-            state=self.texas,
-        )
+    def reformat_data(self, row):
+        return {
+            'name': string.capwords(row['REGNNAME'].split(': ')[1]),
+            'region_id': row['REGION'],
+        }
