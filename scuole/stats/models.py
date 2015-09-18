@@ -374,5 +374,22 @@ class StatsBase(models.Model):
         'Average ACT score for economically disadvantaged students',
         null=True, blank=True)
 
+    avg_class_size_kindergarten = models.FloatField(
+        'Average kindergarten class size', null=True, blank=True)
+    avg_class_size_first = models.FloatField(
+        'Average first grade class size', null=True, blank=True)
+    avg_class_size_second = models.FloatField(
+        'Average second grade class size', null=True, blank=True)
+    avg_class_size_third = models.FloatField(
+        'Average third grade class size', null=True, blank=True)
+    avg_class_size_fourth = models.FloatField(
+        'Average fourth grade class size', null=True, blank=True)
+    avg_class_size_fifth = models.FloatField(
+        'Average fifth grade class size', null=True, blank=True)
+
+    students_per_teacher = models.IntegerField(
+        'Number of students per teacher', null=True, blank=True)
+
+
     class Meta:
         abstract = True
