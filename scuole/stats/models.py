@@ -137,9 +137,6 @@ class StatsBase(models.Model):
     college_ready_graduates_english_asian_count = models.IntegerField(
         'Number of college ready Asian graduates in English',
         null=True, blank=True)
-    college_ready_graduates_english_econ_disadv_count = models.IntegerField(
-        'Number of college ready economically disadvantaged graduates in English',
-        null=True, blank=True)
     college_ready_graduates_english_hispanic_count = models.IntegerField(
         'Number of college ready Hispanic graduates in English',
         null=True, blank=True)
@@ -154,6 +151,9 @@ class StatsBase(models.Model):
         null=True, blank=True)
     college_ready_graduates_english_white_count = models.IntegerField(
         'Number of college ready white graduates in English',
+        null=True, blank=True)
+    college_ready_graduates_english_econ_disadv_count = models.IntegerField(
+        'Number of college ready economically disadvantaged graduates in English',
         null=True, blank=True)
 
     college_ready_graduates_math_all_students_count = models.IntegerField(
@@ -312,10 +312,67 @@ class StatsBase(models.Model):
         'Percent of college ready economically disadvantaged graduates in both subjects',
         null=True, blank=True)
 
-    #avg SAT score
+    avg_sat_score_all_students = models.IntegerField(
+        'Average SAT score for all students',
+        null=True, blank=True)
+    avg_sat_score_african_american = models.IntegerField(
+        'Average SAT score for African American students',
+        null=True, blank=True)
+    avg_sat_score_american_indian = models.IntegerField(
+        'Average SAT score for American Indian students',
+        null=True, blank=True)
+    avg_sat_score_asian = models.IntegerField(
+        'Average SAT score for Asian students',
+        null=True, blank=True)
+    avg_sat_score_hispanic = models.IntegerField(
+        'Average SAT score for Hispanic students',
+        null=True, blank=True)
+    avg_sat_score_native_american = models.IntegerField(
+        'Average SAT score for Native American students',
+        null=True, blank=True)
+    avg_sat_score_pacific_islander = models.IntegerField(
+        'Average SAT score for Pacific Islander students',
+        null=True, blank=True)
+    avg_sat_score_two_or_more_races = models.IntegerField(
+        'Average SAT score for students of two or more races',
+        null=True, blank=True)
+    avg_sat_score_white = models.IntegerField(
+        'Average SAT score for white students',
+        null=True, blank=True)
+    avg_sat_score_econ_disadv = models.IntegerField(
+        'Average SAT score for economically disadvantaged students',
+        null=True, blank=True)
 
-
-
+    avg_act_score_all_students = models.FloatField(
+        'Average ACT score for all students',
+        null=True, blank=True)
+    avg_act_score_african_american = models.FloatField(
+        'Average ACT score for African American students',
+        null=True, blank=True)
+    avg_act_score_american_indian = models.FloatField(
+        'Average ACT score for American Indian students',
+        null=True, blank=True)
+    avg_act_score_asian = models.FloatField(
+        'Average ACT score for Asian students',
+        null=True, blank=True)
+    avg_act_score_hispanic = models.FloatField(
+        'Average ACT score for Hispanic students',
+        null=True, blank=True)
+    avg_act_score_native_american = models.FloatField(
+        'Average ACT score for Native American students',
+        null=True, blank=True)
+    avg_act_score_pacific_islander = models.FloatField(
+        'Average ACT score for Pacific Islander students',
+        null=True, blank=True)
+    avg_act_score_two_or_more_races = models.FloatField(
+        'Average ACT score for students of two or more races',
+        null=True, blank=True)
+    avg_act_score_white = models.FloatField(
+        'Average ACT score for white students',
+        null=True, blank=True)
+    avg_act_score_econ_disadv = models.FloatField(
+        'Average ACT score for economically disadvantaged students',
+        null=True, blank=True)
 
     class Meta:
         abstract = True
