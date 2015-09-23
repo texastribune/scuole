@@ -254,5 +254,55 @@ class PostSecondaryReadinessBase(models.Model):
         'Average ACT score for economically disadvantaged students',
         null=True, blank=True)
 
+    dropout_all_students_count = models.IntegerField(
+        'Number of 9-12 students who dropped out',
+        null=True, blank=True)
+    dropout_african_american_count = models.IntegerField(
+        'Number of 9-12 African American students who dropped out',
+        null=True, blank=True)
+    dropout_american_indian_count = models.IntegerField(
+        'Number of 9-12 American Indian students who dropped out',
+        null=True, blank=True)
+    dropout_asian_count = models.IntegerField(
+        'Number of 9-12 Asian students who dropped out',
+        null=True, blank=True)
+    dropout_hispanic_count = models.IntegerField(
+        'Number of 9-12 Hispanic students who dropped out',
+        null=True, blank=True)
+    dropout_pacific_islander_count = models.IntegerField(
+        'Number of 9-12 Pacific Islander students who dropped out',
+        null=True, blank=True)
+    dropout_two_or_more_races_count = models.IntegerField(
+        'Number of 9-12 students of two or more races who dropped out',
+        null=True, blank=True)
+    dropout_white_count = models.IntegerField(
+        'Number of 9-12 white students who dropped out',
+        null=True, blank=True)
+
+    dropout_all_students_percent = models.FloatField(
+        'Percent of 9-12 students who dropped out',
+        null=True, blank=True)
+    dropout_african_american_percent = models.FloatField(
+        'Percent of 9-12 African American students who dropped out',
+        null=True, blank=True)
+    dropout_american_indian_percent = models.FloatField(
+        'Percent of 9-12 American Indian students who dropped out',
+        null=True, blank=True)
+    dropout_asian_percent = models.FloatField(
+        'Percent of 9-12 Asian students who dropped out',
+        null=True, blank=True)
+    dropout_hispanic_percent = models.FloatField(
+        'Percent of 9-12 Hispanic students who dropped out',
+        null=True, blank=True)
+    dropout_pacific_islander_percent = models.FloatField(
+        'Percent of 9-12 Pacific Islander students who dropped out',
+        null=True, blank=True)
+    dropout_two_or_more_races_percent = models.FloatField(
+        'Percent of 9-12 students of two or more races who dropped out',
+        null=True, blank=True)
+    dropout_white_percent = models.FloatField(
+        'Percent of 9-12 white students who dropped out',
+        null=True, blank=True)
+
     class Meta:
         abstract = True
