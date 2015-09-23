@@ -79,10 +79,19 @@ class Campus(models.Model):
     county = models.ForeignKey(County, related_name='campuses')
 
     class Meta:
+        ordering = ['name']
         verbose_name_plural = 'campuses'
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('districts:campus', kwargs={
+            'slug': self.slug,
+            'district_id': self.district.pk,
+            'district_slug': self.district.slug,
+        })
 
 
 @python_2_unicode_compatible

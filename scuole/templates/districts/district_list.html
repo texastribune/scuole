@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}School Districts{% endblock title %}
+
+{% block content %}
+{% for district in district_list %}
+<div><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></div>
+{% endfor %}
+{% endblock content %}

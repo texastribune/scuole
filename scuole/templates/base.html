@@ -1,1 +1,13 @@
-Hello world!
+<!doctype html>{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Home{% endblock title %} | Public Schools</title>
+  <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+</head>
+<body>
+{% block breadcrumbs %}Home{% endblock breadcrumbs %}
+{% block content %}
+{% endblock content %}
+</body>
+</html>

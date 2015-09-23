@@ -20,10 +20,14 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
 
+# import scuole.campuses.views as campus_views
+# import scuole.districts.views as district_views
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(
         template_name='pages/landing.html'), name='landing'),
+    url(r'^districts/', include(
+        'scuole.districts.urls', namespace='districts')),
     url(r'^admin/', include(admin.site.urls)),
 ]
 

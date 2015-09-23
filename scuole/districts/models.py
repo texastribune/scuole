@@ -36,8 +36,18 @@ class District(models.Model):
     county = models.ForeignKey(
         County, related_name='districts', null=True, blank=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('districts:detail', kwargs={
+            'district_slug': self.slug,
+            'district_id': self.pk,
+        })
 
 
 @python_2_unicode_compatible
