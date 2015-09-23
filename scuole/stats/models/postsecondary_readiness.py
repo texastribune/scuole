@@ -337,6 +337,10 @@ class PostSecondaryReadinessBase(models.Model):
         'Percent of 9-12 economically disadvantaged students who dropped out',
         null=True, blank=True)
 
+    attendance_rate = models.FloatField(
+        'Attendance rate as calculated by '
+        'students present over students in membership',
+        null=True, blank=True)
 
     class Meta:
         abstract = True
