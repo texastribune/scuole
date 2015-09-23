@@ -46,7 +46,7 @@ class StaffStudentBase(models.Model):
         'Number of sixth grade students', null=True, blank=True)
     seventh_count = models.IntegerField(
         'Number of seventh grade students', null=True, blank=True)
-    eigth_count = models.IntegerField(
+    eighth_count = models.IntegerField(
         'Number of eigth grade students', null=True, blank=True)
     ninth_count = models.IntegerField(
         'Number of ninth grade students', null=True, blank=True)
@@ -107,10 +107,15 @@ class StaffStudentBase(models.Model):
     at_risk_percent = models.FloatField(
         'Percent of at risk students', null=True, blank=True)
 
-    teacher_student_radio = models.FloatField(
-        'Number of teachers per student', null=True, blank=True)
+    students_per_teacher = models.FloatField(
+        'Number of students per teacher', null=True, blank=True)
     teacher_average_tenure = models.FloatField(
-        'Average tenure of teachers', null=True, blank=True)
+        'Average tenure of teachers at entity', null=True, blank=True)
+    teacher_average_experience = models.FloatField(
+        'Average years of experience at entity', null=True, blank=True)
+    teacher_base_salary_average = models.DecimalField(
+        'Average teacher salary at entity', max_digits=10,
+        decimal_places=2, null=True, blank=True)
 
     class Meta:
         abstract = True

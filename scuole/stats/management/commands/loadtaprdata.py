@@ -52,21 +52,34 @@ class Command(BaseCommand):
         file_name = 'staff-and-student-information.csv'
         schema = SCHEMA[file_name.split('.')[0]]
 
+        missing = []
+
         for m in MAPPING:
-            data_file = os.path.join(self.year_folder, m['folder'], file_name)
+            folder = m['folder']
+            current_model = m['model']
+            identifier = m['identifier']
+
+            data_file = os.path.join(self.year_folder, folder, file_name)
 
             with open(data_file) as f:
                 reader = csv.DictReader(f)
 
                 for row in reader:
-                    if m['folder'] == 'state':
-                        instance = State.objects.get(name='Texas')
-                    elif m['folder'] == 'region':
-                        instance = m['model'].objects.get(
-                            region_id=row[m['identifier']])
+                    if folder == 'state':
+                        instance = State.objects.get(name='TX')
+                    elif folder == 'region':
+                        instance = current_model.objects.get(
+                            region_id=row[identifier])
                     else:
-                        instance = m['model'].objects.get(
-                            tea_id=row[m['identifier']])
+                        try:
+                            instance = current_model.objects.get(
+                                tea_id=row[identifier])
+                        except current_model.DoesNotExist:
+                            self.stderr.write('Could not find {}'.format(
+                                row[identifier]))
+                            missing.append(
+                                '{}: {}'.format(folder, row[identifier]))
+                            continue
 
                     self.stdout.write(instance.name)
 
@@ -75,10 +88,18 @@ class Command(BaseCommand):
                     }
 
                     payload['year'] = self.school_year
-                    payload[m['folder']] = instance
+                    payload[folder] = instance
 
                     for field, code in schema.items():
-                        payload['defaults'][field] = row[
-                            m['short_code'] + code]
+                        datum = row[m['short_code'] + code]
+
+                        if datum == '.':
+                            datum = None
+
+                        payload['defaults'][field] = datum
 
                     m['stats_model'].objects.update_or_create(**payload)
+
+        if missing:
+            self.stderr.write('The following entities were missing: ')
+            [self.stderr.write(m) for m in missing]
