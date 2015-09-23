@@ -278,6 +278,15 @@ class PostSecondaryReadinessBase(models.Model):
     dropout_white_count = models.IntegerField(
         'Number of 9-12 white students who dropped out',
         null=True, blank=True)
+    dropout_white_count = models.IntegerField(
+        'Number of 9-12 white students who dropped out',
+        null=True, blank=True)
+    dropout_at_risk_count = models.IntegerField(
+        'Number of 9-12 at risk students who dropped out',
+        null=True, blank=True)
+    dropout_econ_disadv_count = models.IntegerField(
+        'Number of 9-12 economically disadvantaged students who dropped out',
+        null=True, blank=True)
 
     dropout_all_students_percent = models.FloatField(
         'Percent of 9-12 students who dropped out',
@@ -303,6 +312,13 @@ class PostSecondaryReadinessBase(models.Model):
     dropout_white_percent = models.FloatField(
         'Percent of 9-12 white students who dropped out',
         null=True, blank=True)
+    dropout_at_risk_percent = models.FloatField(
+        'Percent of 9-12 at risk students who dropped out',
+        null=True, blank=True)
+    dropout_econ_disadv_percent = models.FloatField(
+        'Percent of 9-12 economically disadvantaged students who dropped out',
+        null=True, blank=True)
+
 
     class Meta:
         abstract = True
