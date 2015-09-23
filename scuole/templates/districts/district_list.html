@@ -3,7 +3,20 @@
 {% block title %}School Districts{% endblock title %}
 
 {% block content %}
-{% for district in district_list %}
-<div><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></div>
-{% endfor %}
+<table>
+  <thead>
+    <tr>
+      <th>District</th>
+      <th>City</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for district in district_list %}
+    <tr>
+      <td><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></td>
+      <td>{{ district.location }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 {% endblock content %}

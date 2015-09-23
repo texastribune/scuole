@@ -11,6 +11,6 @@ class DistrictListView(ListView):
 
 
 class DistrictDetailView(DetailView):
-    model = District
+    queryset = District.objects.all().prefetch_related('stats__year')
     pk_url_kwarg = 'district_id'
     slug_url_kwarg = 'district_slug'

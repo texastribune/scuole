@@ -4,10 +4,40 @@
   <meta charset="utf-8">
   <title>{% block title %}Home{% endblock title %} | Public Schools</title>
   <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
-{% block breadcrumbs %}Home{% endblock breadcrumbs %}
+
+<header class="header" role="header">
+  <div class="container">
+    <h2><img class="header__logo" src="{% static 'images/logos/tribune-logo.png' %}" alt="The Texas Tribune"></h2>
+  </div>
+</header>
+
+<section class="search-bar">
+  <div class="container">
+    <form class="search-form" action="{% url 'search' %}" method="GET">
+      <input type="text" name="q">
+      <button type="submit">Search</button>
+    </form>
+  </div>
+</section>
+
+<main class="{% block main_class %}container{% endblock main_class %}" role="main">
+
+<section class="breadcrumbs">
+{% block breadcrumbs %}<a href="{% url 'index' %}">Home</a>{% endblock breadcrumbs %}
+</section>
+
+<article class="content">
 {% block content %}
 {% endblock content %}
+</article>
+
+<footer>
+  Footer TK
+</footer>
+
+</main>
 </body>
 </html>

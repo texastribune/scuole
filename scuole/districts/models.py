@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import string
+
 from localflavor.us.models import USStateField, USZipCodeField
 
 from django.db import models
@@ -48,6 +50,12 @@ class District(models.Model):
             'district_slug': self.slug,
             'district_id': self.pk,
         })
+
+    @property
+    def location(self):
+        return '{city}, {state}'.format(
+            city=string.capwords(self.city),
+            state=self.state)
 
 
 @python_2_unicode_compatible

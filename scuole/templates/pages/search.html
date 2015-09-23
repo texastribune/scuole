@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock title %}
+
+{% block content %}
+
+<h1>Searching for: {{ request.GET.q }}</h1><br>
+
+{% if matching_districts %}
+<h2>Districts</h2>
+<table>
+  <thead>
+    <tr>
+      <th>District</th>
+      <th>No. of Campuses</th>
+  </thead>
+  <tbody>
+  {% for district in matching_districts %}
+    <tr>
+      <td><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></td>
+      <td>{{ district.campuses.count }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<br>
+{% endif %}
+
+{% if matching_campuses %}
+<h2>Campuses</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Campus</th>
+      <th>District</th>
+  </thead>
+  <tbody>
+  {% for campus in matching_campuses %}
+    <tr>
+      <td><a href="{{ campus.get_absolute_url }}">{{ campus.name }}</a></td>
+      <td><a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% endblock content %}

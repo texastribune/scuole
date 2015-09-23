@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import string
+
 from localflavor.us.models import USStateField, USZipCodeField
 
 from django.db import models
@@ -47,6 +49,18 @@ class Campus(models.Model):
         (TWELFTH_GRADE, '12th Grade'),
     )
 
+    ELEMENTARY_SCHOOL = 'E'
+    MIDDLE_SCHOOL = 'M'
+    HIGH_SCHOOL = 'S'
+    ELEMENTARY_SECONDARY_SCHOOL = 'B'
+
+    SCHOOL_TYPE_CHOICES = (
+        (ELEMENTARY_SCHOOL, 'Elementary school'),
+        (MIDDLE_SCHOOL, 'Middle school or junior high school'),
+        (HIGH_SCHOOL, 'High school'),
+        (ELEMENTARY_SECONDARY_SCHOOL, 'Elementary/secondary school'),
+    )
+
     # CCD - SCHNAM
     name = models.CharField('Campus name', max_length=200)
     slug = models.SlugField(max_length=150)
@@ -74,6 +88,8 @@ class Campus(models.Model):
         'Lowest grade offered', max_length=2, choices=GRADE_CHOICES)
     high_grade = models.CharField(
         'Highest grade offered', max_length=2, choices=GRADE_CHOICES)
+    school_type = models.CharField(
+        'School type', max_length=1, choices=SCHOOL_TYPE_CHOICES)
 
     district = models.ForeignKey(District, related_name='campuses')
     county = models.ForeignKey(County, related_name='campuses')
@@ -92,6 +108,12 @@ class Campus(models.Model):
             'district_id': self.district.pk,
             'district_slug': self.district.slug,
         })
+
+    @property
+    def location(self):
+        return '{city}, {state}'.format(
+            city=string.capwords(self.city),
+            state=self.state)
 
 
 @python_2_unicode_compatible
