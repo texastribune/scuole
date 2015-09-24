@@ -6,7 +6,7 @@
   }
 
   &__title {
-    @include font-size(24);
+    @include font-size(28);
     background-color: darken($color-secondary, 35%);
     color: $color-white;
     font-family: Georgia, serif;
