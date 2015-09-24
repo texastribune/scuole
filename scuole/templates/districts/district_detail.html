@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ district.name }}{% endblock title %}
+
+{% block breadcrumbs %}
+{{ block.super }} » <a href="{% url 'districts:list' %}">School Districts</a>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div>{{ district.name }}</div>
+
+{% for stat in district.stats.all %}
+  <h3>{{ stat.year.name }}</h3>
+  <p>No. of Students: {{ stat.all_students_count }}</p>
+{% endfor %}
+
+<ul>
+{% for campus in district.campuses.all %}
+  <li><a href="{{ campus.get_absolute_url }}">{{ campus.name }} | {{ campus.get_school_type_display }}</a></li>
+{% endfor %}
+</ul>
+{% endblock content %}

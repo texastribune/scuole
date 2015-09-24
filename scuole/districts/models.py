@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import string
+
 from localflavor.us.models import USStateField, USZipCodeField
 
 from django.db import models
@@ -36,8 +38,24 @@ class District(models.Model):
     county = models.ForeignKey(
         County, related_name='districts', null=True, blank=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('districts:detail', kwargs={
+            'district_slug': self.slug,
+            'district_id': self.pk,
+        })
+
+    @property
+    def location(self):
+        return '{city}, {state}'.format(
+            city=string.capwords(self.city),
+            state=self.state)
 
 
 @python_2_unicode_compatible
