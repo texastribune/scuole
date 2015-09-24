@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Home{% endblock title %} | Public Schools</title>
-  <link rel="stylesheet" href="{% static 'css/reset.css' %}">
-  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/main.css' %}">
 </head>
 <body>
 
 <header class="header" role="header">
   <div class="container">
-    <h2><img class="header__logo" src="{% static 'images/logos/tribune-logo.png' %}" alt="The Texas Tribune"></h2>
+    <h2 class="header__logo"><a href="http://www.texastribune.org/"><img class="site-logo" src="{% static 'images/logos/tribune-logo.png' %}" alt="The Texas Tribune"></a></h2>
   </div>
+  <h1 class="header__title">Texas Public Schools</h1>
 </header>
 
 <section class="search-bar">
   <div class="container">
     <form class="search-form" action="{% url 'search' %}" method="GET">
-      <input type="text" name="q">
-      <button type="submit">Search</button>
+      <input class="search-form__input" type="text" name="q" placeholder="E.g. Austin ISD, Travis High School">
+      <button class="search-form__submit btn btn--primary" type="submit">Search</button>
     </form>
   </div>
 </section>
@@ -26,7 +26,7 @@
 <main class="{% block main_class %}container{% endblock main_class %}" role="main">
 
 <section class="breadcrumbs">
-{% block breadcrumbs %}<a href="{% url 'index' %}">Home</a>{% endblock breadcrumbs %}
+{% block breadcrumbs %}<a class="breadcrumbs__item" href="{% url 'index' %}">Home</a>{% endblock breadcrumbs %}
 </section>
 
 <article class="content">
