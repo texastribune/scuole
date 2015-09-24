@@ -15,8 +15,14 @@
 {% endfor %}
 
 <ul>
-{% for campus in district.campuses.all %}
-  <li><a href="{{ campus.get_absolute_url }}">{{ campus.name }} | {{ campus.get_school_type_display }}</a></li>
+{% regroup district.campuses.all by get_school_type_display as campus_list  %}
+{% for campus in campus_list %}
+  <li>{{ campus.grouper }}</li>
+  <ul>
+    {% for school in campus.list %}
+    <li><a href="{{ campus.get_absolute_url }}">{{ school.name }} | {{ school.get_school_type_display }}</a></li>
+    {% endfor %}
+  </ul>
 {% endfor %}
 </ul>
 {% endblock content %}
