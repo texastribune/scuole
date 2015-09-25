@@ -8,17 +8,17 @@
 
 {% if matching_districts %}
 <h2>Districts</h2>
-<table>
+<table class="table table--striped">
   <thead>
     <tr>
       <th>District</th>
-      <th>No. of Campuses</th>
+      <th class="table__cell--numeric">No. of Campuses</th>
   </thead>
   <tbody>
   {% for district in matching_districts %}
     <tr>
       <td><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></td>
-      <td>{{ district.campuses.count }}</td>
+      <td class="table__cell--numeric">{{ district.campuses.count }}</td>
     </tr>
   {% endfor %}
   </tbody>
@@ -28,7 +28,7 @@
 
 {% if matching_campuses %}
 <h2>Campuses</h2>
-<table>
+<table class="table table--striped">
   <thead>
     <tr>
       <th>Campus</th>

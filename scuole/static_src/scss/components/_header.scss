@@ -1,0 +1,16 @@
+.header {
+  text-align: center;
+
+  &__logo {
+    padding: .625rem;
+  }
+
+  &__title {
+    @include font-size(28);
+    background-color: darken($color-secondary, 35%);
+    color: $color-white;
+    font-family: Georgia, serif;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+  }
+}
