@@ -3,7 +3,7 @@
 {% block title %}{{ campus.name }}{% endblock title %}
 
 {% block breadcrumbs %}
-{{ block.super }} » <a href="{% url 'districts:list' %}">School Districts</a> » <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a>
+{{ block.super }} » <a class="breadcrumbs__item" href="{% url 'districts:list' %}">School Districts</a> » <a class="breadcrumbs__item" href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a>
 {% endblock breadcrumbs %}
 
 {% block content %}
@@ -16,8 +16,10 @@
 <p>{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</p>
 
 {% for stat in campus.stats.all %}
+<section class="card content__section">
   <h3>{{ stat.year.name }}</h3>
   <p>No. of Students: {{ stat.all_students_count }}</p>
+</section>
 {% endfor %}
 
 {% endblock content %}

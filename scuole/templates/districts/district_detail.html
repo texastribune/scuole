@@ -3,15 +3,17 @@
 {% block title %}{{ district.name }}{% endblock title %}
 
 {% block breadcrumbs %}
-{{ block.super }} » <a href="{% url 'districts:list' %}">School Districts</a>
+{{ block.super }} » <a class="breadcrumbs__item" href="{% url 'districts:list' %}">School Districts</a>
 {% endblock breadcrumbs %}
 
 {% block content %}
 <div>{{ district.name }}</div>
 
 {% for stat in district.stats.all %}
-  <h3>{{ stat.year.name }}</h3>
-  <p>No. of Students: {{ stat.all_students_count }}</p>
+  <section class="card content__section">
+    <h3>{{ stat.year.name }}</h3>
+    <p>No. of Students: {{ stat.all_students_count }}</p>
+  </section>
 {% endfor %}
 
 <ul>

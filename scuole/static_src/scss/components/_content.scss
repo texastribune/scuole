@@ -1,0 +1,7 @@
+.content {
+  margin-bottom: 1.5rem;
+
+  &__section {
+    @extend %content-section;
+  }
+}

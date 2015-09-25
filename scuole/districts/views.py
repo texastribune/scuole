@@ -7,7 +7,7 @@ from .models import District, DistrictStats
 
 
 class DistrictListView(ListView):
-    model = District
+    queryset = District.objects.all().select_related('county__name')
 
 
 class DistrictDetailView(DetailView):
