@@ -11,7 +11,7 @@
   <div class="container">
     <h2 class="header__logo"><a href="http://www.texastribune.org/"><img class="site-logo" src="{% static 'images/logos/tribune-logo.png' %}" alt="The Texas Tribune"></a></h2>
   </div>
-  <h1 class="header__title">Texas Public Schools</h1>
+  <h1 class="header__title"><a class="header__link" href="{% url 'index' %}">Texas Public Schools</a></h1>
 </header>
 
 <section class="search-bar">
@@ -25,19 +25,22 @@
 
 <main class="{% block main_class %}container{% endblock main_class %}" role="main">
 
-<section class="breadcrumbs">
-{% block breadcrumbs %}<a class="breadcrumbs__item" href="{% url 'index' %}">Home</a>{% endblock breadcrumbs %}
-</section>
+{% block breadcrumbs %}{% endblock breadcrumbs %}
 
 <article class="content">
 {% block content %}
 {% endblock content %}
-</article>
 
-<footer>
+<section class="source">
+  <p class="source__text">Sources: <a href="http://ritter.tea.state.tx.us/perfreport/tapr/">Texas Academic Performance Reports</a>, <a href="http://fastexas.org/about/data.php">Financial Allocation Study of Texas</a>, <a href="https://nces.ed.gov/ccd/ccddata.asp">Common Core of Data</a></p>
+  <p class="source__text">Updated: Oct. XX, 2015</p>
+</section>
+
+</article>
+</main>
+
+<footer class="footer">
   Footer TK
 </footer>
-
-</main>
 </body>
 </html>

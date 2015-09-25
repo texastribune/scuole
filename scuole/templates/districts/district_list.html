@@ -2,6 +2,12 @@
 
 {% block title %}School Districts{% endblock title %}
 
+{% block breadcrumbs %}
+<section class="breadcrumbs">
+  <a class="breadcrumbs__item" href="{% url 'index' %}">Home</a>
+</section>
+{% endblock breadcrumbs %}
+
 {% block content %}
 <table class="table table--striped">
   <thead>
