@@ -19,13 +19,6 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('year', nargs='?', type=str, default=None)
-        # parser.add_argument(
-        #     '-y',
-        #     '--year',
-        #     action='store',
-        #     dest='year',
-        #     default=False,
-        #     help='The school year to load (E.g. 2013-2014)')
 
     def handle(self, *args, **options):
         if options['year'] is None:
