@@ -1,1 +1,46 @@
-Hello world!
+<!doctype html>{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Home{% endblock title %} | Public Schools</title>
+  <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+</head>
+<body>
+
+<header class="header" role="header">
+  <div class="container">
+    <h2 class="header__logo"><a href="http://www.texastribune.org/"><img class="site-logo" src="{% static 'images/logos/tribune-logo.png' %}" alt="The Texas Tribune"></a></h2>
+  </div>
+  <h1 class="header__title"><a class="header__link" href="{% url 'index' %}">Texas Public Schools</a></h1>
+</header>
+
+<section class="search-bar">
+  <div class="container">
+    <form class="search-form" action="{% url 'search' %}" method="GET">
+      <input class="search-form__input" type="text" name="q" placeholder="E.g. Austin ISD, Travis High School">
+      <button class="search-form__submit btn btn--primary" type="submit">Search</button>
+    </form>
+  </div>
+</section>
+
+<main class="{% block main_class %}container{% endblock main_class %}" role="main">
+
+{% block breadcrumbs %}{% endblock breadcrumbs %}
+
+<article class="content">
+{% block content %}
+{% endblock content %}
+
+<section class="source">
+  <p class="source__text">Sources: <a href="http://ritter.tea.state.tx.us/perfreport/tapr/">Texas Academic Performance Reports</a>, <a href="http://fastexas.org/about/data.php">Financial Allocation Study of Texas</a>, <a href="https://nces.ed.gov/ccd/ccddata.asp">Common Core of Data</a></p>
+  <p class="source__text">Updated: Oct. XX, 2015</p>
+</section>
+
+</article>
+</main>
+
+<footer class="footer">
+  Footer TK
+</footer>
+</body>
+</html>

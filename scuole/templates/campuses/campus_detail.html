@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ campus.name }}{% endblock title %}
+
+{% block breadcrumbs %}
+<section class="breadcrumbs">
+  <a class="breadcrumbs__item" href="{% url 'index' %}">Home</a> » <a class="breadcrumbs__item" href="{% url 'districts:list' %}">School Districts</a> » <a class="breadcrumbs__item" href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a>
+</section>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<header>
+  <h1>{{ campus.name }}</h1>
+  <p>{{ campus.city|title }}, {{ campus.state }}</p>
+  <p><a href="{{ campus.district.get_absolute_url }}">{{ campus.district }}</a></p>
+</header>
+
+<p>{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</p>
+
+{% for stat in campus.stats.all %}
+<section class="card">
+  <h3>{{ stat.year.name }}</h3>
+  <p>No. of Students: {{ stat.all_students_count }}</p>
+</section>
+{% endfor %}
+
+{% endblock content %}

@@ -62,6 +62,8 @@ target/
 
 # Project assets
 scuole/assets
+scuole/static
+!scuole/static/.gitkeep
 
 # OSX
 .DS_Store
