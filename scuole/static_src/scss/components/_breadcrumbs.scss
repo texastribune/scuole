@@ -1,6 +1,4 @@
 .breadcrumbs {
-  @extend %content-section;
-
   &__item {
     @include font-size(14);
   }

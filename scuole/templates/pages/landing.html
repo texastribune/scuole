@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="{% url 'districts:list' %}">View all school districts</a>
 
-{% lorem 3 p %}
+<div class="prose">
+  {% lorem 1 p %}
+
+  <p class="prose__credit">Built by <a href="http://www.texastribune.org/about/staff/ryan-murphy/">Ryan Murphy</a> and <a href="http://www.texastribune.org/about/staff/annie-daniel/">Annie Daniel</a>.</p>
+</div>
+
+<a href="{% url 'districts:list' %}">View all school districts</a>
 {% endblock content %}

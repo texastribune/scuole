@@ -8,9 +8,13 @@
   &__title {
     @include font-size(28);
     background-color: darken($color-secondary, 35%);
-    color: $color-white;
     font-family: Georgia, serif;
     padding-bottom: 1rem;
     padding-top: 1rem;
+  }
+
+  &__link {
+    color: $color-white;
+    text-decoration: none;
   }
 }

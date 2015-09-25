@@ -1,11 +1,11 @@
 // Base
 @import 'reset';
 @import 'box-sizing';
-@import 'base';
 @import 'colors';
 @import 'typography';
 @import 'mixins';
 @import 'utils';
+@import 'base';
 
 // Components
 @import 'components/header';
@@ -14,5 +14,8 @@
 @import 'components/search';
 @import 'components/breadcrumbs';
 @import 'components/content';
+@import 'components/prose';
 @import 'components/cards';
 @import 'components/table';
+@import 'components/source';
+@import 'components/footer';
