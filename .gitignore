@@ -62,6 +62,7 @@ target/
 
 # Project assets
 scuole/assets
+scuole/static
 
 # OSX
 .DS_Store
