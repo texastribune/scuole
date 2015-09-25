@@ -107,6 +107,33 @@ class StaffStudentBase(models.Model):
     at_risk_percent = models.FloatField(
         'Percent of at risk students', null=True, blank=True)
 
+    bilingual_esl_count = models.IntegerField(
+        'Number of students enrolled in bilingual/ESL program',
+        null=True, blank=True)
+    career_technical_education_count = models.IntegerField(
+        'Number of students enrolled in career and technical education program',
+        null=True, blank=True)
+    gifted_and_talented_count = models.IntegerField(
+        'Number of students enrolled in gifted and talented program',
+        null=True, blank=True)
+    special_education_count = models.IntegerField(
+        'Number of students enrolled in special education program',
+        null=True, blank=True)
+
+
+    bilingual_esl_percent = models.FloatField(
+        'Percent of students enrolled in bilingual/ESL program',
+        null=True, blank=True)
+    career_technical_education_percent = models.FloatField(
+        'Percent of students enrolled in career and technical education program',
+        null=True, blank=True)
+    gifted_and_talented_percent = models.FloatField(
+        'Percent of students enrolled in gifted and talented program',
+        null=True, blank=True)
+    special_education_percent = models.FloatField(
+        'Percent of students enrolled in special education program',
+        null=True, blank=True)
+
     students_per_teacher = models.FloatField(
         'Number of students per teacher', null=True, blank=True)
     teacher_average_tenure = models.FloatField(

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ district.name }}{% endblock title %}
+
+{% block breadcrumbs %}
+<section class="breadcrumbs">
+  <a class="breadcrumbs__item" href="{% url 'index' %}">Home</a> » <a class="breadcrumbs__item" href="{% url 'districts:list' %}">School Districts</a>
+</section>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div>{{ district.name }}</div>
+
+<ul>
+{% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
+{% for campus in campus_list %}
+  <li>{{ campus.grouper }}</li>
+  <ul>
+    {% for school in campus.list %}
+    <li><a href="{{ campus.get_absolute_url }}">{{ school.name }}</a></li>
+    {% endfor %}
+  </ul>
+{% endfor %}
+</ul>
+
+{% for stat in district.stats.all %}
+  <section class="card">
+    <h3>{{ stat.year.name }}</h3>
+    <p>No. of Students: {{ stat.all_students_count }}</p>
+  </section>
+{% endfor %}
+
+{% endblock content %}

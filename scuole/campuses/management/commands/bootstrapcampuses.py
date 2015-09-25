@@ -103,6 +103,7 @@ class Command(BaseCommand):
             longitude=ccd_match['LONCOD'],
             low_grade=low_grade,
             high_grade=high_grade,
+            school_type=campus['GRDTYPE'],
             district=district,
             county=county,
         )

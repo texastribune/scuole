@@ -20,10 +20,17 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
 
+from scuole.core.views import SearchView
+
+# import scuole.campuses.views as campus_views
+# import scuole.districts.views as district_views
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(
-        template_name='pages/landing.html'), name='landing'),
+        template_name='pages/landing.html'), name='index'),
+    url(r'^districts/', include(
+        'scuole.districts.urls', namespace='districts')),
+    url(r'^search/', SearchView.as_view(), name='search'),
     url(r'^admin/', include(admin.site.urls)),
 ]
 
