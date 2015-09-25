@@ -150,5 +150,6 @@ SCHEMA = {
         'dropout_at_risk_percent': 'R0912DR',
         'dropout_econ_disadv_count': 'E0912DR',
         'dropout_econ_disadv_percent': 'E0912DR',
+        'attendance_rate': 'A0AT',
     }
 }
