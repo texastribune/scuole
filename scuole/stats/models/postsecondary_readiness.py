@@ -61,7 +61,7 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_math_native_american_count = models.IntegerField(
         'Number of college ready Native American graduates in math',
         null=True, blank=True)
-    college_ready_graduates_math_pacific_islander_count = models.InteferField(
+    college_ready_graduates_math_pacific_islander_count = models.IntegerField(
         'Number of college ready Pacific Islander graduates in math',
         null=True, blank=True)
     college_ready_graduates_math_two_or_more_races_count = models.IntegerField(
