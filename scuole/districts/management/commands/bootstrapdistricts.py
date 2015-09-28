@@ -6,13 +6,14 @@ import os
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.utils.text import slugify
 
 from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
 from scuole.regions.models import Region
 
 from ...models import District
+
+from slugify import slugify
 
 
 class Command(BaseCommand):

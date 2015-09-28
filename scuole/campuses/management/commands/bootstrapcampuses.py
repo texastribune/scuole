@@ -6,13 +6,14 @@ import os
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.utils.text import slugify
 
 from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
 from scuole.districts.models import District
 
 from ...models import Campus
+
+from slugify import slugify
 
 LOCALE_MAP = {
     '11': 'LARGE_CITY',
