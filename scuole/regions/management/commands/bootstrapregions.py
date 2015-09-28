@@ -7,10 +7,11 @@ import string
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.utils.text import slugify
 
 from ...models import Region
 from scuole.states.models import State
+
+from slugify import slugify
 
 
 class Command(BaseCommand):
@@ -21,10 +22,7 @@ class Command(BaseCommand):
 
         regions_file = os.path.join(
             settings.DATA_FOLDER,
-            'tapr',
-            '2013-2014',
-            'region',
-            'reference.csv')
+            'tapr', 'reference', 'region', 'reference.csv')
 
         with open(regions_file, 'r') as f:
             reader = csv.DictReader(f)
