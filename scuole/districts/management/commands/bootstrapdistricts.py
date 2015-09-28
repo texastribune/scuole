@@ -6,12 +6,14 @@ import os
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.utils.text import slugify
 
+from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
 from scuole.regions.models import Region
 
 from ...models import District
+
+from slugify import slugify
 
 
 class Command(BaseCommand):
@@ -30,7 +32,7 @@ class Command(BaseCommand):
 
         tea_file = os.path.join(
             settings.DATA_FOLDER,
-            'tapr', '2013-2014', 'district', 'reference.csv')
+            'tapr', 'reference', 'district', 'reference.csv')
 
         with open(tea_file, 'r') as f:
             reader = csv.DictReader(f)
@@ -68,11 +70,12 @@ class Command(BaseCommand):
         ccd_match = self.ccd_data[district['DISTRICT']]
         fast_match = self.fast_data[str(int(district['DISTRICT']))]
         self.stdout.write('Creating {}...'.format(fast_match['District Name']))
+        name = remove_charter_c(fast_match['District Name'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
 
         return District(
-            name=fast_match['District Name'],
-            slug=slugify(fast_match['District Name']),
+            name=name,
+            slug=slugify(name),
             tea_id=district['DISTRICT'],
             street=ccd_match['LSTREE'],
             city=ccd_match['LCITY'],

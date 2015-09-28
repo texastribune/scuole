@@ -6,12 +6,14 @@ import os
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.utils.text import slugify
 
+from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
 from scuole.districts.models import District
 
 from ...models import Campus
+
+from slugify import slugify
 
 LOCALE_MAP = {
     '11': 'LARGE_CITY',
@@ -45,7 +47,7 @@ class Command(BaseCommand):
 
         tea_file = os.path.join(
             settings.DATA_FOLDER,
-            'tapr', '2013-2014', 'campus', 'reference.csv')
+            'tapr', 'reference', 'campus', 'reference.csv')
 
         with open(tea_file, 'r') as f:
             reader = csv.DictReader(f)
@@ -82,14 +84,16 @@ class Command(BaseCommand):
     def create_campus(self, campus):
         ccd_match = self.ccd_data[campus['CAMPUS']]
         fast_match = self.fast_data[str(int(campus['CAMPUS']))]
-        self.stdout.write('Creating {}...'.format(fast_match['Campus Name']))
         low_grade, high_grade = campus['GRDSPAN'].split(' - ')
+        name = remove_charter_c(fast_match['Campus Name'])
         district = District.objects.get(tea_id=campus['DISTRICT'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
 
+        self.stdout.write('Creating {}...'.format(fast_match['Campus Name']))
+
         return Campus(
-            name=fast_match['Campus Name'],
-            slug=slugify(fast_match['Campus Name']),
+            name=name,
+            slug=slugify(name),
             tea_id=campus['CAMPUS'],
             phone=ccd_match['PHONE'],
             street=ccd_match['LSTREE'],
