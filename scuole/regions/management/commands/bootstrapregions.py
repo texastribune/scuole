@@ -22,10 +22,7 @@ class Command(BaseCommand):
 
         regions_file = os.path.join(
             settings.DATA_FOLDER,
-            'tapr',
-            '2013-2014',
-            'region',
-            'reference.csv')
+            'tapr', 'reference', 'region', 'reference.csv')
 
         with open(regions_file, 'r') as f:
             reader = csv.DictReader(f)
