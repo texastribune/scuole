@@ -101,3 +101,9 @@ def massage_name(text, key_dict):
     text = cap_following_o_apostrophe(text)
 
     return text
+
+def remove_charter_c(text):
+    """
+    A function to remove (C) from charter school names.
+    """
+    return re.sub(' \(C\)', '', text)

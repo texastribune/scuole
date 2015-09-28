@@ -54,3 +54,10 @@ class CoreUtilsTest(TestCase):
         converted = utils.cap_following_o_apostrophe("O'donnell ISD")
 
         self.assertEquals(converted, "O'Donnell ISD")
+
+    def test_remove_charter_c(self):
+        converted = utils.remove_charter_c(
+            'Alief Montessori Community School (C)'
+        )
+
+        self.assertEquals(converted, 'Alief Montessori Community School')
