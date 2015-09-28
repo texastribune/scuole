@@ -7,10 +7,11 @@ import string
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.utils.text import slugify
 
 from ...models import Region
 from scuole.states.models import State
+
+from slugify import slugify
 
 
 class Command(BaseCommand):
