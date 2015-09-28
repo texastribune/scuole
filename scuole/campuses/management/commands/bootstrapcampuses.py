@@ -84,11 +84,12 @@ class Command(BaseCommand):
     def create_campus(self, campus):
         ccd_match = self.ccd_data[campus['CAMPUS']]
         fast_match = self.fast_data[str(int(campus['CAMPUS']))]
-        self.stdout.write('Creating {}...'.format(fast_match['Campus Name']))
         low_grade, high_grade = campus['GRDSPAN'].split(' - ')
         name = remove_charter_c(fast_match['Campus Name'])
         district = District.objects.get(tea_id=campus['DISTRICT'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
+
+        self.stdout.write('Creating {}...'.format(fast_match['Campus Name']))
 
         return Campus(
             name=name,
