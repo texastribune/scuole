@@ -17,7 +17,7 @@
   <li>{{ campus.grouper }}</li>
   <ul>
     {% for school in campus.list %}
-    <li><a href="{{ campus.get_absolute_url }}">{{ school.name }}</a></li>
+    <li><a href="{{ school.get_absolute_url }}">{{ school.name }}</a></li>
     {% endfor %}
   </ul>
 {% endfor %}
