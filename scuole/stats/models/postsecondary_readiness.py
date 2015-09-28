@@ -23,7 +23,7 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_english_hispanic_count = models.IntegerField(
         'Number of college ready Hispanic graduates in English',
         null=True, blank=True)
-    college_ready_graduates_english_native_american_count = (
+    college_ready_graduates_english_american_indian_count = (
         models.IntegerField(
             'Number of college ready Native American graduates in English',
             null=True, blank=True))
@@ -31,7 +31,7 @@ class PostSecondaryReadinessBase(models.Model):
         models.IntegerField(
             'Number of college ready Pacific Islander graduates in English',
             null=True, blank=True))
-    college_ready_graduates_english_two_or_more_count = models.IntegerField(
+    college_ready_graduates_english_two_or_more_races_count = models.IntegerField(
         'Number of college ready graduates of two or more races in English',
         null=True, blank=True)
     college_ready_graduates_english_white_count = models.IntegerField(
@@ -58,7 +58,7 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_math_hispanic_count = models.IntegerField(
         'Number of college ready Hispanic graduates in math',
         null=True, blank=True)
-    college_ready_graduates_math_native_american_count = models.IntegerField(
+    college_ready_graduates_math_american_indian_count = models.IntegerField(
         'Number of college ready Native American graduates in math',
         null=True, blank=True)
     college_ready_graduates_math_pacific_islander_count = models.IntegerField(
@@ -90,7 +90,7 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_both_hispanic_count = models.IntegerField(
         'Number of college ready Hispanic graduates in both subjects',
         null=True, blank=True)
-    college_ready_graduates_both_native_american_count = models.IntegerField(
+    college_ready_graduates_both_american_indian_count = models.IntegerField(
         'Number of college ready Native American graduates in both subjects',
         null=True, blank=True)
     college_ready_graduates_both_pacific_islander_count = models.IntegerField(
@@ -125,7 +125,7 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_english_hispanic_percent = models.FloatField(
         'Percent of college ready Hispanic graduates in English',
         null=True, blank=True)
-    college_ready_graduates_english_native_american_percent = (
+    college_ready_graduates_english_american_indian_percent = (
         models.FloatField(
             'Percent of college ready Native American graduates in english',
             null=True, blank=True))
@@ -133,7 +133,7 @@ class PostSecondaryReadinessBase(models.Model):
         models.FloatField(
             'Percent of college ready Pacific Islander graduates in English',
             null=True, blank=True))
-    college_ready_graduates_english_two_or_more_percent = models.FloatField(
+    college_ready_graduates_english_two_or_more_races_percent = models.FloatField(
         'Percent of college ready graduates of two or more races in English',
         null=True, blank=True)
     college_ready_graduates_english_white_percent = models.FloatField(
@@ -160,7 +160,7 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_math_hispanic_percent = models.FloatField(
         'Percent of college ready Hispanic graduates in math',
         null=True, blank=True)
-    college_ready_graduates_math_native_american_percent = models.FloatField(
+    college_ready_graduates_math_american_indian_percent = models.FloatField(
         'Percent of college ready Native American graduates in math',
         null=True, blank=True)
     college_ready_graduates_math_pacific_islander_percent = models.FloatField(
@@ -193,7 +193,7 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_both_hispanic_percent = models.FloatField(
         'Percent of college ready Hispanic graduates in both subjects',
         null=True, blank=True)
-    college_ready_graduates_both_native_american_percent = models.FloatField(
+    college_ready_graduates_both_american_indian_percent = models.FloatField(
         'Percent of college ready Native American graduates in both subjects',
         null=True, blank=True)
     college_ready_graduates_both_pacific_islander_percent = models.FloatField(
@@ -227,7 +227,7 @@ class PostSecondaryReadinessBase(models.Model):
     avg_sat_score_hispanic = models.IntegerField(
         'Average SAT score for Hispanic students',
         null=True, blank=True)
-    avg_sat_score_native_american = models.IntegerField(
+    avg_sat_score_american_indian = models.IntegerField(
         'Average SAT score for Native American students',
         null=True, blank=True)
     avg_sat_score_pacific_islander = models.IntegerField(
@@ -256,7 +256,7 @@ class PostSecondaryReadinessBase(models.Model):
     avg_act_score_hispanic = models.FloatField(
         'Average ACT score for Hispanic students',
         null=True, blank=True)
-    avg_act_score_native_american = models.FloatField(
+    avg_act_score_american_indian = models.FloatField(
         'Average ACT score for Native American students',
         null=True, blank=True)
     avg_act_score_pacific_islander = models.FloatField(
