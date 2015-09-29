@@ -19,13 +19,6 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('year', nargs='?', type=str, default=None)
-        # parser.add_argument(
-        #     '-y',
-        #     '--year',
-        #     action='store',
-        #     dest='year',
-        #     default=False,
-        #     help='The school year to load (E.g. 2013-2014)')
 
     def handle(self, *args, **options):
         if options['year'] is None:
@@ -46,60 +39,97 @@ class Command(BaseCommand):
         self.school_year, _ = SchoolYear.objects.get_or_create(
             name=options['year'])
 
-        self.load_staff_students()
+        self.load_data()
 
-    def load_staff_students(self):
-        file_name = 'staff-and-student-information.csv'
-        schema = SCHEMA[file_name.split('.')[0]]
+    def get_model_instance(self, name, identifier, instance):
+        if name == 'state':
+            return State.objects.get(name='TX')
 
-        missing = []
+        if name == 'region':
+            return instance.objects.get(region_id=identifier)
 
+        try:
+            model = instance.objects.get(tea_id=identifier)
+        except instance.DoesNotExist:
+            self.stdout.write('Could not find {}'.format(identifier))
+            return None
+
+        return model
+
+    def load_data(self):
         for m in MAPPING:
-            folder = m['folder']
-            current_model = m['model']
-            identifier = m['identifier']
+            name = m['folder']
+            id_match = m['identifier']
+            active_model = m['model']
+            stats_model = m['stats_model']
 
-            data_file = os.path.join(self.year_folder, folder, file_name)
+            # Loop through all the field mappings
+            for schema, values in SCHEMA.items():
+                file_name = '{}.csv'.format(schema)
+                data_file = os.path.join(self.year_folder, name, file_name)
 
-            with open(data_file) as f:
-                reader = csv.DictReader(f)
+                with open(data_file) as f:
+                    reader = csv.DictReader(f)
 
-                for row in reader:
-                    if folder == 'state':
-                        instance = State.objects.get(name='TX')
-                    elif folder == 'region':
-                        instance = current_model.objects.get(
-                            region_id=row[identifier])
-                    else:
-                        try:
-                            instance = current_model.objects.get(
-                                tea_id=row[identifier])
-                        except current_model.DoesNotExist:
-                            self.stderr.write('Could not find {}'.format(
-                                row[identifier]))
-                            missing.append(
-                                '{}: {}'.format(folder, row[identifier]))
+                    for row in reader:
+                        identifier = row[id_match] if id_match else None
+
+                        model = self.get_model_instance(
+                            name, identifier, active_model)
+
+                        if not model:
                             continue
 
-                    self.stdout.write(instance.name)
+                        payload = {
+                            'year': self.school_year,
+                            'defaults': {}
+                        }
 
-                    payload = {
-                        'defaults': {}
-                    }
+                        payload[name] = model
 
-                    payload['year'] = self.school_year
-                    payload[folder] = instance
+                        self.stdout.write(model.name)
 
-                    for field, code in schema.items():
-                        datum = row[m['short_code'] + code]
+                        if schema == 'staff-and-student-information':
+                            payload['defaults'].update(
+                                self.load_staff_students(
+                                    m['short_code'], values, row))
+                        if schema == ('postsecondary-readiness-and-'
+                                      'non-staar-performance-indicators'):
+                            payload['defaults'].update(
+                                self.load_postsecondary_readiness(
+                                    m['short_code'], values, row))
 
-                        if datum == '.':
-                            datum = None
+                        stats_model.objects.update_or_create(**payload)
 
-                        payload['defaults'][field] = datum
+    def load_staff_students(self, short_code, schema, row):
+        payload = {}
 
-                    m['stats_model'].objects.update_or_create(**payload)
+        for field, code in schema.items():
+            datum = row[short_code + code]
 
-        if missing:
-            self.stderr.write('The following entities were missing: ')
-            [self.stderr.write(m) for m in missing]
+            if datum == '.':
+                datum = None
+
+            payload[field] = datum
+
+        return payload
+
+    def load_postsecondary_readiness(self, short_code, schema, row):
+        payload = {}
+
+        short_year = self.school_year.name.split('-')[0][2:]
+
+        for field, code in schema.items():
+            if 'count' in field:
+                suffix = 'D'
+            elif 'percent' in field or 'rate' in field or 'avg' in field:
+                suffix = 'R'
+
+            datum = row[short_code + code + short_year + suffix]
+
+            if datum == '.':
+                datum = None
+
+            payload[field] = datum
+
+        return payload
