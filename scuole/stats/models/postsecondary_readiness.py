@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, unicode_literals
+
 from django.db import models
 
 
@@ -25,7 +28,7 @@ class PostSecondaryReadinessBase(models.Model):
         null=True, blank=True)
     college_ready_graduates_english_american_indian_count = (
         models.IntegerField(
-            'Number of college ready Native American graduates in English',
+            'Number of college ready American Indian graduates in English',
             null=True, blank=True))
     college_ready_graduates_english_pacific_islander_count = (
         models.IntegerField(
@@ -37,10 +40,12 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_english_white_count = models.IntegerField(
         'Number of college ready white graduates in English',
         null=True, blank=True)
-    college_ready_graduates_english_econ_disadv_count = models.IntegerField(
-        ('Number of college ready economically '
-         'disadvantaged graduates in English'),
-        null=True, blank=True)
+    college_ready_graduates_english_economically_disadvantaged_count = (
+        models.IntegerField(
+            'Number of college ready economically '
+             'disadvantaged graduates in English',
+            null=True, blank=True,
+            db_column='college_ready_graduates_english_econ_disadv_count'))
     college_ready_graduates_english_at_risk_count = models.IntegerField(
         ('Number of college ready at risk graduates in English'),
         null=True, blank=True)
@@ -59,7 +64,7 @@ class PostSecondaryReadinessBase(models.Model):
         'Number of college ready Hispanic graduates in math',
         null=True, blank=True)
     college_ready_graduates_math_american_indian_count = models.IntegerField(
-        'Number of college ready Native American graduates in math',
+        'Number of college ready American Indian graduates in math',
         null=True, blank=True)
     college_ready_graduates_math_pacific_islander_count = models.IntegerField(
         'Number of college ready Pacific Islander graduates in math',
@@ -70,9 +75,11 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_math_white_count = models.IntegerField(
         'Number of college ready white graduates in math',
         null=True, blank=True)
-    college_ready_graduates_math_econ_disadv_count = models.IntegerField(
-        'Number of college ready economically disadvantaged graduates in math',
-        null=True, blank=True)
+    college_ready_graduates_math_economically_disadvantaged_count = (
+        models.IntegerField(
+            'Number of college ready economically disadvantaged graduates in math',
+            null=True, blank=True,
+            db_column='college_ready_graduates_math_econ_disadv_count'))
     college_ready_graduates_math_at_risk_count = models.IntegerField(
         ('Number of college ready at risk graduates in math'),
         null=True, blank=True)
@@ -91,7 +98,7 @@ class PostSecondaryReadinessBase(models.Model):
         'Number of college ready Hispanic graduates in both subjects',
         null=True, blank=True)
     college_ready_graduates_both_american_indian_count = models.IntegerField(
-        'Number of college ready Native American graduates in both subjects',
+        'Number of college ready American Indian graduates in both subjects',
         null=True, blank=True)
     college_ready_graduates_both_pacific_islander_count = models.IntegerField(
         'Number of college ready Pacific Islander graduates in both subjects',
@@ -103,10 +110,12 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_both_white_count = models.IntegerField(
         'Number of college ready white graduates in both subjects',
         null=True, blank=True)
-    college_ready_graduates_both_econ_disadv_count = models.IntegerField(
-        ('Number of college ready economically '
-         'disadvantaged graduates in both subjects'),
-        null=True, blank=True)
+    college_ready_graduates_both_economically_disadvantaged_count = (
+        models.IntegerField(
+            'Number of college ready economically '
+             'disadvantaged graduates in both subjects',
+            null=True, blank=True,
+            db_column='college_ready_graduates_both_econ_disadv_count'))
     college_ready_graduates_both_at_risk_count = models.IntegerField(
         ('Number of college ready at risk graduates in both'),
         null=True, blank=True)
@@ -127,7 +136,7 @@ class PostSecondaryReadinessBase(models.Model):
         null=True, blank=True)
     college_ready_graduates_english_american_indian_percent = (
         models.FloatField(
-            'Percent of college ready Native American graduates in english',
+            'Percent of college ready American Indian graduates in english',
             null=True, blank=True))
     college_ready_graduates_english_pacific_islander_percent = (
         models.FloatField(
@@ -139,10 +148,12 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_english_white_percent = models.FloatField(
         'Percent of college ready white graduates in English',
         null=True, blank=True)
-    college_ready_graduates_english_econ_disadv_percent = models.FloatField(
-        ('Percent of college ready economically '
-         'disadvantaged graduates in English'),
-        null=True, blank=True)
+    college_ready_graduates_english_economically_disadvantaged_percent = (
+        models.FloatField(
+            'Percent of college ready economically '
+            'disadvantaged graduates in English',
+            null=True, blank=True,
+            db_column='college_ready_graduates_english_econ_disadv_percent'))
     college_ready_graduates_english_at_risk_percent = models.FloatField(
         ('Percent of college ready at risk graduates in English'),
         null=True, blank=True)
@@ -161,7 +172,7 @@ class PostSecondaryReadinessBase(models.Model):
         'Percent of college ready Hispanic graduates in math',
         null=True, blank=True)
     college_ready_graduates_math_american_indian_percent = models.FloatField(
-        'Percent of college ready Native American graduates in math',
+        'Percent of college ready American Indian graduates in math',
         null=True, blank=True)
     college_ready_graduates_math_pacific_islander_percent = models.FloatField(
         'Percent of college ready Pacific Islander graduates in  math',
@@ -172,10 +183,12 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_math_white_percent = models.FloatField(
         'Percent of college ready white graduates in math',
         null=True, blank=True)
-    college_ready_graduates_math_econ_disadv_percent = models.FloatField(
-        'Percent of college ready economically '
-        'disadvantaged graduates in math',
-        null=True, blank=True)
+    college_ready_graduates_math_economically_disadvantaged_percent = (
+        models.FloatField(
+            'Percent of college ready economically '
+            'disadvantaged graduates in math',
+            null=True, blank=True,
+            db_column='college_ready_graduates_math_econ_disadv_percent'))
     college_ready_graduates_math_at_risk_percent = models.FloatField(
         ('Percent of college ready at risk graduates in math'),
         null=True, blank=True)
@@ -194,7 +207,7 @@ class PostSecondaryReadinessBase(models.Model):
         'Percent of college ready Hispanic graduates in both subjects',
         null=True, blank=True)
     college_ready_graduates_both_american_indian_percent = models.FloatField(
-        'Percent of college ready Native American graduates in both subjects',
+        'Percent of college ready American Indian graduates in both subjects',
         null=True, blank=True)
     college_ready_graduates_both_pacific_islander_percent = models.FloatField(
         'Percent of college ready Pacific Islander graduates in both subjects',
@@ -206,10 +219,12 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_both_white_percent = models.FloatField(
         'Percent of college ready white graduates in both subjects',
         null=True, blank=True)
-    college_ready_graduates_both_econ_disadv_percent = models.FloatField(
-        ('Percent of college ready economically '
-         'disadvantaged graduates in both subjects'),
-        null=True, blank=True)
+    college_ready_graduates_both_economically_disadvantaged_percent = (
+        models.FloatField(
+        'Percent of college ready economically '
+         'disadvantaged graduates in both subjects',
+        null=True, blank=True,
+        db_column='college_ready_graduates_both_econ_disadv_percent'))
     college_ready_graduates_both_at_risk_percent = models.FloatField(
         ('Percent of college ready at risk graduates in both subjects'),
         null=True, blank=True)
@@ -228,7 +243,7 @@ class PostSecondaryReadinessBase(models.Model):
         'Average SAT score for Hispanic students',
         null=True, blank=True)
     avg_sat_score_american_indian = models.IntegerField(
-        'Average SAT score for Native American students',
+        'Average SAT score for American Indian students',
         null=True, blank=True)
     avg_sat_score_pacific_islander = models.IntegerField(
         'Average SAT score for Pacific Islander students',
@@ -239,7 +254,7 @@ class PostSecondaryReadinessBase(models.Model):
     avg_sat_score_white = models.IntegerField(
         'Average SAT score for white students',
         null=True, blank=True)
-    avg_sat_score_econ_disadv = models.IntegerField(
+    avg_sat_score_economically_disadvantaged = models.IntegerField(
         'Average SAT score for economically disadvantaged students',
         null=True, blank=True)
 
@@ -257,7 +272,7 @@ class PostSecondaryReadinessBase(models.Model):
         'Average ACT score for Hispanic students',
         null=True, blank=True)
     avg_act_score_american_indian = models.FloatField(
-        'Average ACT score for Native American students',
+        'Average ACT score for American Indian students',
         null=True, blank=True)
     avg_act_score_pacific_islander = models.FloatField(
         'Average ACT score for Pacific Islander students',
@@ -268,7 +283,7 @@ class PostSecondaryReadinessBase(models.Model):
     avg_act_score_white = models.FloatField(
         'Average ACT score for white students',
         null=True, blank=True)
-    avg_act_score_econ_disadv = models.FloatField(
+    avg_act_score_economically_disadvantaged = models.FloatField(
         'Average ACT score for economically disadvantaged students',
         null=True, blank=True)
 
@@ -302,7 +317,7 @@ class PostSecondaryReadinessBase(models.Model):
     dropout_at_risk_count = models.IntegerField(
         'Number of 9-12 at risk students who dropped out',
         null=True, blank=True)
-    dropout_econ_disadv_count = models.IntegerField(
+    dropout_economically_disadvantaged_count = models.IntegerField(
         'Number of 9-12 economically disadvantaged students who dropped out',
         null=True, blank=True)
 
@@ -333,7 +348,7 @@ class PostSecondaryReadinessBase(models.Model):
     dropout_at_risk_percent = models.FloatField(
         'Percent of 9-12 at risk students who dropped out',
         null=True, blank=True)
-    dropout_econ_disadv_percent = models.FloatField(
+    dropout_economically_disadvantaged_percent = models.FloatField(
         'Percent of 9-12 economically disadvantaged students who dropped out',
         null=True, blank=True)
 
