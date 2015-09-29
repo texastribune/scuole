@@ -58,31 +58,31 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='statestats',
             name='college_ready_graduates_both_economically_disadvantaged_count',
-            field=models.IntegerField(null=True, verbose_name=b'Number of college ready economically disadvantaged graduates in both subjects', db_column=b'college_ready_graduates_both_econ_disadv_count', blank=True),
+            field=models.IntegerField(null=True, verbose_name='Number of college ready economically disadvantaged graduates in both subjects', db_column='college_ready_graduates_both_econ_disadv_count', blank=True),
         ),
         migrations.AddField(
             model_name='statestats',
             name='college_ready_graduates_both_economically_disadvantaged_percent',
-            field=models.FloatField(null=True, verbose_name=b'Percent of college ready economically disadvantaged graduates in both subjects', db_column=b'college_ready_graduates_both_econ_disadv_percent', blank=True),
+            field=models.FloatField(null=True, verbose_name='Percent of college ready economically disadvantaged graduates in both subjects', db_column='college_ready_graduates_both_econ_disadv_percent', blank=True),
         ),
         migrations.AddField(
             model_name='statestats',
             name='college_ready_graduates_english_economically_disadvantaged_count',
-            field=models.IntegerField(null=True, verbose_name=b'Number of college ready economically disadvantaged graduates in English', db_column=b'college_ready_graduates_english_econ_disadv_count', blank=True),
+            field=models.IntegerField(null=True, verbose_name='Number of college ready economically disadvantaged graduates in English', db_column='college_ready_graduates_english_econ_disadv_count', blank=True),
         ),
         migrations.AddField(
             model_name='statestats',
             name='college_ready_graduates_english_economically_disadvantaged_percent',
-            field=models.FloatField(null=True, verbose_name=b'Percent of college ready economically disadvantaged graduates in English', db_column=b'college_ready_graduates_english_econ_disadv_percent', blank=True),
+            field=models.FloatField(null=True, verbose_name='Percent of college ready economically disadvantaged graduates in English', db_column='college_ready_graduates_english_econ_disadv_percent', blank=True),
         ),
         migrations.AddField(
             model_name='statestats',
             name='college_ready_graduates_math_economically_disadvantaged_count',
-            field=models.IntegerField(null=True, verbose_name=b'Number of college ready economically disadvantaged graduates in math', db_column=b'college_ready_graduates_math_econ_disadv_count', blank=True),
+            field=models.IntegerField(null=True, verbose_name='Number of college ready economically disadvantaged graduates in math', db_column='college_ready_graduates_math_econ_disadv_count', blank=True),
         ),
         migrations.AddField(
             model_name='statestats',
             name='college_ready_graduates_math_economically_disadvantaged_percent',
-            field=models.FloatField(null=True, verbose_name=b'Percent of college ready economically disadvantaged graduates in math', db_column=b'college_ready_graduates_math_econ_disadv_percent', blank=True),
+            field=models.FloatField(null=True, verbose_name='Percent of college ready economically disadvantaged graduates in math', db_column='college_ready_graduates_math_econ_disadv_percent', blank=True),
         ),
     ]

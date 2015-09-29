@@ -14,41 +14,41 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='campusstats',
             name='avg_act_score_american_indian',
-            field=models.FloatField(null=True, verbose_name=b'Average ACT score for American Indian students', blank=True),
+            field=models.FloatField(null=True, verbose_name='Average ACT score for American Indian students', blank=True),
         ),
         migrations.AlterField(
             model_name='campusstats',
             name='avg_sat_score_american_indian',
-            field=models.IntegerField(null=True, verbose_name=b'Average SAT score for American Indian students', blank=True),
+            field=models.IntegerField(null=True, verbose_name='Average SAT score for American Indian students', blank=True),
         ),
         migrations.AlterField(
             model_name='campusstats',
             name='college_ready_graduates_both_american_indian_count',
-            field=models.IntegerField(null=True, verbose_name=b'Number of college ready American Indian graduates in both subjects', blank=True),
+            field=models.IntegerField(null=True, verbose_name='Number of college ready American Indian graduates in both subjects', blank=True),
         ),
         migrations.AlterField(
             model_name='campusstats',
             name='college_ready_graduates_both_american_indian_percent',
-            field=models.FloatField(null=True, verbose_name=b'Percent of college ready American Indian graduates in both subjects', blank=True),
+            field=models.FloatField(null=True, verbose_name='Percent of college ready American Indian graduates in both subjects', blank=True),
         ),
         migrations.AlterField(
             model_name='campusstats',
             name='college_ready_graduates_english_american_indian_count',
-            field=models.IntegerField(null=True, verbose_name=b'Number of college ready American Indian graduates in English', blank=True),
+            field=models.IntegerField(null=True, verbose_name='Number of college ready American Indian graduates in English', blank=True),
         ),
         migrations.AlterField(
             model_name='campusstats',
             name='college_ready_graduates_english_american_indian_percent',
-            field=models.FloatField(null=True, verbose_name=b'Percent of college ready American Indian graduates in english', blank=True),
+            field=models.FloatField(null=True, verbose_name='Percent of college ready American Indian graduates in english', blank=True),
         ),
         migrations.AlterField(
             model_name='campusstats',
             name='college_ready_graduates_math_american_indian_count',
-            field=models.IntegerField(null=True, verbose_name=b'Number of college ready American Indian graduates in math', blank=True),
+            field=models.IntegerField(null=True, verbose_name='Number of college ready American Indian graduates in math', blank=True),
         ),
         migrations.AlterField(
             model_name='campusstats',
             name='college_ready_graduates_math_american_indian_percent',
-            field=models.FloatField(null=True, verbose_name=b'Percent of college ready American Indian graduates in math', blank=True),
+            field=models.FloatField(null=True, verbose_name='Percent of college ready American Indian graduates in math', blank=True),
         ),
     ]
