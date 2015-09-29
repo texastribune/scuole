@@ -25,7 +25,7 @@ class PostSecondaryReadinessBase(models.Model):
         null=True, blank=True)
     college_ready_graduates_english_american_indian_count = (
         models.IntegerField(
-            'Number of college ready Native American graduates in English',
+            'Number of college ready American Indian graduates in English',
             null=True, blank=True))
     college_ready_graduates_english_pacific_islander_count = (
         models.IntegerField(
@@ -61,7 +61,7 @@ class PostSecondaryReadinessBase(models.Model):
         'Number of college ready Hispanic graduates in math',
         null=True, blank=True)
     college_ready_graduates_math_american_indian_count = models.IntegerField(
-        'Number of college ready Native American graduates in math',
+        'Number of college ready American Indian graduates in math',
         null=True, blank=True)
     college_ready_graduates_math_pacific_islander_count = models.IntegerField(
         'Number of college ready Pacific Islander graduates in math',
@@ -95,7 +95,7 @@ class PostSecondaryReadinessBase(models.Model):
         'Number of college ready Hispanic graduates in both subjects',
         null=True, blank=True)
     college_ready_graduates_both_american_indian_count = models.IntegerField(
-        'Number of college ready Native American graduates in both subjects',
+        'Number of college ready American Indian graduates in both subjects',
         null=True, blank=True)
     college_ready_graduates_both_pacific_islander_count = models.IntegerField(
         'Number of college ready Pacific Islander graduates in both subjects',
@@ -133,7 +133,7 @@ class PostSecondaryReadinessBase(models.Model):
         null=True, blank=True)
     college_ready_graduates_english_american_indian_percent = (
         models.FloatField(
-            'Percent of college ready Native American graduates in english',
+            'Percent of college ready American Indian graduates in english',
             null=True, blank=True))
     college_ready_graduates_english_pacific_islander_percent = (
         models.FloatField(
@@ -169,7 +169,7 @@ class PostSecondaryReadinessBase(models.Model):
         'Percent of college ready Hispanic graduates in math',
         null=True, blank=True)
     college_ready_graduates_math_american_indian_percent = models.FloatField(
-        'Percent of college ready Native American graduates in math',
+        'Percent of college ready American Indian graduates in math',
         null=True, blank=True)
     college_ready_graduates_math_pacific_islander_percent = models.FloatField(
         'Percent of college ready Pacific Islander graduates in  math',
@@ -204,7 +204,7 @@ class PostSecondaryReadinessBase(models.Model):
         'Percent of college ready Hispanic graduates in both subjects',
         null=True, blank=True)
     college_ready_graduates_both_american_indian_percent = models.FloatField(
-        'Percent of college ready Native American graduates in both subjects',
+        'Percent of college ready American Indian graduates in both subjects',
         null=True, blank=True)
     college_ready_graduates_both_pacific_islander_percent = models.FloatField(
         'Percent of college ready Pacific Islander graduates in both subjects',
@@ -240,7 +240,7 @@ class PostSecondaryReadinessBase(models.Model):
         'Average SAT score for Hispanic students',
         null=True, blank=True)
     avg_sat_score_american_indian = models.IntegerField(
-        'Average SAT score for Native American students',
+        'Average SAT score for American Indian students',
         null=True, blank=True)
     avg_sat_score_pacific_islander = models.IntegerField(
         'Average SAT score for Pacific Islander students',
@@ -269,7 +269,7 @@ class PostSecondaryReadinessBase(models.Model):
         'Average ACT score for Hispanic students',
         null=True, blank=True)
     avg_act_score_american_indian = models.FloatField(
-        'Average ACT score for Native American students',
+        'Average ACT score for American Indian students',
         null=True, blank=True)
     avg_act_score_pacific_islander = models.FloatField(
         'Average ACT score for Pacific Islander students',
