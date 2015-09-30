@@ -5,7 +5,7 @@ import string
 
 from localflavor.us.models import USStateField, USZipCodeField
 
-from django.db import models
+from django.contrib.gis.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.counties.models import County

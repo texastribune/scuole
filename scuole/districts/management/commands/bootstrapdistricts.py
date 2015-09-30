@@ -6,6 +6,7 @@ import os
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
+from django.contrib.gis.utils import LayerMapping
 
 from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
@@ -33,6 +34,15 @@ class Command(BaseCommand):
         tea_file = os.path.join(
             settings.DATA_FOLDER,
             'tapr', 'reference', 'district', 'reference.csv')
+
+        district_shp = os.path.abspath(os.path.join(
+            settings.DATA_FOLDER,
+            'tapr', 'reference', 'district', 'shapes', 'SchoolDistricts.shp'))
+
+        lm = LayerMapping(District, district_shp, district_mapping,
+                          transform=False, encoding='iso-8859-1')
+
+        lm.save(strict=True, verbose=verbose)
 
         with open(tea_file, 'r') as f:
             reader = csv.DictReader(f)

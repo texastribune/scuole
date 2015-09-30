@@ -5,7 +5,7 @@ import string
 
 from localflavor.us.models import USStateField, USZipCodeField
 
-from django.db import models
+from django.contrib.gis.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.counties.models import County
@@ -30,13 +30,15 @@ class District(models.Model):
     # CCD - LZIP-LZIP4
     zip_code = USZipCodeField('District ZIP Code')
     # CCD - LATCOD
-    latitude = models.FloatField('District office latitude')
+    latitude = models.PointField('District office latitude')
     # CCD - LONCOD
-    longitude = models.FloatField('District office longitude')
+    longitude = models.PointField('District office longitude')
     region = models.ForeignKey(
         Region, related_name='districts', null=True, blank=True)
     county = models.ForeignKey(
         County, related_name='districts', null=True, blank=True)
+    mpoly = models.MultiPolygonField(srid=4326)
+    objects = models.GeoManager()
 
     class Meta:
         ordering = ['name']
