@@ -1,6 +1,6 @@
 // Base
 @import 'reset';
-@import 'node_modules/susy/sass/susy';
+@import 'susy';
 
 @import 'box-sizing';
 @import 'colors';
@@ -8,10 +8,6 @@
 @import 'mixins';
 @import 'utils';
 @import 'base';
-
-$susy: (
-  global-box-sizing: border-box
-);
 
 // Components
 @import 'components/header';
