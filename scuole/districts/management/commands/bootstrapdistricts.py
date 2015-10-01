@@ -31,6 +31,12 @@ class Command(BaseCommand):
 
         self.fast_data = self.load_fast_file(fast_file_location)
 
+        district_shp = os.path.abspath(os.path.join(
+            settings.DATA_FOLDER,
+            'tapr', 'reference', 'district', 'shapes', 'SchoolDistricts.shp'))
+
+        self.shape_data = self.load_shape_file(district_shp)
+
         tea_file = os.path.join(
             settings.DATA_FOLDER,
             'tapr', 'reference', 'district', 'reference.csv')
@@ -67,14 +73,21 @@ class Command(BaseCommand):
 
         return payload
 
-    def create_district(self, district):
+    def load_shape_file(self, file):
         district_mapping = {
+            'tea_id' : 'OBJECTID',
             'mpoly' : 'SDA10',
+            'name' : 'NAME',
+            'name2' : 'NAME2',
+            'districtn' : 'DISTRICT_N',
+            'district': 'DISTRICT',
+            'districtc' : 'DISTRICT_C',
+            'ncesDistrict' : 'NCES_DISTRICT',
+            'color' : 'COLOR',
+            'color2' : 'COLOR2',
+            'shapeLen' : 'Shape_Leng',
+            'shapeArea': 'Shape_Area',
         }
-
-        district_shp = os.path.abspath(os.path.join(
-            settings.DATA_FOLDER,
-            'tapr', 'reference', 'district', 'shapes', 'SchoolDistricts.shp'))
 
         def run(verbose=True):
             lm = LayerMapping(District, district_shp, district_mapping,
@@ -82,12 +95,13 @@ class Command(BaseCommand):
 
             lm.save(strict=True, verbose=verbose)
 
+    def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
         fast_match = self.fast_data[str(int(district['DISTRICT']))]
         self.stdout.write('Creating {}...'.format(fast_match['District Name']))
         name = remove_charter_c(fast_match['District Name'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
-        mpoly = mpoly
+        shape = self.shape_data()
 
 
         return District(
@@ -104,5 +118,5 @@ class Command(BaseCommand):
             longitude=ccd_match['LONCOD'],
             region=Region.objects.get(region_id=district['REGION']),
             county=county,
-            mpoly=mpoly,
+            mpoly=shape,
         )
