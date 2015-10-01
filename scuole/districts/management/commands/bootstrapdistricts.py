@@ -35,14 +35,19 @@ class Command(BaseCommand):
             settings.DATA_FOLDER,
             'tapr', 'reference', 'district', 'reference.csv')
 
+        district_mapping = {
+            'mpoly' : 'MULTIPOLYGON',
+        }
+
         district_shp = os.path.abspath(os.path.join(
             settings.DATA_FOLDER,
             'tapr', 'reference', 'district', 'shapes', 'SchoolDistricts.shp'))
 
-        lm = LayerMapping(District, district_shp, district_mapping,
-                          transform=False, encoding='iso-8859-1')
+        def run(verbose=True):
+            lm = LayerMapping(WorldBorder, world_shp, world_mapping,
+                              transform=False, encoding='iso-8859-1')
 
-        lm.save(strict=True, verbose=verbose)
+            lm.save(strict=True, verbose=verbose)
 
         with open(tea_file, 'r') as f:
             reader = csv.DictReader(f)

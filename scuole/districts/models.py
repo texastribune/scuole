@@ -30,9 +30,10 @@ class District(models.Model):
     # CCD - LZIP-LZIP4
     zip_code = USZipCodeField('District ZIP Code')
     # CCD - LATCOD
-    latitude = models.PointField('District office latitude')
+    latitude = models.FloatField('District office latitude')
     # CCD - LONCOD
-    longitude = models.PointField('District office longitude')
+    longitude = models.FloatField('District office longitude')
+    latlong = models.PointField()
     region = models.ForeignKey(
         Region, related_name='districts', null=True, blank=True)
     county = models.ForeignKey(
@@ -52,6 +53,11 @@ class District(models.Model):
             'district_slug': self.slug,
             'district_id': self.pk,
         })
+
+    def save(self, *args, **kwargs):
+        self.latitude = self.latlong.y
+        self.longitude = self.latlong.x
+        super(District, self).save(*args, **kwargs)
 
     @property
     def location(self):

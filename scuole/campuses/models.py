@@ -80,9 +80,10 @@ class Campus(models.Model):
     locale = models.CharField(
         'Campus NCES urban-centric locale identifier', max_length=15)
     # CCD - LATCOD
-    latitude = models.PointField('Campus latitude')
+    latitude = models.FloatField('Campus latitude')
     # CCD - LONCOD
-    longitude = models.PointField('Campus longitude')
+    longitude = models.FloatField('Campus longitude')
+    latlong = models.PointField()
     # TEA - GRDSPAN
     low_grade = models.CharField(
         'Lowest grade offered', max_length=2, choices=GRADE_CHOICES)
@@ -109,6 +110,11 @@ class Campus(models.Model):
             'district_id': self.district.pk,
             'district_slug': self.district.slug,
         })
+
+    def save(self, *args, **kwargs):
+        self.latitude = self.latlong.y
+        self.longitude = self.latlong.x
+        super(Campus, self).save(*args, **kwargs)
 
     @property
     def location(self):
