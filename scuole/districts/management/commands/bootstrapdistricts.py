@@ -35,20 +35,6 @@ class Command(BaseCommand):
             settings.DATA_FOLDER,
             'tapr', 'reference', 'district', 'reference.csv')
 
-        district_mapping = {
-            'mpoly' : 'MULTIPOLYGON',
-        }
-
-        district_shp = os.path.abspath(os.path.join(
-            settings.DATA_FOLDER,
-            'tapr', 'reference', 'district', 'shapes', 'SchoolDistricts.shp'))
-
-        def run(verbose=True):
-            lm = LayerMapping(WorldBorder, world_shp, world_mapping,
-                              transform=False, encoding='iso-8859-1')
-
-            lm.save(strict=True, verbose=verbose)
-
         with open(tea_file, 'r') as f:
             reader = csv.DictReader(f)
 
@@ -82,11 +68,27 @@ class Command(BaseCommand):
         return payload
 
     def create_district(self, district):
+        district_mapping = {
+            'mpoly' : 'SDA10',
+        }
+
+        district_shp = os.path.abspath(os.path.join(
+            settings.DATA_FOLDER,
+            'tapr', 'reference', 'district', 'shapes', 'SchoolDistricts.shp'))
+
+        def run(verbose=True):
+            lm = LayerMapping(District, district_shp, district_mapping,
+                              transform=False, encoding='iso-8859-1')
+
+            lm.save(strict=True, verbose=verbose)
+
         ccd_match = self.ccd_data[district['DISTRICT']]
         fast_match = self.fast_data[str(int(district['DISTRICT']))]
         self.stdout.write('Creating {}...'.format(fast_match['District Name']))
         name = remove_charter_c(fast_match['District Name'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
+        mpoly = mpoly
+
 
         return District(
             name=name,
@@ -102,4 +104,5 @@ class Command(BaseCommand):
             longitude=ccd_match['LONCOD'],
             region=Region.objects.get(region_id=district['REGION']),
             county=county,
+            mpoly=mpoly,
         )
