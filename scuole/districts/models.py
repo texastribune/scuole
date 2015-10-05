@@ -38,7 +38,7 @@ class District(models.Model):
         Region, related_name='districts', null=True, blank=True)
     county = models.ForeignKey(
         County, related_name='districts', null=True, blank=True)
-    mpoly = models.MultiPolygonField(srid=4326)
+    mpoly = models.MultiPolygonField(srid=4326, null=True)
     objects = models.GeoManager()
 
     class Meta:
@@ -53,11 +53,6 @@ class District(models.Model):
             'district_slug': self.slug,
             'district_id': self.pk,
         })
-
-    def save(self, *args, **kwargs):
-        self.latitude = self.latlong.y
-        self.longitude = self.latlong.x
-        super(District, self).save(*args, **kwargs)
 
     @property
     def location(self):

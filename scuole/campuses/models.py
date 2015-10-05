@@ -111,11 +111,6 @@ class Campus(models.Model):
             'district_slug': self.district.slug,
         })
 
-    def save(self, *args, **kwargs):
-        self.latitude = self.latlong.y
-        self.longitude = self.latlong.x
-        super(Campus, self).save(*args, **kwargs)
-
     @property
     def location(self):
         return '{city}, {state}'.format(

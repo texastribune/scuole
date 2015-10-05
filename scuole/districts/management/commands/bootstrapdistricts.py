@@ -7,6 +7,7 @@ import os
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.contrib.gis.utils import LayerMapping
+from django.contrib.gis.geos import GEOSGeometry, Point
 
 from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
@@ -93,15 +94,16 @@ class Command(BaseCommand):
             lm = LayerMapping(District, district_shp, district_mapping,
                               transform=False, encoding='iso-8859-1')
 
-            lm.save(strict=True, verbose=verbose)
+            lm.save(strict=True, verbose=verbose, fid_range=(0,1))
 
     def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
         fast_match = self.fast_data[str(int(district['DISTRICT']))]
+        shape_match = self.shape_data
         self.stdout.write('Creating {}...'.format(fast_match['District Name']))
         name = remove_charter_c(fast_match['District Name'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
-        shape = self.shape_data()
+        pnt = Point(float(ccd_match['LONCOD']), float(ccd_match['LATCOD']))
 
 
         return District(
@@ -116,7 +118,8 @@ class Command(BaseCommand):
                 LZIP4=ccd_match['LZIP4']),
             latitude=ccd_match['LATCOD'],
             longitude=ccd_match['LONCOD'],
+            latlong=pnt,
             region=Region.objects.get(region_id=district['REGION']),
             county=county,
-            mpoly=shape,
+            mpoly=shape_match,
         )
