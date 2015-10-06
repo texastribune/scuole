@@ -2,11 +2,12 @@
 from __future__ import absolute_import, unicode_literals
 
 import csv
+import json
 import os
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.contrib.gis.geos import GEOSGeometry, Point
+from django.contrib.gis.geos import GEOSGeometry, Point, MultiPolygon
 
 from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
@@ -31,9 +32,9 @@ class Command(BaseCommand):
 
         self.fast_data = self.load_fast_file(fast_file_location)
 
-        district_json = os.path.abspath(os.path.join(
+        district_json = os.path.join(
             settings.DATA_FOLDER,
-            'tapr', 'reference', 'district', 'shapes', 'SchoolDistricts.json'))
+            'tapr', 'reference', 'district', 'shapes', 'SchoolDistricts.geojson')
 
         self.shape_data = self.load_geojson_file(district_json)
 
@@ -73,6 +74,18 @@ class Command(BaseCommand):
 
         return payload
 
+    def load_geojson_file(self, file):
+        feature = {}
+
+        with open(file, 'r') as f:
+            reader = json.load(f)
+
+            for feature in reader['features']:
+                feature['geometry']['type']
+
+        return feature
+
+
     def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
         fast_match = self.fast_data[str(int(district['DISTRICT']))]
@@ -80,8 +93,13 @@ class Command(BaseCommand):
         self.stdout.write('Creating {}...'.format(fast_match['District Name']))
         name = remove_charter_c(fast_match['District Name'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
+        region = Region.objects.get(region_id=district['REGION'])
         pnt = Point(float(ccd_match['LONCOD']), float(ccd_match['LATCOD']))
+        geometry = GEOSGeometry(json.dumps(shape_match['geometry']))
 
+        # checks to see if the geometry is a multipolygon
+        if geometry.geom_typeid == 3:
+            geometry = MultiPolygon(geometry)
 
         return District(
             name=name,
@@ -96,7 +114,7 @@ class Command(BaseCommand):
             latitude=ccd_match['LATCOD'],
             longitude=ccd_match['LONCOD'],
             latlong=pnt,
-            region=Region.objects.get(region_id=district['REGION']),
+            region=region,
             county=county,
-            mpoly=shape_match,
+            mpoly=geometry,
         )
