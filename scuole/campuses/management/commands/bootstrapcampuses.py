@@ -6,7 +6,6 @@ import os
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.contrib.gis.utils import LayerMapping
 from django.contrib.gis.geos import GEOSGeometry, Point
 
 from scuole.core.utils import remove_charter_c

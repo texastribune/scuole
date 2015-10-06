@@ -56,6 +56,7 @@ DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.gis',
     'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -65,6 +66,7 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'localflavor',
+    'djgeojson',
 )
 
 LOCAL_APPS = (

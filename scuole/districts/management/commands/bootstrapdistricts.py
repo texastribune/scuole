@@ -6,7 +6,6 @@ import os
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.contrib.gis.utils import LayerMapping
 from django.contrib.gis.geos import GEOSGeometry, Point
 
 from scuole.core.utils import remove_charter_c
@@ -32,11 +31,11 @@ class Command(BaseCommand):
 
         self.fast_data = self.load_fast_file(fast_file_location)
 
-        district_shp = os.path.abspath(os.path.join(
+        district_json = os.path.abspath(os.path.join(
             settings.DATA_FOLDER,
-            'tapr', 'reference', 'district', 'shapes', 'SchoolDistricts.shp'))
+            'tapr', 'reference', 'district', 'shapes', 'SchoolDistricts.json'))
 
-        self.shape_data = self.load_shape_file(district_shp)
+        self.shape_data = self.load_geojson_file(district_json)
 
         tea_file = os.path.join(
             settings.DATA_FOLDER,
@@ -73,28 +72,6 @@ class Command(BaseCommand):
                 payload[row['District Number']] = row
 
         return payload
-
-    def load_shape_file(self, file):
-        district_mapping = {
-            'tea_id' : 'OBJECTID',
-            'mpoly' : 'SDA10',
-            'name' : 'NAME',
-            'name2' : 'NAME2',
-            'districtn' : 'DISTRICT_N',
-            'district': 'DISTRICT',
-            'districtc' : 'DISTRICT_C',
-            'ncesDistrict' : 'NCES_DISTRICT',
-            'color' : 'COLOR',
-            'color2' : 'COLOR2',
-            'shapeLen' : 'Shape_Leng',
-            'shapeArea': 'Shape_Area',
-        }
-
-        def run(verbose=True):
-            lm = LayerMapping(District, district_shp, district_mapping,
-                              transform=False, encoding='iso-8859-1')
-
-            lm.save(strict=True, verbose=verbose, fid_range=(0,1))
 
     def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
