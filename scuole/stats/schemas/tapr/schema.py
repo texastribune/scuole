@@ -3,6 +3,8 @@ SCHEMA = {
         'all_students_count': 'PETALLC',
         'african_american_count': 'PETBLAC',
         'african_american_percent': 'PETBLAP',
+        'american_indian_count': 'PETINDC',
+        'american_indian_percent': 'PETINDP',
         'asian_count': 'PETASIC',
         'asian_percent': 'PETASIP',
         'hispanic_count': 'PETHISC',
