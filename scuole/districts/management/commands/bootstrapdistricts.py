@@ -95,7 +95,8 @@ class Command(BaseCommand):
         name = remove_charter_c(fast_match['District Name'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
         region = Region.objects.get(region_id=district['REGION'])
-        pnt = Point(float(ccd_match['LONCOD']), float(ccd_match['LATCOD']))
+        coordinates = Point(
+            float(ccd_match['LONCOD']), float(ccd_match['LATCOD']))
         if district['DISTRICT'] in shape_match:
             geometry = GEOSGeometry(
                 json.dumps(shape_match[district['DISTRICT']]))
@@ -117,10 +118,8 @@ class Command(BaseCommand):
             zip_code='{LZIP}-{LZIP4}'.format(
                 LZIP=ccd_match['LZIP'],
                 LZIP4=ccd_match['LZIP4']),
-            latitude=ccd_match['LATCOD'],
-            longitude=ccd_match['LONCOD'],
-            latlong=pnt,
             region=region,
             county=county,
-            mpoly=geometry,
+            coordinates=coordinates,
+            shape=geometry,
         )

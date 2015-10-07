@@ -90,7 +90,8 @@ class Command(BaseCommand):
         name = remove_charter_c(fast_match['Campus Name'])
         district = District.objects.get(tea_id=campus['DISTRICT'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
-        pnt = Point(float(ccd_match['LONCOD']), float(ccd_match['LATCOD']))
+        coordinates = Point(
+            float(ccd_match['LONCOD']), float(ccd_match['LATCOD']))
 
         return Campus(
             name=name,
@@ -104,9 +105,7 @@ class Command(BaseCommand):
                 LZIP=ccd_match['LZIP'],
                 LZIP4=ccd_match['LZIP4']),
             locale=LOCALE_MAP[ccd_match['ULOCAL']],
-            latitude=ccd_match['LATCOD'],
-            longitude=ccd_match['LONCOD'],
-            latlong=pnt,
+            coordinates=coordinates,
             low_grade=low_grade,
             high_grade=high_grade,
             school_type=campus['GRDTYPE'],

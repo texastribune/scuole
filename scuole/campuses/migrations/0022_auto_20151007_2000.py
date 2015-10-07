@@ -1,28 +1,28 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 import django.contrib.gis.db.models.fields
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('districts', '0030_auto_20151002_1829'),
+        ('campuses', '0021_auto_20150929_1636'),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='district',
+            model_name='campus',
             name='latitude',
         ),
         migrations.RemoveField(
-            model_name='district',
+            model_name='campus',
             name='longitude',
         ),
-        migrations.AlterField(
-            model_name='district',
-            name='latlong',
-            field=django.contrib.gis.db.models.fields.PointField(srid=4326),
+        migrations.AddField(
+            model_name='campus',
+            name='coordinates',
+            field=django.contrib.gis.db.models.fields.PointField(null=True, srid=4326),
         ),
     ]
