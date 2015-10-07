@@ -34,7 +34,7 @@ class Command(BaseCommand):
 
         district_json = os.path.join(
             settings.DATA_FOLDER,
-            'tapr', 'reference', 'district', 'shapes', 'SchoolDistricts.geojson')
+            'tapr', 'reference', 'district', 'shapes', 'districts.geojson')
 
         self.shape_data = self.load_geojson_file(district_json)
 
