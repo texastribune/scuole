@@ -11,6 +11,9 @@
     "gulp-size": "^2.0.0",
     "gulp-sourcemaps": "^1.5.2"
   },
+  "dependencies": {
+    "susy": "^2.2.5"
+  },
   "scripts": {
     "serve": "gulp serve"
   }
