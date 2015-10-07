@@ -64,7 +64,8 @@ class Campus(models.Model):
     MET_STANDARD = 'M'
     MET_ALTERNATIVE_STANDARD = 'A'
     IMPROVEMENT_REQUIRED = 'I'
-    NOT_RATED = 'X/Z'
+    NOT_RATED = 'X'
+    NOT_RATED = 'Z'
     NOT_RATED_DUE_TO_DATA_INTEGRITY_ISSUE = 'Q'
 
     RATING_CHOICES = (
