@@ -8,7 +8,7 @@ from scuole.districts.models import District
 
 
 class SearchView(TemplateView):
-    template_name = 'pages/search.html'
+    template_name = 'search.html'
 
     def get_context_data(self, **kwargs):
         context = super(SearchView, self).get_context_data(**kwargs)
