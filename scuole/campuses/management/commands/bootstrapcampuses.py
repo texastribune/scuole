@@ -92,8 +92,6 @@ class Command(BaseCommand):
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
         pnt = Point(float(ccd_match['LONCOD']), float(ccd_match['LATCOD']))
 
-
-
         return Campus(
             name=name,
             slug=slugify(name),

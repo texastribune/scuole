@@ -75,30 +75,37 @@ class Command(BaseCommand):
         return payload
 
     def load_geojson_file(self, file):
-        feature = {}
+        payload = {}
 
         with open(file, 'r') as f:
-            reader = json.load(f)
+            data = json.load(f)
 
-            for feature in reader['features']:
-                feature['geometry']['type']
+            for feature in data['features']:
+                tea_id = feature['properties']['DISTRICT_C']
+                payload[tea_id] = feature['geometry']
 
-        return feature
+        return payload
 
     def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
         fast_match = self.fast_data[str(int(district['DISTRICT']))]
         shape_match = self.shape_data
+
         self.stdout.write('Creating {}...'.format(fast_match['District Name']))
         name = remove_charter_c(fast_match['District Name'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
         region = Region.objects.get(region_id=district['REGION'])
         pnt = Point(float(ccd_match['LONCOD']), float(ccd_match['LATCOD']))
-        geometry = GEOSGeometry(json.dumps(shape_match['geometry']))
+        if district['DISTRICT'] in shape_match:
+            geometry = GEOSGeometry(
+                json.dumps(shape_match[district['DISTRICT']]))
 
-        # checks to see if the geometry is a multipolygon
-        if geometry.geom_typeid == 3:
-            geometry = MultiPolygon(geometry)
+            # checks to see if the geometry is a multipolygon
+            if geometry.geom_typeid == 3:
+                geometry = MultiPolygon(geometry)
+        else:
+            self.stderr.write('No shape data for {}'.format(name))
+            geometry = None
 
         return District(
             name=name,
