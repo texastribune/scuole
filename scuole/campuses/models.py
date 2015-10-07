@@ -3,7 +3,8 @@ from __future__ import absolute_import, unicode_literals
 
 import string
 
-from localflavor.us.models import USStateField, USZipCodeField
+from localflavor.us.models import (PhoneNumberField, USStateField,
+                                   USZipCodeField)
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -67,7 +68,7 @@ class Campus(models.Model):
     # TEA - CAMPUS
     tea_id = models.CharField('TEA campus identifier', max_length=10)
     # CCD - PHONE
-    phone = models.CharField('Campus phone number', max_length=10)
+    phone = PhoneNumberField('Campus phone number')
     # CCD - LSTREE
     street = models.CharField('Campus street', max_length=100)
     # CCD - LCITY
