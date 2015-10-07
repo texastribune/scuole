@@ -6,6 +6,7 @@ import os
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
+from django.contrib.gis.geos import Point
 
 from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
@@ -84,12 +85,13 @@ class Command(BaseCommand):
     def create_campus(self, campus):
         ccd_match = self.ccd_data[campus['CAMPUS']]
         fast_match = self.fast_data[str(int(campus['CAMPUS']))]
-        low_grade, high_grade = campus['GRDSPAN'].split(' - ')
         name = remove_charter_c(fast_match['Campus Name'])
+        self.stdout.write('Creating {}...'.format(name))
+        low_grade, high_grade = campus['GRDSPAN'].split(' - ')
         district = District.objects.get(tea_id=campus['DISTRICT'])
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
-
-        self.stdout.write('Creating {}...'.format(fast_match['Campus Name']))
+        coordinates = Point(
+            float(ccd_match['LONCOD']), float(ccd_match['LATCOD']))
 
         return Campus(
             name=name,
@@ -103,8 +105,7 @@ class Command(BaseCommand):
                 LZIP=ccd_match['LZIP'],
                 LZIP4=ccd_match['LZIP4']),
             locale=LOCALE_MAP[ccd_match['ULOCAL']],
-            latitude=ccd_match['LATCOD'],
-            longitude=ccd_match['LONCOD'],
+            coordinates=coordinates,
             low_grade=low_grade,
             high_grade=high_grade,
             school_type=campus['GRDTYPE'],

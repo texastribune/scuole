@@ -30,6 +30,7 @@ docker/pg-interactive:
 local/reset-db:
 	dropdb scuole
 	createdb scuole
+	psql -d scuole -c 'CREATE EXTENSION postgis;'
 	python manage.py migrate
 
 data/base:
