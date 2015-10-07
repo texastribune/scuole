@@ -91,8 +91,8 @@ class Command(BaseCommand):
         fast_match = self.fast_data[str(int(district['DISTRICT']))]
         shape_match = self.shape_data
 
-        self.stdout.write('Creating {}...'.format(fast_match['District Name']))
         name = remove_charter_c(fast_match['District Name'])
+        self.stdout.write('Creating {}...'.format(name))
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
         region = Region.objects.get(region_id=district['REGION'])
         coordinates = Point(
