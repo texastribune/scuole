@@ -61,6 +61,21 @@ class Campus(models.Model):
         (ELEMENTARY_SECONDARY_SCHOOL, 'Elementary/secondary school'),
     )
 
+    MET_STANDARD = 'M'
+    MET_ALTERNATIVE_STANDARD = 'A'
+    IMPROVEMENT_REQUIRED = 'I'
+    NOT_RATED = 'X/Z'
+    NOT_RATED_DUE_TO_DATA_INTEGRITY_ISSUE = 'Q'
+
+    RATING_CHOICES = (
+        (MET_STANDARD, 'Met standard'),
+        (MET_ALTERNATIVE_STANDARD, 'Met alternative standard'),
+        (IMPROVEMENT_REQUIRED, 'Improvement required'),
+        (NOT_RATED, 'Not rated'),
+        (NOT_RATED_DUE_TO_DATA_INTEGRITY_ISSUE,
+            'Not rated due to data integrity issue'),
+    )
+
     # CCD - SCHNAM
     name = models.CharField('Campus name', max_length=200)
     slug = models.SlugField(max_length=150)
@@ -88,6 +103,9 @@ class Campus(models.Model):
         'Highest grade offered', max_length=2, choices=GRADE_CHOICES)
     school_type = models.CharField(
         'School type', max_length=1, choices=SCHOOL_TYPE_CHOICES)
+    accountability_rating = models.CharField(
+        'Accountability rating', max_length=3, choices=RATING_CHOICES
+    )
 
     district = models.ForeignKey(District, related_name='campuses')
     county = models.ForeignKey(County, related_name='campuses')
