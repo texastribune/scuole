@@ -1,0 +1,25 @@
+.btn {
+  @include font-size(16);
+  border: .0625rem solid transparent;
+  cursor: pointer;
+  display: inline-block;
+  font-family: $font-sans-serif;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  padding: .375rem 1rem;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &-primary {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-text-inverse;
+
+    &:hover {
+      background-color: darken($color-primary, 10%);
+      border-color: darken($color-primary, 10%);
+    }
+  }
+}

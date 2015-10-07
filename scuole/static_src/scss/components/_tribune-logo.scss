@@ -1,0 +1,20 @@
+.tribune-logo {
+  @include site-logo-height(20);
+}
+
+.tribune-logo-desktop {
+  display: none;
+
+  @include mq($from: tablet) {
+    display: inline-block;
+  }
+}
+
+.tribune-logo-mobile {
+  @include site-logo-height(30);
+  display: inline-block;
+
+  @include mq($from: tablet) {
+    display: none;
+  }
+}

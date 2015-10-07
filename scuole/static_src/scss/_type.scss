@@ -1,0 +1,34 @@
+.page-header {
+  margin-bottom: $gutter;
+}
+
+.page-headline {
+  @include font-size(28);
+  font-family: $font-livory;
+  margin-bottom: $gutter-half;
+}
+
+.page-subtext {
+  @include font-size(16);
+  font-family: $font-livory;
+  margin-bottom: $gutter-quarter;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.page-sub-header {
+  @include font-size(20);
+  font-family: $font-livory;
+  margin-bottom: $gutter-half;
+}
+
+.page-prose {
+  > p {
+    @include font-size(16);
+    font-family: $font-sans-serif;
+    line-height: 1.5;
+    margin-bottom: $gutter-half;
+  }
+}

@@ -1,0 +1,20 @@
+.search-bar {
+  background-color: $color-secondary;
+  margin-bottom: $gutter;
+  padding-bottom: $gutter;
+  padding-top: $gutter;
+  text-align: center;
+}
+
+.search-form-input {
+  @include font-size(16);
+  border: .0625rem solid transparent;
+  display: inline-block;
+  font-family: $font-sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 100%;
+  padding: .375rem .75rem;
+  vertical-align: middle;
+  width: 25rem;
+}

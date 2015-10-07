@@ -1,0 +1,15 @@
+.container {
+  @include create-container();
+}
+
+.box-8 {
+  @include mq($from: tablet) {
+    @include span(8 of 12);
+  }
+}
+
+.box-4 {
+  @include mq($from: tablet) {
+    @include span(4 of 12 last);
+  }
+}

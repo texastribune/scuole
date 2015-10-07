@@ -1,0 +1,32 @@
+.header {
+  background-color: $color-primary;
+  padding-bottom: $gutter-half;
+  padding-top: $gutter-half;
+}
+
+.header-landing {
+  padding-bottom: $gutter-double;
+  text-align: center;
+}
+
+.header-logo {
+  float: left;
+}
+
+.header-title {
+  @include font-size(18);
+  color: $color-text-inverse;
+  display: inline-block;
+  float: right;
+  font-family: $font-livory;
+  text-decoration: none;
+
+  @include mq($until: tablet) {
+    padding-bottom: .25rem;
+    padding-top: .25rem;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
