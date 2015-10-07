@@ -85,7 +85,6 @@ class Command(BaseCommand):
 
         return feature
 
-
     def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
         fast_match = self.fast_data[str(int(district['DISTRICT']))]
