@@ -2,45 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}Home{% endblock title %} | Public Schools</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Home{% endblock title %} | Texas Public Schools | The Texas Tribune</title>
+  <script src="https://use.typekit.net/gbr6cnk.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
   <link rel="stylesheet" href="{% static 'styles/main.css' %}">
 </head>
-<body>
+<body class="{% block body_class %}{% endblock body_class %}">
 
-<header class="header" role="header">
-  <div class="container">
-    <h2 class="header__logo"><a href="http://www.texastribune.org/"><img class="site-logo" src="{% static 'images/logos/tribune-logo.png' %}" alt="The Texas Tribune"></a></h2>
-  </div>
-  <h1 class="header__title"><a class="header__link" href="{% url 'index' %}">Texas Public Schools</a></h1>
+<header class="{% block header_class %}{% endblock header_class %}" role="banner">
+{% block header %}{% endblock header %}
 </header>
 
-<section class="search-bar">
-  <div class="container">
-    <form class="search-form" action="{% url 'search' %}" method="GET">
-      <input class="search-form__input" type="text" name="q" placeholder="E.g. Austin ISD, Travis High School">
-      <button class="search-form__submit btn btn--primary" type="submit">Search</button>
-    </form>
-  </div>
-</section>
+{% block search %}{% endblock search %}
 
-<main class="{% block main_class %}container{% endblock main_class %}" role="main">
-
+<main class="{% block main_class %}{% endblock main_class %}" role="main">
 {% block breadcrumbs %}{% endblock breadcrumbs %}
-
-<article class="content">
-{% block content %}
-{% endblock content %}
-
-<section class="source">
-  <p class="source__text">Sources: <a href="http://ritter.tea.state.tx.us/perfreport/tapr/">Texas Academic Performance Reports</a>, <a href="http://fastexas.org/about/data.php">Financial Allocation Study of Texas</a>, <a href="https://nces.ed.gov/ccd/ccddata.asp">Common Core of Data</a></p>
-  <p class="source__text">Updated: Oct. XX, 2015</p>
-</section>
-
-</article>
+{% block content %}{% endblock content %}
 </main>
 
-<footer class="footer">
-  Footer TK
+<footer class="footer" role="contentinfo">
+{% block footer %}{% endblock footer %}
 </footer>
+
+{% block extra_script %}{% endblock extra_script %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
+<script src="{% static 'scripts/main.js' %}"></script>
 </body>
 </html>

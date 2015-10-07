@@ -1,27 +1,52 @@
-{% extends 'base.html' %}
+{% extends 'standard.html' %}
 
 {% block title %}{{ campus.name }}{% endblock title %}
 
 {% block breadcrumbs %}
-<section class="breadcrumbs">
-  <a class="breadcrumbs__item" href="{% url 'index' %}">Home</a> » <a class="breadcrumbs__item" href="{% url 'districts:list' %}">School Districts</a> » <a class="breadcrumbs__item" href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a>
-</section>
+<nav class="breadcrumbs">
+  <a class="breadcrumbs__item" href="{% url 'landing' %}">Home</a> » <a class="breadcrumbs__item" href="{% url 'districts:list' %}">School Districts</a> » <a class="breadcrumbs__item" href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a>
+</nav>
 {% endblock breadcrumbs %}
 
 {% block content %}
-<header>
-  <h1>{{ campus.name }}</h1>
-  <p>{{ campus.city|title }}, {{ campus.state }}</p>
-  <p><a href="{{ campus.district.get_absolute_url }}">{{ campus.district }}</a></p>
+
+<div class="box-8">
+<header class="page-header">
+  <h1 class="page-headline">{{ campus.name }}</h1>
+  <p class="page-subtext">{{ campus.city|title }}, {{ campus.state }} | <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></p>
+  <p class="page-subtext">{{ campus.get_school_type_display }}</p>
+  <p class="page-subtext">{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</p>
 </header>
 
-<p>{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</p>
+<div class="page-prose">
+  <p>{{ campus.name }} is a {{ campus.get_school_type_display }} in the {{ campus.district.name }} district. There were {{ campus.stats.first.all_students_count }} students during the {{ campus.stats.first.year }} school year.</p>
+</div>
+</div>
 
+<div class="box-4">
+  <div class="map" id="map"></div>
+  <div class="card">
+    <h3 class="card-header">Address</h3>
+    <address>
+      {{ campus.street|title }}<br>
+      {{ campus.location }} {{ campus.zip_code }}
+    </address>
+    <h3 class="card-header">Phone number</h3>
+    {{ campus.phone }}
+  </div>
+</div>
+
+{% comment %}
 {% for stat in campus.stats.all %}
 <section class="card">
   <h3>{{ stat.year.name }}</h3>
   <p>No. of Students: {{ stat.all_students_count }}</p>
 </section>
 {% endfor %}
+{% endcomment %}
 
 {% endblock content %}
+
+{% block extra_script %}
+<script>COORDS = [{{ campus.latitude }}, {{ campus.longitude }}];</script>
+{% endblock extra_script %}
