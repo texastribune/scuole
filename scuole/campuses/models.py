@@ -5,7 +5,7 @@ import string
 
 from localflavor.us.models import USStateField, USZipCodeField
 
-from django.db import models
+from django.contrib.gis.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.counties.models import County
@@ -80,9 +80,7 @@ class Campus(models.Model):
     locale = models.CharField(
         'Campus NCES urban-centric locale identifier', max_length=15)
     # CCD - LATCOD
-    latitude = models.FloatField('Campus latitude')
-    # CCD - LONCOD
-    longitude = models.FloatField('Campus longitude')
+    coordinates = models.PointField(null=True)
     # TEA - GRDSPAN
     low_grade = models.CharField(
         'Lowest grade offered', max_length=2, choices=GRADE_CHOICES)
@@ -93,6 +91,7 @@ class Campus(models.Model):
 
     district = models.ForeignKey(District, related_name='campuses')
     county = models.ForeignKey(County, related_name='campuses')
+    objects = models.GeoManager()
 
     class Meta:
         ordering = ['name']
