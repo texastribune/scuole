@@ -50,7 +50,7 @@ class District(models.Model):
     county = models.ForeignKey(
         County, related_name='districts', null=True, blank=True)
     accountability_rating = models.CharField(
-        'Accountability rating', max_length=4, choices=RATING_CHOICES
+        'Accountability rating', max_length=1, choices=RATING_CHOICES
     )
     # CCD - LONCOD, LATCOD
     coordinates = models.PointField('District office coordinates', null=True)
