@@ -17,7 +17,7 @@ class StaffStudentBase(models.Model):
         'Number of students', null=True, blank=True)
     african_american_count = models.IntegerField(
         'Number of African American students', null=True, blank=True)
-    american_indian_count = models.FloatField(
+    american_indian_count = models.IntegerField(
         'Number of American Indian students', null=True, blank=True)
     asian_count = models.IntegerField(
         'Number of Asian students', null=True, blank=True)
