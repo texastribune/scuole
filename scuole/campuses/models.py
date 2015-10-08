@@ -8,6 +8,7 @@ from localflavor.us.models import USStateField, USZipCodeField
 from django.contrib.gis.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+from scuole.core.models import PersonnelBase
 from scuole.counties.models import County
 from scuole.districts.models import District
 from scuole.stats.models import SchoolYear, StatsBase
@@ -126,3 +127,11 @@ class CampusStats(StatsBase):
 
     def __str__(self):
         return '{0} {1}'.format(self.year.name, self.campus.name)
+
+
+@python_2_unicode_compatible
+class Principal(PersonnelBase):
+    campus = models.ForeignKey(Campus, related_name='principals')
+
+    def __str__(self):
+        return '{} at {}'.format(self.name, self.campus.name)
