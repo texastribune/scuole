@@ -1,12 +1,16 @@
 // Colors
-$color-primary: rgb(59, 101, 61);
+$color-primary: rgb(34, 34, 34);
 $color-secondary: lighten($color-primary, 20%);
+
 $color-text: rgb(40, 40, 40);
 $color-text-inverse: rgb(255, 255, 255);
+$color-link: rgb(0, 137, 144);
 
 $color-gray: rgb(194, 194, 194);
 $color-gray-light: rgb(238, 238, 238);
 $color-gray-lightest: rgb(245, 245, 245);
+
+$color-button: rgb(59, 101, 61);
 
 // Spacing
 $gutter: 1.25rem;

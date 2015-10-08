@@ -13,3 +13,15 @@
     @include span(4 of 12 last);
   }
 }
+
+.box-7 {
+  @include mq($from: tablet) {
+    @include span(7 of 12);
+  }
+}
+
+.box-5-last {
+  @include mq($from: tablet) {
+    @include span(5 of 12 last);
+  }
+}

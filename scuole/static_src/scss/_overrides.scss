@@ -27,3 +27,12 @@ main {
 body {
   font-family: $font-sans-serif;
 }
+
+a {
+  color: $color-link;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

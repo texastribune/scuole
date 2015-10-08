@@ -3,10 +3,11 @@
 'use strict';
 
 var map;
+var marker;
 
 function initialize() {
   var mapCanvas = document.getElementById('map');
-  var latlng = new google.maps.LatLng(COORDS[0], COORDS[1]);
+  var latlng = new google.maps.LatLng(COORDS.coordinates[1], COORDS.coordinates[0]);
 
   var mapOptions = {
     center: latlng,
@@ -16,17 +17,11 @@ function initialize() {
 
   map = new google.maps.Map(mapCanvas, mapOptions);
 
-  new google.maps.Marker({
-    position: latlng,
-    map: map
+  marker = new google.maps.Marker({
+    map: map,
+    animation: google.maps.Animation.DROP,
+    position: latlng
   });
-
-  var panorama = new google.maps.StreetViewPanorama(
-      document.getElementById('pano'), {
-        position: latlng,
-      });
-
-  map.setStreetView(panorama);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

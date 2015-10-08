@@ -1,4 +1,4 @@
-{% extends 'standard.html' %}
+{% extends 'standard.html' %}{% load static %}
 
 {% block title %}{{ campus.name }}{% endblock title %}
 
@@ -45,8 +45,14 @@
 {% endfor %}
 {% endcomment %}
 
+<div class="ad-slot ad-slot-banner">
+  <img src="https://placehold.it/728x90">
+</div>
+
 {% endblock content %}
 
 {% block extra_script %}
-<script>COORDS = [{{ campus.latitude }}, {{ campus.longitude }}];</script>
+<script>COORDS = {{ campus.coordinates.geojson|safe }};</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
+<script src="{% static 'scripts/campus.js' %}"></script>
 {% endblock extra_script %}
