@@ -1,0 +1,12 @@
+.card {
+  border: 2px solid $color-gray-light;
+  margin-bottom: $gutter;
+  padding: $gutter-half;
+  width: 100%;
+}
+
+.card-header {
+  @include font-size(16);
+  font-weight: 800;
+  margin-bottom: $gutter-quarter;
+}

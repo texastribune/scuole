@@ -1,0 +1,19 @@
+{% extends 'base.html' %}{% load static %}
+
+{% block header_class %}header header-landing{% endblock header_class %}
+
+{% block header %}
+<div class="container">
+  <a href="http://www.texastribune.org/"><img class="tribune-logo" src="{% static 'images/logos/tribune-white.svg' %}" alt="The Texas Tribune"></a>
+</div>
+{% endblock header %}
+
+{% block content %}
+<article class="landing-content">
+  <h1 class="landing-header">Texas Public Schools</h1>
+
+  <section class="landing-prose">
+    {% lorem 1 p %}
+  </section>
+</article>
+{% endblock content %}

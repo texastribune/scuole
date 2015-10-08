@@ -1,20 +1,46 @@
-{% extends 'base.html' %}
+{% extends 'standard.html' %}{% load static %}
 
 {% block title %}{{ district.name }}{% endblock title %}
 
 {% block breadcrumbs %}
-<section class="breadcrumbs">
-  <a class="breadcrumbs__item" href="{% url 'index' %}">Home</a> » <a class="breadcrumbs__item" href="{% url 'districts:list' %}">School Districts</a>
-</section>
+<nav class="breadcrumbs">
+  <a class="breadcrumbs__item" href="{% url 'landing' %}">Home</a> » <a class="breadcrumbs__item" href="{% url 'districts:list' %}">School Districts</a>
+</nav>
 {% endblock breadcrumbs %}
 
 {% block content %}
-<div>{{ district.name }}</div>
+<div>
+<div class="box-7">
+<header class="page-header">
+  <h1 class="page-headline">{{ district.name }}</h1>
+  <p class="page-subtext">{{ district.city|title }}, {{ district.state }}</p>
+</header>
+
+<div class="page-prose">
+  {% lorem 1 p %}
+</div>
+</div>
+
+<div class="box-5-last">
+  <div class="map map-district" id="district-map"></div>
+
+  {% if district.nearby_districts %}
+  <div class="card">
+    <h3 class="card-header">Nearby Districts</h3>
+    <ul>
+      {% for district in district.nearby_districts %}
+        <li><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+</div>
 
 <ul>
 {% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
 {% for campus in campus_list %}
-  <li>{{ campus.grouper }}</li>
+  <li>{{ campus.grouper }}s</li>
   <ul>
     {% for school in campus.list %}
     <li><a href="{{ school.get_absolute_url }}">{{ school.name }}</a></li>
@@ -23,11 +49,24 @@
 {% endfor %}
 </ul>
 
+{% comment %}
 {% for stat in district.stats.all %}
   <section class="card">
     <h3>{{ stat.year.name }}</h3>
     <p>No. of Students: {{ stat.all_students_count }}</p>
   </section>
 {% endfor %}
+{% endcomment %}
+
+<div class="ad-slot ad-slot-banner">
+  <img src="https://placehold.it/728x90">
+</div>
 
 {% endblock content %}
+
+{% block extra_script %}
+<script>COORDS = {{ district.campus_geojson|safe }};</script>
+<script>SHAPE = {"type": "Feature", "geometry": {{ district.shape.geojson|safe|default:'null' }}};</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
+<script src="{% static 'scripts/district.js' %}"></script>
+{% endblock extra_script %}

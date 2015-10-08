@@ -1,5 +1,4 @@
 .breadcrumbs {
-  &__item {
-    @include font-size(14);
-  }
+  @include font-size(12);
+  margin-bottom: $gutter;
 }

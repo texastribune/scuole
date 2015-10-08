@@ -5,7 +5,8 @@ import string
 
 from localflavor.us.models import USStateField, USZipCodeField
 
-from django.db import models
+from django.contrib.gis.db import models
+from django.core.serializers import serialize
 from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.counties.models import County
@@ -29,14 +30,15 @@ class District(models.Model):
         'District office abbreviated state location', max_length=2)
     # CCD - LZIP-LZIP4
     zip_code = USZipCodeField('District ZIP Code')
-    # CCD - LATCOD
-    latitude = models.FloatField('District office latitude')
-    # CCD - LONCOD
-    longitude = models.FloatField('District office longitude')
     region = models.ForeignKey(
         Region, related_name='districts', null=True, blank=True)
     county = models.ForeignKey(
         County, related_name='districts', null=True, blank=True)
+    # CCD - LONCOD, LATCOD
+    coordinates = models.PointField('District office coordinates', null=True)
+    shape = models.MultiPolygonField('District shape', srid=4326, null=True)
+
+    objects = models.GeoManager()
 
     class Meta:
         ordering = ['name']
@@ -56,6 +58,18 @@ class District(models.Model):
         return '{city}, {state}'.format(
             city=string.capwords(self.city),
             state=self.state)
+
+    @property
+    def campus_geojson(self):
+        return serialize(
+            'geojson', self.campuses.all(), fields=('name', 'coordinates'))
+
+    @property
+    def nearby_districts(self):
+        if self.shape:
+            return District.objects.filter(shape__touches=self.shape)
+
+        return None
 
 
 @python_2_unicode_compatible

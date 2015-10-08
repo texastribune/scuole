@@ -1,15 +1,19 @@
-{% extends 'base.html' %}
+{% extends 'standard.html' %}
 
 {% block title %}School Districts{% endblock title %}
 
 {% block breadcrumbs %}
 <section class="breadcrumbs">
-  <a class="breadcrumbs__item" href="{% url 'index' %}">Home</a>
+  <a class="breadcrumbs__item" href="{% url 'landing' %}">Home</a>
 </section>
 {% endblock breadcrumbs %}
 
 {% block content %}
-<table class="table table--striped">
+{{ block.super }}
+
+<h1 class="page-header">All Districts</h1>
+
+<table class="table table-striped">
   <thead>
     <tr>
       <th>District</th>

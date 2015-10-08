@@ -1,17 +1,5 @@
-// font-size
-// An easy way to set both an IE `rem` fallback and think in pixels at the
-// same time.
-
-$font-size-base: 16 !default;
-
-@mixin font-size($size) {
-  font-size: $size + px;
-  font-size: $size / $font-size-base + rem;
-}
-
 // clearfix
 // source: http://cssmojo.com/latest_new_clearfix_so_far/
-
 @mixin clearfix {
   &:after {
     clear: both;
@@ -20,10 +8,29 @@ $font-size-base: 16 !default;
   }
 }
 
-// Calcuates the height of the Tribune logo properly due to the tail
+// create-container
+// Generate container using variables
+@mixin create-container() {
+  @include clearfix();
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 62.5rem;
+  padding-left: ($gutter-half);
+  padding-right: ($gutter-half);
+}
 
+// site-logo-height
+// Calcuates the height of the Tribune logo properly due to the tail
 @mixin site-logo-height($height) {
   height: $height + px;
   margin-bottom: -$height * .12 + px;
   vertical-align: bottom;
+}
+
+// font-size
+// An easy way to set both an IE `rem` fallback and think in pixels at the
+// same time.
+@mixin font-size($size: $font-size-base) {
+  font-size: $size + px;
+  font-size: $size / $font-size-base + rem;
 }
