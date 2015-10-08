@@ -20,6 +20,7 @@ class District(models.Model):
     slug = models.SlugField(max_length=75)
     # TEA - STID
     tea_id = models.CharField('TEA district identifier', max_length=6)
+    phone = models.CharField('District phone number', max_length=10)
     # CCD - LSTREE
     street = models.CharField('District street', max_length=200)
     # CCD - LCITY

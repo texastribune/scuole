@@ -112,6 +112,7 @@ class Command(BaseCommand):
             name=name,
             slug=slugify(name),
             tea_id=district['DISTRICT'],
+            phone=ccd_match['PHONE'],
             street=ccd_match['LSTREE'],
             city=ccd_match['LCITY'],
             state=ccd_match['LSTATE'],
