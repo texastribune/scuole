@@ -94,6 +94,11 @@ class Command(BaseCommand):
         name = remove_charter_c(fast_match['District Name'])
         self.stdout.write('Creating {}...'.format(name))
         county = County.objects.get(fips=ccd_match['CONUM'][-3:])
+        # sets charter to True or False rather than 'Y' or 'N'
+        if district['DFLCHART'] == 'Y':
+            charter=True
+        else:
+            charter=False
         region = Region.objects.get(region_id=district['REGION'])
         coordinates = Point(
             float(ccd_match['LONCOD']), float(ccd_match['LATCOD']))
@@ -101,7 +106,7 @@ class Command(BaseCommand):
             geometry = GEOSGeometry(
                 json.dumps(shape_match[district['DISTRICT']]))
 
-            # checks to see if the geometry is a multipolygon
+            # checks to see if the geometry is a multipolygon vs. a polygon
             if geometry.geom_typeid == 3:
                 geometry = MultiPolygon(geometry)
         else:
@@ -120,7 +125,7 @@ class Command(BaseCommand):
                 LZIP4=ccd_match['LZIP4']),
             region=region,
             county=county,
-            charter=district['DFLCHART'],
+            charter=charter,
             coordinates=coordinates,
             shape=geometry,
         )

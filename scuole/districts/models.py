@@ -15,13 +15,6 @@ from scuole.stats.models import SchoolYear, StatsBase
 
 @python_2_unicode_compatible
 class District(models.Model):
-    CHARTER = 'Y'
-    NON_CHARTER = 'N'
-
-    CHARTER_CHOICES = (
-        (CHARTER, True),
-        (NON_CHARTER, False),
-    )
     # CCD - NAME
     name = models.CharField('District name', max_length=200)
     slug = models.SlugField(max_length=75)
@@ -40,8 +33,7 @@ class District(models.Model):
         Region, related_name='districts', null=True, blank=True)
     county = models.ForeignKey(
         County, related_name='districts', null=True, blank=True)
-    charter = models.BooleanField('District charter operator',
-        choices=CHARTER_CHOICES)
+    charter = models.BooleanField('District charter operator')
     # CCD - LONCOD, LATCOD
     coordinates = models.PointField('District office coordinates', null=True)
     shape = models.MultiPolygonField('District shape', srid=4326, null=True)
