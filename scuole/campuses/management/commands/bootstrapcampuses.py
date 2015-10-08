@@ -109,6 +109,7 @@ class Command(BaseCommand):
             low_grade=low_grade,
             high_grade=high_grade,
             school_type=campus['GRDTYPE'],
+            charter=campus['CFLCHART'],
             district=district,
             county=county,
         )

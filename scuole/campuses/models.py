@@ -61,6 +61,14 @@ class Campus(models.Model):
         (ELEMENTARY_SECONDARY_SCHOOL, 'Elementary/secondary school'),
     )
 
+    CHARTER = 'Y'
+    NON_CHARTER = 'N'
+
+    CHARTER_CHOICES = (
+        (CHARTER, True),
+        (NON_CHARTER, False),
+    )
+
     # CCD - SCHNAM
     name = models.CharField('Campus name', max_length=200)
     slug = models.SlugField(max_length=150)
@@ -89,6 +97,8 @@ class Campus(models.Model):
     school_type = models.CharField(
         'School type', max_length=1, choices=SCHOOL_TYPE_CHOICES)
 
+    charter = models.BooleanField('Campus charter status',
+        choices=CHARTER_CHOICES)
     district = models.ForeignKey(District, related_name='campuses')
     county = models.ForeignKey(County, related_name='campuses')
     objects = models.GeoManager()

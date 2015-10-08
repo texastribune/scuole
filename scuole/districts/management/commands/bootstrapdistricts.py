@@ -120,6 +120,7 @@ class Command(BaseCommand):
                 LZIP4=ccd_match['LZIP4']),
             region=region,
             county=county,
+            charter=district['DFLCHART'],
             coordinates=coordinates,
             shape=geometry,
         )
