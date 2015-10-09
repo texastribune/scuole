@@ -24,16 +24,22 @@
 <div class="box-5-last">
   <div class="map map-district" id="district-map"></div>
 
-  {% if district.nearby_districts %}
+  {% with nearby_districts=district.nearby_districts %}
+  {% if nearby_districts %}
   <div class="card">
     <h3 class="card-header">Nearby Districts</h3>
     <ul>
-      {% for district in district.nearby_districts %}
+      {% for district in nearby_districts %}
         <li><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></li>
       {% endfor %}
     </ul>
+    {% if district.superintendent_of %}
+    <h3 class="card-header">{{ district.superintendent_of.role }}</h3>
+    {{ district.superintendent_of.name }}
+    {% endif %}
   </div>
   {% endif %}
+  {% endwith %}
 </div>
 </div>
 

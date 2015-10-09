@@ -21,8 +21,8 @@ class PersonnelBase(models.Model):
 
     email = models.EmailField('Email of personnel')
     phone_number = PhoneNumberField('Phone number of personnel')
-    phone_number_extension = models.IntegerField(
-        'Phone number extension', null=True, blank=True)
+    phone_number_extension = models.CharField(
+        'Phone number extension', max_length=4, blank=True, default='')
     fax_number = PhoneNumberField('Fax number of personnel')
 
     class Meta:

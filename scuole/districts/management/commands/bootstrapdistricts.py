@@ -4,6 +4,9 @@ from __future__ import absolute_import, unicode_literals
 import csv
 import json
 import os
+import string
+
+from slugify import slugify
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -13,9 +16,7 @@ from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
 from scuole.regions.models import Region
 
-from ...models import District
-
-from slugify import slugify
+from ...models import District, Superintendent
 
 
 class Command(BaseCommand):
@@ -38,6 +39,13 @@ class Command(BaseCommand):
 
         self.shape_data = self.load_geojson_file(district_json)
 
+        superintendent_csv = os.path.join(
+            settings.DATA_FOLDER,
+            'askted', 'district', 'superintendents.csv')
+
+        self.superintendent_data = self.load_superintendent_file(
+            superintendent_csv)
+
         tea_file = os.path.join(
             settings.DATA_FOLDER,
             'tapr', 'reference', 'district', 'reference.csv')
@@ -45,12 +53,8 @@ class Command(BaseCommand):
         with open(tea_file, 'r') as f:
             reader = csv.DictReader(f)
 
-            districts = []
-
             for row in reader:
-                districts.append(self.create_district(row))
-
-            District.objects.bulk_create(districts)
+                self.create_district(row)
 
     def load_ccd_file(self, file):
         payload = {}
@@ -86,6 +90,18 @@ class Command(BaseCommand):
 
         return payload
 
+    def load_superintendent_file(self, file):
+        payload = {}
+
+        with open(file, 'r') as f:
+            reader = csv.DictReader(f)
+
+            for row in reader:
+                tea_id = row['District Number'].replace("'", "")
+                payload[tea_id] = row
+
+        return payload
+
     def create_district(self, district):
         ccd_match = self.ccd_data[district['DISTRICT']]
         fast_match = self.fast_data[str(int(district['DISTRICT']))]
@@ -108,18 +124,51 @@ class Command(BaseCommand):
             self.stderr.write('No shape data for {}'.format(name))
             geometry = None
 
-        return District(
-            name=name,
-            slug=slugify(name),
+        instance, _ = District.objects.update_or_create(
             tea_id=district['DISTRICT'],
-            street=ccd_match['LSTREE'],
-            city=ccd_match['LCITY'],
-            state=ccd_match['LSTATE'],
-            zip_code='{LZIP}-{LZIP4}'.format(
-                LZIP=ccd_match['LZIP'],
-                LZIP4=ccd_match['LZIP4']),
-            region=region,
-            county=county,
-            coordinates=coordinates,
-            shape=geometry,
+            defaults={
+                'name': name,
+                'slug': slugify(name),
+                'street': ccd_match['LSTREE'],
+                'city': ccd_match['LCITY'],
+                'state': ccd_match['LSTATE'],
+                'zip_code': '{LZIP}-{LZIP4}'.format(
+                    LZIP=ccd_match['LZIP'],
+                    LZIP4=ccd_match['LZIP4']),
+                'region': region,
+                'county': county,
+                'coordinates': coordinates,
+                'shape': geometry,
+            }
+        )
+
+        if district['DISTRICT'] in self.superintendent_data:
+            superintendent = self.superintendent_data[
+                district['DISTRICT']]
+            self.load_superintendent(instance, superintendent)
+        else:
+            self.stderr.write('No superintendent data for {}'.format(name))
+
+    def load_superintendent(self, district, superintendent):
+        name = '{} {}'.format(
+            superintendent['First Name'], superintendent['Last Name'])
+        name = string.capwords(name)
+        phone_number = superintendent['Phone']
+
+        if 'ext' in phone_number:
+            phone_number, phone_number_extension = phone_number.split(' ext:')
+            phone_number_extension = str(phone_number_extension)
+        else:
+            phone_number_extension = ''
+
+        Superintendent.objects.update_or_create(
+            name=name,
+            district=district,
+            defaults={
+                'role': string.capwords(superintendent['Role']),
+                'email': superintendent['Email Address'],
+                'phone_number': phone_number,
+                'phone_number_extension': phone_number_extension,
+                'fax_number': superintendent['Fax']
+            }
         )

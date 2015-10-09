@@ -15,13 +15,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Principal',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
-                ('name', models.CharField(verbose_name='Name of personnel', max_length=254)),
-                ('role', models.CharField(verbose_name='Role of personnel', max_length=100)),
-                ('email', models.EmailField(verbose_name='Email of personnel', max_length=254)),
-                ('phone_number', localflavor.us.models.PhoneNumberField(verbose_name='Phone number of personnel', max_length=20)),
-                ('phone_number_extension', models.IntegerField(blank=True, verbose_name='Phone number extension', null=True)),
-                ('fax_number', localflavor.us.models.PhoneNumberField(verbose_name='Fax number of personnel', max_length=20)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=254, verbose_name='Name of personnel')),
+                ('role', models.CharField(max_length=100, verbose_name='Role of personnel')),
+                ('email', models.EmailField(max_length=254, verbose_name='Email of personnel')),
+                ('phone_number', localflavor.us.models.PhoneNumberField(max_length=20, verbose_name='Phone number of personnel')),
+                ('phone_number_extension', models.CharField(default='', max_length=4, blank=True, verbose_name='Phone number extension')),
+                ('fax_number', localflavor.us.models.PhoneNumberField(max_length=20, verbose_name='Fax number of personnel')),
                 ('campus', models.ForeignKey(to='campuses.Campus', related_name='principals')),
             ],
             options={
