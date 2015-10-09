@@ -24,6 +24,8 @@ class PersonnelBase(models.Model):
     phone_number_extension = models.CharField(
         'Phone number extension', max_length=4, blank=True, default='')
     fax_number = PhoneNumberField('Fax number of personnel')
+    fax_number_extension = models.CharField(
+        'Fax number extension', max_length=4, blank=True, default='')
 
     class Meta:
         abstract = True

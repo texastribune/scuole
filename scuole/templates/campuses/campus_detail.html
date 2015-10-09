@@ -33,6 +33,12 @@
     </address>
     <h3 class="card-header">Phone number</h3>
     {{ campus.phone }}
+    {% if campus.principals.all %}
+    <h3 class="card-header">Principal{{ campus.principals.all|pluralize }}</h3>
+    {% for principal in campus.principals.all %}
+      {{ principal.name }}
+    {% endfor %}
+    {% endif %}
   </div>
 </div>
 

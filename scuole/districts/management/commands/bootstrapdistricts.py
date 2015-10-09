@@ -154,12 +154,19 @@ class Command(BaseCommand):
             superintendent['First Name'], superintendent['Last Name'])
         name = string.capwords(name)
         phone_number = superintendent['Phone']
+        fax_number = superintendent['Fax']
 
         if 'ext' in phone_number:
             phone_number, phone_number_extension = phone_number.split(' ext:')
             phone_number_extension = str(phone_number_extension)
         else:
             phone_number_extension = ''
+
+        if 'ext' in fax_number:
+            fax_number, fax_number_extension = fax_number.split(' ext:')
+            fax_number_extension = str(phone_number_extension)
+        else:
+            fax_number_extension = ''
 
         Superintendent.objects.update_or_create(
             name=name,
@@ -169,6 +176,7 @@ class Command(BaseCommand):
                 'email': superintendent['Email Address'],
                 'phone_number': phone_number,
                 'phone_number_extension': phone_number_extension,
-                'fax_number': superintendent['Fax']
+                'fax_number': fax_number,
+                'fax_number_extension': fax_number_extension,
             }
         )
