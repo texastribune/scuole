@@ -4,8 +4,6 @@ from __future__ import absolute_import, unicode_literals
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView
 
-from scuole.districts.models import District
-
 from .models import Campus
 
 
