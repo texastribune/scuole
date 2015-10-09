@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.views.generic import DetailView, ListView
 
-from .models import District, DistrictStats
+from .models import District
 
 
 class DistrictListView(ListView):
