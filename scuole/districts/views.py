@@ -7,7 +7,7 @@ from .models import District
 
 
 class DistrictListView(ListView):
-    queryset = District.objects.all().select_related('county__name')
+    queryset = District.objects.all().defer('shape')
 
 
 class DistrictDetailView(DetailView):
