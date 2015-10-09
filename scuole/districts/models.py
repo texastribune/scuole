@@ -88,7 +88,7 @@ class DistrictStats(StatsBase):
 
 @python_2_unicode_compatible
 class Superintendent(PersonnelBase):
-    district = models.ForeignKey(District, related_name='superintendent_of')
+    district = models.OneToOneField(District, related_name='superintendent_of')
 
     def __str__(self):
         return '{} at {}'.format(self.name, self.district.name)
