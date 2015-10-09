@@ -12,5 +12,5 @@ from .models import Campus
 class CampusDetailView(DetailView):
     def get_object(self):
         return get_object_or_404(
-            Campus,
+            Campus.objects.prefetch_related('principals'),
             slug=self.kwargs['slug'], district__pk=self.kwargs['district_id'])

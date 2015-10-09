@@ -9,6 +9,7 @@ from django.contrib.gis.db import models
 from django.core.serializers import serialize
 from django.utils.encoding import python_2_unicode_compatible
 
+from scuole.core.models import PersonnelBase
 from scuole.counties.models import County
 from scuole.regions.models import Region
 from scuole.stats.models import SchoolYear, StatsBase
@@ -83,3 +84,11 @@ class DistrictStats(StatsBase):
 
     def __str__(self):
         return '{0} {1}'.format(self.year.name, self.district.name)
+
+
+@python_2_unicode_compatible
+class Superintendent(PersonnelBase):
+    district = models.OneToOneField(District, related_name='superintendent_of')
+
+    def __str__(self):
+        return '{} at {}'.format(self.name, self.district.name)
