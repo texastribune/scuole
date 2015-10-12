@@ -1,16 +1,18 @@
 .page-header {
-  margin-bottom: $gutter;
+  margin-bottom: $gutter-double;
 }
 
 .page-headline {
   @include font-size(28);
-  font-family: $font-livory;
+  font-family: $font-soleil;
   margin-bottom: $gutter-half;
 }
 
 .page-subtext {
   @include font-size(16);
-  font-family: $font-livory;
+  color: $color-text-accent;
+  font-family: $font-soleil;
+  font-weight: 300;
   margin-bottom: $gutter-quarter;
 
   &:last-child {
@@ -20,14 +22,14 @@
 
 .page-sub-header {
   @include font-size(20);
-  font-family: $font-livory;
+  font-family: $font-soleil;
   margin-bottom: $gutter-half;
 }
 
 .page-prose {
   > p {
     @include font-size(16);
-    font-family: $font-sans-serif;
+    font-family: $font-soleil;
     line-height: 1.5;
     margin-bottom: $gutter-half;
   }

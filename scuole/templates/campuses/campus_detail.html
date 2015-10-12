@@ -1,4 +1,4 @@
-{% extends 'standard.html' %}{% load static %}
+{% extends 'standard.html' %}{% load humanize static %}
 
 {% block title %}{{ campus.name }}{% endblock title %}
 
@@ -19,25 +19,27 @@
 </header>
 
 <div class="page-prose">
-  <p>{{ campus.name }} is a {{ campus.get_school_type_display }} in the {{ campus.district.name }} district. There were {{ campus.stats.first.all_students_count }} students during the {{ campus.stats.first.year }} school year.</p>
+  <p>{{ campus.name }} is a {{ campus.get_school_type_display|lower }} in the {{ campus.district.name }} district. There were {{ campus.stats.first.all_students_count|intcomma }} student{{ campus.stats.first.all_students_count|pluralize }} during the {{ campus.stats.first.year }} school year.</p>
 </div>
 </div>
 
 <div class="box-4">
   <div class="map" id="map"></div>
   <div class="card">
-    <h3 class="card-header">Address</h3>
-    <address>
+    <h3 class="card-title">Address</h3>
+    <address class="card-address">
       {{ campus.street|title }}<br>
       {{ campus.location }} {{ campus.zip_code }}
     </address>
-    <h3 class="card-header">Phone number</h3>
-    {{ campus.phone }}
+    <h3 class="card-title">Phone number</h3>
+    <p class="card-text">{{ campus.phone }}</p>
     {% if campus.principals.all %}
-    <h3 class="card-header">Principal{{ campus.principals.all|pluralize }}</h3>
+    <h3 class="card-title">Principal{{ campus.principals.all|pluralize }}</h3>
+    <ul class="card-list">
     {% for principal in campus.principals.all %}
-      {{ principal.name }}
+      <li class="card-list-item">{{ principal.name }}</li>
     {% endfor %}
+    </ul>
     {% endif %}
   </div>
 </div>

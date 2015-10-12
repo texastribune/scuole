@@ -19,6 +19,18 @@
 <div class="page-prose">
   {% lorem 1 p %}
 </div>
+
+<div class="card">
+{% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
+{% for campus in campus_list %}
+  <h3 class="card-title">{{ campus.grouper }}s</h3>
+  <ul class="card-list">
+    {% for school in campus.list %}
+    <li class="card-list-item"><a href="{{ school.get_absolute_url }}">{{ school.name }}</a></li>
+    {% endfor %}
+  </ul>
+{% endfor %}
+</div>
 </div>
 
 <div class="box-5-last">
@@ -27,14 +39,14 @@
   {% with nearby_districts=district.nearby_districts %}
   {% if nearby_districts %}
   <div class="card">
-    <h3 class="card-header">Nearby Districts</h3>
-    <ul>
+    <h3 class="card-title">Nearby Districts</h3>
+    <ul class="card-list">
       {% for district in nearby_districts %}
-        <li><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></li>
+        <li class="card-list-item"><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></li>
       {% endfor %}
     </ul>
     {% if district.superintendent_of %}
-    <h3 class="card-header">{{ district.superintendent_of.role }}</h3>
+    <h3 class="card-title">{{ district.superintendent_of.role }}</h3>
     {{ district.superintendent_of.name }}
     {% endif %}
   </div>
@@ -44,15 +56,7 @@
 </div>
 
 <ul>
-{% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
-{% for campus in campus_list %}
-  <li>{{ campus.grouper }}s</li>
-  <ul>
-    {% for school in campus.list %}
-    <li><a href="{{ school.get_absolute_url }}">{{ school.name }}</a></li>
-    {% endfor %}
-  </ul>
-{% endfor %}
+
 </ul>
 
 {% comment %}

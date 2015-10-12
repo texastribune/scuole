@@ -3,8 +3,8 @@
   border: .0625rem solid transparent;
   cursor: pointer;
   display: inline-block;
-  font-family: $font-sans-serif;
-  font-weight: 700;
+  font-family: $font-soleil;
+  font-weight: 300;
   line-height: 1.5;
   margin: 0;
   padding: .375rem 1rem;
@@ -13,13 +13,13 @@
   white-space: nowrap;
 
   &-primary {
-    background-color: $color-primary;
-    border-color: $color-primary;
+    background-color: $color-button;
+    border-color: $color-button;
     color: $color-text-inverse;
 
     &:hover {
-      background-color: darken($color-primary, 10%);
-      border-color: darken($color-primary, 10%);
+      background-color: darken($color-button, 5%);
+      border-color: darken($color-button, 5%);
     }
   }
 }

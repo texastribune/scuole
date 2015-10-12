@@ -12,6 +12,15 @@
 <article class="landing-content">
   <h1 class="landing-header">Texas Public Schools</h1>
 
+  <section class="search-bar">
+    <div class="container">
+      <form class="search-form" action="{% url 'search' %}" method="GET">
+        <input class="search-form-input" type="text" name="q" placeholder="E.g. Austin ISD, Travis High School">
+        <button class="search-form-submit btn btn-primary" type="submit">Search</button>
+      </form>
+    </div>
+  </section>
+
   <section class="landing-prose">
     {% lorem 1 p %}
   </section>

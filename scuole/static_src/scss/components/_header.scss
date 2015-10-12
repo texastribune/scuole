@@ -14,11 +14,11 @@
 }
 
 .header-title {
-  @include font-size(18);
+  @include font-size(16);
   color: $color-text-inverse;
   display: inline-block;
   float: right;
-  font-family: $font-livory;
+  font-family: $font-soleil;
   text-decoration: none;
 
   @include mq($until: tablet) {
