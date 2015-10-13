@@ -6,12 +6,12 @@
 <div class="container">
   <div class="header-logo">
     <a href="http://www.texastribune.org/">
-      <img class="tribune-logo tribune-logo-desktop" src="{% static 'images/logos/tribune-white.svg' %}" alt="The Texas Tribune">
-      <img class="tribune-logo tribune-logo-mobile" src="{% static 'images/logos/tribune-white-small.svg' %}" alt="The Texas Tribune">
+      <img class="tribune-logo tribune-logo-desktop" src="{% static 'images/logos/tribune-white.svg' %}" alt="{% trans "The Texas Tribune" %}">
+      <img class="tribune-logo tribune-logo-mobile" src="{% static 'images/logos/tribune-white-small.svg' %}" alt="{% trans "The Texas Tribune" %}">
     </a>
   </div>
 
-  <a class="header-title" href="{% url 'landing' %}">Texas Public Schools</a>
+  <a class="header-title" href="{% url 'landing' %}">{% trans "Texas Public Schools" %}</a>
 </div>
 {% endblock header %}
 
@@ -19,8 +19,8 @@
 <section class="search-bar">
   <div class="container">
     <form class="search-form" action="{% url 'search' %}" method="GET">
-      <input class="search-form-input" type="text" name="q" placeholder="E.g. Austin ISD, Travis High School">
-      <button class="search-form-submit btn btn-primary" type="submit">Search</button>
+      <input class="search-form-input" type="text" name="q" placeholder="{% trans "E.g. Austin ISD, Travis High School" %}">
+      <button class="search-form-submit btn btn-primary" type="submit">{% trans "Search" %}</button>
     </form>
   </div>
 </section>

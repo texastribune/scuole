@@ -1,10 +1,11 @@
+{% load i18n %}
 <!doctype html>{% load static %}
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Home{% endblock title %} | Texas Public Schools | The Texas Tribune</title>
+  <title>{% block title %}{% trans "Home" %}{% endblock title %} | {% trans "Texas Public Schools" %} | {% trans "The Texas Tribune" %}</title>
   <script src="https://use.typekit.net/gbr6cnk.js"></script>
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
   <link rel="stylesheet" href="{% static 'styles/main.css' %}">
