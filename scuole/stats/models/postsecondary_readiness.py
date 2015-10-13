@@ -418,10 +418,6 @@ class PostSecondaryReadinessBase(models.Model):
         'Percent of economically disadvantaged students who graduated in 4 years',
         null=True, blank=True)
 
-
-
-
-
     attendance_rate = models.FloatField(
         'Attendance rate as calculated by '
         'students present over students in membership',
