@@ -1,0 +1,47 @@
+.container {
+  @include create-container();
+}
+
+.row {
+  @include create-row();
+}
+
+.col-8 {
+  @include create-column(12);
+
+  @include mq($from: tablet) {
+    @include create-column(8);
+  }
+}
+
+.col-3 {
+  @include create-column(12);
+
+  @include mq($from: tablet) {
+    @include create-column(3);
+  }
+}
+
+.col-4 {
+  @include create-column(12);
+
+  @include mq($from: tablet) {
+    @include create-column(4);
+  }
+}
+
+.col-7 {
+  @include create-column(12);
+
+  @include mq($from: tablet) {
+    @include create-column(7);
+  }
+}
+
+.col-5 {
+  @include create-column(12);
+
+  @include mq($from: tablet) {
+    @include create-column(5);
+  }
+}

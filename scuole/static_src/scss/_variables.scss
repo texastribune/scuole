@@ -1,0 +1,50 @@
+// Colors
+$color-primary: rgb(34, 34, 34);
+$color-secondary: lighten($color-primary, 20%);
+
+$color-text: rgb(40, 40, 40);
+$color-text-accent: lighten($color-text, 25%);
+$color-text-inverse: rgb(255, 255, 255);
+$color-link: rgb(9, 135, 172);
+
+$color-gray: rgb(194, 194, 194);
+$color-gray-light: rgb(238, 238, 238);
+$color-gray-lightest: rgb(245, 245, 245);
+
+$color-button: rgb(9, 182, 174);
+
+// Spacing
+$gutter: 1.25rem;
+
+$gutter-double: $gutter * 2;
+
+$gutter-half: $gutter / 2;
+$gutter-quarter: $gutter / 4;
+
+// Grid
+
+$grid-columns: 12;
+
+// Typography
+$font-size-base: 16;
+
+$font-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-serif: Georgia, 'Times New Roman', Times, serif;
+$font-livory: 'livory', $font-serif;
+$font-soleil: 'soleil', $font-sans-serif;
+
+// sass-mq
+$mq-responsive: true;
+
+$mq-breakpoints: (
+  tablet:  740px
+);
+
+$mq-media-type: screen;
+
+// susy
+$susy: (
+  columns: 12,
+  global-box-sizing: border-box,
+  gutters: .25
+);

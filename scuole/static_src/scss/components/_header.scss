@@ -1,20 +1,32 @@
 .header {
+  background-color: $color-primary;
+  padding-bottom: $gutter-half;
+  padding-top: $gutter-half;
+}
+
+.header-landing {
+  padding-bottom: $gutter-double;
   text-align: center;
+}
 
-  &__logo {
-    padding: .625rem;
+.header-logo {
+  float: left;
+}
+
+.header-title {
+  @include font-size(16);
+  color: $color-text-inverse;
+  display: inline-block;
+  float: right;
+  font-family: $font-soleil;
+  text-decoration: none;
+
+  @include mq($until: tablet) {
+    padding-bottom: .25rem;
+    padding-top: .25rem;
   }
 
-  &__title {
-    @include font-size(28);
-    background-color: darken($color-secondary, 35%);
-    font-family: Georgia, serif;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-  }
-
-  &__link {
-    color: $color-white;
-    text-decoration: none;
+  &:hover {
+    text-decoration: underline;
   }
 }

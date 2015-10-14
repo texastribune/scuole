@@ -6,6 +6,8 @@ var $ = require('gulp-load-plugins')();
 var autoprefixer = require('autoprefixer');
 var bs = require('browser-sync').create();
 
+var reload = bs.reload;
+
 
 gulp.task('styles', function() {
   return gulp.src('./scuole/static_src/scss/*.scss')
@@ -37,15 +39,23 @@ gulp.task('images', function() {
     .pipe($.size({title: 'images'}));
 });
 
-gulp.task('serve', ['styles', 'images'], function() {
+gulp.task('scripts', function() {
+  return gulp.src('./scuole/static_src/scripts/**/*')
+    .pipe(gulp.dest('./scuole/static/scripts'))
+    .pipe($.size({title: 'scripts'}));
+});
+
+gulp.task('serve', ['styles', 'images', 'scripts'], function() {
   bs.init({
     logConnections: true,
     logPrefix: 'SCHOOLS',
     notify: false,
     open: false,
     proxy: 'localhost:8000',
-    tunnel: true
+    tunnel: true,
+    xip: true
   });
 
   gulp.watch('./scuole/static_src/scss/**/*.scss', ['styles']);
+  gulp.watch('./scuole/static_src/scripts/**/*.js', ['scripts', reload]);
 });

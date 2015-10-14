@@ -27,7 +27,7 @@ from scuole.core.views import SearchView
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(
-        template_name='pages/landing.html'), name='index'),
+        template_name='landing.html'), name='landing'),
     url(r'^districts/', include(
         'scuole.districts.urls', namespace='districts')),
     url(r'^search/', SearchView.as_view(), name='search'),

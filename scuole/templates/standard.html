@@ -1,0 +1,29 @@
+{% extends 'base.html' %}{% load i18n static %}
+
+{% block header_class %}header header-standard{% endblock header_class %}
+
+{% block header %}
+<div class="container">
+  <div class="header-logo">
+    <a href="http://www.texastribune.org/">
+      <img class="tribune-logo tribune-logo-desktop" src="{% static 'images/logos/tribune-white.svg' %}" alt="{% trans "The Texas Tribune" %}">
+      <img class="tribune-logo tribune-logo-mobile" src="{% static 'images/logos/tribune-white-small.svg' %}" alt="{% trans "The Texas Tribune" %}">
+    </a>
+  </div>
+
+  <a class="header-title" href="{% url 'landing' %}">{% trans "Texas Public Schools" %}</a>
+</div>
+{% endblock header %}
+
+{% block search %}
+<section class="search-bar">
+  <div class="container">
+    <form class="search-form" action="{% url 'search' %}" method="GET">
+      <input class="search-form-input" type="text" name="q" placeholder="{% trans "E.g. Austin ISD, Travis High School" %}">
+      <button class="search-form-submit btn btn-primary" type="submit">{% trans "Search" %}</button>
+    </form>
+  </div>
+</section>
+{% endblock search %}
+
+{% block main_class %}container{% endblock main_class %}

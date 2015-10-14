@@ -1,0 +1,29 @@
+.landing-content {
+  background-color: $color-primary;
+  color: $color-text-inverse;
+}
+
+.landing-header {
+  @include font-size(48);
+  font-family: $font-soleil;
+  padding-bottom: $gutter;
+  text-align: center;
+}
+
+.landing-prose {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 37.5rem;
+  padding-bottom: $gutter-double;
+
+  > p {
+    @include font-size(18);
+    letter-spacing: .03em;
+    line-height: 1.5;
+    margin-bottom: $gutter-half;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

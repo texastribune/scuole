@@ -1,18 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'standard.html' %}{% load i18n %}
 
 {% block title %}Search{% endblock title %}
 
+{% block breadcrumbs %}
+<section class="breadcrumbs">
+  <a class="breadcrumbs__item" href="{% url 'landing' %}">Home</a>
+</section>
+{% endblock breadcrumbs %}
+
 {% block content %}
 
-<h1>Searching for: {{ request.GET.q }}</h1><br>
+<h1 class="page-header">{% trans "Searching for: " %}{{ request.GET.q }}</h1><br>
 
 {% if matching_districts %}
-<h2>Districts</h2>
-<table class="table table--striped">
+<h2 class="page-sub-header">Districts</h2>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>District</th>
-      <th class="table__cell--numeric">No. of Campuses</th>
+      <th class="table__cell--numeric">{% trans "No. of Campuses" %}</th>
   </thead>
   <tbody>
   {% for district in matching_districts %}
@@ -27,12 +33,12 @@
 {% endif %}
 
 {% if matching_campuses %}
-<h2>Campuses</h2>
-<table class="table table--striped">
+<h2 class="page-sub-header">{% trans "Campuses" %}</h2>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Campus</th>
-      <th>District</th>
+      <th>{% trans "Campus" %}</th>
+      <th>{% trans "District" %}</th>
   </thead>
   <tbody>
   {% for campus in matching_campuses %}

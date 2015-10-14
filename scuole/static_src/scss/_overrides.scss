@@ -1,0 +1,38 @@
+// Sets border-box across the board
+html {
+  box-sizing: border-box;
+  text-size-adjust: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+// Gets rid of weird extra padding Firefox likes to add to <input>
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+// reset.css doesn't do this for <main> for some reason - IE breaks without
+// it
+main {
+  display: block;
+}
+
+// Set some sane defaults
+body {
+  font-family: $font-soleil;
+}
+
+a {
+  color: $color-link;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
