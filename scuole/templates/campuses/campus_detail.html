@@ -10,13 +10,33 @@
 
 {% block content %}
 
-<div class="box-8">
+<section class="row">
+<div class="col-8">
 <header class="page-header">
   <h1 class="page-headline">{{ campus.name }}</h1>
   <p class="page-subtext">{{ campus.city|title }}, {{ campus.state }} | <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></p>
   <p class="page-subtext">{{ campus.get_school_type_display }}</p>
   <p class="page-subtext">{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</p>
 </header>
+
+<div class="stats-group">
+  <div class="stats-item">
+    <div class="stats-item-title">No. of Students</div>
+    <div class="stats-item-number">{{ campus.stats.first.all_students_count|intcomma }}</div>
+  </div>
+  <div class="stats-item">
+    <div class="stats-item-title">Students per Teacher</div>
+    <div class="stats-item-number">{{ campus.stats.first.students_per_teacher|floatformat }}</div>
+  </div>
+  <div class="stats-item">
+    <div class="stats-item-title">Avg. SAT Score</div>
+    <div class="stats-item-number">{{ campus.stats.first.avg_sat_score_all_students|default:"N/A" }}</div>
+  </div>
+  <div class="stats-item">
+    <div class="stats-item-title">Attendance Rate</div>
+    <div class="stats-item-number">{{ campus.stats.first.attendance_rate|floatformat }}%</div>
+  </div>
+</div>
 
 <div class="page-prose">
   <p>
@@ -27,9 +47,10 @@
     {% endblocktrans %}
   </p>
 </div>
+
 </div>
 
-<div class="box-4">
+<div class="col-4">
   <div class="map" id="map"></div>
   <div class="card">
     <h3 class="card-title">Address</h3>
@@ -38,7 +59,7 @@
       {{ campus.location }} {{ campus.zip_code }}
     </address>
     <h3 class="card-title">{% trans "Phone number" %}</h3>
-    <p class="card-text">{{ campus.phone }}</p>
+    <p class="card-text"><a href="tel://{{ campus.phone }}">{{ campus.phone }}</a></p>
     {% if campus.principals.all %}
     <h3 class="card-title">
       {% blocktrans count numberOfPrincipals=campus.principals.all.length %}
@@ -50,11 +71,28 @@
     <ul class="card-list">
     {% for principal in campus.principals.all %}
       <li class="card-list-item">{{ principal.name }}</li>
+      <li class="card-list-item"><a href="mailto:{{ principal.email }}">{{ principal.email }}</a></li>
+      <li class="card-list-item"><a href="tel://{{ principal.phone_number }}">{{ principal.phone_number }}</a></li>
     {% endfor %}
     </ul>
     {% endif %}
   </div>
 </div>
+</section>
+
+<div class="ad-slot ad-slot-banner">
+  <img src="https://placehold.it/728x90">
+</div>
+
+<h2 class="page-sub-header">Demographics</h2>
+
+<section class="card">
+  HI
+</section>
+
+<h2 class="page-sub-header">College Readiness</h2>
+
+<h2 class="page-sub-header">Staff</h2>
 
 {% comment %}
 {% for stat in campus.stats.all %}
@@ -64,10 +102,6 @@
 </section>
 {% endfor %}
 {% endcomment %}
-
-<div class="ad-slot ad-slot-banner">
-  <img src="https://placehold.it/728x90">
-</div>
 
 {% endblock content %}
 

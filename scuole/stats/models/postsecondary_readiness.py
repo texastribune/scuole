@@ -312,9 +312,6 @@ class PostSecondaryReadinessBase(models.Model):
     dropout_white_count = models.IntegerField(
         _('Number of 9-12 white students who dropped out'),
         null=True, blank=True)
-    dropout_white_count = models.IntegerField(
-        _('Number of 9-12 white students who dropped out'),
-        null=True, blank=True)
     dropout_at_risk_count = models.IntegerField(
         _('Number of 9-12 white students who dropped out'),
         null=True, blank=True)

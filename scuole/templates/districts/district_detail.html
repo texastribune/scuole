@@ -9,8 +9,8 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-<div>
-<div class="box-7">
+<section class="row">
+<div class="col-7">
 <header class="page-header">
   <h1 class="page-headline">{{ district.name }}</h1>
   <p class="page-subtext">{{ district.city|title }}, {{ district.state }}</p>
@@ -33,7 +33,7 @@
 </div>
 </div>
 
-<div class="box-5-last">
+<div class="col-5">
   <div class="map map-district" id="district-map"></div>
 
   {% with nearby_districts=district.nearby_districts %}
@@ -53,11 +53,7 @@
   {% endif %}
   {% endwith %}
 </div>
-</div>
-
-<ul>
-
-</ul>
+</section>
 
 {% comment %}
 {% for stat in district.stats.all %}
