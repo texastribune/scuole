@@ -13,31 +13,32 @@ from scuole.core.models import PersonnelBase
 from scuole.counties.models import County
 from scuole.regions.models import Region
 from scuole.stats.models import SchoolYear, StatsBase
+from django.utils.translation import ugettext_lazy as _
 
 
 @python_2_unicode_compatible
 class District(models.Model):
     # CCD - NAME
-    name = models.CharField('District name', max_length=200)
+    name = models.CharField(_('District name'), max_length=200)
     slug = models.SlugField(max_length=75)
     # TEA - STID
-    tea_id = models.CharField('TEA district identifier', max_length=6)
+    tea_id = models.CharField(_('TEA district identifier'), max_length=6)
     # CCD - LSTREE
-    street = models.CharField('District street', max_length=200)
+    street = models.CharField(_('District street'), max_length=200)
     # CCD - LCITY
-    city = models.CharField('District office city', max_length=100)
+    city = models.CharField(_('District office city'), max_length=100)
     # CCD - LSTATE
     state = USStateField(
-        'District office abbreviated state location', max_length=2)
+        _('District office abbreviated state location'), max_length=2)
     # CCD - LZIP-LZIP4
-    zip_code = USZipCodeField('District ZIP Code')
+    zip_code = USZipCodeField(_('District ZIP Code'))
     region = models.ForeignKey(
         Region, related_name='districts', null=True, blank=True)
     county = models.ForeignKey(
         County, related_name='districts', null=True, blank=True)
     # CCD - LONCOD, LATCOD
-    coordinates = models.PointField('District office coordinates', null=True)
-    shape = models.MultiPolygonField('District shape', srid=4326, null=True)
+    coordinates = models.PointField(_('District office coordinates'), null=True)
+    shape = models.MultiPolygonField(_('District shape'), srid=4326, null=True)
 
     objects = models.GeoManager()
 
@@ -80,7 +81,7 @@ class DistrictStats(StatsBase):
 
     class Meta:
         unique_together = ('district', 'year',)
-        verbose_name_plural = 'District stats'
+        verbose_name_plural = _('District stats')
 
     def __str__(self):
         return '{0} {1}'.format(self.year.name, self.district.name)

@@ -7,11 +7,12 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.stats.models import SchoolYear, StatsBase
+from django.utils.translation import ugettext_lazy as _
 
 
 @python_2_unicode_compatible
 class State(models.Model):
-    name = USStateField('State name')
+    name = USStateField(_('State name'))
     slug = models.SlugField()
 
     def __str__(self):
@@ -25,7 +26,7 @@ class StateStats(StatsBase):
 
     class Meta:
         unique_together = ('state', 'year',)
-        verbose_name_plural = 'State stats'
+        verbose_name_plural = _('State stats')
 
     def __str__(self):
         return '{0} {1}'.format(self.year.name, self.state.name)

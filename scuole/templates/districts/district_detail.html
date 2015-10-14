@@ -1,10 +1,10 @@
-{% extends 'standard.html' %}{% load static %}
+{% extends 'standard.html' %}{% load i18n static %}
 
 {% block title %}{{ district.name }}{% endblock title %}
 
 {% block breadcrumbs %}
 <nav class="breadcrumbs">
-  <a class="breadcrumbs__item" href="{% url 'landing' %}">Home</a> » <a class="breadcrumbs__item" href="{% url 'districts:list' %}">School Districts</a>
+  <a class="breadcrumbs__item" href="{% url 'landing' %}">Home</a> » <a class="breadcrumbs__item" href="{% url 'districts:list' %}">{% trans "School Districts" %}</a>
 </nav>
 {% endblock breadcrumbs %}
 
@@ -39,7 +39,7 @@
   {% with nearby_districts=district.nearby_districts %}
   {% if nearby_districts %}
   <div class="card">
-    <h3 class="card-title">Nearby Districts</h3>
+    <h3 class="card-title">{% trans "Nearby Districts" %}</h3>
     <ul class="card-list">
       {% for district in nearby_districts %}
         <li class="card-list-item"><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></li>
@@ -59,7 +59,7 @@
 {% for stat in district.stats.all %}
   <section class="card">
     <h3>{{ stat.year.name }}</h3>
-    <p>No. of Students: {{ stat.all_students_count }}</p>
+    <p>{% trans "No. of Students: " %}{{ stat.all_students_count }}</p>
   </section>
 {% endfor %}
 {% endcomment %}

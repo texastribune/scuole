@@ -6,12 +6,13 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.states.models import State
 from scuole.stats.models import SchoolYear, StatsBase
+from django.utils.translation import ugettext_lazy as _
 
 
 @python_2_unicode_compatible
 class Region(models.Model):
-    name = models.CharField('Geographic name for region', max_length=20)
-    region_id = models.CharField('Region identifier', max_length=2)
+    name = models.CharField(_('Geographic name for region'), max_length=20)
+    region_id = models.CharField(_('Region identifier'), max_length=2)
     slug = models.SlugField()
     state = models.ForeignKey(State, related_name='regions')
 
@@ -26,7 +27,7 @@ class RegionStats(StatsBase):
 
     class Meta:
         unique_together = ('region', 'year',)
-        verbose_name_plural = 'Region stats'
+        verbose_name_plural = _('Region stats')
 
     def __str__(self):
         return '{0} {1}'.format(self.year.name, self.region.name)
