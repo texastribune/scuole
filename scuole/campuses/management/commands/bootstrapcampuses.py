@@ -2,6 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import csv
+import json
 import os
 import string
 
@@ -9,7 +10,7 @@ from slugify import slugify
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.contrib.gis.geos import Point
+from django.contrib.gis.geos import GEOSGeometry, Point, MultiPolygon
 
 from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
@@ -37,15 +38,21 @@ class Command(BaseCommand):
     help = 'Bootstraps Campus models using TEA, FAST and CCD data.'
 
     def handle(self, *args, **options):
-        ccd_file_location = os.path.join(
-            settings.DATA_FOLDER, 'ccd', 'tx-campuses-ccd.csv')
+        askted_file_location = os.path.join(
+            settings.DATA_FOLDER, 'askted', 'Directory.csv')
 
-        self.ccd_data = self.load_ccd_file(ccd_file_location)
+        self.askted_data = self.load_askted_file(askted_file_location)
 
         fast_file_location = os.path.join(
             settings.DATA_FOLDER, 'fast', 'fast-campus.csv')
 
         self.fast_data = self.load_fast_file(fast_file_location)
+
+        campus_json = os.path.join(
+            settings.DATA_FOLDER,
+            'tapr', 'reference', 'campus', 'shapes', 'Schools2014.geojson')
+
+        self.shape_data = self.load_geojson_file(campus_json)
 
         principal_csv = os.path.join(
             settings.DATA_FOLDER,
@@ -64,14 +71,15 @@ class Command(BaseCommand):
             for row in reader:
                 self.create_campus(row)
 
-    def load_ccd_file(self, file):
+    def load_askted_file(self, file):
         payload = {}
 
         with open(file, 'r') as f:
             reader = csv.DictReader(f)
 
             for row in reader:
-                payload[row['SEASCH']] = row
+                tea_id = row['School Number'].replace("'", "")
+                payload[tea_id] = row
 
         return payload
 
@@ -83,6 +91,18 @@ class Command(BaseCommand):
 
             for row in reader:
                 payload[row['Campus Number']] = row
+
+        return payload
+
+    def load_geojson_file(self, file):
+        payload = {}
+
+        with open(file, 'r') as f:
+            data = json.load(f)
+
+            for feature in data['features']:
+                tea_id = feature['properties']['CAMPUS']
+                payload[tea_id] = feature['geometry']
 
         return payload
 
@@ -103,36 +123,41 @@ class Command(BaseCommand):
         return payload
 
     def create_campus(self, campus):
-        ccd_match = self.ccd_data[campus['CAMPUS']]
+        askted_match = self.askted_data[campus['CAMPUS']]
         fast_match = self.fast_data[str(int(campus['CAMPUS']))]
+        shape_match = self.shape_data
+
         name = remove_charter_c(fast_match['Campus Name'])
         self.stdout.write('Creating {}...'.format(name))
         low_grade, high_grade = campus['GRDSPAN'].split(' - ')
         district = District.objects.get(tea_id=campus['DISTRICT'])
-        county = County.objects.get(fips=ccd_match['CONUM'][-3:])
-        coordinates = Point(
-            float(ccd_match['LONCOD']), float(ccd_match['LATCOD']))
+        county = County.objects.get(fips=askted_match['County Number'].replace("'", ""))
+        if campus['CAMPUS'] in shape_match:
+            geometry = GEOSGeometry(
+                json.dumps(shape_match[campus['CAMPUS']])
+            )
+
+            if geometry.geom_typeid == 0:
+                geometry = Point(geometry)
+        else:
+            self.stderr.write('No shape data for {}'.format(name))
 
         instance, _ = Campus.objects.update_or_create(
             tea_id=campus['CAMPUS'],
             defaults={
                 'name': name,
                 'slug': slugify(name),
-                'phone': ccd_match['PHONE'],
-                'street': ccd_match['LSTREE'],
-                'city': ccd_match['LCITY'],
-                'state': ccd_match['LSTATE'],
-                'zip_code': '{LZIP}-{LZIP4}'.format(
-                    LZIP=ccd_match['LZIP'],
-                    LZIP4=ccd_match['LZIP4']),
-                'locale': LOCALE_MAP[ccd_match['ULOCAL']],
-                'coordinates': coordinates,
+                'phone': askted_match['School Phone'],
+                'street': askted_match['School Street Address'],
+                'city': askted_match['School City'],
+                'state': askted_match['School State'],
+                'zip_code': askted_match['School Zip'],
+                'coordinates': geometry,
                 'low_grade': low_grade,
                 'high_grade': high_grade,
                 'school_type': campus['GRDTYPE'],
                 'district': district,
                 'county': county,
-                'accountability_rating': campus['C_RATING'],
             }
         )
 
