@@ -132,6 +132,7 @@ class Command(BaseCommand):
                 'school_type': campus['GRDTYPE'],
                 'district': district,
                 'county': county,
+                'accountability_rating': campus['C_RATING'],
             }
         )
 

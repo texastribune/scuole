@@ -18,6 +18,22 @@ from django.utils.translation import ugettext_lazy as _
 
 @python_2_unicode_compatible
 class District(models.Model):
+    MET_STANDARD = 'M'
+    MET_ALTERNATIVE_STANDARD = 'A'
+    IMPROVEMENT_REQUIRED = 'I'
+    NOT_RATED = 'X'
+    NOT_RATED = 'Z'
+    NOT_RATED_DUE_TO_DATA_INTEGRITY_ISSUE = 'Q'
+
+    RATING_CHOICES = (
+        (MET_STANDARD, 'Met standard'),
+        (MET_ALTERNATIVE_STANDARD, 'Met alternative standard'),
+        (IMPROVEMENT_REQUIRED, 'Improvement required'),
+        (NOT_RATED, 'Not rated'),
+        (NOT_RATED_DUE_TO_DATA_INTEGRITY_ISSUE,
+            'Not rated due to data integrity issue'),
+    )
+
     # CCD - NAME
     name = models.CharField(_('District name'), max_length=200)
     slug = models.SlugField(max_length=75)
@@ -36,6 +52,9 @@ class District(models.Model):
         Region, related_name='districts', null=True, blank=True)
     county = models.ForeignKey(
         County, related_name='districts', null=True, blank=True)
+    accountability_rating = models.CharField(
+        'Accountability rating', max_length=1, choices=RATING_CHOICES
+    )
     # CCD - LONCOD, LATCOD
     coordinates = models.PointField(_('District office coordinates'), null=True)
     shape = models.MultiPolygonField(_('District shape'), srid=4326, null=True)

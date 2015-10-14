@@ -14,6 +14,7 @@ from scuole.districts.models import District
 from scuole.stats.models import SchoolYear, StatsBase
 from django.utils.translation import ugettext_lazy as _
 
+
 @python_2_unicode_compatible
 class Campus(models.Model):
     EARLY_EDUCATION = 'EE'
@@ -62,6 +63,22 @@ class Campus(models.Model):
         (ELEMENTARY_SECONDARY_SCHOOL, _('Elementary/secondary school')),
     )
 
+    MET_STANDARD = 'M'
+    MET_ALTERNATIVE_STANDARD = 'A'
+    IMPROVEMENT_REQUIRED = 'I'
+    NOT_RATED = 'X'
+    NOT_RATED = 'Z'
+    NOT_RATED_DUE_TO_DATA_INTEGRITY_ISSUE = 'Q'
+
+    RATING_CHOICES = (
+        (MET_STANDARD, _('Met standard')),
+        (MET_ALTERNATIVE_STANDARD, _('Met alternative standard')),
+        (IMPROVEMENT_REQUIRED, _('Improvement required')),
+        (NOT_RATED, _('Not rated')),
+        (NOT_RATED_DUE_TO_DATA_INTEGRITY_ISSUE,
+            _('Not rated due to data integrity issue')),
+    )
+
     # CCD - SCHNAM
     name = models.CharField(_('Campus name'), max_length=200)
     slug = models.SlugField(max_length=150)
@@ -89,6 +106,8 @@ class Campus(models.Model):
         _('Highest grade offered'), max_length=2, choices=GRADE_CHOICES)
     school_type = models.CharField(
         _('School type'), max_length=1, choices=SCHOOL_TYPE_CHOICES)
+    accountability_rating = models.CharField(
+        _('Accountability rating'), max_length=1, choices=RATING_CHOICES)
 
     district = models.ForeignKey(District, related_name='campuses')
     county = models.ForeignKey(County, related_name='campuses')
