@@ -5,17 +5,18 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.states.models import State
+from django.utils.translation import ugettext_lazy as _
 
 
 @python_2_unicode_compatible
 class County(models.Model):
-    name = models.CharField('County name', max_length=100)
+    name = models.CharField(_('County name'), max_length=100)
     slug = models.SlugField()
-    fips = models.CharField('County FIPS place code', max_length=3)
-    state = models.ForeignKey(State, related_name='counties')
+    fips = models.CharField(_('County FIPS place code'), max_length=3)
+    state = models.ForeignKey(State, related_name=_('counties'))
 
     class Meta:
-        verbose_name_plural = 'counties'
+        verbose_name_plural = _('counties')
 
     def __str__(self):
         return self.name

@@ -1,23 +1,23 @@
-{% extends 'standard.html' %}
+{% extends 'standard.html' %}{% load i18n %}
 
-{% block title %}School Districts{% endblock title %}
+{% block title %}{% trans "School Districts" %}{% endblock title %}
 
 {% block breadcrumbs %}
 <section class="breadcrumbs">
-  <a class="breadcrumbs__item" href="{% url 'landing' %}">Home</a>
+  <a class="breadcrumbs__item" href="{% url 'landing' %}">{% trans "Home" %}</a>
 </section>
 {% endblock breadcrumbs %}
 
 {% block content %}
 {{ block.super }}
 
-<h1 class="page-header">All Districts</h1>
+<h1 class="page-header">{% trans "All Districts" %}</h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>District</th>
-      <th>City</th>
+      <th>{% trans "District" %}</th>
+      <th>{% trans "City" %}</th>
     </tr>
   </thead>
   <tbody>

@@ -1,9 +1,9 @@
 .page-header {
-  margin-bottom: $gutter-double;
+  margin-bottom: $gutter;
 }
 
 .page-headline {
-  @include font-size(28);
+  @include font-size(32);
   font-family: $font-soleil;
   margin-bottom: $gutter-half;
 }

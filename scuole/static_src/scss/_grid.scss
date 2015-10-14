@@ -2,26 +2,46 @@
   @include create-container();
 }
 
-.box-8 {
+.row {
+  @include create-row();
+}
+
+.col-8 {
+  @include create-column(12);
+
   @include mq($from: tablet) {
-    @include span(8 of 12);
+    @include create-column(8);
   }
 }
 
-.box-4 {
+.col-3 {
+  @include create-column(12);
+
   @include mq($from: tablet) {
-    @include span(4 of 12 last);
+    @include create-column(3);
   }
 }
 
-.box-7 {
+.col-4 {
+  @include create-column(12);
+
   @include mq($from: tablet) {
-    @include span(7 of 12);
+    @include create-column(4);
   }
 }
 
-.box-5-last {
+.col-7 {
+  @include create-column(12);
+
   @include mq($from: tablet) {
-    @include span(5 of 12 last);
+    @include create-column(7);
+  }
+}
+
+.col-5 {
+  @include create-column(12);
+
+  @include mq($from: tablet) {
+    @include create-column(5);
   }
 }
