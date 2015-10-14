@@ -1,4 +1,5 @@
 .card {
+  // background-color: $color-gray-lightest;
   border: 2px solid $color-gray-light;
   margin-bottom: $gutter;
   padding: $gutter-half;
@@ -26,7 +27,7 @@
 
 .card-list-item {
   font-weight: 300;
-  margin-bottom: $gutter-half;
+  margin-bottom: $gutter-quarter;
 
   &:last-child {
     margin-bottom: 0;
