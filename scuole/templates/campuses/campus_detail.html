@@ -17,6 +17,7 @@
   <p class="page-subtext">{{ campus.city|title }}, {{ campus.state }} | <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></p>
   <p class="page-subtext">{{ campus.get_school_type_display }}</p>
   <p class="page-subtext">{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</p>
+  <p class="page-subtext">Accountability rating: {{ campus.get_accountability_rating_display }}</p>
 </header>
 
 <div class="stats-group">
