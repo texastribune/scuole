@@ -140,6 +140,7 @@ SCHEMA = {
         'avg_act_score_white': 'W0CAA',
         'avg_act_score_economically_disadvantaged': 'E0CAA',
         'dropout_all_students_count': 'A0912DR',
+        'dropout_all_students_percent': 'A0912DR',
         'dropout_african_american_count': 'B0912DR',
         'dropout_african_american_percent': 'B0912DR',
         'dropout_asian_count': '30912DR',
