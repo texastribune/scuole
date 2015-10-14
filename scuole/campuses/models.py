@@ -107,8 +107,7 @@ class Campus(models.Model):
     school_type = models.CharField(
         _('School type'), max_length=1, choices=SCHOOL_TYPE_CHOICES)
     accountability_rating = models.CharField(
-        _('Accountability rating'), max_length=1, choices=RATING_CHOICES
-    )
+        _('Accountability rating'), max_length=1, choices=RATING_CHOICES)
 
     district = models.ForeignKey(District, related_name='campuses')
     county = models.ForeignKey(County, related_name='campuses')
