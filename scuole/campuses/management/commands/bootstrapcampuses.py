@@ -123,31 +123,45 @@ class Command(BaseCommand):
         return payload
 
     def create_campus(self, campus):
-        askted_match = self.askted_data[campus['CAMPUS']]
         fast_match = self.fast_data[str(int(campus['CAMPUS']))]
         shape_match = self.shape_data
 
         name = remove_charter_c(fast_match['Campus Name'])
+
+        if campus['CAMPUS'] in self.askted_data:
+            askted_match = self.askted_data[campus['CAMPUS']]
+        else:
+            self.stderr.write('No askted data for {}'.format(name))
+            askted_match = None
+
         self.stdout.write('Creating {}...'.format(name))
         low_grade, high_grade = campus['GRDSPAN'].split(' - ')
         district = District.objects.get(tea_id=campus['DISTRICT'])
-        county = County.objects.get(fips=askted_match['County Number'].replace("'", ""))
+        county = County.objects.get(name__iexact=campus['CNTYNAME'])
+        print county
+        phone_number = askted_match['School Phone']
         if campus['CAMPUS'] in shape_match:
             geometry = GEOSGeometry(
                 json.dumps(shape_match[campus['CAMPUS']])
             )
-
-            if geometry.geom_typeid == 0:
-                geometry = Point(geometry)
         else:
             self.stderr.write('No shape data for {}'.format(name))
+            geometry = None
+
+        if 'ext' in phone_number:
+                phone_number, phone_number_extension = phone_number.split(
+                    ' ext:')
+                phone_number_extension = str(phone_number_extension)
+        else:
+                phone_number_extension = ''
 
         instance, _ = Campus.objects.update_or_create(
             tea_id=campus['CAMPUS'],
             defaults={
                 'name': name,
                 'slug': slugify(name),
-                'phone': askted_match['School Phone'],
+                'phone_number': phone_number,
+                'phone_number_extension': phone_number_extension,
                 'street': askted_match['School Street Address'],
                 'city': askted_match['School City'],
                 'state': askted_match['School State'],
