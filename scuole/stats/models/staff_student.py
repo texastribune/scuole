@@ -123,7 +123,6 @@ class StaffStudentBase(models.Model):
         'Number of students enrolled in special education program',
         null=True, blank=True)
 
-
     bilingual_esl_percent = models.FloatField(
         'Percent of students enrolled in bilingual/ESL program',
         null=True, blank=True)
@@ -136,6 +135,33 @@ class StaffStudentBase(models.Model):
     special_education_percent = models.FloatField(
         'Percent of students enrolled in special education program',
         null=True, blank=True)
+
+    class_size_avg_kindergarten = models.FloatField(
+        'Average kindergarten grade class size', null=True, blank=True)
+    class_size_avg_first = models.FloatField(
+        'Average first grade class size', null=True, blank=True)
+    class_size_avg_second = models.FloatField(
+        'Average second grade class size', null=True, blank=True)
+    class_size_avg_third = models.FloatField(
+        'Average third grade class size', null=True, blank=True)
+    class_size_avg_fourth = models.FloatField(
+        'Average fourth grade class size', null=True, blank=True)
+    class_size_avg_fifth = models.FloatField(
+        'Average fifth grade class size', null=True, blank=True)
+    class_size_avg_sixth = models.FloatField(
+        'Average sixth grade class size', null=True, blank=True)
+    class_size_avg_mixed_elementary = models.FloatField(
+        'Average mixed elementary class size', null=True, blank=True)
+    class_size_avg_secondary_english = models.FloatField(
+        'Average secondary English class size', null=True, blank=True)
+    class_size_avg_secondary_foreign_language = models.FloatField(
+        'Average secondary foreign language class size', null=True, blank=True)
+    class_size_avg_secondary_math = models.FloatField(
+        'Average secondary math class size', null=True, blank=True)
+    class_size_avg_secondary_science = models.FloatField(
+        'Average secondary science class size', null=True, blank=True)
+    class_size_avg_secondary_social_studies = models.FloatField(
+        'Average secondary social studies class size', null=True, blank=True)
 
     students_per_teacher = models.FloatField(
         'Number of students per teacher', null=True, blank=True)
