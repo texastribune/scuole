@@ -10,7 +10,7 @@ from slugify import slugify
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.contrib.gis.geos import GEOSGeometry, Point, MultiPolygon
+from django.contrib.gis.geos import GEOSGeometry, Point
 
 from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
@@ -125,21 +125,14 @@ class Command(BaseCommand):
     def create_campus(self, campus):
         fast_match = self.fast_data[str(int(campus['CAMPUS']))]
         shape_match = self.shape_data
-
         name = remove_charter_c(fast_match['Campus Name'])
-
-        if campus['CAMPUS'] in self.askted_data:
-            askted_match = self.askted_data[campus['CAMPUS']]
-        else:
-            self.stderr.write('No askted data for {}'.format(name))
-            askted_match = None
 
         self.stdout.write('Creating {}...'.format(name))
         low_grade, high_grade = campus['GRDSPAN'].split(' - ')
         district = District.objects.get(tea_id=campus['DISTRICT'])
         county = County.objects.get(name__iexact=campus['CNTYNAME'])
         print county
-        phone_number = askted_match['School Phone']
+
         if campus['CAMPUS'] in shape_match:
             geometry = GEOSGeometry(
                 json.dumps(shape_match[campus['CAMPUS']])
@@ -147,13 +140,30 @@ class Command(BaseCommand):
         else:
             self.stderr.write('No shape data for {}'.format(name))
             geometry = None
-
-        if 'ext' in phone_number:
+        askted_list = []
+        if campus['CAMPUS'] in self.askted_data:
+            askted_match = self.askted_data[campus['CAMPUS']]
+            phone_number = askted_match['School Phone']
+            if 'ext' in phone_number:
                 phone_number, phone_number_extension = phone_number.split(
                     ' ext:')
                 phone_number_extension = str(phone_number_extension)
-        else:
+            else:
                 phone_number_extension = ''
+            street = askted_match['School Street Address']
+            city = askted_match['School City']
+            state = askted_match['School State']
+            zip_code = askted_match['School Zip']
+        else:
+            self.stderr.write('No askted data for {}'.format(name))
+            askted_list.append(name)
+            askted_match = ''
+            phone_number = ''
+            phone_number_extension = ''
+            street = ''
+            city = ''
+            state = ''
+            zip_code = ''
 
         instance, _ = Campus.objects.update_or_create(
             tea_id=campus['CAMPUS'],
@@ -162,10 +172,10 @@ class Command(BaseCommand):
                 'slug': slugify(name),
                 'phone_number': phone_number,
                 'phone_number_extension': phone_number_extension,
-                'street': askted_match['School Street Address'],
-                'city': askted_match['School City'],
-                'state': askted_match['School State'],
-                'zip_code': askted_match['School Zip'],
+                'street': street,
+                'city': city,
+                'state': state,
+                'zip_code': zip_code,
                 'coordinates': geometry,
                 'low_grade': low_grade,
                 'high_grade': high_grade,

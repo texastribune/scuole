@@ -87,10 +87,10 @@ class Campus(models.Model):
         _('Campus phone number'), max_length=20, null=True)
     phone_number_extension = models.CharField(
         _('Phone number extension'), max_length=4, blank=True, default='')
-    street = models.CharField(_('Campus street'), max_length=100)
-    city = models.CharField(_('Campus city'), max_length=200)
-    state = USStateField(_('Campus state'), max_length=2)
-    zip_code = USZipCodeField(_('Campus ZIP Code'))
+    street = models.CharField(_('Campus street'), max_length=100, null=True)
+    city = models.CharField(_('Campus city'), max_length=200, null=True)
+    state = USStateField(_('Campus state'), max_length=2, null=True)
+    zip_code = USZipCodeField(_('Campus ZIP Code'), null=True)
     locale = models.CharField(
         _('Campus NCES urban-centric locale identifier'), max_length=15)
     coordinates = models.PointField(null=True)
