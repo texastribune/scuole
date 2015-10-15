@@ -373,9 +373,6 @@ class PostSecondaryReadinessBase(models.Model):
     four_year_graduate_white_count = models.IntegerField(
         _('Number of white students who graduated in 4 years'),
         null=True, blank=True)
-    four_year_graduate_white_count = models.IntegerField(
-        _('Number of white students who graduated in 4 years'),
-        null=True, blank=True)
     four_year_graduate_at_risk_count = models.IntegerField(
         _('Number of at risk students who graduated in 4 years'),
         null=True, blank=True)
@@ -402,9 +399,6 @@ class PostSecondaryReadinessBase(models.Model):
         null=True, blank=True)
     four_year_graduate_two_or_more_races_percent = models.FloatField(
         _('Percent of students of two or more races who graduated in 4 years'),
-        null=True, blank=True)
-    four_year_graduate_white_percent = models.FloatField(
-        _('Percent of white students who graduated in 4 years'),
         null=True, blank=True)
     four_year_graduate_white_percent = models.FloatField(
         _('Percent of white students who graduated in 4 years'),
