@@ -20,13 +20,13 @@ from ...models import District, Superintendent
 
 
 class Command(BaseCommand):
-    help = 'Bootstraps District models using TEA, FAST and CCD data.'
+    help = 'Bootstraps District models using TEA, FAST and AskTED data.'
 
     def handle(self, *args, **options):
-        ccd_file_location = os.path.join(
-            settings.DATA_FOLDER, 'ccd', 'tx-districts-ccd.csv')
+        askted_file_location = os.path.join(
+            settings.DATA_FOLDER, 'askted', 'Directory.csv')
 
-        self.ccd_data = self.load_ccd_file(ccd_file_location)
+        self.askted_data = self.load_askted_file(askted_file_location)
 
         fast_file_location = os.path.join(
             settings.DATA_FOLDER, 'fast', 'fast-district.csv')
@@ -56,14 +56,15 @@ class Command(BaseCommand):
             for row in reader:
                 self.create_district(row)
 
-    def load_ccd_file(self, file):
+    def load_askted_file(self, file):
         payload = {}
 
         with open(file, 'r') as f:
             reader = csv.DictReader(f)
 
             for row in reader:
-                payload[row['STID']] = row
+                tea_id = row['District Number'].replace("'", "")
+                payload[tea_id] = row
 
         return payload
 
@@ -103,16 +104,13 @@ class Command(BaseCommand):
         return payload
 
     def create_district(self, district):
-        ccd_match = self.ccd_data[district['DISTRICT']]
         fast_match = self.fast_data[str(int(district['DISTRICT']))]
         shape_match = self.shape_data
 
         name = remove_charter_c(fast_match['District Name'])
         self.stdout.write('Creating {}...'.format(name))
-        county = County.objects.get(fips=ccd_match['CONUM'][-3:])
+        county = County.objects.get(name__iexact=district['CNTYNAME'])
         region = Region.objects.get(region_id=district['REGION'])
-        coordinates = Point(
-            float(ccd_match['LONCOD']), float(ccd_match['LATCOD']))
         if district['DISTRICT'] in shape_match:
             geometry = GEOSGeometry(
                 json.dumps(shape_match[district['DISTRICT']]))
@@ -124,21 +122,43 @@ class Command(BaseCommand):
             self.stderr.write('No shape data for {}'.format(name))
             geometry = None
 
+        if district['DISTRICT'] in self.askted_data:
+            askted_match = self.askted_data[district['DISTRICT']]
+            phone_number = askted_match['District Phone']
+            if 'ext' in phone_number:
+                phone_number, phone_number_extension = phone_number.split(
+                    ' ext:')
+                phone_number_extension = str(phone_number_extension)
+            else:
+                phone_number_extension = ''
+            street = askted_match['District Street Address']
+            city = askted_match['District City']
+            state = askted_match['District State']
+            zip_code = askted_match['District Zip']
+        else:
+            self.stderr.write('No askted data for {}'.format(name))
+            askted_match = ''
+            phone_number = ''
+            phone_number_extension = ''
+            street = ''
+            city = ''
+            state = ''
+            zip_code = ''
+
         instance, _ = District.objects.update_or_create(
             tea_id=district['DISTRICT'],
             defaults={
                 'name': name,
                 'slug': slugify(name),
-                'street': ccd_match['LSTREE'],
-                'city': ccd_match['LCITY'],
-                'state': ccd_match['LSTATE'],
-                'zip_code': '{LZIP}-{LZIP4}'.format(
-                    LZIP=ccd_match['LZIP'],
-                    LZIP4=ccd_match['LZIP4']),
+                'phone_number': phone_number,
+                'phone_number_extension': phone_number_extension,
+                'street': street,
+                'city': city,
+                'state': state,
+                'zip_code': zip_code,
                 'region': region,
                 'county': county,
                 'accountability_rating': district['D_RATING'],
-                'coordinates': coordinates,
                 'shape': geometry,
             }
         )

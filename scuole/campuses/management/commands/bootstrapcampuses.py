@@ -35,7 +35,7 @@ LOCALE_MAP = {
 
 
 class Command(BaseCommand):
-    help = 'Bootstraps Campus models using TEA, FAST and CCD data.'
+    help = 'Bootstraps Campus models using TEA, FAST and AskTED data.'
 
     def handle(self, *args, **options):
         askted_file_location = os.path.join(
@@ -140,7 +140,6 @@ class Command(BaseCommand):
         else:
             self.stderr.write('No shape data for {}'.format(name))
             geometry = None
-        askted_list = []
         if campus['CAMPUS'] in self.askted_data:
             askted_match = self.askted_data[campus['CAMPUS']]
             phone_number = askted_match['School Phone']
@@ -156,7 +155,6 @@ class Command(BaseCommand):
             zip_code = askted_match['School Zip']
         else:
             self.stderr.write('No askted data for {}'.format(name))
-            askted_list.append(name)
             askted_match = ''
             phone_number = ''
             phone_number_extension = ''

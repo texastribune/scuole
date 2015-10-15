@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 import string
 
-from localflavor.us.models import USStateField, USZipCodeField
+from localflavor.us.models import PhoneNumberField, USStateField, USZipCodeField
 
 from django.contrib.gis.db import models
 from django.core.serializers import serialize
@@ -34,19 +34,18 @@ class District(models.Model):
             'Not rated due to data integrity issue'),
     )
 
-    # CCD - NAME
     name = models.CharField(_('District name'), max_length=200)
     slug = models.SlugField(max_length=75)
     # TEA - STID
     tea_id = models.CharField(_('TEA district identifier'), max_length=6)
-    # CCD - LSTREE
+    phone_number = PhoneNumberField(
+        _('District phone number'), max_length=20, null=True)
+    phone_number_extension = models.CharField(
+        _('Phone number extension'), max_length=4, blank=True, default='')
     street = models.CharField(_('District street'), max_length=200)
-    # CCD - LCITY
     city = models.CharField(_('District office city'), max_length=100)
-    # CCD - LSTATE
     state = USStateField(
         _('District office abbreviated state location'), max_length=2)
-    # CCD - LZIP-LZIP4
     zip_code = USZipCodeField(_('District ZIP Code'))
     region = models.ForeignKey(
         Region, related_name='districts', null=True, blank=True)
@@ -55,8 +54,6 @@ class District(models.Model):
     accountability_rating = models.CharField(
         'Accountability rating', max_length=1, choices=RATING_CHOICES
     )
-    # CCD - LONCOD, LATCOD
-    coordinates = models.PointField(_('District office coordinates'), null=True)
     shape = models.MultiPolygonField(_('District shape'), srid=4326, null=True)
 
     objects = models.GeoManager()
