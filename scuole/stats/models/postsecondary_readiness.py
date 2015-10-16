@@ -376,7 +376,7 @@ class PostSecondaryReadinessBase(models.Model):
     four_year_graduate_at_risk_count = models.IntegerField(
         _('Number of at risk students who graduated in 4 years'),
         null=True, blank=True)
-    four_year_graduate_economically disadvantaged_count = models.IntegerField(
+    four_year_graduate_economically_disadvantaged_count = models.IntegerField(
         _('Number of economically disadvantaged students who graduated in 4 years'),
         null=True, blank=True)
 
@@ -406,7 +406,7 @@ class PostSecondaryReadinessBase(models.Model):
     four_year_graduate_at_risk_percent = models.FloatField(
         _('Percent of at risk students who graduated in 4 years'),
         null=True, blank=True)
-    four_year_graduate_economically disadvantaged_percent = models.FloatField(
+    four_year_graduate_economically_disadvantaged_percent = models.FloatField(
         _('Percent of economically disadvantaged students who graduated in 4 years'),
         null=True, blank=True)
 

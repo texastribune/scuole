@@ -125,6 +125,13 @@ class Command(BaseCommand):
             elif 'percent' in field or 'rate' in field or 'avg' in field:
                 suffix = 'R'
 
+            if 'four_year_graduate' in field and (
+                short_code == 'S' or short_code == 'R'):
+                code = code[:-1]
+
+            if 'four_year_graduate' in field and 'count' in field:
+                suffix = 'N'
+
             datum = row[short_code + code + short_year + suffix]
 
             if datum == '.':
