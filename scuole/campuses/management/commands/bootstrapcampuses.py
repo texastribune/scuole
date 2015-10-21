@@ -131,7 +131,6 @@ class Command(BaseCommand):
         low_grade, high_grade = campus['GRDSPAN'].split(' - ')
         district = District.objects.get(tea_id=campus['DISTRICT'])
         county = County.objects.get(name__iexact=campus['CNTYNAME'])
-        print county
 
         if campus['CAMPUS'] in shape_match:
             geometry = GEOSGeometry(
