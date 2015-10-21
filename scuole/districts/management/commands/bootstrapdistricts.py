@@ -24,7 +24,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         askted_file_location = os.path.join(
-            settings.DATA_FOLDER, 'askted', 'Directory.csv')
+            settings.DATA_FOLDER, 'askted', 'directory.csv')
 
         self.askted_data = self.load_askted_file(askted_file_location)
 

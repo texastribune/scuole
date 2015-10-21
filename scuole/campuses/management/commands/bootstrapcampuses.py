@@ -39,7 +39,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         askted_file_location = os.path.join(
-            settings.DATA_FOLDER, 'askted', 'Directory.csv')
+            settings.DATA_FOLDER, 'askted', 'directory.csv')
 
         self.askted_data = self.load_askted_file(askted_file_location)
 
@@ -50,7 +50,7 @@ class Command(BaseCommand):
 
         campus_json = os.path.join(
             settings.DATA_FOLDER,
-            'tapr', 'reference', 'campus', 'shapes', 'Schools2014.geojson')
+            'tapr', 'reference', 'campus', 'shapes', 'campuses.geojson')
 
         self.shape_data = self.load_geojson_file(campus_json)
 
