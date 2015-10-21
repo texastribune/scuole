@@ -169,22 +169,22 @@ class StaffStudentBase(models.Model):
         'Average tenure of teachers at entity', null=True, blank=True)
     teacher_avg_experience = models.FloatField(
         'Average years of experience at entity', null=True, blank=True)
-    teacher_base_salary_avg = models.DecimalField(
+    teacher_avg_base_salary = models.DecimalField(
         'Average teacher salary at entity', max_digits=10,
         decimal_places=2, null=True, blank=True)
-    teacher_beginning_salary_avg = models.DecimalField(
+    teacher_avg_beginning_salary = models.DecimalField(
         'Average teacher beginning salary at entity', max_digits=10,
         decimal_places=2, null=True, blank=True)
-    teacher_one_thru_five_salary_avg = models.DecimalField(
+    teacher_avg_1_to_5_year_salary = models.DecimalField(
         'Average salary for teachers with 1-5 years experience',
         max_digits=10, decimal_places=2, null=True, blank=True)
-    teacher_six_thru_ten_salary_avg = models.DecimalField(
+    teacher_avg_6_to_10_year_salary = models.DecimalField(
         'Average salary for teachers with 6-10 years experience',
         max_digits=10, decimal_places=2, null=True, blank=True)
-    teacher_eleven_thru_twenty_salary_avg = models.DecimalField(
+    teacher_avg_11_to_20_year_salary = models.DecimalField(
         'Average salary for teachers with 11-20 years experience',
         max_digits=10, decimal_places=2, null=True, blank=True)
-    teacher_over_twenty_salary = models.DecimalField(
+    teacher_avg_20_plus_year_salary = models.DecimalField(
         'Average salary for teachers with over 20 years experience',
         max_digits=10, decimal_places=2, null=True, blank=True)
 
