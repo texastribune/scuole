@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 import string
 
-from localflavor.us.models import USStateField, USZipCodeField
+from localflavor.us.models import USStateField, USZipCodeField, PhoneNumberField
 
 from django.contrib.gis.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -79,25 +79,20 @@ class Campus(models.Model):
             _('Not rated due to data integrity issue')),
     )
 
-    # CCD - SCHNAM
     name = models.CharField(_('Campus name'), max_length=200)
     slug = models.SlugField(max_length=150)
     # TEA - CAMPUS
     tea_id = models.CharField(_('TEA campus identifier'), max_length=10)
-    # CCD - PHONE
-    phone = models.CharField(_('Campus phone number'), max_length=10)
-    # CCD - LSTREE
-    street = models.CharField(_('Campus street'), max_length=100)
-    # CCD - LCITY
-    city = models.CharField(_('Campus city'), max_length=200)
-    # CCD - LSTATE
-    state = USStateField(_('Campus state'), max_length=2)
-    # CCD - LZIP-LZIP4
-    zip_code = USZipCodeField(_('Campus ZIP Code'))
-    # CCD - ULOCAL
+    phone_number = PhoneNumberField(
+        _('Campus phone number'), max_length=20, null=True)
+    phone_number_extension = models.CharField(
+        _('Phone number extension'), max_length=4, blank=True, default='')
+    street = models.CharField(_('Campus street'), max_length=100, null=True)
+    city = models.CharField(_('Campus city'), max_length=200, null=True)
+    state = USStateField(_('Campus state'), max_length=2, null=True)
+    zip_code = USZipCodeField(_('Campus ZIP Code'), null=True)
     locale = models.CharField(
         _('Campus NCES urban-centric locale identifier'), max_length=15)
-    # CCD - LATCOD
     coordinates = models.PointField(null=True)
     # TEA - GRDSPAN
     low_grade = models.CharField(
