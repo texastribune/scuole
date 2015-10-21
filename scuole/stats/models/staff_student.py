@@ -123,7 +123,6 @@ class StaffStudentBase(models.Model):
         'Number of students enrolled in special education program',
         null=True, blank=True)
 
-
     bilingual_esl_percent = models.FloatField(
         'Percent of students enrolled in bilingual/ESL program',
         null=True, blank=True)
