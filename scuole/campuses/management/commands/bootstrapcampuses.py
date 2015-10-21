@@ -10,7 +10,7 @@ from slugify import slugify
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.contrib.gis.geos import GEOSGeometry, Point
+from django.contrib.gis.geos import GEOSGeometry
 
 from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
@@ -124,21 +124,22 @@ class Command(BaseCommand):
 
     def create_campus(self, campus):
         fast_match = self.fast_data[str(int(campus['CAMPUS']))]
-        shape_match = self.shape_data
         name = remove_charter_c(fast_match['Campus Name'])
 
         self.stdout.write('Creating {}...'.format(name))
+
         low_grade, high_grade = campus['GRDSPAN'].split(' - ')
         district = District.objects.get(tea_id=campus['DISTRICT'])
         county = County.objects.get(name__iexact=campus['CNTYNAME'])
 
-        if campus['CAMPUS'] in shape_match:
+        if campus['CAMPUS'] in self.shape_data:
             geometry = GEOSGeometry(
-                json.dumps(shape_match[campus['CAMPUS']])
+                json.dumps(self.shape_data[campus['CAMPUS']])
             )
         else:
             self.stderr.write('No shape data for {}'.format(name))
             geometry = None
+
         if campus['CAMPUS'] in self.askted_data:
             askted_match = self.askted_data[campus['CAMPUS']]
             phone_number = askted_match['School Phone']
