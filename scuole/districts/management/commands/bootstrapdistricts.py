@@ -10,7 +10,7 @@ from slugify import slugify
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.contrib.gis.geos import GEOSGeometry, Point, MultiPolygon
+from django.contrib.gis.geos import GEOSGeometry, MultiPolygon
 
 from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
