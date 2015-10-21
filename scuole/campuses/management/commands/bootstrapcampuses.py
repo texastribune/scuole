@@ -155,7 +155,6 @@ class Command(BaseCommand):
             zip_code = askted_match['School Zip']
         else:
             self.stderr.write('No askted data for {}'.format(name))
-            askted_match = ''
             phone_number = ''
             phone_number_extension = ''
             street = ''
