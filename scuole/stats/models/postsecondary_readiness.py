@@ -350,6 +350,66 @@ class PostSecondaryReadinessBase(models.Model):
         _('Percent of 9-12 economically disadvantaged students who dropped out'),
         null=True, blank=True)
 
+    four_year_graduate_all_students_count = models.IntegerField(
+        _('Number of students who graduated in 4 years'), null=True, blank=True)
+    four_year_graduate_african_american_count = models.IntegerField(
+        _('Number of African American students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_american_indian_count = models.IntegerField(
+        _('Number of American Indian students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_asian_count = models.IntegerField(
+        _('Number of Asian students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_hispanic_count = models.IntegerField(
+        _('Number of Hispanic students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_pacific_islander_count = models.IntegerField(
+        _('Number of Pacific Islander students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_two_or_more_races_count = models.IntegerField(
+        _('Number of students of two or more races who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_white_count = models.IntegerField(
+        _('Number of white students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_at_risk_count = models.IntegerField(
+        _('Number of at risk students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_economically_disadvantaged_count = models.IntegerField(
+        _('Number of economically disadvantaged students who graduated in 4 years'),
+        null=True, blank=True)
+
+    four_year_graduate_all_students_percent = models.FloatField(
+        _('Percent of students who graduated in 4 years'), null=True, blank=True)
+    four_year_graduate_african_american_percent = models.FloatField(
+        _('Percent of African American students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_american_indian_percent = models.FloatField(
+        _('Percent of American Indian students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_asian_percent = models.FloatField(
+        _('Percent of Asian students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_hispanic_percent = models.FloatField(
+        _('Percent of Hispanic students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_pacific_islander_percent = models.FloatField(
+        _('Percent of Pacific Islander students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_two_or_more_races_percent = models.FloatField(
+        _('Percent of students of two or more races who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_white_percent = models.FloatField(
+        _('Percent of white students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_at_risk_percent = models.FloatField(
+        _('Percent of at risk students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_economically_disadvantaged_percent = models.FloatField(
+        _('Percent of economically disadvantaged students who graduated in 4 years'),
+        null=True, blank=True)
+
     attendance_rate = models.FloatField(
         _('Attendance rate as calculated by '
         'students present over students in membership'),

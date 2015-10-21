@@ -1,0 +1,36 @@
+.bar-chart {
+  width: 100%;
+}
+
+.bar-chart-row {
+  @include create-row();
+}
+
+.bar-chart-label {
+  @include font-size(14);
+  float: left;
+  line-height: 1.2;
+  width: 30%;
+}
+
+.bar-chart-bar {
+  background-color: $color-gray-light;
+  float: left;
+  height: 1rem;
+  margin-bottom: $gutter-quarter;
+  margin-right: 1%;
+  width: 59%;
+}
+
+.bar-chart-value {
+  @include font-size(14);
+  float: left;
+  line-height: 1.2;
+  width: 10%;
+}
+
+.bar-chart-bar-color {
+  background-color: $color-button;
+  display: block;
+  height: 100%;
+}
