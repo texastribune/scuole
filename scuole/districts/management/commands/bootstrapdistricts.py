@@ -105,15 +105,14 @@ class Command(BaseCommand):
 
     def create_district(self, district):
         fast_match = self.fast_data[str(int(district['DISTRICT']))]
-        shape_match = self.shape_data
 
         name = remove_charter_c(fast_match['District Name'])
         self.stdout.write('Creating {}...'.format(name))
         county = County.objects.get(name__iexact=district['CNTYNAME'])
         region = Region.objects.get(region_id=district['REGION'])
-        if district['DISTRICT'] in shape_match:
+        if district['DISTRICT'] in self.shape_data:
             geometry = GEOSGeometry(
-                json.dumps(shape_match[district['DISTRICT']]))
+                json.dumps(self.shape_data[district['DISTRICT']]))
 
             # checks to see if the geometry is a multipolygon
             if geometry.geom_typeid == 3:
@@ -137,7 +136,6 @@ class Command(BaseCommand):
             zip_code = askted_match['District Zip']
         else:
             self.stderr.write('No askted data for {}'.format(name))
-            askted_match = ''
             phone_number = ''
             phone_number_extension = ''
             street = ''
