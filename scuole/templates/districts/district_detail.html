@@ -25,9 +25,9 @@
 {% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
 {% for campus in campus_list %}
   <h3 class="card-title">{{ campus.grouper }}s</h3>
-  <ul class="card-list">
+  <ul class="card-list row">
     {% for school in campus.list %}
-    <li class="card-list-item"><a href="{{ school.get_absolute_url }}">{{ school.name }}</a></li>
+    <li class="card-list-item col-6"><a href="{{ school.get_absolute_url }}">{{ school.name }}</a></li>
     {% endfor %}
   </ul>
 {% endfor %}

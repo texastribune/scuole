@@ -24,6 +24,7 @@ $gutter-quarter: $gutter / 4;
 // Grid
 
 $grid-columns: 12;
+$grid-gutter: 1.25rem;
 
 // Typography
 $font-size-base: 16;
@@ -37,7 +38,9 @@ $font-soleil: 'soleil', $font-sans-serif;
 $mq-responsive: true;
 
 $mq-breakpoints: (
-  tablet:  740px
+  tablet:  760px,
+
+  ad-switch: 750px
 );
 
 $mq-media-type: screen;

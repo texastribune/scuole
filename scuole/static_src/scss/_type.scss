@@ -22,8 +22,10 @@
 
 .page-sub-header {
   @include font-size(20);
+  border-bottom: 2px solid $color-gray;
   font-family: $font-soleil;
-  margin-bottom: $gutter-half;
+  margin-bottom: $gutter;
+  padding-bottom: $gutter-half;
 }
 
 .page-prose {

@@ -1,7 +1,20 @@
 .ad-slot {
   text-align: center;
+  margin-bottom: $gutter;
+}
+
+.ad-slot-box {
+  display: block;
+
+  @include mq($from: ad-switch) {
+    display: none;
+  }
 }
 
 .ad-slot-banner {
-  margin-bottom: $gutter;
+  display: none;
+
+  @include mq($from: ad-switch) {
+    display: block;
+  }
 }

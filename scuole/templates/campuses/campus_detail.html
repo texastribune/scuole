@@ -21,19 +21,19 @@
 </header>
 
 <div class="stats-group">
-  <div class="stats-item">
+  <div class="stats-item-half">
     <div class="stats-item-title">No. of Students</div>
     <div class="stats-item-number">{{ campus.stats.first.all_students_count|intcomma }}</div>
   </div>
-  <div class="stats-item">
+  <div class="stats-item-half">
     <div class="stats-item-title">Students per Teacher</div>
     <div class="stats-item-number">{{ campus.stats.first.students_per_teacher|floatformat }}</div>
   </div>
-  <div class="stats-item">
+  <div class="stats-item-half">
     <div class="stats-item-title">Avg. SAT Score</div>
     <div class="stats-item-number">{{ campus.stats.first.avg_sat_score_all_students|default:"N/A" }}</div>
   </div>
-  <div class="stats-item">
+  <div class="stats-item-half">
     <div class="stats-item-title">Attendance Rate</div>
     <div class="stats-item-number">{{ campus.stats.first.attendance_rate|floatformat }}%</div>
   </div>
@@ -41,7 +41,7 @@
 
 <div class="page-prose">
   <p>
-    {% blocktrans with campusName=campus.name schoolType=campus.get_school_type_display|lower districtName=campus.district.name studentCount=campus.stats.first.all_students_count|intcomma year=campus.stats.first.year count studentCount=campus.stats.first.all_students_count.length%}
+    {% blocktrans with campusName=campus.name schoolType=campus.get_school_type_display|lower districtName=campus.district.name studentCount=campus.stats.first.all_students_count|intcomma year=campus.stats.first.year count count=campus.stats.first.all_students_count %}
       {{ campusName }} is a {{ schoolType }} in the {{ districtName }} district. There was {{ studentCount }} student during the {{ year }} school year.
     {% plural %}
       {{ campusName }} is a {{ schoolType }} in the {{ districtName }} district. There were {{ studentCount }} students during the {{ year }} school year.
@@ -85,24 +85,116 @@
   <img src="https://placehold.it/728x90">
 </div>
 
-<h2 class="page-sub-header">Demographics</h2>
+<div class="ad-slot ad-slot-box">
+  <img src="https://placehold.it/300x250">
+</div>
 
-<section class="card">
-  HI
+<h2 class="page-sub-header">Demographics</h2>
+<section class="metrics-section">
+  <div class="col-2">
+    <div class="stats-item">
+      <p class="stats-item-title">Total Students</p>
+      <p class="stats-item-number">{{ campus.stats.first.all_students_count|intcomma }}</p>
+    </div>
+  </div>
+  <div class="col-5">
+    <div class="stats-group">
+      <div class="stats-item">
+        <p class="stats-item-title">White</p>
+        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.white_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.white_percent }}%</span></p>
+      </div>
+      <div class="stats-item">
+        <p class="stats-item-title">Hispanic</p>
+        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.hispanic_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.hispanic_percent }}%</span></p>
+      </div>
+      <div class="stats-item">
+        <p class="stats-item-title">African American</p>
+        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.african_american_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.african_american_percent }}%</span></p>
+      </div>
+      <div class="stats-item">
+        <p class="stats-item-title">Asian</p>
+        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.asian_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.asian_percent }}%</span></p>
+      </div>
+      <div class="stats-item">
+        <p class="stats-item-title">American Indian</p>
+        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.american_indian_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.american_indian_percent }}%</span></p>
+      </div>
+      <div class="stats-item">
+        <p class="stats-item-title">Pacific Islander</p>
+        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.pacific_islander_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.pacific_islander_percent }}%</span></p>
+      </div>
+      <div class="stats-item">
+        <p class="stats-item-title">Two or More Races</p>
+        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.two_or_more_races_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.two_or_more_races_percent }}%</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-5">
+    <div class="bar-chart">
+      <div class="bar-chart-row">
+        <p class="bar-chart-label">White</p>
+        <div class="bar-chart-bar">
+          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.white_percent }}%"></span>
+        </div>
+        <p class="bar-chart-value">{{ campus.stats.first.white_percent }}%</p>
+      </div>
+      <div class="bar-chart-row">
+        <p class="bar-chart-label">Hispanic</p>
+        <div class="bar-chart-bar">
+          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.hispanic_percent }}%"></span>
+        </div>
+        <p class="bar-chart-value">{{ campus.stats.first.hispanic_percent }}%</p>
+      </div>
+      <div class="bar-chart-row">
+        <p class="bar-chart-label">African American</p>
+        <div class="bar-chart-bar">
+          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.african_american_percent }}%"></span>
+        </div>
+        <p class="bar-chart-value">{{ campus.stats.first.african_american_percent }}%</p>
+      </div>
+      <div class="bar-chart-row">
+        <p class="bar-chart-label">Asian</p>
+        <div class="bar-chart-bar">
+          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.asian_percent }}%"></span>
+        </div>
+        <p class="bar-chart-value">{{ campus.stats.first.asian_percent }}%</p>
+      </div>
+      <div class="bar-chart-row">
+        <p class="bar-chart-label">American Indian</p>
+        <div class="bar-chart-bar">
+          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.american_indian_percent }}%"></span>
+        </div>
+        <p class="bar-chart-value">{{ campus.stats.first.american_indian_percent }}%</p>
+      </div>
+      <div class="bar-chart-row">
+        <p class="bar-chart-label">Pacific Islander</p>
+        <div class="bar-chart-bar">
+          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.pacific_islander_percent }}%"></span>
+        </div>
+        <p class="bar-chart-value">{{ campus.stats.first.pacific_islander_percent }}%</p>
+      </div>
+      <div class="bar-chart-row">
+        <p class="bar-chart-label">Two or More</p>
+        <div class="bar-chart-bar">
+          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.two_or_more_races_percent }}%"></span>
+        </div>
+        <p class="bar-chart-value">{{ campus.stats.first.two_or_more_races_percent }}%</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<h2 class="page-sub-header">College Readiness</h2>
+<h2 class="page-sub-header">Performance</h2>
+<section class="metrics-section">
+</section>
+
+<h2 class="page-sub-header">Postsecondary Readiness</h2>
+<section class="metrics-section">
+</section>
 
 <h2 class="page-sub-header">Staff</h2>
-
-{% comment %}
-{% for stat in campus.stats.all %}
-<section class="card">
-  <h3>{{ stat.year.name }}</h3>
-  <p>{% trans "No. of Students: " %}{{ stat.all_students_count }}</p>
+<section class="metrics-section">
 </section>
-{% endfor %}
-{% endcomment %}
 
 {% endblock content %}
 

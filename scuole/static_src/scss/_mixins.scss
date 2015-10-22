@@ -38,6 +38,25 @@
   width: percentage($size / $columns);
 }
 
+// create-grid-columns
+// Creates the fleet of responsive columns based on $grid-columns
+@mixin create-grid-columns($columns: $grid-columns, $gutter: $grid-gutter) {
+  %grid-column {
+    float: left;
+    min-height: 1px;
+    position: relative;
+    padding-left: $gutter / 2;
+    padding-right: $gutter / 2;
+  }
+
+  @for $i from 1 through $columns {
+    .col-#{$i} {
+      @extend %grid-column;
+      width: percentage($i / $columns);
+    }
+  }
+}
+
 // site-logo-height
 // Calcuates the height of the Tribune logo properly due to the tail
 @mixin site-logo-height($height) {
