@@ -415,5 +415,9 @@ class PostSecondaryReadinessBase(models.Model):
         'students present over students in membership'),
         null=True, blank=True)
 
+    staar_all_subjects_african_american_met_level_two_count = models.IntegerField(
+        _('Percent of African American students who met STAAR level 2 phase-in'),
+        null=True, blank=True)
+
     class Meta:
         abstract = True
