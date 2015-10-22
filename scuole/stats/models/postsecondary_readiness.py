@@ -444,7 +444,8 @@ class PostSecondaryReadinessBase(models.Model):
         null=True, blank=True)
     staar_all_subjects_economically_disadvantaged_met_level_two_count = models.IntegerField(
         _('Number of economically disadvantaged students who met STAAR level 2 phase-in'),
-        null=True, blank=True)
+        null=True, blank=True,
+        db_column='staar_all_subjects_econ_disadv_met_level_two_count')
 
     staar_all_subjects_all_students_met_level_two_percent = models.FloatField(
         _('Percent of all students who met STAAR level 2 phase-in'),
@@ -475,7 +476,8 @@ class PostSecondaryReadinessBase(models.Model):
         null=True, blank=True)
     staar_all_subjects_economically_disadvantaged_met_level_two_percent = models.FloatField(
         _('Percent of economically disadvantaged students who met STAAR level 2 phase-in'),
-        null=True, blank=True)
+        null=True, blank=True,
+        db_column='staar_all_subjects_econ_disadv_met_level_two_percent')
 
     class Meta:
         abstract = True
