@@ -98,6 +98,10 @@ class Command(BaseCommand):
                             payload['defaults'].update(
                                 self.load_postsecondary_readiness(
                                     m['short_code'], values, row))
+                        if schema == ('staar-2012-2013'):
+                            payload['defaults'].update(
+                                self.load_staar_2012_2013(
+                                    m['short_code'], values, row))
 
                         stats_model.objects.update_or_create(**payload)
 
@@ -131,6 +135,26 @@ class Command(BaseCommand):
 
             if 'four_year_graduate' in field and 'count' in field:
                 suffix = 'N'
+
+            datum = row[short_code + code + short_year + suffix]
+
+            if datum == '.':
+                datum = None
+
+            payload[field] = datum
+
+        return payload
+
+    def load_staar_2012_2013(self, short_code, schema, row):
+        payload = {}
+
+        short_year = self.school_year.name.split('-')[0][2:]
+
+        for field, code in schema.items():
+            if 'count' in field:
+                suffix = 'N'
+            elif 'percent' in field or 'rate' in field or 'avg' in field:
+                suffix = 'R'
 
             datum = row[short_code + code + short_year + suffix]
 
