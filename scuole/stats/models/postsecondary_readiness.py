@@ -47,6 +47,12 @@ class PostSecondaryReadinessBase(models.Model):
              'disadvantaged graduates in English'),
             null=True, blank=True,
             db_column='college_ready_graduates_english_econ_disadv_count'))
+    college_ready_graduates_english_limited_english_proficient_count = (
+        models.IntegerField(
+            _('Number of college ready limited english '
+              'proficient graduates in English'),
+            null=True, blank=True,
+            db_column='college_ready_graduates_english_lep_count'))
     college_ready_graduates_english_at_risk_count = models.IntegerField(
         _('Number of college ready at risk graduates in English'),
         null=True, blank=True)
@@ -81,6 +87,12 @@ class PostSecondaryReadinessBase(models.Model):
             _('Number of college ready economically disadvantaged graduates in math'),
             null=True, blank=True,
             db_column='college_ready_graduates_math_econ_disadv_count'))
+    college_ready_graduates_math_limited_english_proficient_count = (
+        models.IntegerField(
+            _('Number of college ready limited english '
+              'proficient graduates in math'),
+            null=True, blank=True,
+            db_column='college_ready_graduates_math_lep_count'))
     college_ready_graduates_math_at_risk_count = models.IntegerField(
         _('Number of college ready at risk graduates in math'),
         null=True, blank=True)
@@ -114,9 +126,15 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_both_economically_disadvantaged_count = (
         models.IntegerField(
             _('Number of college ready economically '
-             'disadvantaged graduates in both subjects'),
+              'disadvantaged graduates in both subjects'),
             null=True, blank=True,
             db_column='college_ready_graduates_both_econ_disadv_count'))
+    college_ready_graduates_both_limited_english_proficient_count = (
+        models.IntegerField(
+            _('Number of college ready limited english '
+              'proficient graduates in both subjects'),
+            null=True, blank=True,
+            db_column='college_ready_graduates_both_lep_count'))
     college_ready_graduates_both_at_risk_count = models.IntegerField(
         _('Number of college ready at risk graduates in both'),
         null=True, blank=True)
@@ -152,9 +170,15 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_english_economically_disadvantaged_percent = (
         models.FloatField(
             _('Percent of college ready economically '
-            'disadvantaged graduates in English'),
+              'disadvantaged graduates in English'),
             null=True, blank=True,
             db_column='college_ready_graduates_english_econ_disadv_percent'))
+    college_ready_graduates_english_limited_english_proficient_percent = (
+        models.FloatField(
+            _('Percent of college ready limited english '
+              'proficient graduates in English'),
+            null=True, blank=True,
+            db_column='college_ready_graduates_english_lep_percent'))
     college_ready_graduates_english_at_risk_percent = models.FloatField(
         _('Percent of college ready at risk graduates in English'),
         null=True, blank=True)
@@ -187,9 +211,15 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_math_economically_disadvantaged_percent = (
         models.FloatField(
             _('Percent of college ready economically '
-            'disadvantaged graduates in math'),
+              'disadvantaged graduates in math'),
             null=True, blank=True,
             db_column='college_ready_graduates_math_econ_disadv_percent'))
+    college_ready_graduates_math_limited_english_proficient_percent = (
+        models.FloatField(
+            _('Percent of college ready limited english '
+              'proficient graduates in math'),
+            null=True, blank=True,
+            db_column='college_ready_graduates_math_lep_percent'))
     college_ready_graduates_math_at_risk_percent = models.FloatField(
         _('Percent of college ready at risk graduates in math'),
         null=True, blank=True)
@@ -215,17 +245,23 @@ class PostSecondaryReadinessBase(models.Model):
         null=True, blank=True)
     college_ready_graduates_both_two_or_more_races_percent = models.FloatField(
         _('Percent of college ready graduates '
-         'of two or more races in both subjects'),
+          'of two or more races in both subjects'),
         null=True, blank=True)
     college_ready_graduates_both_white_percent = models.FloatField(
         _('Percent of college ready white graduates in both subjects'),
         null=True, blank=True)
     college_ready_graduates_both_economically_disadvantaged_percent = (
         models.FloatField(
-        _('Percent of college ready economically '
-         'disadvantaged graduates in both subjects'),
-        null=True, blank=True,
-        db_column='college_ready_graduates_both_econ_disadv_percent'))
+            _('Percent of college ready economically '
+              'disadvantaged graduates in both subjects'),
+            null=True, blank=True,
+            db_column='college_ready_graduates_both_econ_disadv_percent'))
+    college_ready_graduates_both_limited_english_proficient_percent = (
+        models.FloatField(
+            _('Percent of college ready limited english '
+              'proficient graduates in both subjects'),
+            null=True, blank=True,
+            db_column='college_ready_graduates_both_lep_percent'))
     college_ready_graduates_both_at_risk_percent = models.FloatField(
         _('Percent of college ready at risk graduates in both subjects'),
         null=True, blank=True)
@@ -318,6 +354,9 @@ class PostSecondaryReadinessBase(models.Model):
     dropout_economically_disadvantaged_count = models.IntegerField(
         _('Number of 9-12 economically disadvantaged students who dropped out'),
         null=True, blank=True)
+    dropout_limited_english_proficient_count = models.IntegerField(
+        _('Number of 9-12 limited English proficient students who dropped out'),
+        null=True, blank=True)
 
     dropout_all_students_percent = models.FloatField(
         _('Percent of 9-12 students who dropped out'),
@@ -349,6 +388,9 @@ class PostSecondaryReadinessBase(models.Model):
     dropout_economically_disadvantaged_percent = models.FloatField(
         _('Percent of 9-12 economically disadvantaged students who dropped out'),
         null=True, blank=True)
+    dropout_limited_english_proficient_percent = models.FloatField(
+        _('Percent of 9-12 limited English proficient students who dropped out'),
+        null=True, blank=True)
 
     four_year_graduate_all_students_count = models.IntegerField(
         _('Number of students who graduated in 4 years'), null=True, blank=True)
@@ -379,6 +421,9 @@ class PostSecondaryReadinessBase(models.Model):
     four_year_graduate_economically_disadvantaged_count = models.IntegerField(
         _('Number of economically disadvantaged students who graduated in 4 years'),
         null=True, blank=True)
+    four_year_graduate_limited_english_proficient_count = models.IntegerField(
+        _('Number of limited English proficient students who graduated in 4 years'),
+        null=True, blank=True)
 
     four_year_graduate_all_students_percent = models.FloatField(
         _('Percent of students who graduated in 4 years'), null=True, blank=True)
@@ -408,6 +453,9 @@ class PostSecondaryReadinessBase(models.Model):
         null=True, blank=True)
     four_year_graduate_economically_disadvantaged_percent = models.FloatField(
         _('Percent of economically disadvantaged students who graduated in 4 years'),
+        null=True, blank=True)
+    four_year_graduate_limited_english_proficient_percent = models.FloatField(
+        _('Percent of limited English proficient students who graduated in 4 years'),
         null=True, blank=True)
 
     attendance_rate = models.FloatField(
