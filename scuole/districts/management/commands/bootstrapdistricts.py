@@ -57,7 +57,7 @@ class Command(BaseCommand):
             for row in reader:
                 self.create_district(row)
 
-        self.unique_districts()
+        self.make_slugs_unique()
 
     def load_askted_file(self, file):
         payload = {}
@@ -171,11 +171,16 @@ class Command(BaseCommand):
         else:
             self.stderr.write('No superintendent data for {}'.format(name))
 
-    def unique_districts(self):
-        slugs = [i['slug'] for i in District.objects.values('slug').annotate(Count('slug')).order_by().filter(slug__count__gt=1)]
+    def make_slugs_unique(self):
+        models = District.objects.values('slug').annotate(
+            Count('slug')).order_by().filter(slug__count__gt=1)
+        slugs = [i['slug'] for i in models]
+
         districts = District.objects.filter(slug__in=slugs)
+
         for district in districts:
-            district.slug = '{0}-{1}'.format(district.slug, district.county.slug)
+            district.slug = '{0}-{1}'.format(
+                district.slug, district.county.slug)
             district.save()
 
     def load_superintendent(self, district, superintendent):
