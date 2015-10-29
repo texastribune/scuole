@@ -10,74 +10,53 @@
 
 {% block content %}
 
-<section class="row">
-<div class="col-8">
+<section class="row section">
+<div class="intro-block">
 <header class="page-header">
   <h1 class="page-headline">{{ campus.name }}</h1>
-  <p class="page-subtext">{{ campus.city|title }}, {{ campus.state }} | <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></p>
-  <p class="page-subtext">{{ campus.get_school_type_display }}</p>
-  <p class="page-subtext">{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</p>
-  <p class="page-subtext">Accountability rating: {{ campus.get_accountability_rating_display }}</p>
+  <ul>
+    <li class="page-subtext">{{ campus.city|title }}, {{ campus.state }} | <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></li>
+    <li class="page-subtext">{{ campus.get_school_type_display }}</li>
+    <li class="page-subtext">{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</li>
+  </ul>
 </header>
 
-<div class="stats-group">
-  <div class="stats-item-half">
-    <div class="stats-item-title">No. of Students</div>
-    <div class="stats-item-number">{{ campus.stats.first.all_students_count|intcomma }}</div>
-  </div>
-  <div class="stats-item-half">
-    <div class="stats-item-title">Students per Teacher</div>
-    <div class="stats-item-number">{{ campus.stats.first.students_per_teacher|floatformat }}</div>
-  </div>
-  <div class="stats-item-half">
-    <div class="stats-item-title">Avg. SAT Score</div>
-    <div class="stats-item-number">{{ campus.stats.first.avg_sat_score_all_students|default:"N/A" }}</div>
-  </div>
-  <div class="stats-item-half">
-    <div class="stats-item-title">Attendance Rate</div>
-    <div class="stats-item-number">{{ campus.stats.first.attendance_rate|floatformat }}%</div>
-  </div>
-</div>
+{% include "includes/intro_metrics.html" with stat=stat state=state only %}
 
-<div class="page-prose">
-  <p>
-    {% blocktrans with campusName=campus.name schoolType=campus.get_school_type_display|lower districtName=campus.district.name studentCount=campus.stats.first.all_students_count|intcomma year=campus.stats.first.year count count=campus.stats.first.all_students_count %}
-      {{ campusName }} is a {{ schoolType }} in the {{ districtName }} district. There was {{ studentCount }} student during the {{ year }} school year.
-    {% plural %}
-      {{ campusName }} is a {{ schoolType }} in the {{ districtName }} district. There were {{ studentCount }} students during the {{ year }} school year.
-    {% endblocktrans %}
-  </p>
-</div>
+<section class="page-prose">
+  {% lorem 1 p %}
+</section>
 
 </div>
+<div class="contact-block">
+<div class="map" id="map-campus"></div>
 
-<div class="col-4">
-  <div class="map" id="map"></div>
-  <div class="card">
-    <h3 class="card-title">Address</h3>
-    <address class="card-address">
-      {{ campus.street|title }}<br>
-      {{ campus.location }} {{ campus.zip_code }}
-    </address>
-    <h3 class="card-title">{% trans "Phone number" %}</h3>
-    <p class="card-text"><a href="tel://{{ campus.phone }}">{{ campus.phone }}</a></p>
-    {% if campus.principals.all %}
-    <h3 class="card-title">
-      {% blocktrans count numberOfPrincipals=campus.principals.all.length %}
-        Principal
-      {%  plural %}
-        Principals
-      {% endblocktrans %}
-    </h3>
-    <ul class="card-list">
-    {% for principal in campus.principals.all %}
-      <li class="card-list-item">{{ principal.name }}</li>
-      <li class="card-list-item"><a href="mailto:{{ principal.email }}">{{ principal.email }}</a></li>
-      <li class="card-list-item"><a href="tel://{{ principal.phone_number }}">{{ principal.phone_number }}</a></li>
-    {% endfor %}
-    </ul>
-    {% endif %}
-  </div>
+<section class="card">
+  <h2 class="card-header">Contact information</h2>
+  <h3 class="card-title">{% trans "Address" %}</h3>
+  <address class="card-address">
+    {{ campus.street|title }}<br>
+    {{ campus.location }} {{ campus.zip_code }}
+  </address>
+  <h3 class="card-title">{% trans "Phone number" %}</h3>
+  <p class="card-text"><a href="tel://{{ campus.phone_number }}">{{ campus.phone_number }}</a></p>
+  {% if campus.principals.all %}
+  <h3 class="card-title">
+  {% blocktrans count numberOfPrincipals=campus.principals.count %}
+    Principal
+  {%  plural %}
+    Principals
+  {% endblocktrans %}
+  </h3>
+  <ul class="card-list">
+  {% for principal in campus.principals.all %}
+    <li class="card-list-item">{{ principal.name }}</li>
+    <li class="card-list-item"><a href="mailto:{{ principal.email }}">{{ principal.email }}</a></li>
+    <li class="card-list-item"><a href="tel://{{ principal.phone_number }}">{{ principal.phone_number }}</a></li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+</section>
 </div>
 </section>
 
@@ -85,121 +64,54 @@
   <img src="https://placehold.it/728x90">
 </div>
 
-<div class="ad-slot ad-slot-box">
-  <img src="https://placehold.it/300x250">
+<section class="row">
+
+<nav class="col-3">
+  <ul class="metrics-jumper">
+    <li class="metrics-jumper__item btn btn-dark">Demographics<span class="metrics-jumper__arrow"></li></span>
+    <li class="metrics-jumper__item btn btn-dark">Academics</li>
+    <li class="metrics-jumper__item btn btn-dark">Staff</li>
+  </ul>
+</nav>
+
+<section class="col-9">
+
+<section class="section">
+<h2 class="page-section-header">Demographics</h2>
+
+<div class="page-prose">
+  <p>{% lorem 25 w %}.</p>
 </div>
 
-<h2 class="page-sub-header">Demographics</h2>
-<section class="metrics-section">
-  <div class="col-2">
-    <div class="stats-item">
-      <p class="stats-item-title">Total Students</p>
-      <p class="stats-item-number">{{ campus.stats.first.all_students_count|intcomma }}</p>
-    </div>
-  </div>
-  <div class="col-5">
-    <div class="stats-group">
-      <div class="stats-item">
-        <p class="stats-item-title">White</p>
-        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.white_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.white_percent }}%</span></p>
-      </div>
-      <div class="stats-item">
-        <p class="stats-item-title">Hispanic</p>
-        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.hispanic_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.hispanic_percent }}%</span></p>
-      </div>
-      <div class="stats-item">
-        <p class="stats-item-title">African American</p>
-        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.african_american_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.african_american_percent }}%</span></p>
-      </div>
-      <div class="stats-item">
-        <p class="stats-item-title">Asian</p>
-        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.asian_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.asian_percent }}%</span></p>
-      </div>
-      <div class="stats-item">
-        <p class="stats-item-title">American Indian</p>
-        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.american_indian_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.american_indian_percent }}%</span></p>
-      </div>
-      <div class="stats-item">
-        <p class="stats-item-title">Pacific Islander</p>
-        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.pacific_islander_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.pacific_islander_percent }}%</span></p>
-      </div>
-      <div class="stats-item">
-        <p class="stats-item-title">Two or More Races</p>
-        <p class="stats-item-number stats-item-number-small">{{ campus.stats.first.two_or_more_races_count|intcomma }}<span class="stats-item-subtext"> / {{ campus.stats.first.two_or_more_races_percent }}%</span></p>
-      </div>
-    </div>
-  </div>
-  <div class="col-5">
-    <div class="bar-chart">
-      <div class="bar-chart-row">
-        <p class="bar-chart-label">White</p>
-        <div class="bar-chart-bar">
-          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.white_percent }}%"></span>
-        </div>
-        <p class="bar-chart-value">{{ campus.stats.first.white_percent }}%</p>
-      </div>
-      <div class="bar-chart-row">
-        <p class="bar-chart-label">Hispanic</p>
-        <div class="bar-chart-bar">
-          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.hispanic_percent }}%"></span>
-        </div>
-        <p class="bar-chart-value">{{ campus.stats.first.hispanic_percent }}%</p>
-      </div>
-      <div class="bar-chart-row">
-        <p class="bar-chart-label">African American</p>
-        <div class="bar-chart-bar">
-          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.african_american_percent }}%"></span>
-        </div>
-        <p class="bar-chart-value">{{ campus.stats.first.african_american_percent }}%</p>
-      </div>
-      <div class="bar-chart-row">
-        <p class="bar-chart-label">Asian</p>
-        <div class="bar-chart-bar">
-          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.asian_percent }}%"></span>
-        </div>
-        <p class="bar-chart-value">{{ campus.stats.first.asian_percent }}%</p>
-      </div>
-      <div class="bar-chart-row">
-        <p class="bar-chart-label">American Indian</p>
-        <div class="bar-chart-bar">
-          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.american_indian_percent }}%"></span>
-        </div>
-        <p class="bar-chart-value">{{ campus.stats.first.american_indian_percent }}%</p>
-      </div>
-      <div class="bar-chart-row">
-        <p class="bar-chart-label">Pacific Islander</p>
-        <div class="bar-chart-bar">
-          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.pacific_islander_percent }}%"></span>
-        </div>
-        <p class="bar-chart-value">{{ campus.stats.first.pacific_islander_percent }}%</p>
-      </div>
-      <div class="bar-chart-row">
-        <p class="bar-chart-label">Two or More</p>
-        <div class="bar-chart-bar">
-          <span class="bar-chart-bar-color" style="width: {{ campus.stats.first.two_or_more_races_percent }}%"></span>
-        </div>
-        <p class="bar-chart-value">{{ campus.stats.first.two_or_more_races_percent }}%</p>
-      </div>
-    </div>
-  </div>
+{% include "includes/demographic_metrics.html" with stat=stat state=state only %}
+
 </section>
 
-<h2 class="page-sub-header">Performance</h2>
-<section class="metrics-section">
+<section class="section">
+<h2 class="page-section-header">Academics</h2>
+
+<div class="page-prose">
+  <p>{% lorem 25 w %}.</p>
+</div>
+
 </section>
 
-<h2 class="page-sub-header">Postsecondary Readiness</h2>
-<section class="metrics-section">
-</section>
+<section class="section">
+<h2 class="page-section-header">Staff</h2>
 
-<h2 class="page-sub-header">Staff</h2>
-<section class="metrics-section">
+<div class="page-prose">
+  <p>{% lorem 25 w %}.</p>
+</div>
+
+{% include "includes/staff_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
+
+</section>
 </section>
 
 {% endblock content %}
 
 {% block extra_script %}
 <script>COORDS = {{ campus.coordinates.geojson|safe }};</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
 <script src="{% static 'scripts/campus.js' %}"></script>
 {% endblock extra_script %}

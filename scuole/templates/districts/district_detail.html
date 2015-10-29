@@ -1,4 +1,4 @@
-{% extends 'standard.html' %}{% load i18n static %}
+{% extends 'standard.html' %}{% load humanize i18n static %}
 
 {% block title %}{{ district.name }}{% endblock title %}
 
@@ -9,71 +9,108 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-<section class="row">
-<div class="col-7">
+
+<section class="row section">
+<div class="intro-block">
 <header class="page-header">
   <h1 class="page-headline">{{ district.name }}</h1>
   <p class="page-subtext">{{ district.city|title }}, {{ district.state }}</p>
-  <p class="page-subtext">Accountability rating: {{ district.get_accountability_rating_display }}</p>
 </header>
 
-<div class="page-prose">
+{% include "includes/intro_metrics.html" with stat=stat state=state only %}
+
+<section class="page-prose">
   {% lorem 1 p %}
+</section>
 </div>
+<div class="contact-block">
+<div class="map map-district" id="map-district"></div>
 
-<div class="card">
-{% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
-{% for campus in campus_list %}
-  <h3 class="card-title">{{ campus.grouper }}s</h3>
-  <ul class="card-list row">
-    {% for school in campus.list %}
-    <li class="card-list-item col-6"><a href="{{ school.get_absolute_url }}">{{ school.name }}</a></li>
-    {% endfor %}
+<section class="card">
+  <h2 class="card-header">Contact information</h2>
+  {% if district.superintendent_of %}
+  <h3 class="card-title">{{ district.superintendent_of.role }}</h3>
+  <ul class="card-list">
+    <li class="card-list-item">{{ district.superintendent_of.name }}</li>
+    <li class="card-list-item"><a href="mailto:{{ principal.email }}">{{ district.superintendent_of.email }}</a></li>
+    <li class="card-list-item"><a href="tel://{{ principal.phone_number }}">{{ district.superintendent_of.phone_number }}</a></li>
   </ul>
-{% endfor %}
-</div>
-</div>
+{% endif %}
+</section>
 
-<div class="col-5">
-  <div class="map map-district" id="district-map"></div>
-
-  {% with nearby_districts=district.nearby_districts %}
-  {% if nearby_districts %}
-  <div class="card">
-    <h3 class="card-title">{% trans "Nearby Districts" %}</h3>
-    <ul class="card-list">
-      {% for district in nearby_districts %}
-        <li class="card-list-item"><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></li>
-      {% endfor %}
-    </ul>
-    {% if district.superintendent_of %}
-    <h3 class="card-title">{{ district.superintendent_of.role }}</h3>
-    {{ district.superintendent_of.name }}
-    {% endif %}
-  </div>
-  {% endif %}
-  {% endwith %}
 </div>
 </section>
 
-{% comment %}
-{% for stat in district.stats.all %}
-  <section class="card">
-    <h3>{{ stat.year.name }}</h3>
-    <p>{% trans "No. of Students: " %}{{ stat.all_students_count }}</p>
-  </section>
-{% endfor %}
-{% endcomment %}
+<h2 class="page-section-header">Campuses</h2>
+<div class="section row">
+  {% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
+  {% for campus in campus_list %}
+    <div class="col-3">
+    <h3 class="card-title">{{ campus.grouper }}s</h3>
+    <ul class="card-list">
+      {% for school in campus.list %}
+      <li class="card-list-item campus-list-item"><a href="{{ school.get_absolute_url }}">{{ school.name }}</a></li>
+      {% endfor %}
+    </ul>
+    {% if campus.list|length > 10 %}<button class="btn btn-gray-ghost btn-thin btn-block">+ More</button>{% endif %}
+  </div>
+  {% endfor %}
+</div>
 
 <div class="ad-slot ad-slot-banner">
   <img src="https://placehold.it/728x90">
 </div>
+
+<section class="row">
+
+<nav class="col-3">
+  <ul class="metrics-jumper">
+    <li class="metrics-jumper__item btn btn-dark">Demographics<span class="metrics-jumper__arrow"></li></span>
+    <li class="metrics-jumper__item btn btn-dark">Academics</li>
+    <li class="metrics-jumper__item btn btn-dark">Staff</li>
+  </ul>
+</nav>
+
+<div class="col-9">
+
+<section>
+<h2 class="page-section-header">Demographics</h2>
+
+<div class="page-prose">
+  <p>{% lorem 25 w %}.</p>
+</div>
+
+{% include "includes/demographic_metrics.html" with stat=stat state=state only %}
+
+</section>
+
+<section>
+<h2 class="page-section-header">Academics</h2>
+
+<div class="page-prose">
+  <p>{% lorem 25 w %}.</p>
+</div>
+
+</section>
+
+<section>
+<h2 class="page-section-header">Staff</h2>
+
+<div class="page-prose">
+  <p>{% lorem 25 w %}.</p>
+</div>
+
+{% include "includes/staff_metrics.html" with stat=stat state=state only %}
+
+</section>
+</div>
+</section>
 
 {% endblock content %}
 
 {% block extra_script %}
 <script>COORDS = {{ district.campus_geojson|safe }};</script>
 <script>SHAPE = {"type": "Feature", "geometry": {{ district.shape.geojson|safe|default:'null' }}};</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
 <script src="{% static 'scripts/district.js' %}"></script>
 {% endblock extra_script %}

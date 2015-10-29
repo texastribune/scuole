@@ -1,18 +1,24 @@
 .card {
-  // background-color: $color-gray-lightest;
-  border: 2px solid $color-gray-light;
+  background-color: $color-gray-lightest;
+  // border: 2px solid $color-gray-light;
   margin-bottom: $gutter;
-  padding: $gutter-half;
+  padding: $gutter;
   width: 100%;
 }
 
+.card-header {
+  @include font-size(18);
+  margin-bottom: $gutter-half;
+}
+
 .card-title {
-  @include font-size(16);
+  @include font-size(14);
   font-weight: 800;
   margin-bottom: $gutter-quarter;
 }
 
 .card-text {
+  @include font-size(14);
   font-weight: 300;
   margin-bottom: $gutter-half;
 }
@@ -26,6 +32,7 @@
 }
 
 .card-list-item {
+  @include font-size(14);
   font-weight: 300;
   margin-bottom: $gutter-quarter;
 
@@ -35,7 +42,8 @@
 }
 
 .card-address {
+  @include font-size(14);
   font-weight: 300;
-  line-height: 1.3;
+  line-height: 1.1;
   margin-bottom: $gutter-half;
 }

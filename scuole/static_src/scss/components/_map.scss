@@ -1,10 +1,14 @@
 .map {
   background-color: $color-gray;
-  height: 200px;
+  height: 100px;
   margin-bottom: $gutter;
   width: 100%;
+
+  @include mq($from: tablet) {
+    height: 200px;
+  }
 }
 
 .map-district {
-  height: 350px;
+  height: 250px;
 }
