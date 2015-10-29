@@ -5,7 +5,7 @@
 var map;
 
 function initialize() {
-  var mapCanvas = document.getElementById('district-map');
+  var mapCanvas = document.getElementById('map-district');
 
   var mapOptions = {
     zoom: 14,
@@ -30,7 +30,9 @@ function zoom(map) {
   var bounds = new google.maps.LatLngBounds();
 
   map.data.forEach(function(feature) {
-    processPoints(feature.getGeometry(), bounds.extend, bounds);
+    if (feature.getGeometry()) {
+      processPoints(feature.getGeometry(), bounds.extend, bounds);
+    }
   });
 
   map.fitBounds(bounds);

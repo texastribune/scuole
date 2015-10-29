@@ -1,16 +1,24 @@
 .btn {
   @include font-size(16);
   border: .0625rem solid transparent;
+  border-radius: 0;
   cursor: pointer;
   display: inline-block;
   font-family: $font-soleil;
   font-weight: 300;
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0;
-  padding: .375rem 1rem;
+  padding-bottom: .375rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: .375rem;
   text-align: center;
   vertical-align: middle;
   white-space: nowrap;
+
+  &:hover {
+    text-decoration: none;
+  }
 
   &-primary {
     background-color: $color-button;
@@ -21,5 +29,51 @@
       background-color: darken($color-button, 5%);
       border-color: darken($color-button, 5%);
     }
+  }
+
+  &-primary-ghost {
+    background-color: transparent;
+    border-color: $color-button;
+    border-width: .125rem;
+    color: $color-text;
+
+    &:hover {
+      background-color: $color-button;
+      color: $color-text-inverse;
+    }
+  }
+
+  &-gray-ghost {
+    background-color: transparent;
+    border-color: $color-primary;
+    border-width: .125rem;
+    color: $color-text;
+
+    &:hover {
+      background-color: $color-primary;
+      color: $color-text-inverse;
+    }
+  }
+
+  &-dark {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-text-inverse;
+
+    &:hover {
+      background-color: $color-secondary;
+      border-color: $color-secondary;
+    }
+  }
+
+  &-block {
+    display: block;
+  }
+
+  &-thin {
+    @include font-size(14);
+    line-height: 1.5;
+    padding-bottom: .25rem;
+    padding-top: .25rem;
   }
 }

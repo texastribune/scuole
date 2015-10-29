@@ -1,29 +1,30 @@
 .bar-chart {
-  width: 100%;
+  margin-bottom: $gutter;
+  max-width: 28.125rem;
 }
 
 .bar-chart-row {
-  @include create-row();
+  @include clearfix;
 }
 
 .bar-chart-label {
-  @include font-size(14);
+  @include font-size(12);
   float: left;
   line-height: 1.2;
-  width: 30%;
+  width: 34%;
 }
 
 .bar-chart-bar {
   background-color: $color-gray-light;
   float: left;
   height: 1rem;
-  margin-bottom: $gutter-quarter;
+  margin-bottom: .5rem;
   margin-right: 1%;
-  width: 59%;
+  width: 54%;
 }
 
 .bar-chart-value {
-  @include font-size(14);
+  @include font-size(12);
   float: left;
   line-height: 1.2;
   width: 10%;

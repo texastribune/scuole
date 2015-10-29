@@ -1,0 +1,103 @@
+{% load humanize %}
+
+<h3 class="page-section-subheader">Ethnicities</h3>
+
+<section class="row metrics">
+  <div class="col-4 metric">
+    <p class="metric-title">White</p>
+    <p class="metric-value">{{ stat.white_count|intcomma }}<span class="metric-subtext"> / {{ stat.white_percent }}%</span></p>
+    {% if state %}<p class="metric-subtext">Texas: {{ state.white_percent }}%</p>{% endif %}
+  </div>
+  <div class="col-4 metric">
+    <p class="metric-title">Hispanic</p>
+    <p class="metric-value">{{ stat.hispanic_count|intcomma }}<span class="metric-subtext"> / {{ stat.hispanic_percent }}%</span></p>
+    {% if state %}<p class="metric-subtext">Texas: {{ state.hispanic_percent }}%</p>{% endif %}
+  </div>
+  <div class="col-4 metric">
+    <p class="metric-title">African American</p>
+    <p class="metric-value">{{ stat.african_american_count|intcomma }}<span class="metric-subtext"> / {{ stat.african_american_percent }}%</span></p>
+    {% if state %}<p class="metric-subtext">Texas: {{ state.african_american_percent }}%</p>{% endif %}
+  </div>
+  <div class="col-4 metric">
+    <p class="metric-title">Asian</p>
+    <p class="metric-value">{{ stat.asian_count|intcomma }}<span class="metric-subtext"> / {{ stat.asian_percent }}%</span></p>
+    {% if state %}<p class="metric-subtext">Texas: {{ state.asian_percent }}%</p>{% endif %}
+  </div>
+  <div class="col-4 metric">
+    <p class="metric-title">American Indian</p>
+    <p class="metric-value">{{ stat.american_indian_count|intcomma }}<span class="metric-subtext"> / {{ stat.american_indian_percent }}%</span></p>
+    {% if state %}<p class="metric-subtext">Texas: {{ state.american_indian_percent }}%</p>{% endif %}
+  </div>
+  <div class="col-4 metric">
+    <p class="metric-title">Pacific Islander</p>
+    <p class="metric-value">{{ stat.pacific_islander_count|intcomma }}<span class="metric-subtext"> / {{ stat.pacific_islander_percent }}%</span></p>
+    {% if state %}<p class="metric-subtext">Texas: {{ state.pacific_islander_percent }}%</p>{% endif %}
+  </div>
+  <div class="col-4 metric">
+    <p class="metric-title">Two or More Races</p>
+    <p class="metric-value">{{ stat.two_or_more_races_count|intcomma }}<span class="metric-subtext"> / {{ stat.two_or_more_races_percent }}%</span></p>
+    {% if state %}<p class="metric-subtext">Texas: {{ state.two_or_more_races_percent }}%</p>{% endif %}
+  </div>
+</section>
+
+<section class="bar-chart">
+  <div class="bar-chart-row">
+  <p class="bar-chart-label">White</p>
+  <div class="bar-chart-bar">
+    <span class="bar-chart-bar-color" style="width: {{ stat.white_percent }}%"></span>
+  </div>
+  <p class="bar-chart-value">{{ stat.white_percent }}%</p>
+  </div>
+  <div class="bar-chart-row">
+    <p class="bar-chart-label">Hispanic</p>
+    <div class="bar-chart-bar">
+      <span class="bar-chart-bar-color" style="width: {{ stat.hispanic_percent }}%"></span>
+    </div>
+    <p class="bar-chart-value">{{ stat.hispanic_percent }}%</p>
+  </div>
+  <div class="bar-chart-row">
+    <p class="bar-chart-label">African American</p>
+    <div class="bar-chart-bar">
+      <span class="bar-chart-bar-color" style="width: {{ stat.african_american_percent }}%"></span>
+    </div>
+    <p class="bar-chart-value">{{ stat.african_american_percent }}%</p>
+  </div>
+  <div class="bar-chart-row">
+    <p class="bar-chart-label">Asian</p>
+    <div class="bar-chart-bar">
+      <span class="bar-chart-bar-color" style="width: {{ stat.asian_percent }}%"></span>
+    </div>
+    <p class="bar-chart-value">{{ stat.asian_percent }}%</p>
+  </div>
+  <div class="bar-chart-row">
+    <p class="bar-chart-label">American Indian</p>
+    <div class="bar-chart-bar">
+      <span class="bar-chart-bar-color" style="width: {{ stat.american_indian_percent }}%"></span>
+    </div>
+    <p class="bar-chart-value">{{ stat.american_indian_percent }}%</p>
+  </div>
+  <div class="bar-chart-row">
+    <p class="bar-chart-label">Pacific Islander</p>
+    <div class="bar-chart-bar">
+      <span class="bar-chart-bar-color" style="width: {{ stat.pacific_islander_percent }}%"></span>
+    </div>
+    <p class="bar-chart-value">{{ stat.pacific_islander_percent }}%</p>
+  </div>
+  <div class="bar-chart-row">
+    <p class="bar-chart-label">Two or More</p>
+    <div class="bar-chart-bar">
+      <span class="bar-chart-bar-color" style="width: {{ stat.two_or_more_races_percent }}%"></span>
+    </div>
+    <p class="bar-chart-value">{{ stat.two_or_more_races_percent }}%</p>
+  </div>
+</section>
+
+<h3 class="page-section-subheader">Risk Factors</h3>
+
+<section class="row metrics">
+  <div class="col-6 metric">
+    <p class="metric-title">Students at Risk</p>
+    <p class="metric-value">{{ stat.at_risk_count|intcomma }}<span class="metric-subtext"> / {{ stat.at_risk_percent }}%</span></p>
+    {% if state %}<p class="metric-subtext">Texas: {{ state.at_risk_percent }}%</p>{% endif %}
+  </div>
+</section>

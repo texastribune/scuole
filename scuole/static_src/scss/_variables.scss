@@ -11,6 +11,8 @@ $color-gray: rgb(194, 194, 194);
 $color-gray-light: rgb(238, 238, 238);
 $color-gray-lightest: rgb(245, 245, 245);
 
+$color-white: rgb(255, 255, 255);
+
 $color-button: rgb(9, 182, 174);
 
 // Spacing
@@ -24,6 +26,7 @@ $gutter-quarter: $gutter / 4;
 // Grid
 
 $grid-columns: 12;
+$grid-gutter: 1.25rem;
 
 // Typography
 $font-size-base: 16;
@@ -37,7 +40,9 @@ $font-soleil: 'soleil', $font-sans-serif;
 $mq-responsive: true;
 
 $mq-breakpoints: (
-  tablet:  740px
+  tablet:  760px,
+
+  ad-switch: 750px
 );
 
 $mq-media-type: screen;

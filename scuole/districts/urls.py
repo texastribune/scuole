@@ -8,8 +8,9 @@ from scuole.campuses.views import CampusDetailView
 
 urlpatterns = [
     url(r'^$', views.DistrictListView.as_view(), name='list'),
-    url(r'^(?P<district_slug>[\w-]+)-(?P<district_id>\w+)/', include([
+    url(r'^(?P<district_slug>[\w-]+)-(?P<district_id>\w+?)/(?:(?P<district_year>[0-9]{4}-[0-9]{4})/)?', include([
         url(r'^$', views.DistrictDetailView.as_view(), name='detail'),
-        url(r'^(?P<slug>[\w-]+)/$', CampusDetailView.as_view(), name='campus'),
+        url(r'^(?P<slug>[\w-]+)/(?:(?P<campus_year>[0-9]{4}-[0-9]{4})/)?$',
+            CampusDetailView.as_view(), name='campus'),
     ]))
 ]

@@ -6,7 +6,7 @@ var map;
 var marker;
 
 function initialize() {
-  var mapCanvas = document.getElementById('map');
+  var mapCanvas = document.getElementById('map-campus');
   var latlng = new google.maps.LatLng(COORDS.coordinates[1], COORDS.coordinates[0]);
 
   var mapOptions = {

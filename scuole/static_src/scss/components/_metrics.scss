@@ -5,3 +5,50 @@
 .metrics-section {
   @include create-row();
 }
+
+.metrics {
+  margin-bottom: $gutter-half;
+}
+
+.metric {
+  margin-bottom: $gutter;
+}
+
+.metric-title {
+  @include font-size(14);
+  color: $color-text-accent;
+  margin-bottom: .25rem;
+}
+
+.metric-value {
+  @include font-size(28);
+  margin-bottom: .375rem;
+}
+
+.metric-value-label {
+  @include font-size(14);
+}
+
+.metric-value-smaller {
+  @include font-size(36);
+}
+
+.metric-subtext {
+  @include font-size(12);
+  color: $color-text-accent;
+  margin-bottom: .25rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.metrics-jumper {
+
+}
+
+.metrics-jumper__item {
+  display: block;
+  margin-bottom: $gutter-half;
+  width: 100%;
+}
