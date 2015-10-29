@@ -10,6 +10,7 @@ from slugify import slugify
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
+from django.db.models import Count
 from django.contrib.gis.geos import GEOSGeometry, MultiPolygon
 
 from scuole.core.utils import remove_charter_c
@@ -55,6 +56,8 @@ class Command(BaseCommand):
 
             for row in reader:
                 self.create_district(row)
+
+        self.unique_districts()
 
     def load_askted_file(self, file):
         payload = {}
@@ -167,6 +170,13 @@ class Command(BaseCommand):
             self.load_superintendent(instance, superintendent)
         else:
             self.stderr.write('No superintendent data for {}'.format(name))
+
+    def unique_districts(self):
+        slugs = [i['slug'] for i in District.objects.values('slug').annotate(Count('slug')).order_by().filter(slug__count__gt=1)]
+        districts = District.objects.filter(slug__in=slugs)
+        for district in districts:
+            district.slug = '{0}-{1}'.format(district.slug, district.county.slug)
+            district.save()
 
     def load_superintendent(self, district, superintendent):
         name = '{} {}'.format(
