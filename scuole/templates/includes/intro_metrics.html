@@ -12,7 +12,7 @@
     {% if state %}<p class="metric-subtext">{% trans "Texas" %}: {{ state.students_per_teacher|floatformat }}</p>{% endif %}
   </div>
   <div class="col-6 metric">
-    <p class="metric-title">{% trans %}Avg. Teacher Experience{% endtrans %}</p>
+    <p class="metric-title">{% trans "Avg. Teacher Experience" %}</p>
     <p class="metric-value">{{ stat.teacher_avg_experience|floatformat }}<span class="metric-value-label"> {% trans "years" %}</span></p>
     {% if state %}<p class="metric-subtext">{% trans "Texas" %}: {{ state.teacher_avg_experience|floatformat }} {% trans "years" %}</p>{% endif %}
   </div>
