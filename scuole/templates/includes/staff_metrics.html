@@ -1,15 +1,15 @@
-{% load humanize %}
+{% load humanize l10n %}
 
 <section class="row metrics">
   <div class="col-4 metric">
-    <p class="metric-title">Avg. Teacher Tenure</p>
-    <p class="metric-value">{{ stat.teacher_avg_tenure|floatformat:"1"|intcomma }}<span class="metric-value-label"> years</span></p>
-    {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.teacher_avg_tenure|floatformat:"1"|intcomma }} years</p>{% endif %}
-    {% if state %}<p class="metric-subtext">Texas: {{ state.teacher_avg_tenure|floatformat:"1"|intcomma }} years</p>{% endif %}
+    <p class="metric-title">{% trans "Avg. Teacher Tenure" %}</p>
+    <p class="metric-value">{{ stat.teacher_avg_tenure|floatformat:"1"|intcomma }}<span class="metric-value-label"> {% trans "years" %}</span></p>
+    {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.teacher_avg_tenure|floatformat:"1"|intcomma }} {% trans "years" %}</p>{% endif %}
+    {% if state %}<p class="metric-subtext">{% trans "Texas" %}: {{ state.teacher_avg_tenure|floatformat:"1"|intcomma }} {% trans "years" %}</p>{% endif %}
   </div>
 </section>
 
-<h3 class="page-section-subheader">Teacher Salaries</h3>
+<h3 class="page-section-subheader">{% trans "Teacher Salaries" %}</h3>
 
 <section class="page-prose">
   {% lorem 1 p %}
@@ -17,33 +17,37 @@
 
 <section class="row metrics">
   <div class="col-4 metric">
-    <p class="metric-title">Beginner</p>
+    <p class="metric-title">{% trans "Beginner" %}</p>
     <p class="metric-value">${{ stat.teacher_avg_beginning_salary|floatformat:"0"|intcomma }}</p>
     {% if district %}<p class="metric-subtext">{{ district_name }}: ${{ district.teacher_avg_beginning_salary|floatformat:"0"|intcomma }}</p>{% endif %}
-    {% if state %}<p class="metric-subtext">Texas: ${{ state.teacher_avg_beginning_salary|floatformat:"0"|intcomma }}</p>{% endif %}
+    {% if state %}
+      <p class="metric-subtext">
+        {% trans "Texas" %}: ${{ state.teacher_avg_beginning_salary|floatformat:"0"|intcomma }}
+      </p>
+    {% endif %}
   </div>
   <div class="col-4 metric">
-    <p class="metric-title">1-to-5 Years</p>
+    <p class="metric-title">{% trans %}1-to-5 Years{% endtrans %}</p>
     <p class="metric-value">${{ stat.teacher_avg_1_to_5_year_salary|floatformat:"0"|intcomma }}</p>
     {% if district %}<p class="metric-subtext">{{ district_name }}: ${{ district.teacher_avg_1_to_5_year_salary|floatformat:"0"|intcomma }}</p>{% endif %}
-    {% if state %}<p class="metric-subtext">Texas: ${{ state.teacher_avg_1_to_5_year_salary|floatformat:"0"|intcomma }}</p>{% endif %}
+    {% if state %}<p class="metric-subtext">{% trans "Texas" %}: ${{ state.teacher_avg_1_to_5_year_salary|floatformat:"0"|intcomma }}</p>{% endif %}
   </div>
   <div class="col-4 metric">
-    <p class="metric-title">6-to-10 Years</p>
+    <p class="metric-title">{% trans %}6-to-10 Years{% endtrans %}</p>
     <p class="metric-value">${{ stat.teacher_avg_6_to_10_year_salary|floatformat:"0"|intcomma }}</p>
     {% if district %}<p class="metric-subtext">{{ district_name }}: ${{ district.teacher_avg_6_to_10_year_salary|floatformat:"0"|intcomma }}</p>{% endif %}
-    {% if state %}<p class="metric-subtext">Texas: ${{ state.teacher_avg_6_to_10_year_salary|floatformat:"0"|intcomma }}</p>{% endif %}
+    {% if state %}<p class="metric-subtext">{% trans "Texas" %}: ${{ state.teacher_avg_6_to_10_year_salary|floatformat:"0"|intcomma }}</p>{% endif %}
   </div>
   <div class="col-4 metric">
-    <p class="metric-title">11-to-20 Years</p>
+    <p class="metric-title">{% trans %}11-to-20 Years{% endtrans %}</p>
     <p class="metric-value">${{ stat.teacher_avg_11_to_20_year_salary|floatformat:"0"|intcomma }}</p>
     {% if district %}<p class="metric-subtext">{{ district_name }}: ${{ district.teacher_avg_11_to_20_year_salary|floatformat:"0"|intcomma }}</p>{% endif %}
-    {% if state %}<p class="metric-subtext">Texas: ${{ state.teacher_avg_11_to_20_year_salary|floatformat:"0"|intcomma }}</p>{% endif %}
+    {% if state %}<p class="metric-subtext">{% trans "Texas" %}: ${{ state.teacher_avg_11_to_20_year_salary|floatformat:"0"|intcomma }}</p>{% endif %}
   </div>
   <div class="col-4 metric">
-    <p class="metric-title">20+ Years</p>
+    <p class="metric-title">{% trans %}20+ Years{% endtrans %}</p>
     <p class="metric-value">${{ stat.teacher_avg_20_plus_year_salary|floatformat:"0"|intcomma }}</p>
     {% if district %}<p class="metric-subtext">{{ district_name }}: ${{ district.teacher_avg_20_plus_year_salary|floatformat:"0"|intcomma }}</p>{% endif %}
-    {% if state %}<p class="metric-subtext">Texas: ${{ state.teacher_avg_20_plus_year_salary|floatformat:"0"|intcomma }}</p>{% endif %}
+    {% if state %}<p class="metric-subtext">{% trans "Texas" %}: ${{ state.teacher_avg_20_plus_year_salary|floatformat:"0"|intcomma }}</p>{% endif %}
   </div>
 </section>

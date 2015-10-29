@@ -13,12 +13,12 @@
 <h1 class="page-header">{% trans "Searching for: " %}{{ request.GET.q }}</h1><br>
 
 {% if matching_districts %}
-<h2 class="page-section-header">Districts</h2>
+<h2 class="page-section-header">{% trans "Districts" %}</h2>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>District</th>
+      <th>{% trans "District" %}</th>
       <th class="table__cell--numeric">{% trans "No. of Campuses" %}</th>
   </thead>
   <tbody>

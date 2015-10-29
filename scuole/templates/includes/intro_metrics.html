@@ -2,23 +2,27 @@
 
 <section class="row metrics">
   <div class="col-6 metric">
-    <p class="metric-title">Total Students</p>
+    <p class="metric-title">{% trans "Total Students" %}</p>
     <p class="metric-value">{{ stat.all_students_count|intcomma }}</p>
     {% if state %}<p class="metric-subtext"></p>{% endif %}
   </div>
   <div class="col-6 metric">
-    <p class="metric-title">Students per Teacher</p>
+    <p class="metric-title">{% trans "Students per Teacher" %}</p>
     <p class="metric-value">{{ stat.students_per_teacher|floatformat }}</p>
-    {% if state %}<p class="metric-subtext">Texas: {{ state.students_per_teacher|floatformat }}</p>{% endif %}
+    {% if state %}<p class="metric-subtext">{% trans "Texas" %}: {{ state.students_per_teacher|floatformat }}</p>{% endif %}
   </div>
   <div class="col-6 metric">
-    <p class="metric-title">Avg. Teacher Experience</p>
-    <p class="metric-value">{{ stat.teacher_avg_experience|floatformat }}<span class="metric-value-label"> years</span></p>
-    {% if state %}<p class="metric-subtext">Texas: {{ state.teacher_avg_experience|floatformat }} years</p>{% endif %}
+    <p class="metric-title">{% trans %}Avg. Teacher Experience{% endtrans %}</p>
+    <p class="metric-value">{{ stat.teacher_avg_experience|floatformat }}<span class="metric-value-label"> {% trans "years" %}</span></p>
+    {% if state %}<p class="metric-subtext">{% trans "Texas" %}: {{ state.teacher_avg_experience|floatformat }} {% trans "years" %}</p>{% endif %}
   </div>
   <div class="col-6 metric">
-    <p class="metric-title">Students at Risk</p>
+    <p class="metric-title">{% trans "Students at Risk" %}</p>
     <p class="metric-value">{{ stat.at_risk_percent|floatformat }}<span class="metric-value-label"> %</span></p>
-    {% if state %}<p class="metric-subtext">Texas: {{ state.at_risk_percent|floatformat }}%</p>{% endif %}
+    {% if state %}
+      <p class="metric-subtext">
+        {% trans "Texas" %}: {{ state.at_risk_percent|floatformat }}%
+      </p>
+    {% endif %}
   </div>
 </section>

@@ -13,7 +13,7 @@
 <section class="row section">
 <div class="intro-block">
 <header class="page-header">
-  <h1 class="page-headline">State of {{ state.get_name_display }}</h1>
+  <h1 class="page-headline">{% blocktrans with state_name=state.get_name_display %}State of {{ state_name }}{% endblocktrans %}</h1>
 </header>
 
 {% include "includes/intro_metrics.html" with stat=stat only %}
@@ -26,7 +26,7 @@
 <div class="map map-state" id="map-state"></div>
 
 <section class="card">
-  <h2 class="card-header">Contact information</h2>
+  <h2 class="card-header">{% trans "Contact information" %}</h2>
 </section>
 
 </div>
@@ -36,16 +36,16 @@
 
 <nav class="col-3">
   <ul class="metrics-jumper">
-    <li class="metrics-jumper__item btn btn-dark">Demographics<span class="metrics-jumper__arrow"></li></span>
-    <li class="metrics-jumper__item btn btn-dark">Academics</li>
-    <li class="metrics-jumper__item btn btn-dark">Staff</li>
+    <li class="metrics-jumper__item btn btn-dark">{% trans "Demographics" %}<span class="metrics-jumper__arrow"></li></span>
+    <li class="metrics-jumper__item btn btn-dark">{% trans "Academics" %}</li>
+    <li class="metrics-jumper__item btn btn-dark">{% trans "Staff" %}</li>
   </ul>
 </nav>
 
 <div class="col-9">
 
 <section>
-<h2 class="page-section-header">Demographics</h2>
+<h2 class="page-section-header">{% trans "Demographics" %}</h2>
 
 <div class="page-prose">
   <p>{% lorem 25 w %}.</p>
@@ -56,7 +56,7 @@
 </section>
 
 <section>
-<h2 class="page-section-header">Academics</h2>
+<h2 class="page-section-header">{% trans "Academics" %}</h2>
 
 <div class="page-prose">
   <p>{% lorem 25 w %}.</p>
@@ -65,7 +65,7 @@
 </section>
 
 <section>
-<h2 class="page-section-header">Staff</h2>
+<h2 class="page-section-header">{% trans "Staff" %}</h2>
 
 <div class="page-prose">
   <p>{% lorem 25 w %}.</p>
