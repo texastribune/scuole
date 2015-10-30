@@ -11,6 +11,7 @@ from __future__ import absolute_import, unicode_literals
 from os import environ, path
 
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.translation import ugettext_lazy as _
 
 ######################
 # PATH CONFIGURATION #
@@ -87,6 +88,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # https://docs.djangoproject.com/en/1.8/topics/http/middleware/
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -128,7 +130,7 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#language-code
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#time-zone
 TIME_ZONE = 'UTC'
@@ -150,3 +152,12 @@ SITE_ID = 1
 #########################
 
 DATA_FOLDER = env('DATA_FOLDER', path.join(ROOT_DIR, 'data'))
+
+###########################
+# LANGUAGES CONFIGURATION #
+###########################
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('es', _('Spanish')),
+)
