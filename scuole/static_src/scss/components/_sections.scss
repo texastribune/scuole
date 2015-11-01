@@ -1,3 +1,19 @@
 .section {
-  margin-bottom: $gutter;
+  margin-bottom: $gutter-double;
+}
+
+.intro-block {
+  @include create-column(12);
+
+  @include mq($from: tablet) {
+    @include create-column(8);
+  }
+}
+
+.contact-block {
+  @include create-column(12);
+
+  @include mq($from: tablet) {
+    @include create-column(4);
+  }
 }

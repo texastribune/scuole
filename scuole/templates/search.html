@@ -13,7 +13,8 @@
 <h1 class="page-header">{% trans "Searching for: " %}{{ request.GET.q }}</h1><br>
 
 {% if matching_districts %}
-<h2 class="page-sub-header">Districts</h2>
+<h2 class="page-section-header">Districts</h2>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -33,7 +34,7 @@
 {% endif %}
 
 {% if matching_campuses %}
-<h2 class="page-sub-header">{% trans "Campuses" %}</h2>
+<h2 class="page-section-header">{% trans "Campuses" %}</h2>
 <table class="table table-striped">
   <thead>
     <tr>

@@ -1,0 +1,12 @@
+.menu-bar-container {
+  margin-bottom: $gutter;
+}
+
+.menu-bar {
+  @include create-row();
+}
+
+.menu-bar__item {
+  @include create-column(4);
+  text-align: center;
+}

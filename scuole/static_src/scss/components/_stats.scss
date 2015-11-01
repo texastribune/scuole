@@ -9,7 +9,7 @@
   margin-bottom: $gutter-half;
 }
 
-.stats-item {
+.stats-item-half {
   @include create-column(6);
   margin-bottom: $gutter-half;
 
@@ -19,15 +19,34 @@
   }
 }
 
+.stats-item {
+  @include create-column(6);
+  margin-bottom: $gutter;
+
+  &:nth-child(2n+1) {
+    clear: left;
+  }
+}
+
 .stats-item-title {
   @include font-size(14);
   color: $color-text-accent;
+  margin-bottom: .25rem;
 }
 
 .stats-item-number {
   @include font-size(40);
 }
 
+.stats-item-number-small {
+  @include font-size(28);
+
+  @include mq($from: tablet) {
+    @include font-size(36);
+  }
+}
+
 .stats-item-subtext {
-  @include font-size(12);
+  @include font-size(14);
+  color: $color-text-accent;
 }

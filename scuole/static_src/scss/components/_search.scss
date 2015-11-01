@@ -13,18 +13,22 @@
 .search-form-input {
   @include font-size(16);
   border: .0625rem solid transparent;
+  border-radius: 0;
   display: inline-block;
   font-family: $font-soleil;
   font-weight: 300;
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0;
-  max-width: 100%;
   padding: .375rem .75rem;
   vertical-align: middle;
-  width: 25rem;
+  width: auto;
 
   &:focus {
     border-color: $color-button;
     outline: 0;
+  }
+
+  @include mq($from: tablet) {
+    width: 30rem;
   }
 }

@@ -19,11 +19,14 @@
 <section class="search-bar">
   <div class="container">
     <form class="search-form" action="{% url 'search' %}" method="GET">
-      <input class="search-form-input" type="text" name="q" placeholder="{% trans "E.g. Austin ISD, Travis High School" %}">
+      <input class="search-form-input" type="search" name="q" placeholder="{% trans "E.g. Austin ISD, Travis High School" %}">
       <button class="search-form-submit btn btn-primary" type="submit">{% trans "Search" %}</button>
     </form>
   </div>
 </section>
+
+{% include "includes/menu.html" %}
+
 {% endblock search %}
 
 {% block main_class %}container{% endblock main_class %}

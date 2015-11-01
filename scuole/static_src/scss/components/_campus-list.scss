@@ -1,0 +1,13 @@
+.campus-list-item {
+  &:nth-child(n+10) {
+    display: none;
+  }
+}
+
+.campus-list-more {
+  background-color: $color-gray;
+  text-align: center;
+  margin-top: $gutter-half;
+  padding-bottom: $gutter-quarter;
+  padding-top: $gutter-quarter;
+}
