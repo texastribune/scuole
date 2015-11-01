@@ -119,15 +119,21 @@ class Campus(models.Model):
         from django.core.urlresolvers import reverse
         return reverse('districts:campus', kwargs={
             'slug': self.slug,
-            'district_id': self.district.pk,
             'district_slug': self.district.slug,
         })
 
     @property
     def location(self):
-        return '{city}, {state}'.format(
-            city=string.capwords(self.city),
-            state=self.state)
+        if self.city and self.state:
+            return '{city}, {state}'.format(
+                city=string.capwords(self.city),
+                state=self.state)
+        else:
+            return ''
+
+    @property
+    def is_secondary_school(self):
+        return (self.school_type == 'S' or self.school_type == 'B')
 
 
 @python_2_unicode_compatible

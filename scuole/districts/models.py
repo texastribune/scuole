@@ -67,15 +67,16 @@ class District(models.Model):
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
         return reverse('districts:detail', kwargs={
-            'district_slug': self.slug,
-            'district_id': self.pk,
-        })
+            'district_slug': self.slug, })
 
     @property
     def location(self):
-        return '{city}, {state}'.format(
-            city=string.capwords(self.city),
-            state=self.state)
+        if self.city and self.state:
+            return '{city}, {state}'.format(
+                city=string.capwords(self.city),
+                state=self.state)
+        else:
+            return ''
 
     @property
     def campus_geojson(self):

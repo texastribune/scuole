@@ -10,14 +10,13 @@ from scuole.stats.models import SchoolYear
 
 
 class DistrictListView(ListView):
-    queryset = District.objects.all().defer('shape')
+    queryset = District.objects.all().defer('shape').select_related('county')
 
 
 class DistrictDetailView(DetailView):
     queryset = District.objects.all().prefetch_related(
         'campuses')
 
-    pk_url_kwarg = 'district_id'
     slug_url_kwarg = 'district_slug'
 
     def get_context_data(self, **kwargs):
