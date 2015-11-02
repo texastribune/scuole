@@ -6,6 +6,7 @@ from localflavor.us.models import USStateField
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+from scuole.core.models import PersonnelBase
 from scuole.stats.models import SchoolYear, StatsBase
 from django.utils.translation import ugettext_lazy as _
 
@@ -30,3 +31,11 @@ class StateStats(StatsBase):
 
     def __str__(self):
         return '{0} {1}'.format(self.year.name, self.state.name)
+
+
+@python_2_unicode_compatible
+class Commissioner(PersonnelBase):
+    state = models.OneToOneField(State, related_name='commissioner_of')
+
+    def __str__(self):
+        return 'Texas Education Commissioner'
