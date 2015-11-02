@@ -87,6 +87,8 @@ class Campus(models.Model):
         _('Campus phone number'), max_length=20, null=True)
     phone_number_extension = models.CharField(
         _('Phone number extension'), max_length=4, blank=True, default='')
+    website = models.URLField(
+        _('Campus website'), null=True, blank=True)
     street = models.CharField(_('Campus street'), max_length=100, null=True)
     city = models.CharField(_('Campus city'), max_length=200, null=True)
     state = USStateField(_('Campus state'), max_length=2, null=True)
