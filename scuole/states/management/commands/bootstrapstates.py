@@ -16,7 +16,6 @@ class Command(BaseCommand):
     help = 'Bootstraps state models.'
 
     def handle(self, *args, **options):
-        self.create_state()
 
         commissioner_csv = os.path.join(
             settings.DATA_FOLDER,
@@ -33,6 +32,8 @@ class Command(BaseCommand):
             'state', 'shape', 'tx.geojson')
 
         self.shape_data = self.load_geojson_file(state_json)
+
+        self.create_state()
 
     def load_geojson_file(self, file):
         payload = {}
@@ -64,21 +65,21 @@ class Command(BaseCommand):
             json.dumps(self.shape_data))
 
         # checks to see if the geometry is a multipolygon
-        if geometry.geom_typeid == 3:
-            geometry = MultiPolygon(geometry)
+        geometry = MultiPolygon(geometry)
 
         State.objects.update_or_create(
+            slug='tx',
             defaults={
                 'name': 'TX',
-                'slug': 'tx',
                 'shape': geometry
             }
         )
 
-    def load_commissioner(self, commissioner):
+    def load_commissioner(self, state, commissioner):
         Commissioner.objects.update_or_create(
+            name='Michael Williams',
+            state=state,
             defaults={
-                'name': 'Full Name',
                 'role': 'Role',
                 'email': 'Email',
                 'phone_number': 'Phone',
