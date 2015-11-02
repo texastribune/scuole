@@ -17,21 +17,18 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        state_json = os.path.join(
+            settings.DATA_FOLDER,
+            'state', 'shape', 'tx.geojson')
+
+        self.shape_data = self.load_geojson_file(state_json)
+
         commissioner_csv = os.path.join(
             settings.DATA_FOLDER,
             'state', 'state.csv')
 
         self.commissioner_data = self.load_commissioner_file(
             commissioner_csv)
-
-        commissioner = self.commissioner_data
-        self.load_commissioner(commissioner)
-
-        state_json = os.path.join(
-            settings.DATA_FOLDER,
-            'state', 'shape', 'tx.geojson')
-
-        self.shape_data = self.load_geojson_file(state_json)
 
         self.create_state()
 
@@ -65,9 +62,10 @@ class Command(BaseCommand):
             json.dumps(self.shape_data))
 
         # checks to see if the geometry is a multipolygon
-        geometry = MultiPolygon(geometry)
+        if geometry.geom_typeid == 3:
+            geometry = MultiPolygon(geometry)
 
-        State.objects.update_or_create(
+        state, _ = State.objects.update_or_create(
             slug='tx',
             defaults={
                 'name': 'TX',
@@ -75,14 +73,18 @@ class Command(BaseCommand):
             }
         )
 
+        commissioner = self.commissioner_data
+        self.load_commissioner(state, commissioner)
+
     def load_commissioner(self, state, commissioner):
+        name = commissioner['Full Name']
         Commissioner.objects.update_or_create(
-            name='Michael Williams',
             state=state,
             defaults={
-                'role': 'Role',
-                'email': 'Email',
-                'phone_number': 'Phone',
-                'fax_number': 'Fax',
+                'name': name,
+                'role': commissioner['Role'],
+                'email': commissioner['Email'],
+                'phone_number': commissioner['Phone'],
+                'fax_number': commissioner['Fax'],
             }
         )
