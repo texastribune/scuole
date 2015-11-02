@@ -61,6 +61,10 @@ class StaffStudentBase(models.Model):
         'Number of twelfth grade students', null=True, blank=True)
     at_risk_count = models.IntegerField(
         'Number of at risk students', null=True, blank=True)
+    economically_disadvantaged_count = models.IntegerField(
+        'Number of economically disadvantaged students', null=True, blank=True)
+    limited_english_proficient_count = models.IntegerField(
+        'Number of limited English proficient students', null=True, blank=True)
 
     # Student percents
     african_american_percent = models.FloatField(
@@ -109,6 +113,10 @@ class StaffStudentBase(models.Model):
         'Percent of twelfth grade students', null=True, blank=True)
     at_risk_percent = models.FloatField(
         'Percent of at risk students', null=True, blank=True)
+    economically_disadvantaged_percent = models.FloatField(
+        'Percent of economically disadvantaged students', null=True, blank=True)
+    limited_english_proficient_percent = models.FloatField(
+        'Percent of limited English proficient students', null=True, blank=True)
 
     bilingual_esl_count = models.IntegerField(
         'Number of students enrolled in bilingual/ESL program',
