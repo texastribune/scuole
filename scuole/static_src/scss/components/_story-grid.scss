@@ -1,0 +1,32 @@
+.story-box {
+  @include clearfix;
+  cursor: pointer;
+  margin-bottom: $gutter;
+  padding: $gutter-half;
+
+  &:hover {
+    background-color: $color-gray-lightest;
+  }
+}
+
+.story-box__media {
+  display: table-cell;
+  float: left;
+  margin-right: $gutter-half;
+  vertical-align: top;
+}
+
+.story-box__body {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.story-box__header {
+  @include font-size(18);
+  font-weight: 700;
+  margin-bottom: $gutter-half;
+}
+
+.story-box__prose {
+  @include font-size(14);
+}

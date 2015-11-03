@@ -10,7 +10,7 @@
 
 {% block content %}
 
-<h1 class="page-header">{% trans "Searching for: " %}{{ request.GET.q }}</h1><br>
+<h1 class="page-header">{% trans "You searched for: " %}{{ request.GET.q }}</h1><br>
 
 {% if matching_districts %}
 <h2 class="page-section-header">Districts</h2>
@@ -19,13 +19,15 @@
   <thead>
     <tr>
       <th>District</th>
-      <th class="table__cell--numeric">{% trans "No. of Campuses" %}</th>
+      <th>{% trans "No. of Campuses" %}</th>
+      <th>County</th>
   </thead>
   <tbody>
   {% for district in matching_districts %}
     <tr>
       <td><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></td>
-      <td class="table__cell--numeric">{{ district.campuses.count }}</td>
+      <td>{{ district.campuses.count }}</td>
+      <td>{{ district.county.name }}</td>
     </tr>
   {% endfor %}
   </tbody>

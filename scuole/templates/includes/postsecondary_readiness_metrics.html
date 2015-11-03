@@ -1,0 +1,62 @@
+{% load humanize %}
+
+<section class="section">
+  <h2 class="page-section-header js-metrics-header">Postsecondary Readiness</h2>
+
+  <h3 class="page-section-subheader">SAT</h3>
+
+  <section class="page-prose">
+    <p>{% lorem 25 w %}.</p>
+  </section>
+
+  <section class="row metrics">
+    <div class="col-3 metric">
+      <p class="metric-title">Avg. SAT Score</p>
+      <p class="metric-value">{{ stat.avg_sat_score_all_students|default:"N/A" }}</p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.avg_sat_score_all_students }}</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Texas: {{ state.avg_sat_score_all_students }}</p>{% endif %}
+    </div>
+  </section>
+
+  <h3 class="page-section-subheader">ACT</h3>
+
+  <section class="page-prose">
+    <p>{% lorem 25 w %}.</p>
+  </section>
+
+  <section class="row metrics">
+    <div class="col-3 metric">
+      <p class="metric-title">Avg. ACT Score</p>
+      <p class="metric-value">{{ stat.avg_act_score_all_students|default:"N/A" }}</p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.avg_act_score_all_students }}</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Texas: {{ state.avg_act_score_all_students }}</p>{% endif %}
+    </div>
+  </section>
+
+  <h3 class="page-section-subheader">College Ready Graduates</h3>
+
+  <section class="page-prose">
+    <p>{% lorem 25 w %}.</p>
+  </section>
+
+  <section class="row metrics">
+    <div class="col-3 metric">
+      <p class="metric-title">English</p>
+      <p class="metric-value">{{ stat.college_ready_graduates_english_all_students_percent }}%</p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.avg_act_score_all_students }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Texas: {{ state.avg_act_score_all_students }}%</p>{% endif %}
+    </div>
+    <div class="col-3 metric">
+      <p class="metric-title">Math</p>
+      <p class="metric-value">{{ stat.college_ready_graduates_math_all_students_percent }}%</p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.college_ready_graduates_math_all_students_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Texas: {{ state.college_ready_graduates_math_all_students_percent }}%</p>{% endif %}
+    </div>
+    <div class="col-3 metric">
+      <p class="metric-title">Both</p>
+      <p class="metric-value">{{ stat.college_ready_graduates_both_all_students_percent }}%</p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.college_ready_graduates_both_all_students_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Texas: {{ state.college_ready_graduates_both_all_students_percent }}%</p>{% endif %}
+    </div>
+  </section>
+</section>
