@@ -28,6 +28,10 @@
 
 <section class="card">
   <h2 class="card-header">Contact information</h2>
+  {% if district.website %}
+  <h3 class="card-title">Website</h3>
+  <p class="card-text"><a href="{{ district.website }}">{{ district.website }}</a></p>
+  {% endif %}
   {% if district.superintendent_of %}
   <h3 class="card-title">{{ district.superintendent_of.role }}</h3>
   <ul class="card-list">

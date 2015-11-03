@@ -33,6 +33,10 @@
 
 <section class="card">
   <h2 class="card-header">Contact information</h2>
+  {% if campus.website %}
+  <h3 class="card-title">Website</h3>
+  <p class="card-text"><a href="{{ campus.website }}">{{ campus.website }}</a></p>
+  {% endif %}
   <h3 class="card-title">{% trans "Address" %}</h3>
   <address class="card-address">
     {{ campus.street|title }}<br>
