@@ -137,6 +137,7 @@ class Command(BaseCommand):
             city = askted_match['District City']
             state = askted_match['District State']
             zip_code = askted_match['District Zip']
+            website = askted_match['District Web Page Address']
         else:
             self.stderr.write('No askted data for {}'.format(name))
             phone_number = ''
@@ -145,6 +146,7 @@ class Command(BaseCommand):
             city = ''
             state = ''
             zip_code = ''
+            website = ''
 
         instance, _ = District.objects.update_or_create(
             tea_id=district['DISTRICT'],
@@ -153,6 +155,7 @@ class Command(BaseCommand):
                 'slug': slugify(name),
                 'phone_number': phone_number,
                 'phone_number_extension': phone_number_extension,
+                'website': website,
                 'street': street,
                 'city': city,
                 'state': state,
