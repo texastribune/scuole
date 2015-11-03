@@ -41,9 +41,11 @@ $font-soleil: 'soleil', $font-sans-serif;
 $mq-responsive: true;
 
 $mq-breakpoints: (
+  mobile: 520px,
   tablet:  760px,
 
-  ad-switch: 750px
+  metrics-flip: 900px,
+  ad-switch: 760px
 );
 
 $mq-media-type: screen;

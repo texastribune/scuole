@@ -2,8 +2,45 @@
   @include create-row();
 }
 
+.metrics-nav {
+  display: none;
+  float: left;
+  margin-right: $gutter;
+  min-height: 1px;
+  padding-left: $gutter-half;
+  padding-right: $gutter-half;
+  position: relative;
+
+  @include mq($from: tablet) {
+    display: block;
+    width: 15rem;
+  }
+
+  @include mq($from: metrics-flip) {
+    display: block;
+    width: 20rem;
+  }
+}
+
+.metrics-nav-ad {
+  display: none;
+
+  @include mq($from: metrics-flip) {
+    display: block;
+  }
+}
+
 .metrics-section {
-  @include create-row();
+  overflow: hidden;
+  min-height: 1px;
+  padding-left: $gutter-half;
+  padding-right: $gutter-half;
+  position: relative;
+  width: auto;
+}
+
+.metrics-jumper {
+  margin-bottom: $gutter;
 }
 
 .metrics {
@@ -11,7 +48,16 @@
 }
 
 .metric {
+  @include create-column(6);
   margin-bottom: $gutter;
+
+  @include mq($from: metrics-flip) {
+    @include create-column(3);
+  }
+
+  &--full-row {
+    @include create-column(12);
+  }
 }
 
 .metric-title {

@@ -22,7 +22,7 @@
 
 <section class="page-prose">
   <p><strong>{{ district.name }}</strong> is a school district in <strong>{{ district.location|default:"Texas" }}</strong>. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>.</p>
-  <p>Teachers on average have a salary of <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>.</p>
+  <p>An average teacher's salary is <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>. On average, teachers have <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.</p>
 </section>
 </div>
 <div class="contact-block">
@@ -47,15 +47,20 @@
 </div>
 </section>
 
-<div class="ad-slot ad-slot-banner">
-  <img src="https://placehold.it/728x90">
+<div class="ad-slot">
+  <div class="ad-slot-banner">
+    <img src="https://placehold.it/728x90">
+  </div>
+  <div class="ad-slot-box">
+    <img src="https://placehold.it/300x250">
+  </div>
 </div>
 
 <h2 class="page-section-header">Campuses</h2>
 <div class="section row">
   {% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
   {% for campus in campus_list %}
-    <div class="col-3">
+    <div class="campus-list-container">
     <h3 class="card-title">{{ campus.grouper }}s</h3>
     <ul class="card-list">
       {% for school in campus.list %}
@@ -67,18 +72,27 @@
   {% endfor %}
 </div>
 
-<section class="row">
+{% include "includes/story_grid_insert.html" %}
 
-<nav class="col-3">
-  <ul class="metrics-jumper">
-    <li class="metrics-jumper__item btn btn-dark active-section">Demographics</span>
+<section id="js-bumper-check" class="row">
+
+<nav class="metrics-nav">
+  <ul id="js-bumper" class="metrics-jumper">
+    <li class="metrics-jumper__item btn btn-dark active-section">Demographics<span class="metrics-jumper__arrow"></li></span>
     <li class="metrics-jumper__item btn btn-dark">Academics</li>
-    <li class="metrics-jumper__item btn btn-dark">Postsecondary Readiness</li>
+    <li class="metrics-jumper__item btn btn-dark">College Readiness</li>
     <li class="metrics-jumper__item btn btn-dark">Staff</li>
   </ul>
+
+  <div class="ad-slot">
+    <div class="metrics-nav-ad">
+      <img src="https://placehold.it/300x250">
+    </div>
+  </div>
 </nav>
 
-<div class="col-9">
+
+<div class="metrics-section">
 
 {% include "includes/demographic_metrics.html" with stat=stat state=state only %}
 

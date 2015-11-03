@@ -25,7 +25,7 @@
 
 <section class="page-prose">
   <p><strong>{{ campus.name }}</strong> is a {{ campus.get_school_type_display|lower }} in <strong>{{ campus.location|default:"Texas" }}</strong>. It is in the <strong>{{ campus.district.name }}</strong> school district. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>.</p>
-  <p>Teachers on average have a salary of <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>.</p>
+  <p>An average teacher's salary is <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>. On average, teachers have <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.</p>
 </section>
 
 </div>
@@ -65,22 +65,36 @@
 </div>
 </section>
 
-<div class="ad-slot ad-slot-banner">
-  <img src="https://placehold.it/728x90">
+<div class="ad-slot">
+  <div class="ad-slot-banner">
+    <img src="https://placehold.it/728x90">
+  </div>
+  <div class="ad-slot-box">
+    <img src="https://placehold.it/300x250">
+  </div>
 </div>
+
+{% include "includes/story_grid_insert.html" %}
 
 <section id="js-bumper-check" class="row">
 
-<nav class="col-3">
+<nav class="metrics-nav">
   <ul id="js-bumper" class="metrics-jumper">
-    <li class="metrics-jumper__item btn btn-dark">Demographics<span class="metrics-jumper__arrow"></li></span>
+    <li class="metrics-jumper__item btn btn-dark active-section">Demographics<span class="metrics-jumper__arrow"></li></span>
     <li class="metrics-jumper__item btn btn-dark">Academics</li>
-    {% if campus.is_secondary_school %}<li class="metrics-jumper__item btn btn-dark">Postsecondary Readiness</li>{% endif %}
+    {% if campus.is_secondary_school %}<li class="metrics-jumper__item btn btn-dark">College Readiness</li>{% endif %}
     <li class="metrics-jumper__item btn btn-dark">Staff</li>
   </ul>
+
+  <div class="ad-slot">
+    <div class="metrics-nav-ad">
+      <img src="https://placehold.it/300x250">
+    </div>
+  </div>
 </nav>
 
-<section class="col-9">
+
+<section class="metrics-section">
 
 {% include "includes/demographic_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
 

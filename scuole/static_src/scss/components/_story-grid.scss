@@ -1,3 +1,11 @@
+.story-box-container {
+  @include create-column(12);
+
+  @include mq($from: tablet) {
+    @include create-column(6);
+  }
+}
+
 .story-box {
   @include clearfix;
   cursor: pointer;

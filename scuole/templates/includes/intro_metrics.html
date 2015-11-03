@@ -20,9 +20,9 @@
     {% if state %}<p class="metric-subtext">Texas: {{ state.teacher_avg_experience|floatformat }} years</p>{% endif %}
   </div>
   <div class="col-6 metric">
-    <p class="metric-title">Students at Risk</p>
-    <p class="metric-value">{{ stat.at_risk_percent|floatformat }}<span class="metric-value-label"> %</span></p>
-    {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.at_risk_percent|floatformat }}%</p>{% endif %}
-    {% if state %}<p class="metric-subtext">Texas: {{ state.at_risk_percent|floatformat }}%</p>{% endif %}
+    <p class="metric-title">4-Year Graduation Rate</p>
+    <p class="metric-value">{{ stat.four_year_graduate_all_students_percent }}<span class="metric-value-label"> %</span></p>
+    {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.four_year_graduate_all_students_percent }}%</p>{% endif %}
+    {% if state %}<p class="metric-subtext">Texas: {{ state.four_year_graduate_all_students_percent }}%</p>{% endif %}
   </div>
 </section>

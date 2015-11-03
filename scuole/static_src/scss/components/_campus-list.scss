@@ -1,3 +1,17 @@
+.campus-list-container {
+  @include create-column(12);
+  margin-bottom: $gutter;
+
+  @include mq($from: mobile) {
+    @include create-column(6);
+  }
+
+  @include mq($from: tablet) {
+    @include create-column(3);
+    margin-bottom: 0;
+  }
+}
+
 .campus-list-item {
   &:nth-child(n+10) {
     display: none;
