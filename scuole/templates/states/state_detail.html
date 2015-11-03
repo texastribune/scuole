@@ -44,36 +44,13 @@
 
 <div class="col-9">
 
-<section>
-<h2 class="page-section-header">Demographics</h2>
-
-<div class="page-prose">
-  <p>{% lorem 25 w %}.</p>
-</div>
-
 {% include "includes/demographic_metrics.html" with stat=stat only %}
 
-</section>
+{% include "includes/academic_metrics.html" with stat=stat only %}
 
-<section>
-<h2 class="page-section-header">Academics</h2>
-
-<div class="page-prose">
-  <p>{% lorem 25 w %}.</p>
-</div>
-
-</section>
-
-<section>
-<h2 class="page-section-header">Staff</h2>
-
-<div class="page-prose">
-  <p>{% lorem 25 w %}.</p>
-</div>
+{% include "includes/postsecondary_readiness_metrics.html" with stat=stat only %}
 
 {% include "includes/staff_metrics.html" with stat=stat only %}
-
-</section>
 
 </div>
 

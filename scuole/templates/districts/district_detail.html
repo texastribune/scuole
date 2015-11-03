@@ -14,13 +14,15 @@
 <div class="intro-block">
 <header class="page-header">
   <h1 class="page-headline">{{ district.name }}</h1>
-  <p class="page-subtext">{{ district.city|title }}, {{ district.state }}</p>
+  <p class="page-subtext">{{ district.location }}</p>
+  <p class="page-subtext">Accountability Rating: {{ district.get_accountability_rating_display }}</p>
 </header>
 
 {% include "includes/intro_metrics.html" with stat=stat state=state only %}
 
 <section class="page-prose">
-  {% lorem 1 p %}
+  <p><strong>{{ district.name }}</strong> is a school district in <strong>{{ district.location|default:"Texas" }}</strong>. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>.</p>
+  <p>Teachers on average have a salary of <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>.</p>
 </section>
 </div>
 <div class="contact-block">
@@ -45,6 +47,10 @@
 </div>
 </section>
 
+<div class="ad-slot ad-slot-banner">
+  <img src="https://placehold.it/728x90">
+</div>
+
 <h2 class="page-section-header">Campuses</h2>
 <div class="section row">
   {% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
@@ -61,58 +67,34 @@
   {% endfor %}
 </div>
 
-<div class="ad-slot ad-slot-banner">
-  <img src="https://placehold.it/728x90">
-</div>
-
 <section class="row">
 
 <nav class="col-3">
   <ul class="metrics-jumper">
-    <li class="metrics-jumper__item btn btn-dark">Demographics<span class="metrics-jumper__arrow"></li></span>
+    <li class="metrics-jumper__item btn btn-dark active-section">Demographics</span>
     <li class="metrics-jumper__item btn btn-dark">Academics</li>
+    <li class="metrics-jumper__item btn btn-dark">Postsecondary Readiness</li>
     <li class="metrics-jumper__item btn btn-dark">Staff</li>
   </ul>
 </nav>
 
 <div class="col-9">
 
-<section>
-<h2 class="page-section-header">Demographics</h2>
-
-<div class="page-prose">
-  <p>{% lorem 25 w %}.</p>
-</div>
-
 {% include "includes/demographic_metrics.html" with stat=stat state=state only %}
 
-</section>
+{% include "includes/academic_metrics.html" with stat=stat state=state only %}
 
-<section>
-<h2 class="page-section-header">Academics</h2>
-
-<div class="page-prose">
-  <p>{% lorem 25 w %}.</p>
-</div>
-
-</section>
-
-<section>
-<h2 class="page-section-header">Staff</h2>
-
-<div class="page-prose">
-  <p>{% lorem 25 w %}.</p>
-</div>
+{% include "includes/postsecondary_readiness_metrics.html" with stat=stat state=state only %}
 
 {% include "includes/staff_metrics.html" with stat=stat state=state only %}
 
-</section>
 </div>
 </section>
 
 {% endblock content %}
 
 {% block extra_script %}
+{{ block.super }}
 <script>COORDS = {{ district.campus_geojson|safe }};</script>
 <script>SHAPE = {"type": "Feature", "geometry": {{ district.shape.geojson|safe|default:'null' }}};</script>
 <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>

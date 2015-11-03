@@ -30,3 +30,8 @@
 {% endblock search %}
 
 {% block main_class %}container{% endblock main_class %}
+
+{% block extra_script %}
+{{ block.super }}
+<script src="{% static 'scripts/standard.js' %}"></script>
+{% endblock extra_script %}

@@ -11,20 +11,24 @@
 {% block content %}
 {{ block.super }}
 
-<h1 class="page-header">{% trans "All Districts" %}</h1>
+<h1 class="page-section-header">{% trans "All Districts" %}</h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
       <th>{% trans "District" %}</th>
+      <th>{% trans "Accountability Rating" %}</th>
       <th>{% trans "City" %}</th>
+      <th>{% trans "County" %}</th>
     </tr>
   </thead>
   <tbody>
   {% for district in district_list %}
     <tr>
       <td><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></td>
+      <td>{{ district.get_accountability_rating_display }}</td>
       <td>{{ district.location }}</td>
+      <td>{{ district.county.name }}</td>
     </tr>
   {% endfor %}
   </tbody>

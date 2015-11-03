@@ -43,12 +43,25 @@
   }
 }
 
-.metrics-jumper {
-
+.metric-bumper {
+  border-bottom: 1px solid $color-gray;
+  padding-bottom: $gutter;
 }
 
 .metrics-jumper__item {
   display: block;
   margin-bottom: $gutter-half;
-  width: 100%;
+  // width: 100%;
+}
+
+.sticky {
+  position: fixed;
+  margin-top: $gutter-half;
+  top: 0;
+}
+
+.active-section {
+  background-color: $color-button;
+  border-color: $color-button;
+  color: $color-text-inverse;
 }

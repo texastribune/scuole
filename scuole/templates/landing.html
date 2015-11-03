@@ -23,9 +23,33 @@
 
   <section class="landing-prose">
     {% lorem 1 p %}
+    <small class="landing-prose-credit">By Ryan Murphy, Annie Daniel and Miles Hutson</small>
   </section>
 </article>
 
 {% include "includes/menu.html" %}
+
+<div class="ad-slot ad-slot-banner">
+  <img src="https://placehold.it/728x90">
+</div>
+
+<section class="container">
+  <h2 class="page-section-subheader">Latest Public Education Stories</h2>
+  <div class="row">
+    {% for i in "x"|rjust:"6" %}
+      <div class="col-6">
+        <div class="story-box">
+          <div class="story-box__media">
+            <img src="http://placehold.it/100/75" alt="Placeholder image">
+          </div>
+          <div class="story-box__body">
+            <h3 class="story-box__header">Story Headline</h3>
+            <p class="story-box__prose">{% lorem 20 w %}.</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
 
 {% endblock content %}
