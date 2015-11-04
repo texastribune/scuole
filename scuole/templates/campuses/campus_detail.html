@@ -26,6 +26,7 @@
 <section class="page-prose">
   <p><strong>{{ campus.name }}</strong> is a {{ campus.get_school_type_display|lower }} in <strong>{{ campus.location|default:"Texas" }}</strong>. It is in the <strong>{{ campus.district.name }}</strong> school district. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>.</p>
   <p>An average teacher's salary is <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>. On average, teachers have <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.</p>
+  {% lorem 1 p %}
 </section>
 
 </div>
@@ -33,18 +34,22 @@
 <div class="map" id="map-campus"></div>
 
 <section class="card">
-  <h2 class="card-header">Contact information</h2>
+  <h2 class="card-header">Contact Information</h2>
+  <div class="row">
+  <div class="col-6">
   {% if campus.website %}
   <h3 class="card-title">Website</h3>
-  <p class="card-text"><a href="{{ campus.website }}">{{ campus.website }}</a></p>
+  <p class="card-text card-website"><a href="{{ campus.website }}">{{ campus.website }}</a></p>
   {% endif %}
   <h3 class="card-title">{% trans "Address" %}</h3>
   <address class="card-address">
     {{ campus.street|title }}<br>
     {{ campus.location }} {{ campus.zip_code }}
   </address>
-  <h3 class="card-title">{% trans "Phone number" %}</h3>
-  <p class="card-text"><a href="tel://{{ campus.phone_number }}">{{ campus.phone_number }}</a></p>
+  <h3 class="card-title">{% trans "Office phone number" %}</h3>
+  <p class="card-text"><span class="icon-phone"></span> <a href="tel://{{ campus.phone_number }}">{{ campus.phone_number }}</a></p>
+  </div>
+  <div class="col-6">
   {% if campus.principals.all %}
   <h3 class="card-title">
   {% blocktrans count numberOfPrincipals=campus.principals.count %}
@@ -56,11 +61,13 @@
   <ul class="card-list">
   {% for principal in campus.principals.all %}
     <li class="card-list-item">{{ principal.name }}</li>
-    <li class="card-list-item"><a href="mailto:{{ principal.email }}">{{ principal.email }}</a></li>
-    <li class="card-list-item"><a href="tel://{{ principal.phone_number }}">{{ principal.phone_number }}</a></li>
+    {% if principal.email %}<li class="card-list-item"><a href="mailto:{{ principal.email }}">{{ principal.email }}</a></li>{% endif %}
+    {% if principal.phone_number %}<li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ principal.phone_number }}">{{ principal.phone_number }}</a></li>{% endif %}
   {% endfor %}
   </ul>
   {% endif %}
+  </div>
+  </div>
 </section>
 </div>
 </section>
@@ -73,8 +80,6 @@
     <img src="https://placehold.it/300x250">
   </div>
 </div>
-
-{% include "includes/story_grid_insert.html" %}
 
 <section id="js-bumper-check" class="row">
 
@@ -108,6 +113,8 @@
 
 </section>
 </section>
+
+{% include "includes/story_grid_insert.html" %}
 
 {% endblock content %}
 

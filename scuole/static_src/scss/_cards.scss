@@ -1,13 +1,14 @@
 .card {
-  background-color: $color-gray-lightest;
-  // border: 2px solid $color-gray-light;
-  padding: $gutter-half;
+  // background-color: $color-gray-light;
+  // padding: $gutter-half;
   width: 100%;
 }
 
 .card-header {
   @include font-size(18);
+  border-bottom: 1px solid $color-gray;
   margin-bottom: $gutter-half;
+  padding-bottom: $gutter-half;
 }
 
 .card-title {
@@ -38,6 +39,12 @@
   &:last-child {
     margin-bottom: 0;
   }
+}
+
+.card-website {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .card-address {

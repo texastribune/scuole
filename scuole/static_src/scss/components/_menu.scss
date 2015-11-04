@@ -12,6 +12,6 @@
   text-align: center;
 
   @include mq($from: tablet) {
-    @include create-column(4);
+    @include create-column(3);
   }
 }

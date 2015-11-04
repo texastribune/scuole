@@ -12,49 +12,49 @@
   <section class="row metrics">
     <div class="metric metric--full-row">
       <p class="metric-title">Total Students</p>
-      <p class="metric-value">{{ stat.all_students_count|intcomma }}</p>
+      <p class="metric-value metric-value--bigger">{{ stat.all_students_count|intcomma }}</p>
     </div>
     <div class="metric">
       <p class="metric-title">White</p>
-      <p class="metric-value">{{ stat.white_count|intcomma }}<span class="metric-subtext"> / {{ stat.white_percent }}%</span></p>
+      <p class="metric-value">{{ stat.white_count|intcomma }}<span class="metric-subtext"> ({{ stat.white_percent }}%)</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.white_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Texas: {{ state.white_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.white_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">Hispanic</p>
-      <p class="metric-value">{{ stat.hispanic_count|intcomma }}<span class="metric-subtext"> / {{ stat.hispanic_percent }}%</span></p>
+      <p class="metric-value">{{ stat.hispanic_count|intcomma }}<span class="metric-subtext"> ({{ stat.hispanic_percent }}%)</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.hispanic_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Texas: {{ state.hispanic_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.hispanic_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">African American</p>
-      <p class="metric-value">{{ stat.african_american_count|intcomma }}<span class="metric-subtext"> / {{ stat.african_american_percent }}%</span></p>
+      <p class="metric-value">{{ stat.african_american_count|intcomma }}<span class="metric-subtext"> ({{ stat.african_american_percent }}%)</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.african_american_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Texas: {{ state.african_american_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.african_american_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">Asian</p>
-      <p class="metric-value">{{ stat.asian_count|intcomma }}<span class="metric-subtext"> / {{ stat.asian_percent }}%</span></p>
+      <p class="metric-value">{{ stat.asian_count|intcomma }}<span class="metric-subtext"> ({{ stat.asian_percent }}%)</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.asian_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Texas: {{ state.asian_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.asian_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">American Indian</p>
-      <p class="metric-value">{{ stat.american_indian_count|intcomma }}<span class="metric-subtext"> / {{ stat.american_indian_percent }}%</span></p>
+      <p class="metric-value">{{ stat.american_indian_count|intcomma }}<span class="metric-subtext"> ({{ stat.american_indian_percent }}%)</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.american_indian_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Texas: {{ state.american_indian_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.american_indian_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">Pacific Islander</p>
-      <p class="metric-value">{{ stat.pacific_islander_count|intcomma }}<span class="metric-subtext"> / {{ stat.pacific_islander_percent }}%</span></p>
+      <p class="metric-value">{{ stat.pacific_islander_count|intcomma }}<span class="metric-subtext"> ({{ stat.pacific_islander_percent }}%)</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.pacific_islander_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Texas: {{ state.pacific_islander_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.pacific_islander_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">Two or More Races</p>
-      <p class="metric-value">{{ stat.two_or_more_races_count|intcomma }}<span class="metric-subtext"> / {{ stat.two_or_more_races_percent }}%</span></p>
+      <p class="metric-value">{{ stat.two_or_more_races_count|intcomma }}<span class="metric-subtext"> ({{ stat.two_or_more_races_percent }}%)</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.two_or_more_races_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Texas: {{ state.two_or_more_races_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.two_or_more_races_percent }}%</p>{% endif %}
     </div>
   </section>
 
@@ -119,9 +119,9 @@
   <section class="row metrics">
     <div class="col-6 metric">
       <p class="metric-title">Students at Risk</p>
-      <p class="metric-value">{{ stat.at_risk_count|intcomma }}<span class="metric-subtext"> / {{ stat.at_risk_percent }}%</span></p>
+      <p class="metric-value">{{ stat.at_risk_count|intcomma }}<span class="metric-subtext"> ({{ stat.at_risk_percent }}%)</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.at_risk_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Texas: {{ state.at_risk_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.at_risk_percent }}%</p>{% endif %}
     </div>
   </section>
 
@@ -134,27 +134,27 @@
   <section class="row metrics">
     <div class="metric">
       <p class="metric-title">Bilingual/ESL</p>
-      <p class="metric-value">{{ stat.bilingual_esl_count|intcomma }}<span class="metric-subtext"> / {{ stat.bilingual_esl_percent }}%</span></p>
+      <p class="metric-value">{{ stat.bilingual_esl_count|intcomma }}<span class="metric-subtext"> ({{ stat.bilingual_esl_percent }}%)</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.bilingual_esl_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Texas: {{ state.bilingual_esl_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.bilingual_esl_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">Career and Technical</p>
-      <p class="metric-value">{{ stat.career_technical_education_count|intcomma }}<span class="metric-subtext"> / {{ stat.career_technical_education_percent }}%</span></p>
+      <p class="metric-value">{{ stat.career_technical_education_count|intcomma }}<span class="metric-subtext"> ({{ stat.career_technical_education_percent }}%)</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.career_technical_education_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Texas: {{ state.career_technical_education_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.career_technical_education_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">Gifted and Talented</p>
-      <p class="metric-value">{{ stat.gifted_and_talented_count|intcomma }}<span class="metric-subtext"> / {{ stat.gifted_and_talented_percent }}%</span></p>
+      <p class="metric-value">{{ stat.gifted_and_talented_count|intcomma }}<span class="metric-subtext"> ({{ stat.gifted_and_talented_percent }}%)</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.gifted_and_talented_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Texas: {{ state.gifted_and_talented_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.gifted_and_talented_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">Special Education</p>
-      <p class="metric-value">{{ stat.special_education_count|intcomma }}<span class="metric-subtext"> / {{ stat.special_education_percent }}%</span></p>
+      <p class="metric-value">{{ stat.special_education_count|intcomma }}<span class="metric-subtext"> ({{ stat.special_education_percent }}%)</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.special_education_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Texas: {{ state.special_education_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.special_education_percent }}%</p>{% endif %}
     </div>
   </section>
 </section>

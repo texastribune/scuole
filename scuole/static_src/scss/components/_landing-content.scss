@@ -1,13 +1,21 @@
 .landing-content {
   background-color: $color-primary;
   color: $color-text-inverse;
-  margin-bottom: $gutter-double;
+  margin-bottom: $gutter;
+  padding-top: $gutter;
 }
 
 .landing-header {
   @include font-size(48);
   font-family: $font-soleil;
-  padding-bottom: $gutter;
+  margin-bottom: $gutter-half;
+  text-align: center;
+}
+
+.landing-subheader {
+  @include font-size(20);
+  font-family: $font-soleil;
+  margin-bottom: $gutter-double;
   text-align: center;
 }
 
@@ -16,6 +24,8 @@
   margin-right: auto;
   max-width: 37.5rem;
   padding-bottom: $gutter-double;
+  padding-left: $gutter-half;
+  padding-right: $gutter-half;
 
   > p {
     @include font-size(18);
@@ -31,6 +41,6 @@
 }
 
 .landing-prose-credit {
-  @include font-size(16);
+  @include font-size(18);
   font-weight: 300;
 }

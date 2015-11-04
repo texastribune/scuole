@@ -69,6 +69,10 @@
 .metric-value {
   @include font-size(28);
   margin-bottom: .375rem;
+
+  &--bigger {
+    @include font-size(32);
+  }
 }
 
 .metric-value-label {
@@ -83,6 +87,7 @@
   @include font-size(12);
   color: $color-text-accent;
   margin-bottom: .25rem;
+  letter-spacing: 0.02em;
 
   &:last-child {
     margin-bottom: 0;

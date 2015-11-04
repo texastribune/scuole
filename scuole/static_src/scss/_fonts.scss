@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'icomoon';
+  src:url('../fonts/icomoon.eot?uihj3m');
+  src:url('../fonts/icomoon.eot?uihj3m#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?uihj3m') format('truetype'),
+    url('../fonts/icomoon.woff?uihj3m') format('woff'),
+    url('../fonts/icomoon.svg?uihj3m#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'icomoon';
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  speak: none;
+  text-transform: none;
+}
+
+.icon-phone:before {
+  content: '\f095';
+}
+.icon-fax:before {
+  content: '\f1ac';
+}

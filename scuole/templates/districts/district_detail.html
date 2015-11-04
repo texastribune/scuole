@@ -23,6 +23,7 @@
 <section class="page-prose">
   <p><strong>{{ district.name }}</strong> is a school district in <strong>{{ district.location|default:"Texas" }}</strong>. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>.</p>
   <p>An average teacher's salary is <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>. On average, teachers have <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.</p>
+  {% lorem 1 p %}
 </section>
 </div>
 <div class="contact-block">
@@ -32,7 +33,7 @@
   <h2 class="card-header">Contact information</h2>
   {% if district.website %}
   <h3 class="card-title">Website</h3>
-  <p class="card-text"><a href="{{ district.website }}">{{ district.website }}</a></p>
+  <p class="card-text card-website"><a href="{{ district.website }}">{{ district.website }}</a></p>
   {% endif %}
   {% if district.superintendent_of %}
   <h3 class="card-title">{{ district.superintendent_of.role }}</h3>
@@ -56,32 +57,14 @@
   </div>
 </div>
 
-<h2 class="page-section-header">Campuses</h2>
-<div class="section row">
-  {% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
-  {% for campus in campus_list %}
-    <div class="campus-list-container">
-    <h3 class="card-title">{{ campus.grouper }}s</h3>
-    <ul class="card-list">
-      {% for school in campus.list %}
-      <li class="card-list-item campus-list-item"><a href="{{ school.get_absolute_url }}">{{ school.name }}</a></li>
-      {% endfor %}
-    </ul>
-    {% if campus.list|length > 10 %}<button class="btn btn-gray-ghost btn-thin btn-block">+ More</button>{% endif %}
-  </div>
-  {% endfor %}
-</div>
-
-{% include "includes/story_grid_insert.html" %}
-
 <section id="js-bumper-check" class="row">
 
 <nav class="metrics-nav">
   <ul id="js-bumper" class="metrics-jumper">
-    <li class="metrics-jumper__item btn btn-dark active-section">Demographics<span class="metrics-jumper__arrow"></li></span>
-    <li class="metrics-jumper__item btn btn-dark">Academics</li>
-    <li class="metrics-jumper__item btn btn-dark">College Readiness</li>
-    <li class="metrics-jumper__item btn btn-dark">Staff</li>
+    <li class="metrics-jumper__item btn btn-dark">Demographics<span class="metrics-jumper__arrow"></li></span>
+    <li class="metrics-jumper__item btn btn-gray-ghost">Academics</li>
+    <li class="metrics-jumper__item btn btn-gray-ghost">College Readiness</li>
+    <li class="metrics-jumper__item btn btn-gray-ghost">Staff</li>
   </ul>
 
   <div class="ad-slot">
@@ -104,6 +87,24 @@
 
 </div>
 </section>
+
+<h2 class="page-section-header">Campuses</h2>
+<div class="section row">
+  {% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
+  {% for campus in campus_list %}
+    <div class="campus-list-container">
+    <h3 class="card-title">{{ campus.grouper }}s</h3>
+    <ul class="card-list">
+      {% for school in campus.list %}
+      <li class="card-list-item campus-list-item"><a href="{{ school.get_absolute_url }}">{{ school.name }}</a></li>
+      {% endfor %}
+    </ul>
+    {% if campus.list|length > 10 %}<button class="btn btn-gray-ghost btn-thin btn-block">+ More</button>{% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+{% include "includes/story_grid_insert.html" %}
 
 {% endblock content %}
 

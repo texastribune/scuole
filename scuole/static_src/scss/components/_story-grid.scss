@@ -13,7 +13,7 @@
   padding: $gutter-half;
 
   &:hover {
-    background-color: $color-gray-lightest;
+    background-color: $color-gray-light;
   }
 }
 
@@ -24,17 +24,34 @@
   vertical-align: top;
 }
 
+.story-box__image {
+  width: 60px;
+
+  @include mq($from: tablet) {
+    width: 100px;
+  }
+}
+
 .story-box__body {
   display: table-cell;
   vertical-align: top;
 }
 
 .story-box__header {
-  @include font-size(18);
+  @include font-size(16);
   font-weight: 700;
-  margin-bottom: $gutter-half;
+  margin-bottom: $gutter-quarter;
+
+  @include mq($from: tablet) {
+    @include font-size(18);
+    margin-bottom: $gutter-half;
+  }
 }
 
 .story-box__prose {
-  @include font-size(14);
+  @include font-size(12);
+
+  @include mq($from: tablet) {
+    @include font-size(14);
+  }
 }

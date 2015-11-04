@@ -11,27 +11,25 @@
 {% block content %}
 <article class="landing-content">
   <h1 class="landing-header">{% trans "Texas Public Schools" %}</h1>
+  <p class="landing-subheader">This is about public schools in Texas</p>
 
   <section class="search-bar">
     <div class="container">
       <form class="search-form" action="{% url 'search' %}" method="GET">
-        <input class="search-form-input" type="text" name="q" placeholder="{% trans "E.g. Austin ISD, Travis High School" %}">
-        <button class="search-form-submit btn btn-primary" type="submit">{% trans "Search" %}</button>
+        <label class="search-form-label" for="search">Search for a district or campus</label>
+        <input id="search" class="search-form-input" type="text" name="q" placeholder="{% trans "E.g. Austin ISD, Travis High School" %}">
+        <button class="search-form-submit btn btn-link" type="submit">{% trans "Search" %}</button>
       </form>
     </div>
-  </section>
-
-  <section class="landing-prose">
-    {% lorem 1 p %}
-    <small class="landing-prose-credit">By Ryan Murphy, Annie Daniel and Miles Hutson</small>
   </section>
 </article>
 
 {% include "includes/menu.html" %}
 
-<div class="ad-slot ad-slot-banner">
-  <img src="https://placehold.it/728x90">
-</div>
+<section class="landing-prose">
+  {% lorem 1 p %}
+  <small class="landing-prose-credit">By Ryan Murphy, Annie Daniel and Miles Hutson</small>
+</section>
 
 <section class="container">
   <h2 class="page-section-subheader">Latest Public Education Stories</h2>

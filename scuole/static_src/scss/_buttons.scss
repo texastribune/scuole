@@ -31,14 +31,37 @@
     }
   }
 
+  &-link {
+    background-color: $color-link;
+    border-color: $color-link;
+    color: $color-text-inverse;
+
+    &:hover {
+      background-color: darken($color-link, 5%);
+      border-color: darken($color-link, 5%);
+    }
+  }
+
   &-primary-ghost {
     background-color: transparent;
     border-color: $color-button;
     border-width: .125rem;
-    color: $color-text;
+    color: $color-button;
 
     &:hover {
       background-color: $color-button;
+      color: $color-text-inverse;
+    }
+  }
+
+  &-link-ghost {
+    background-color: transparent;
+    border-color: $color-link;
+    border-width: .125rem;
+    color: $color-link;
+
+    &:hover {
+      background-color: $color-link;
       color: $color-text-inverse;
     }
   }
