@@ -44,16 +44,9 @@ class Command(BaseCommand):
         return payload
 
     def load_commissioner_file(self, file):
-        payload = {}
-
         with open(file, 'rU') as f:
             reader = csv.DictReader(f)
-
-            for row in reader:
-                texas = row['Full Name']
-                payload[texas] = row
-
-        return payload
+            return next(reader)
 
     def create_state(self):
         self.stdout.write('Creating Texas...')
@@ -83,7 +76,7 @@ class Command(BaseCommand):
             defaults={
                 'name': name,
                 'role': commissioner['Role'],
-                'email': commissioner['Email'],
+                'email': commissioner['Email Address'],
                 'phone_number': commissioner['Phone'],
                 'fax_number': commissioner['Fax'],
             }
