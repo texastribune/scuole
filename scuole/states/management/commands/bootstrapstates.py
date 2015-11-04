@@ -25,7 +25,7 @@ class Command(BaseCommand):
 
         commissioner_csv = os.path.join(
             settings.DATA_FOLDER,
-            'state', 'state.csv')
+            'state', 'commissioner.csv')
 
         self.commissioner_data = self.load_commissioner_file(
             commissioner_csv)
