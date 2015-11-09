@@ -51,7 +51,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [path.join(APPS_DIR, 'templates')],
-        'APP_DIRS': True,
         'OPTIONS': {
             'loaders': [
                 ('django.template.loaders.cached.Loader', [
