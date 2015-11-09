@@ -65,3 +65,7 @@ gulp.task('serve', ['styles', 'images', 'scripts', 'fonts'], function() {
   gulp.watch('./scuole/static_src/scss/**/*.scss', ['styles']);
   gulp.watch('./scuole/static_src/scripts/**/*.js', ['scripts', reload]);
 });
+
+gulp.task('build', ['styles', 'images', 'scripts', 'fonts']);
+
+gulp.task('default', ['build']);
