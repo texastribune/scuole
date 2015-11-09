@@ -11,14 +11,6 @@ import dj_database_url
 # https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DEBUG
 DEBUG = env('DEBUG', False)
 
-############################
-# SECRET KEY CONFIGURATION #
-############################
-
-# https://docs.djangoproject.com/en/1.8/ref/settings/#secret-key
-# This key should only be used for development and testing!
-SECRET_KEY = env('SECRET_KEY')
-
 ##########################
 # DATABASE CONFIGURATION #
 ##########################
@@ -75,3 +67,29 @@ TEMPLATES = [
 # https://docs.djangoproject.com/en/1.8/ref/settings/#allowed-hosts
 # https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
 ALLOWED_HOSTS = ['*']
+
+##########################
+# SECURITY CONFIGURATION #
+##########################
+
+# https://docs.djangoproject.com/en/1.8/ref/settings/#secret-key
+# This key should only be used for development and testing!
+SECRET_KEY = env('SECRET_KEY')
+
+# https://docs.djangoproject.com/en/1.8/ref/settings/#secure-content-type-nosniff
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# https://docs.djangoproject.com/en/1.8/ref/settings/#secure-browser-xss-filter
+SECURE_BROWSER_XSS_FILTER = True
+
+# https://docs.djangoproject.com/en/1.8/ref/settings/#session-cookie-secure
+SESSION_COOKIE_SECURE = True
+
+# https://docs.djangoproject.com/en/1.8/ref/settings/#csrf-cookie-secure
+CSRF_COOKIE_SECURE = True
+
+# https://docs.djangoproject.com/en/1.8/ref/settings/#csrf-cookie-httponly
+CSRF_COOKIE_HTTPONLY = True
+
+# https://docs.djangoproject.com/en/1.8/ref/settings/#x-frame-options
+X_FRAME_OPTIONS = 'DENY'

@@ -11,9 +11,9 @@ import dj_database_url
 # https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DEBUG
 DEBUG = env('DEBUG', True)
 
-############################
-# SECRET KEY CONFIGURATION #
-############################
+##########################
+# SECURITY CONFIGURATION #
+##########################
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#secret-key
 # This key should only be used for development and testing!
