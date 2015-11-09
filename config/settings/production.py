@@ -60,6 +60,13 @@ TEMPLATES = [
     },
 ]
 
+#############################
+# STATIC FILE CONFIGURATION #
+#############################
+
+# https://docs.djangoproject.com/en/1.8/ref/settings/#staticfiles-storage
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
 ######################
 # HOST CONFIGURATION #
 ######################
