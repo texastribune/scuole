@@ -35,6 +35,7 @@ docker/run: docker/build docker/static-compile
 		--detach \
 		--publish 8000:8000 \
 		--volumes-from ${APP}-assets \
+		--env-file=env-docker \
 		${APP}
 
 docker/static-assets:
