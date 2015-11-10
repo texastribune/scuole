@@ -1,0 +1,14 @@
+FROM node:5.0.0
+
+# Create the folder to work in
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Bring over the package.json for dependencies, then install
+COPY package.json /usr/src/app/
+RUN npm install
+
+# Bring over the rest of the app
+COPY . /usr/src/app
+
+CMD ["npm", "run", "build"]
