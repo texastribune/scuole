@@ -9,6 +9,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('districts', '0037_merge'),
         ('districts', '0035_auto_20151103_2009'),
+        ('districts', '0032_remove_district_coordinates'),
     ]
 
     operations = [

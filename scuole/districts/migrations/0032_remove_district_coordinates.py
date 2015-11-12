@@ -11,8 +11,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='district',
-            name='coordinates',
-        ),
+        # migrations.RemoveField(
+        #     model_name='district',
+        #     name='coordinates',
+        # ),
     ]
