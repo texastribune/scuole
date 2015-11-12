@@ -39,3 +39,6 @@ data/base:
 	python manage.py bootstrapcounties
 	python manage.py bootstrapdistricts
 	python manage.py bootstrapcampuses
+	python manage.py loadtaprdata 2013-2014
+
+local/reset-db-and-bootstrap: local/reset-db data/base

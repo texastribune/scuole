@@ -87,6 +87,8 @@ class Campus(models.Model):
         _('Campus phone number'), max_length=20, null=True)
     phone_number_extension = models.CharField(
         _('Phone number extension'), max_length=4, blank=True, default='')
+    website = models.URLField(
+        _('Campus website'), blank=True, default='')
     street = models.CharField(_('Campus street'), max_length=100, null=True)
     city = models.CharField(_('Campus city'), max_length=200, null=True)
     state = USStateField(_('Campus state'), max_length=2, null=True)
@@ -119,15 +121,21 @@ class Campus(models.Model):
         from django.core.urlresolvers import reverse
         return reverse('districts:campus', kwargs={
             'slug': self.slug,
-            'district_id': self.district.pk,
             'district_slug': self.district.slug,
         })
 
     @property
     def location(self):
-        return '{city}, {state}'.format(
-            city=string.capwords(self.city),
-            state=self.state)
+        if self.city and self.state:
+            return '{city}, {state}'.format(
+                city=string.capwords(self.city),
+                state=self.state)
+        else:
+            return ''
+
+    @property
+    def is_secondary_school(self):
+        return (self.school_type == 'S' or self.school_type == 'B')
 
 
 @python_2_unicode_compatible

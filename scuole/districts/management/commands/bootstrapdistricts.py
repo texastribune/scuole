@@ -10,6 +10,7 @@ from slugify import slugify
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
+from django.db.models import Count
 from django.contrib.gis.geos import GEOSGeometry, MultiPolygon
 
 from scuole.core.utils import remove_charter_c
@@ -55,6 +56,8 @@ class Command(BaseCommand):
 
             for row in reader:
                 self.create_district(row)
+
+        self.make_slugs_unique()
 
     def load_askted_file(self, file):
         payload = {}
@@ -134,6 +137,7 @@ class Command(BaseCommand):
             city = askted_match['District City']
             state = askted_match['District State']
             zip_code = askted_match['District Zip']
+            website = askted_match['District Web Page Address']
         else:
             self.stderr.write('No askted data for {}'.format(name))
             phone_number = ''
@@ -142,6 +146,7 @@ class Command(BaseCommand):
             city = ''
             state = ''
             zip_code = ''
+            website = ''
 
         instance, _ = District.objects.update_or_create(
             tea_id=district['DISTRICT'],
@@ -150,6 +155,7 @@ class Command(BaseCommand):
                 'slug': slugify(name),
                 'phone_number': phone_number,
                 'phone_number_extension': phone_number_extension,
+                'website': website,
                 'street': street,
                 'city': city,
                 'state': state,
@@ -167,6 +173,18 @@ class Command(BaseCommand):
             self.load_superintendent(instance, superintendent)
         else:
             self.stderr.write('No superintendent data for {}'.format(name))
+
+    def make_slugs_unique(self):
+        models = District.objects.values('slug').annotate(
+            Count('slug')).order_by().filter(slug__count__gt=1)
+        slugs = [i['slug'] for i in models]
+
+        districts = District.objects.filter(slug__in=slugs)
+
+        for district in districts:
+            district.slug = '{0}-{1}'.format(
+                district.slug, district.county.slug)
+            district.save()
 
     def load_superintendent(self, district, superintendent):
         name = '{} {}'.format(

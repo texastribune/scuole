@@ -14,7 +14,8 @@ class CampusDetailView(DetailView):
     def get_object(self):
         return get_object_or_404(
             Campus.objects.prefetch_related('principals'),
-            slug=self.kwargs['slug'], district__pk=self.kwargs['district_id'])
+            slug=self.kwargs['slug'],
+            district__slug=self.kwargs['district_slug'])
 
     def get_context_data(self, **kwargs):
         context = super(CampusDetailView, self).get_context_data(**kwargs)

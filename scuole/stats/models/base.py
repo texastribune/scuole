@@ -12,6 +12,9 @@ from .postsecondary_readiness import PostSecondaryReadinessBase
 class SchoolYear(models.Model):
     name = models.CharField(max_length=9)
 
+    class Meta:
+        ordering = ['-name']
+
     def __str__(self):
         return self.name
 

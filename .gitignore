@@ -78,3 +78,6 @@ node_modules
 
 # Bower
 bower_components
+
+# PostgreSQL dumps
+*.dump

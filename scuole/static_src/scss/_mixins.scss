@@ -38,6 +38,10 @@
   width: percentage($size / $columns);
 }
 
+@mixin create-column-offset($size, $columns: $grid-columns) {
+  margin-left: percentage($size / $columns);
+}
+
 // create-grid-columns
 // Creates the fleet of responsive columns based on $grid-columns
 @mixin create-grid-columns($columns: $grid-columns, $gutter: $grid-gutter) {
@@ -53,6 +57,10 @@
     .col-#{$i} {
       @extend %grid-column;
       width: percentage($i / $columns);
+    }
+
+    .col-offset-#{$i} {
+      @include create-column-offset($i, $columns);
     }
   }
 }
