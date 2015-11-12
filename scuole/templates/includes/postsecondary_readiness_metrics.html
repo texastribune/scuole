@@ -3,6 +3,120 @@
 <section class="section">
   <h2 class="page-section-header js-metrics-header">College Readiness</h2>
 
+  <h3 class="page-section-subheader">AP/IB Participation</h3>
+
+  <section class="page-prose">
+    <p>{% lorem 25 w %}.</p>
+  </section>
+
+  <section class="row metrics">
+    <div class="metric">
+      <p class="metric-title">All Students</p>
+      <p class="metric-value">{{ stat.ap_ib_all_students_percent_taking|default:"N/A" }}<span class="metric-value-label"> %</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_all_students_percent_taking }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_all_students_percent_taking }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">White</p>
+      <p class="metric-value">{{ stat.ap_ib_white_percent_taking|default:"N/A" }}<span class="metric-value-label"> %</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_white_percent_taking }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_white_percent_taking }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">Hispanic</p>
+      <p class="metric-value">{{ stat.ap_ib_hispanic_percent_taking|default:"N/A" }}<span class="metric-value-label"> %</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_hispanic_percent_taking }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_hispanic_percent_taking }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">African Americans</p>
+      <p class="metric-value">{{ stat.ap_ib_african_american_percent_taking|default:"N/A" }}<span class="metric-value-label"> %</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_african_american_percent_taking }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_african_american_percent_taking }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">Asian</p>
+      <p class="metric-value">{{ stat.ap_ib_asian_percent_taking|default:"N/A" }}<span class="metric-value-label"> %</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_asian_percent_taking }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_asian_percent_taking }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">American Indian</p>
+      <p class="metric-value">{{ stat.ap_ib_american_indian_percent_taking|default:"N/A" }}<span class="metric-value-label"> %</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_american_indian_percent_taking }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_american_indian_percent_taking }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">Pacific Islander</p>
+      <p class="metric-value">{{ stat.ap_ib_pacific_islander_percent_taking|default:"N/A" }}<span class="metric-value-label"> %</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_pacific_islander_percent_taking }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_pacific_islander_percent_taking }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">Two or More Races</p>
+      <p class="metric-value">{{ stat.ap_ib_two_or_more_races_percent_taking|default:"N/A" }}<span class="metric-value-label"> %</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_two_or_more_races_percent_taking }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_two_or_more_races_percent_taking }}%</p>{% endif %}
+    </div>
+  </section>
+
+  <h3 class="page-section-subheader">AP/IB Performance</h3>
+
+  <section class="page-prose">
+    <p>{% lorem 25 w %}.</p>
+  </section>
+
+  <section class="row metrics">
+    <div class="metric">
+      <p class="metric-title">All Students</p>
+      <p class="metric-value">{{ stat.ap_ib_all_students_percent_above_criterion|default:"N/A" }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.ap_ib_all_students_count_above_criterion|intcomma|default:"N/A" }})</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_all_students_percent_above_criterion }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_all_students_percent_above_criterion }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">White</p>
+      <p class="metric-value">{{ stat.ap_ib_white_percent_above_criterion|default:"N/A" }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.ap_ib_white_count_above_criterion|intcomma|default:"N/A" }})</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_white_percent_above_criterion }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_white_percent_above_criterion }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">Hispanic</p>
+      <p class="metric-value">{{ stat.ap_ib_hispanic_percent_above_criterion|default:"N/A" }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.ap_ib_hispanic_count_above_criterion|intcomma|default:"N/A" }})</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_hispanic_percent_above_criterion }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_hispanic_percent_above_criterion }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">African Americans</p>
+      <p class="metric-value">{{ stat.ap_ib_african_american_percent_above_criterion|default:"N/A" }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.ap_ib_african_american_count_above_criterion|intcomma|default:"N/A" }})</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_african_american_percent_above_criterion }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_african_american_percent_above_criterion }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">Asian</p>
+      <p class="metric-value">{{ stat.ap_ib_asian_percent_above_criterion|default:"N/A" }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.ap_ib_asian_count_above_criterion|intcomma|default:"N/A" }})</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_asian_percent_above_criterion }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_asian_percent_above_criterion }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">American Indian</p>
+      <p class="metric-value">{{ stat.ap_ib_american_indian_percent_above_criterion|default:"N/A" }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.ap_ib_american_indian_count_above_criterion|intcomma|default:"N/A" }})</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_american_indian_percent_above_criterion }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_american_indian_percent_above_criterion }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">Pacific Islander</p>
+      <p class="metric-value">{{ stat.ap_ib_pacific_islander_percent_above_criterion|default:"N/A" }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.ap_ib_pacific_islander_count_above_criterion|intcomma|default:"N/A" }})</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_pacific_islander_percent_above_criterion }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_pacific_islander_percent_above_criterion }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">Two or More Races</p>
+      <p class="metric-value">{{ stat.ap_ib_two_or_more_races_percent_above_criterion|default:"N/A" }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.ap_ib_two_or_more_races_count_above_criterion|intcomma|default:"N/A" }})</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.ap_ib_two_or_more_races_percent_above_criterion }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.ap_ib_two_or_more_races_percent_above_criterion }}%</p>{% endif %}
+    </div>
+  </section>
+
   <h3 class="page-section-subheader">SAT</h3>
 
   <section class="page-prose">
@@ -42,19 +156,19 @@
   <section class="row metrics">
     <div class="metric">
       <p class="metric-title">English</p>
-      <p class="metric-value">{{ stat.college_ready_graduates_english_all_students_percent }}%</p>
+      <p class="metric-value">{{ stat.college_ready_graduates_english_all_students_percent }}<span class="metric-value-label"> %</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.avg_act_score_all_students }}%</p>{% endif %}
       {% if state %}<p class="metric-subtext">Statewide: {{ state.avg_act_score_all_students }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">Math</p>
-      <p class="metric-value">{{ stat.college_ready_graduates_math_all_students_percent }}%</p>
+      <p class="metric-value">{{ stat.college_ready_graduates_math_all_students_percent }}<span class="metric-value-label"> %</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.college_ready_graduates_math_all_students_percent }}%</p>{% endif %}
       {% if state %}<p class="metric-subtext">Statewide: {{ state.college_ready_graduates_math_all_students_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">Both</p>
-      <p class="metric-value">{{ stat.college_ready_graduates_both_all_students_percent }}%</p>
+      <p class="metric-value">{{ stat.college_ready_graduates_both_all_students_percent }}<span class="metric-value-label"> %</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.college_ready_graduates_both_all_students_percent }}%</p>{% endif %}
       {% if state %}<p class="metric-subtext">Statewide: {{ state.college_ready_graduates_both_all_students_percent }}%</p>{% endif %}
     </div>

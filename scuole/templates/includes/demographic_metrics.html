@@ -117,11 +117,23 @@
   </section>
 
   <section class="row metrics">
-    <div class="col-6 metric">
+    <div class="metric">
       <p class="metric-title">Students at Risk</p>
-      <p class="metric-value">{{ stat.at_risk_count|intcomma }}<span class="metric-subtext"> ({{ stat.at_risk_percent }}%)</span></p>
+      <p class="metric-value">{{ stat.at_risk_percent|intcomma }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.at_risk_count|intcomma }})</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.at_risk_percent }}%</p>{% endif %}
       {% if state %}<p class="metric-subtext">Statewide: {{ state.at_risk_percent }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">Economically Disadvantaged</p>
+      <p class="metric-value">{{ stat.economically_disadvantaged_percent|intcomma }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.economically_disadvantaged_count|intcomma }})</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.economically_disadvantaged_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.economically_disadvantaged_percent }}%</p>{% endif %}
+    </div>
+    <div class="metric">
+      <p class="metric-title">Limited English Proficiency</p>
+      <p class="metric-value">{{ stat.limited_english_proficient_percent|intcomma }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.limited_english_proficient_count|intcomma }})</span></p>
+      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.limited_english_proficient_percent }}%</p>{% endif %}
+      {% if state %}<p class="metric-subtext">Statewide: {{ state.limited_english_proficient_percent }}%</p>{% endif %}
     </div>
   </section>
 
@@ -134,25 +146,25 @@
   <section class="row metrics">
     <div class="metric">
       <p class="metric-title">Bilingual/ESL</p>
-      <p class="metric-value">{{ stat.bilingual_esl_count|intcomma }}<span class="metric-subtext"> ({{ stat.bilingual_esl_percent }}%)</span></p>
+      <p class="metric-value">{{ stat.bilingual_esl_percent }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.bilingual_esl_count|intcomma }})</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.bilingual_esl_percent }}%</p>{% endif %}
       {% if state %}<p class="metric-subtext">Statewide: {{ state.bilingual_esl_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">Career and Technical</p>
-      <p class="metric-value">{{ stat.career_technical_education_count|intcomma }}<span class="metric-subtext"> ({{ stat.career_technical_education_percent }}%)</span></p>
+      <p class="metric-value">{{ stat.career_technical_education_percent }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.career_technical_education_count|intcomma }})</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.career_technical_education_percent }}%</p>{% endif %}
       {% if state %}<p class="metric-subtext">Statewide: {{ state.career_technical_education_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">Gifted and Talented</p>
-      <p class="metric-value">{{ stat.gifted_and_talented_count|intcomma }}<span class="metric-subtext"> ({{ stat.gifted_and_talented_percent }}%)</span></p>
+      <p class="metric-value">{{ stat.gifted_and_talented_percent }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.gifted_and_talented_count|intcomma }})</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.gifted_and_talented_percent }}%</p>{% endif %}
       {% if state %}<p class="metric-subtext">Statewide: {{ state.gifted_and_talented_percent }}%</p>{% endif %}
     </div>
     <div class="metric">
       <p class="metric-title">Special Education</p>
-      <p class="metric-value">{{ stat.special_education_count|intcomma }}<span class="metric-subtext"> ({{ stat.special_education_percent }}%)</span></p>
+      <p class="metric-value">{{ stat.special_education_percent }}<span class="metric-value-label"> %</span><span class="metric-subtext"> ({{ stat.special_education_count|intcomma }})</span></p>
       {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.special_education_percent }}%</p>{% endif %}
       {% if state %}<p class="metric-subtext">Statewide: {{ state.special_education_percent }}%</p>{% endif %}
     </div>
