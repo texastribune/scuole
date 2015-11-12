@@ -34,6 +34,7 @@ local/reset-db:
 	python manage.py migrate
 
 data/base:
+	python manage.py bootstrapstates
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
 	python manage.py bootstrapdistricts

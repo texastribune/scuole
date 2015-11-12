@@ -28,6 +28,14 @@
 
 <section class="card">
   <h2 class="card-header">Contact information</h2>
+  {% if state.commissioner_of %}
+  <h3 class="card-title">{{ state.commissioner_of.role }}</h3>
+  <ul class="card-list">
+    <li class="card-list-item">{{ state.commissioner_of.name }}</li>
+    <li class="card-list-item"><a href="mailto:{{ state.commissioner_of.email }}">{{ state.commissioner_of.email }}</a></li>
+    <li class="card-list-item"><a href="tel://{{ state.commissioner_of.phone_number }}">{{ state.commissioner_of.phone_number }}</a></li>
+  </ul>
+  {% endif %}
 </section>
 
 </div>
