@@ -5,20 +5,27 @@
 
   th,
   td {
+    @include font-size(14);
     border-top: 1px solid $color-gray;
     padding: .5rem;
     vertical-align: top;
   }
 
   thead th {
+    @include font-size(16);
     border-bottom: 2px solid $color-gray;
     border-top: 0;
+    text-align: left;
     vertical-align: bottom;
   }
 }
 
 .table-striped {
   tbody tr:nth-of-type(2n+1) {
-    background-color: $color-gray-lightest;
+    background-color: $color-gray-light;
   }
+}
+
+.table__cell--numeric.table__cell--numeric {
+  text-align: right;
 }

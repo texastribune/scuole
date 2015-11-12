@@ -45,7 +45,13 @@ gulp.task('scripts', function() {
     .pipe($.size({title: 'scripts'}));
 });
 
-gulp.task('serve', ['styles', 'images', 'scripts'], function() {
+gulp.task('fonts', function() {
+  return gulp.src('./scuole/static_src/fonts/**/*')
+    .pipe(gulp.dest('./scuole/static/fonts'))
+    .pipe($.size({title: 'fonts'}));
+});
+
+gulp.task('serve', ['styles', 'images', 'scripts', 'fonts'], function() {
   bs.init({
     logConnections: true,
     logPrefix: 'SCHOOLS',

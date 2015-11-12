@@ -3,7 +3,7 @@
 }
 
 .page-headline {
-  @include font-size(24);
+  @include font-size(30);
   font-family: $font-soleil;
   line-height: 1.2;
   margin-bottom: $gutter-quarter;
@@ -22,7 +22,7 @@
 }
 
 .page-section-header {
-  @include font-size(20);
+  @include font-size(24);
   border-bottom: 2px solid $color-gray;
   font-family: $font-soleil;
   margin-bottom: $gutter;
@@ -32,6 +32,7 @@
 .page-section-subheader {
   @include font-size(18);
   font-family: $font-soleil;
+  font-weight: 700;
   margin-bottom: $gutter;
 }
 
@@ -41,11 +42,15 @@
   > p {
     @include font-size(16);
     font-family: $font-soleil;
-    line-height: 1.5;
+    line-height: 1.4;
     margin-bottom: $gutter-half;
 
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  strong {
+    font-weight: 700;
   }
 }

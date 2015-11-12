@@ -2,8 +2,45 @@
   @include create-row();
 }
 
+.metrics-nav {
+  display: none;
+  float: left;
+  margin-right: $gutter;
+  min-height: 1px;
+  padding-left: $gutter-half;
+  padding-right: $gutter-half;
+  position: relative;
+
+  @include mq($from: tablet) {
+    display: block;
+    width: 15rem;
+  }
+
+  @include mq($from: metrics-flip) {
+    display: block;
+    width: 20rem;
+  }
+}
+
+.metrics-nav-ad {
+  display: none;
+
+  @include mq($from: metrics-flip) {
+    display: block;
+  }
+}
+
 .metrics-section {
-  @include create-row();
+  overflow: hidden;
+  min-height: 1px;
+  padding-left: $gutter-half;
+  padding-right: $gutter-half;
+  position: relative;
+  width: auto;
+}
+
+.metrics-jumper {
+  margin-bottom: $gutter;
 }
 
 .metrics {
@@ -11,7 +48,16 @@
 }
 
 .metric {
+  @include create-column(6);
   margin-bottom: $gutter;
+
+  @include mq($from: metrics-flip) {
+    @include create-column(3);
+  }
+
+  &--full-row {
+    @include create-column(12);
+  }
 }
 
 .metric-title {
@@ -23,6 +69,10 @@
 .metric-value {
   @include font-size(28);
   margin-bottom: .375rem;
+
+  &--bigger {
+    @include font-size(32);
+  }
 }
 
 .metric-value-label {
@@ -37,18 +87,32 @@
   @include font-size(12);
   color: $color-text-accent;
   margin-bottom: .25rem;
+  letter-spacing: 0.02em;
 
   &:last-child {
     margin-bottom: 0;
   }
 }
 
-.metrics-jumper {
-
+.metric-bumper {
+  border-bottom: 1px solid $color-gray;
+  padding-bottom: $gutter;
 }
 
 .metrics-jumper__item {
   display: block;
   margin-bottom: $gutter-half;
-  width: 100%;
+  // width: 100%;
+}
+
+.sticky {
+  position: fixed;
+  margin-top: $gutter-half;
+  top: 0;
+}
+
+.active-section {
+  background-color: $color-button;
+  border-color: $color-button;
+  color: $color-text-inverse;
 }
