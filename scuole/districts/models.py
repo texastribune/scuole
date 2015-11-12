@@ -3,7 +3,8 @@ from __future__ import absolute_import, unicode_literals
 
 import string
 
-from localflavor.us.models import PhoneNumberField, USStateField, USZipCodeField
+from localflavor.us.models import (PhoneNumberField, USStateField,
+                                   USZipCodeField)
 
 from django.contrib.gis.db import models
 from django.core.serializers import serialize
@@ -42,6 +43,8 @@ class District(models.Model):
         _('District phone number'), max_length=20, null=True)
     phone_number_extension = models.CharField(
         _('Phone number extension'), max_length=4, blank=True, default='')
+    website = models.URLField(
+        _('District website'), blank=True, default='')
     street = models.CharField(_('District street'), max_length=200)
     city = models.CharField(_('District office city'), max_length=100)
     state = USStateField(

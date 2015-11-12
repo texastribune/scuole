@@ -1,15 +1,14 @@
 // Colors
-$color-primary: rgb(34, 34, 34);
+$color-primary: rgb(32, 32, 32);
 $color-secondary: lighten($color-primary, 20%);
 
-$color-text: rgb(40, 40, 40);
-$color-text-accent: lighten($color-text, 25%);
+$color-gray: rgb(194, 194, 194);
+$color-gray-light: rgb(245, 245, 245);
+
+$color-text: $color-primary;
+$color-text-accent: $color-secondary;
 $color-text-inverse: rgb(255, 255, 255);
 $color-link: rgb(9, 135, 172);
-
-$color-gray: rgb(194, 194, 194);
-$color-gray-light: rgb(238, 238, 238);
-$color-gray-lightest: rgb(245, 245, 245);
 
 $color-white: rgb(255, 255, 255);
 
@@ -19,6 +18,7 @@ $color-button: rgb(9, 182, 174);
 $gutter: 1.25rem;
 
 $gutter-double: $gutter * 2;
+$gutter-quad: $gutter * 4;
 
 $gutter-half: $gutter / 2;
 $gutter-quarter: $gutter / 4;
@@ -40,9 +40,11 @@ $font-soleil: 'soleil', $font-sans-serif;
 $mq-responsive: true;
 
 $mq-breakpoints: (
+  mobile: 520px,
   tablet:  760px,
 
-  ad-switch: 750px
+  metrics-flip: 900px,
+  ad-switch: 760px
 );
 
 $mq-media-type: screen;

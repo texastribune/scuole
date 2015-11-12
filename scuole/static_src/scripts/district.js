@@ -19,8 +19,16 @@ function initialize() {
   map.data.addGeoJson(COORDS);
 
   map.data.setStyle({
-    fillColor: 'green',
-    strokeWeight: 1
+    fillColor: '#C2C2C2',
+    fillOpacity: 0.3,
+    strokeWeight: 1,
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 3,
+      fillColor: '#09B6AE',
+      fillOpacity: 0.8,
+      strokeWeight: 1
+    }
   });
 
   zoom(map);

@@ -4,10 +4,13 @@
   padding-bottom: $gutter;
   padding-top: $gutter;
   text-align: center;
+}
 
-  .landing-content & {
-    background-color: $color-primary;
-  }
+.search-form-label {
+  @include font-size(16);
+  color: $color-white;
+  line-height: 1.6;
+  margin-right: $gutter-half;
 }
 
 .search-form-input {
@@ -24,7 +27,7 @@
   width: auto;
 
   &:focus {
-    border-color: $color-button;
+    border-color: $color-link;
     outline: 0;
   }
 

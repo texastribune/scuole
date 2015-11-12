@@ -15,15 +15,17 @@
 <header class="page-header">
   <h1 class="page-headline">{{ campus.name }}</h1>
   <ul>
-    <li class="page-subtext">{{ campus.city|title }}, {{ campus.state }} | <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></li>
+    <li class="page-subtext">{% if campus.location %}{{ campus.location }} | {% endif %}<a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></li>
     <li class="page-subtext">{{ campus.get_school_type_display }}</li>
     <li class="page-subtext">{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</li>
   </ul>
 </header>
 
-{% include "includes/intro_metrics.html" with stat=stat state=state only %}
+{% include "includes/intro_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
 
 <section class="page-prose">
+  <p><strong>{{ campus.name }}</strong> is a {{ campus.get_school_type_display|lower }} in <strong>{{ campus.location|default:"Texas" }}</strong>. It is in the <strong>{{ campus.district.name }}</strong> school district. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>.</p>
+  <p>An average teacher's salary is <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>. On average, teachers have <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.</p>
   {% lorem 1 p %}
 </section>
 
@@ -32,14 +34,22 @@
 <div class="map" id="map-campus"></div>
 
 <section class="card">
-  <h2 class="card-header">Contact information</h2>
+  <h2 class="card-header">Contact Information</h2>
+  <div class="row">
+  <div class="col-6">
+  {% if campus.website %}
+  <h3 class="card-title">Website</h3>
+  <p class="card-text card-website"><a href="{{ campus.website }}">{{ campus.website }}</a></p>
+  {% endif %}
   <h3 class="card-title">{% trans "Address" %}</h3>
   <address class="card-address">
     {{ campus.street|title }}<br>
     {{ campus.location }} {{ campus.zip_code }}
   </address>
-  <h3 class="card-title">{% trans "Phone number" %}</h3>
-  <p class="card-text"><a href="tel://{{ campus.phone_number }}">{{ campus.phone_number }}</a></p>
+  <h3 class="card-title">{% trans "Office phone number" %}</h3>
+  <p class="card-text"><span class="icon-phone"></span> <a href="tel://{{ campus.phone_number }}">{{ campus.phone_number }}</a></p>
+  </div>
+  <div class="col-6">
   {% if campus.principals.all %}
   <h3 class="card-title">
   {% blocktrans count numberOfPrincipals=campus.principals.count %}
@@ -51,66 +61,65 @@
   <ul class="card-list">
   {% for principal in campus.principals.all %}
     <li class="card-list-item">{{ principal.name }}</li>
-    <li class="card-list-item"><a href="mailto:{{ principal.email }}">{{ principal.email }}</a></li>
-    <li class="card-list-item"><a href="tel://{{ principal.phone_number }}">{{ principal.phone_number }}</a></li>
+    {% if principal.email %}<li class="card-list-item"><a href="mailto:{{ principal.email }}">{{ principal.email }}</a></li>{% endif %}
+    {% if principal.phone_number %}<li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ principal.phone_number }}">{{ principal.phone_number }}</a></li>{% endif %}
   {% endfor %}
   </ul>
   {% endif %}
+  </div>
+  </div>
 </section>
 </div>
 </section>
 
-<div class="ad-slot ad-slot-banner">
-  <img src="https://placehold.it/728x90">
+<div class="ad-slot">
+  <div class="ad-slot-banner">
+    <img src="https://placehold.it/728x90">
+  </div>
+  <div class="ad-slot-box">
+    <img src="https://placehold.it/300x250">
+  </div>
 </div>
 
-<section class="row">
+<section id="js-bumper-check" class="row">
 
-<nav class="col-3">
-  <ul class="metrics-jumper">
-    <li class="metrics-jumper__item btn btn-dark">Demographics<span class="metrics-jumper__arrow"></li></span>
+<nav class="metrics-nav">
+  <ul id="js-bumper" class="metrics-jumper">
+    <li class="metrics-jumper__item btn btn-dark active-section">Demographics<span class="metrics-jumper__arrow"></li></span>
     <li class="metrics-jumper__item btn btn-dark">Academics</li>
+    {% if campus.is_secondary_school %}<li class="metrics-jumper__item btn btn-dark">College Readiness</li>{% endif %}
     <li class="metrics-jumper__item btn btn-dark">Staff</li>
   </ul>
+
+  <div class="ad-slot">
+    <div class="metrics-nav-ad">
+      <img src="https://placehold.it/300x250">
+    </div>
+  </div>
 </nav>
 
-<section class="col-9">
 
-<section class="section">
-<h2 class="page-section-header">Demographics</h2>
+<section class="metrics-section">
 
-<div class="page-prose">
-  <p>{% lorem 25 w %}.</p>
-</div>
+{% include "includes/demographic_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
 
-{% include "includes/demographic_metrics.html" with stat=stat state=state only %}
+{% include "includes/academic_metrics.html" with stat=stat state=state district_name=campus.district.name district=district is_secondary_school=campus.is_secondary_school only %}
 
-</section>
-
-<section class="section">
-<h2 class="page-section-header">Academics</h2>
-
-<div class="page-prose">
-  <p>{% lorem 25 w %}.</p>
-</div>
-
-</section>
-
-<section class="section">
-<h2 class="page-section-header">Staff</h2>
-
-<div class="page-prose">
-  <p>{% lorem 25 w %}.</p>
-</div>
+{% if campus.is_secondary_school %}
+  {% include "includes/postsecondary_readiness_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
+{% endif %}
 
 {% include "includes/staff_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
 
 </section>
 </section>
 
+{% include "includes/story_grid_insert.html" %}
+
 {% endblock content %}
 
 {% block extra_script %}
+{{ block.super }}
 <script>COORDS = {{ campus.coordinates.geojson|safe }};</script>
 <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
 <script src="{% static 'scripts/campus.js' %}"></script>
