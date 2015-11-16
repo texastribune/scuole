@@ -44,7 +44,7 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_english_economically_disadvantaged_count = (
         models.IntegerField(
             _('Number of college ready economically '
-             'disadvantaged graduates in English'),
+              'disadvantaged graduates in English'),
             null=True, blank=True,
             db_column='college_ready_graduates_english_econ_disadv_count'))
     college_ready_graduates_english_limited_english_proficient_count = (
@@ -550,8 +550,36 @@ class PostSecondaryReadinessBase(models.Model):
 
     attendance_rate = models.FloatField(
         _('Attendance rate as calculated by '
-        'students present over students in membership'),
+          'students present over students in membership'),
         null=True, blank=True)
 
     class Meta:
         abstract = True
+
+    def get_percentages_for_all_races(self, field_template):
+        races = (
+            ('White', 'white'),
+            ('Hispanic', 'hispanic'),
+            ('African American', 'african_american'),
+            ('Asian', 'asian'),
+            ('American Indian', 'american_indian'),
+            ('Pacific Islander', 'pacific_islander'),
+            ('Two or More Races', 'two_or_more_races'),
+        )
+
+        payload = []
+
+        for race in races:
+            field = getattr(self, field_template.format(race[1]))
+
+            payload.append({
+                'name': race[0],
+                'value': field
+            })
+
+        return payload
+
+    @property
+    def four_year_graduate_percent(self):
+        return self.get_percentages_for_all_races(
+            'four_year_graduate_{}_percent')

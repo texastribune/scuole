@@ -75,4 +75,4 @@ TEMPLATES = [
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#allowed-hosts
 # https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*.texastribune.org']
