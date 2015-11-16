@@ -9,7 +9,8 @@
     "gulp-postcss": "^6.0.0",
     "gulp-sass": "^2.0.4",
     "gulp-size": "^2.0.0",
-    "gulp-sourcemaps": "^1.5.2"
+    "gulp-sourcemaps": "^1.5.2",
+    "semistandard": "^7.0.2"
   },
   "dependencies": {
     "sass-mq": "^3.2.4",

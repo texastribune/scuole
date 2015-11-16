@@ -4,7 +4,7 @@
 
 var map;
 
-function initialize() {
+function initialize () {
   var mapCanvas = document.getElementById('map-district');
 
   var mapOptions = {
@@ -34,10 +34,10 @@ function initialize() {
   zoom(map);
 }
 
-function zoom(map) {
+function zoom (map) {
   var bounds = new google.maps.LatLngBounds();
 
-  map.data.forEach(function(feature) {
+  map.data.forEach(function (feature) {
     if (feature.getGeometry()) {
       processPoints(feature.getGeometry(), bounds.extend, bounds);
     }
@@ -46,13 +46,13 @@ function zoom(map) {
   map.fitBounds(bounds);
 }
 
-function processPoints(geometry, callback, thisArg) {
+function processPoints (geometry, callback, thisArg) {
   if (geometry instanceof google.maps.LatLng) {
     callback.call(thisArg, geometry);
   } else if (geometry instanceof google.maps.Data.Point) {
     callback.call(thisArg, geometry.get());
   } else {
-    geometry.getArray().forEach(function(g) {
+    geometry.getArray().forEach(function (g) {
       processPoints(g, callback, thisArg);
     });
   }

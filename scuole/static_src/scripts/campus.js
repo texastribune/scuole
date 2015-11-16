@@ -2,10 +2,7 @@
 
 'use strict';
 
-var map;
-var marker;
-
-function initialize() {
+function initialize () {
   var mapCanvas = document.getElementById('map-campus');
   var latlng = new google.maps.LatLng(COORDS.coordinates[1], COORDS.coordinates[0]);
 
@@ -15,9 +12,9 @@ function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
-  map = new google.maps.Map(mapCanvas, mapOptions);
+  var map = new google.maps.Map(mapCanvas, mapOptions);
 
-  marker = new google.maps.Marker({
+  google.maps.Marker({
     map: map,
     animation: google.maps.Animation.DROP,
     position: latlng
