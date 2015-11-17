@@ -102,7 +102,6 @@
 .metrics-jumper__item {
   display: block;
   margin-bottom: $gutter-half;
-  // width: 100%;
 }
 
 .sticky {
@@ -115,4 +114,35 @@
   background-color: $color-button;
   border-color: $color-button;
   color: $color-text-inverse;
+}
+
+.attach-to-top {
+  margin-top: $gutter;
+  position: fixed;
+  top: 0;
+
+  + .metrics-section {
+    @include mq($from: tablet) {
+      margin-left: 15rem + $gutter;
+    }
+
+    @include mq($from: metrics-flip) {
+      margin-left: 20rem + $gutter;
+    }
+  }
+}
+
+.attach-to-bottom {
+  bottom: 0;
+  position: fixed;
+
+  + .metrics-section {
+    @include mq($from: tablet) {
+      margin-left: 15rem + $gutter;
+    }
+
+    @include mq($from: metrics-flip) {
+      margin-left: 20rem + $gutter;
+    }
+  }
 }

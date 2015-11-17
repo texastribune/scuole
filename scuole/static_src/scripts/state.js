@@ -1,14 +1,14 @@
-/* global document,google,window,COORDS,SHAPE */
+/* global document,google,window,SHAPE */
 
 'use strict';
 
 var map;
 
 function initialize () {
-  var mapCanvas = document.getElementById('map-district');
+  var mapCanvas = document.getElementById('map-state');
 
   var mapOptions = {
-    zoom: 14,
+    zoom: 6,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
@@ -16,7 +16,6 @@ function initialize () {
   if (SHAPE.geometry) {
     map.data.addGeoJson(SHAPE);
   }
-  map.data.addGeoJson(COORDS);
 
   map.data.setStyle({
     fillColor: '#C2C2C2',

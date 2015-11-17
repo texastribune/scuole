@@ -44,7 +44,7 @@ class PostSecondaryReadinessBase(models.Model):
     college_ready_graduates_english_economically_disadvantaged_count = (
         models.IntegerField(
             _('Number of college ready economically '
-             'disadvantaged graduates in English'),
+              'disadvantaged graduates in English'),
             null=True, blank=True,
             db_column='college_ready_graduates_english_econ_disadv_count'))
     college_ready_graduates_english_limited_english_proficient_count = (
@@ -324,6 +324,96 @@ class PostSecondaryReadinessBase(models.Model):
         _('Average ACT score for economically disadvantaged students'),
         null=True, blank=True)
 
+    ap_ib_all_students_count_above_criterion = models.IntegerField(
+        _('Number of students who scored above criterion on'
+          'at least one AP or IB test'), null=True, blank=True)
+    ap_ib_african_american_count_above_criterion = models.IntegerField(
+        _('Number of African American students who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_asian_count_above_criterion = models.IntegerField(
+        _('Number of Asian students who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_hispanic_count_above_criterion = models.IntegerField(
+        _('Number of Hispanic students who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_american_indian_count_above_criterion = models.IntegerField(
+        _('Number of American Insian students who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_pacific_islander_count_above_criterion = models.IntegerField(
+        _('Number of Pacific Islander students who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_two_or_more_races_count_above_criterion = models.IntegerField(
+        _('Number of students of two or more races who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_white_count_above_criterion = models.IntegerField(
+        _('Number of white students who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_economically_disadvantaged_count_above_criterion = (
+        models.IntegerField(
+            _('Number of white students who scored above'
+              'criterion on at least one AP or IB test'),
+            null=True, blank=True))
+
+    ap_ib_all_students_percent_above_criterion = models.FloatField(
+        _('Percent of students who scored above criterion on'
+          'at least one AP or IB test'), null=True, blank=True)
+    ap_ib_african_american_percent_above_criterion = models.FloatField(
+        _('Percent of African American students who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_asian_percent_above_criterion = models.FloatField(
+        _('Percent of Asian students who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_hispanic_percent_above_criterion = models.FloatField(
+        _('Percent of Hispanic students who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_american_indian_percent_above_criterion = models.FloatField(
+        _('Percent of American Insian students who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_pacific_islander_percent_above_criterion = models.FloatField(
+        _('Percent of Pacific Islander students who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_two_or_more_races_percent_above_criterion = models.FloatField(
+        _('Percent of students of two or more races who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_white_percent_above_criterion = models.FloatField(
+        _('Percent of white students who scored above'
+          'criterion on at least one AP or IB test'), null=True, blank=True)
+    ap_ib_economically_disadvantaged_percent_above_criterion = (
+        models.FloatField(
+            _('Percent of economically disadvantaged students who'
+              'scored above criterion on at least one AP or IB test'),
+            null=True, blank=True))
+
+    ap_ib_all_students_percent_taking = models.FloatField(
+        _('Percent of students taking at least one'
+          'AP or IB test'), null=True, blank=True)
+    ap_ib_african_american_percent_taking = models.FloatField(
+        _('Percent of African American students taking at least one'
+          'AP or IB test'), null=True, blank=True)
+    ap_ib_asian_percent_taking = models.FloatField(
+        _('Percent of Asian students taking at least one'
+          'AP or IB test'), null=True, blank=True)
+    ap_ib_hispanic_percent_taking = models.FloatField(
+        _('Percent of Hispanic students taking at least one'
+          'AP or IB test'), null=True, blank=True)
+    ap_ib_american_indian_percent_taking = models.FloatField(
+        _('Percent of American Insian students taking at least one'
+          'AP or IB test'), null=True, blank=True)
+    ap_ib_pacific_islander_percent_taking = models.FloatField(
+        _('Percent of Pacific Islander students taking at least one'
+          'AP or IB test'), null=True, blank=True)
+    ap_ib_two_or_more_races_percent_taking = models.FloatField(
+        _('Percent of students of two or more races taking at least one'
+          'AP or IB test'), null=True, blank=True)
+    ap_ib_white_percent_taking = models.FloatField(
+        _('Percent of white students taking at least one'
+          'AP or IB test'), null=True, blank=True)
+    ap_ib_economically_disadvantaged_percent_taking = (
+        models.FloatField(
+            _('Percent of economically disadvantaged students taking'
+              'at least one AP or IB test'),
+            null=True, blank=True))
+
     dropout_all_students_count = models.IntegerField(
         _('Number of 9-12 students who dropped out'),
         null=True, blank=True)
@@ -460,8 +550,36 @@ class PostSecondaryReadinessBase(models.Model):
 
     attendance_rate = models.FloatField(
         _('Attendance rate as calculated by '
-        'students present over students in membership'),
+          'students present over students in membership'),
         null=True, blank=True)
 
     class Meta:
         abstract = True
+
+    def get_percentages_for_all_races(self, field_template):
+        races = (
+            ('White', 'white'),
+            ('Hispanic', 'hispanic'),
+            ('African American', 'african_american'),
+            ('Asian', 'asian'),
+            ('American Indian', 'american_indian'),
+            ('Pacific Islander', 'pacific_islander'),
+            ('Two or More Races', 'two_or_more_races'),
+        )
+
+        payload = []
+
+        for race in races:
+            field = getattr(self, field_template.format(race[1]))
+
+            payload.append({
+                'name': race[0],
+                'value': field
+            })
+
+        return payload
+
+    @property
+    def four_year_graduate_percent(self):
+        return self.get_percentages_for_all_races(
+            'four_year_graduate_{}_percent')

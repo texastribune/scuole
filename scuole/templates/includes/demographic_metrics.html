@@ -1,7 +1,7 @@
 {% load humanize %}
 
 <section class="section">
-  <h2 class="page-section-header js-metrics-header">Demographics</h2>
+  <h2 class="page-section-header js-metrics-header" id="demographics">Demographics</h2>
 
   <h3 class="page-section-subheader">Ethnicities</h3>
 
@@ -10,104 +10,26 @@
   </section>
 
   <section class="row metrics">
-    <div class="metric metric--full-row">
-      <p class="metric-title">Total Students</p>
-      <p class="metric-value metric-value--bigger">{{ stat.all_students_count|intcomma }}</p>
-    </div>
-    <div class="metric">
-      <p class="metric-title">White</p>
-      <p class="metric-value">{{ stat.white_count|intcomma }}<span class="metric-subtext"> ({{ stat.white_percent }}%)</span></p>
-      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.white_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Statewide: {{ state.white_percent }}%</p>{% endif %}
-    </div>
-    <div class="metric">
-      <p class="metric-title">Hispanic</p>
-      <p class="metric-value">{{ stat.hispanic_count|intcomma }}<span class="metric-subtext"> ({{ stat.hispanic_percent }}%)</span></p>
-      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.hispanic_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Statewide: {{ state.hispanic_percent }}%</p>{% endif %}
-    </div>
-    <div class="metric">
-      <p class="metric-title">African American</p>
-      <p class="metric-value">{{ stat.african_american_count|intcomma }}<span class="metric-subtext"> ({{ stat.african_american_percent }}%)</span></p>
-      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.african_american_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Statewide: {{ state.african_american_percent }}%</p>{% endif %}
-    </div>
-    <div class="metric">
-      <p class="metric-title">Asian</p>
-      <p class="metric-value">{{ stat.asian_count|intcomma }}<span class="metric-subtext"> ({{ stat.asian_percent }}%)</span></p>
-      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.asian_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Statewide: {{ state.asian_percent }}%</p>{% endif %}
-    </div>
-    <div class="metric">
-      <p class="metric-title">American Indian</p>
-      <p class="metric-value">{{ stat.american_indian_count|intcomma }}<span class="metric-subtext"> ({{ stat.american_indian_percent }}%)</span></p>
-      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.american_indian_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Statewide: {{ state.american_indian_percent }}%</p>{% endif %}
-    </div>
-    <div class="metric">
-      <p class="metric-title">Pacific Islander</p>
-      <p class="metric-value">{{ stat.pacific_islander_count|intcomma }}<span class="metric-subtext"> ({{ stat.pacific_islander_percent }}%)</span></p>
-      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.pacific_islander_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Statewide: {{ state.pacific_islander_percent }}%</p>{% endif %}
-    </div>
-    <div class="metric">
-      <p class="metric-title">Two or More Races</p>
-      <p class="metric-value">{{ stat.two_or_more_races_count|intcomma }}<span class="metric-subtext"> ({{ stat.two_or_more_races_percent }}%)</span></p>
-      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.two_or_more_races_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Statewide: {{ state.two_or_more_races_percent }}%</p>{% endif %}
-    </div>
+    {% include 'includes/metric.html' with title="Total Students" field="all_students_count" field_type="number" skip_district_state=True full_row=True bigger_value=True %}
+    {% include 'includes/metric.html' with title="White" field="white_count" field_type="number" %}
+    {% include 'includes/metric.html' with title="Hispanic" field="hispanic_count" field_type="number" %}
+    {% include 'includes/metric.html' with title="African American" field="african_american_count" field_type="number" %}
+    {% include 'includes/metric.html' with title="Asian" field="asian_count" field_type="number" %}
+    {% include 'includes/metric.html' with title="American Indian" field="american_indian_count" field_type="number" %}
+    {% include 'includes/metric.html' with title="Pacific Islander" field="pacific_islander_count" field_type="number" %}
+    {% include 'includes/metric.html' with title="Two or More Races" field="two_or_more_races_count" field_type="number" %}
   </section>
 
   <section class="bar-chart">
+    {% for race in stat.student_percent %}
     <div class="bar-chart-row">
-    <p class="bar-chart-label">White</p>
-    <div class="bar-chart-bar">
-      <span class="bar-chart-bar-color" style="width: {{ stat.white_percent }}%"></span>
-    </div>
-    <p class="bar-chart-value">{{ stat.white_percent }}%</p>
-    </div>
-    <div class="bar-chart-row">
-      <p class="bar-chart-label">Hispanic</p>
+      <p class="bar-chart-label">{{ race.name }}</p>
       <div class="bar-chart-bar">
-        <span class="bar-chart-bar-color" style="width: {{ stat.hispanic_percent }}%"></span>
+        <span class="bar-chart-bar-color" style="width: {{ race.value }}%"></span>
       </div>
-      <p class="bar-chart-value">{{ stat.hispanic_percent }}%</p>
+      <p class="bar-chart-value">{{ race.value }}%</p>
     </div>
-    <div class="bar-chart-row">
-      <p class="bar-chart-label">African American</p>
-      <div class="bar-chart-bar">
-        <span class="bar-chart-bar-color" style="width: {{ stat.african_american_percent }}%"></span>
-      </div>
-      <p class="bar-chart-value">{{ stat.african_american_percent }}%</p>
-    </div>
-    <div class="bar-chart-row">
-      <p class="bar-chart-label">Asian</p>
-      <div class="bar-chart-bar">
-        <span class="bar-chart-bar-color" style="width: {{ stat.asian_percent }}%"></span>
-      </div>
-      <p class="bar-chart-value">{{ stat.asian_percent }}%</p>
-    </div>
-    <div class="bar-chart-row">
-      <p class="bar-chart-label">American Indian</p>
-      <div class="bar-chart-bar">
-        <span class="bar-chart-bar-color" style="width: {{ stat.american_indian_percent }}%"></span>
-      </div>
-      <p class="bar-chart-value">{{ stat.american_indian_percent }}%</p>
-    </div>
-    <div class="bar-chart-row">
-      <p class="bar-chart-label">Pacific Islander</p>
-      <div class="bar-chart-bar">
-        <span class="bar-chart-bar-color" style="width: {{ stat.pacific_islander_percent }}%"></span>
-      </div>
-      <p class="bar-chart-value">{{ stat.pacific_islander_percent }}%</p>
-    </div>
-    <div class="bar-chart-row">
-      <p class="bar-chart-label">Two or More</p>
-      <div class="bar-chart-bar">
-        <span class="bar-chart-bar-color" style="width: {{ stat.two_or_more_races_percent }}%"></span>
-      </div>
-      <p class="bar-chart-value">{{ stat.two_or_more_races_percent }}%</p>
-    </div>
+    {% endfor %}
   </section>
 
   <h3 class="page-section-subheader">Risk Factors</h3>
@@ -117,12 +39,9 @@
   </section>
 
   <section class="row metrics">
-    <div class="col-6 metric">
-      <p class="metric-title">Students at Risk</p>
-      <p class="metric-value">{{ stat.at_risk_count|intcomma }}<span class="metric-subtext"> ({{ stat.at_risk_percent }}%)</span></p>
-      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.at_risk_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Statewide: {{ state.at_risk_percent }}%</p>{% endif %}
-    </div>
+    {% include 'includes/metric.html' with title="Students at Risk" field="at_risk_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Economically Disadvantaged" field="economically_disadvantaged_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Limited English Proficiency" field="limited_english_proficient_percent" field_type="percent" %}
   </section>
 
   <h3 class="page-section-subheader">Enrollment by Program</h3>
@@ -132,29 +51,9 @@
   </section>
 
   <section class="row metrics">
-    <div class="metric">
-      <p class="metric-title">Bilingual/ESL</p>
-      <p class="metric-value">{{ stat.bilingual_esl_count|intcomma }}<span class="metric-subtext"> ({{ stat.bilingual_esl_percent }}%)</span></p>
-      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.bilingual_esl_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Statewide: {{ state.bilingual_esl_percent }}%</p>{% endif %}
-    </div>
-    <div class="metric">
-      <p class="metric-title">Career and Technical</p>
-      <p class="metric-value">{{ stat.career_technical_education_count|intcomma }}<span class="metric-subtext"> ({{ stat.career_technical_education_percent }}%)</span></p>
-      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.career_technical_education_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Statewide: {{ state.career_technical_education_percent }}%</p>{% endif %}
-    </div>
-    <div class="metric">
-      <p class="metric-title">Gifted and Talented</p>
-      <p class="metric-value">{{ stat.gifted_and_talented_count|intcomma }}<span class="metric-subtext"> ({{ stat.gifted_and_talented_percent }}%)</span></p>
-      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.gifted_and_talented_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Statewide: {{ state.gifted_and_talented_percent }}%</p>{% endif %}
-    </div>
-    <div class="metric">
-      <p class="metric-title">Special Education</p>
-      <p class="metric-value">{{ stat.special_education_count|intcomma }}<span class="metric-subtext"> ({{ stat.special_education_percent }}%)</span></p>
-      {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.special_education_percent }}%</p>{% endif %}
-      {% if state %}<p class="metric-subtext">Statewide: {{ state.special_education_percent }}%</p>{% endif %}
-    </div>
+    {% include 'includes/metric.html' with title="Bilingual/ESL" field="bilingual_esl_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Career and Technical" field="career_technical_education_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Gifted and Talented" field="gifted_and_talented_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Special Education" field="special_education_percent" field_type="percent" %}
   </section>
 </section>

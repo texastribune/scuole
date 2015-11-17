@@ -4,13 +4,13 @@ from __future__ import unicode_literals
 from django.db import migrations
 
 
-def create_texas(apps, schema_editor):
-    State = apps.get_model('states', 'State')
+# def create_texas(apps, schema_editor):
+#     State = apps.get_model('states', 'State')
 
-    State.objects.create(
-        name='TX',
-        slug='tx',
-    )
+#     State.objects.create(
+#         name='TX',
+#         slug='tx',
+#     )
 
 
 class Migration(migrations.Migration):
@@ -20,5 +20,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_texas),
+        # migrations.RunPython(create_texas),
     ]

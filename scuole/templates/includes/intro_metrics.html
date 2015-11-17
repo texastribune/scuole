@@ -1,28 +1,8 @@
-{% load humanize %}
+{% load humanize stats_tags %}
 
 <section class="row metrics">
-  <div class="col-6 metric">
-    <p class="metric-title">Total Students</p>
-    <p class="metric-value">{{ stat.all_students_count|intcomma }}</p>
-    {% if district %}<p class="metric-subtext"></p>{% endif %}
-    {% if state %}<p class="metric-subtext"></p>{% endif %}
-  </div>
-  <div class="col-6 metric">
-    <p class="metric-title">Students per Teacher</p>
-    <p class="metric-value">{{ stat.students_per_teacher|floatformat }}</p>
-    {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.students_per_teacher|floatformat }}</p>{% endif %}
-    {% if state %}<p class="metric-subtext">Statewide: {{ state.students_per_teacher|floatformat }}</p>{% endif %}
-  </div>
-  <div class="col-6 metric">
-    <p class="metric-title">Avg. Teacher Experience</p>
-    <p class="metric-value">{{ stat.teacher_avg_experience|floatformat }}<span class="metric-value-label"> years</span></p>
-    {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.teacher_avg_experience|floatformat }} years</p>{% endif %}
-    {% if state %}<p class="metric-subtext">Statewide: {{ state.teacher_avg_experience|floatformat }} years</p>{% endif %}
-  </div>
-  <div class="col-6 metric">
-    <p class="metric-title">4-Year Graduation Rate</p>
-    <p class="metric-value">{{ stat.four_year_graduate_all_students_percent }}<span class="metric-value-label"> %</span></p>
-    {% if district %}<p class="metric-subtext">{{ district_name }}: {{ district.four_year_graduate_all_students_percent }}%</p>{% endif %}
-    {% if state %}<p class="metric-subtext">Statewide: {{ state.four_year_graduate_all_students_percent }}%</p>{% endif %}
-  </div>
+  {% include 'includes/metric.html' with title="Total Students" field="all_students_count" field_type="number" skip_district_state=True %}
+  {% include 'includes/metric.html' with title="Student per Teacher" field="students_per_teacher" field_type="number" %}
+  {% include 'includes/metric.html' with title="Avg. Teacher Experience" field="teacher_avg_experience" field_type="years" %}
+  {% include 'includes/metric.html' with title="4-Year Graduation Rate" field="four_year_graduate_all_students_percent" field_type="percent" %}
 </section>

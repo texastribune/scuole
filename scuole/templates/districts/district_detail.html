@@ -57,36 +57,7 @@
   </div>
 </div>
 
-<section id="js-bumper-check" class="row">
-
-<nav class="metrics-nav">
-  <ul id="js-bumper" class="metrics-jumper">
-    <li class="metrics-jumper__item btn btn-dark">Demographics<span class="metrics-jumper__arrow"></li></span>
-    <li class="metrics-jumper__item btn btn-gray-ghost">Academics</li>
-    <li class="metrics-jumper__item btn btn-gray-ghost">College Readiness</li>
-    <li class="metrics-jumper__item btn btn-gray-ghost">Staff</li>
-  </ul>
-
-  <div class="ad-slot">
-    <div class="metrics-nav-ad">
-      <img src="https://placehold.it/300x250">
-    </div>
-  </div>
-</nav>
-
-
-<div class="metrics-section">
-
-{% include "includes/demographic_metrics.html" with stat=stat state=state only %}
-
-{% include "includes/academic_metrics.html" with stat=stat state=state only %}
-
-{% include "includes/postsecondary_readiness_metrics.html" with stat=stat state=state only %}
-
-{% include "includes/staff_metrics.html" with stat=stat state=state only %}
-
-</div>
-</section>
+{% include "includes/metrics_block.html" with stat=stat state=state include_postsecondary=True only %}
 
 <h2 class="page-section-header">Campuses</h2>
 <div class="section row">

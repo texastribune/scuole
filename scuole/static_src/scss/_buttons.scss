@@ -23,6 +23,7 @@
   &-primary {
     background-color: $color-button;
     border-color: $color-button;
+    border-width: .125rem;
     color: $color-text-inverse;
 
     &:hover {
@@ -34,6 +35,7 @@
   &-link {
     background-color: $color-link;
     border-color: $color-link;
+    border-width: .125rem;
     color: $color-text-inverse;
 
     &:hover {
@@ -81,6 +83,7 @@
   &-dark {
     background-color: $color-primary;
     border-color: $color-primary;
+    border-width: .125rem;
     color: $color-text-inverse;
 
     &:hover {

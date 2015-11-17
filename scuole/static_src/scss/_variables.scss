@@ -1,18 +1,16 @@
 // Colors
-$color-primary: rgb(32, 32, 32);
+$color-primary: hsl(0, 0%, 13%);
 $color-secondary: lighten($color-primary, 20%);
 
-$color-gray: rgb(194, 194, 194);
-$color-gray-light: rgb(245, 245, 245);
+$color-gray: hsl(0, 0%, 76%);
+$color-gray-light: hsl(0, 0%, 96%);
+$color-white: hsl(0, 0%, 100%);
 
 $color-text: $color-primary;
 $color-text-accent: $color-secondary;
-$color-text-inverse: rgb(255, 255, 255);
-$color-link: rgb(9, 135, 172);
-
-$color-white: rgb(255, 255, 255);
-
-$color-button: rgb(9, 182, 174);
+$color-text-inverse: $color-white;
+$color-link: hsl(194, 90%, 35%);
+$color-button: hsl(177, 91%, 37%);
 
 // Spacing
 $gutter: 1.25rem;
@@ -48,10 +46,3 @@ $mq-breakpoints: (
 );
 
 $mq-media-type: screen;
-
-// susy
-$susy: (
-  columns: 12,
-  global-box-sizing: border-box,
-  gutters: .25
-);

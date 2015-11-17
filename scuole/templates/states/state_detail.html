@@ -28,6 +28,14 @@
 
 <section class="card">
   <h2 class="card-header">Contact information</h2>
+  {% if state.commissioner_of %}
+  <h3 class="card-title">{{ state.commissioner_of.role }}</h3>
+  <ul class="card-list">
+    <li class="card-list-item">{{ state.commissioner_of.name }}</li>
+    <li class="card-list-item"><a href="mailto:{{ state.commissioner_of.email }}">{{ state.commissioner_of.email }}</a></li>
+    <li class="card-list-item"><a href="tel://{{ state.commissioner_of.phone_number }}">{{ state.commissioner_of.phone_number }}</a></li>
+  </ul>
+  {% endif %}
 </section>
 
 </div>
@@ -42,38 +50,9 @@
   </div>
 </div>
 
+{% include "includes/metrics_block.html" with stat=stat include_postsecondary=True only %}
+
 {% include "includes/story_grid_insert.html" %}
-
-<section id="js-bumper-check" class="row">
-
-<nav class="metrics-nav">
-  <ul id="js-bumper" class="metrics-jumper">
-    <li class="metrics-jumper__item btn btn-dark active-section">Demographics<span class="metrics-jumper__arrow"></li></span>
-    <li class="metrics-jumper__item btn btn-dark">Academics</li>
-    <li class="metrics-jumper__item btn btn-dark">College Readiness</li>
-    <li class="metrics-jumper__item btn btn-dark">Staff</li>
-  </ul>
-
-  <div class="ad-slot">
-    <div class="metrics-nav-ad">
-      <img src="https://placehold.it/300x250">
-    </div>
-  </div>
-</nav>
-
-<div class="metrics-section">
-
-{% include "includes/demographic_metrics.html" with stat=stat only %}
-
-{% include "includes/academic_metrics.html" with stat=stat only %}
-
-{% include "includes/postsecondary_readiness_metrics.html" with stat=stat only %}
-
-{% include "includes/staff_metrics.html" with stat=stat only %}
-
-</div>
-
-</section>
 
 {% endblock content %}
 
