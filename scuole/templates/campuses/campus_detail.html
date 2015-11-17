@@ -81,38 +81,7 @@
   </div>
 </div>
 
-<section id="js-bumper-check" class="row">
-
-<nav class="metrics-nav">
-  <ul id="js-bumper" class="metrics-jumper">
-    <li class="metrics-jumper__item btn btn-dark active-section">Demographics<span class="metrics-jumper__arrow"></li></span>
-    <li class="metrics-jumper__item btn btn-dark">Academics</li>
-    {% if campus.is_secondary_school %}<li class="metrics-jumper__item btn btn-dark">College Readiness</li>{% endif %}
-    <li class="metrics-jumper__item btn btn-dark">Staff</li>
-  </ul>
-
-  <div class="ad-slot">
-    <div class="metrics-nav-ad">
-      <img src="https://placehold.it/300x250">
-    </div>
-  </div>
-</nav>
-
-
-<section class="metrics-section">
-
-{% include "includes/demographic_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
-
-{% include "includes/academic_metrics.html" with stat=stat state=state district_name=campus.district.name district=district is_secondary_school=campus.is_secondary_school only %}
-
-{% if campus.is_secondary_school %}
-  {% include "includes/postsecondary_readiness_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
-{% endif %}
-
-{% include "includes/staff_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
-
-</section>
-</section>
+{% include "includes/metrics_block.html" with stat=stat state=state district=district campus=campus only %}
 
 {% include "includes/story_grid_insert.html" %}
 

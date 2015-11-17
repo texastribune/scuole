@@ -14,7 +14,7 @@ function initialize () {
 
   var map = new google.maps.Map(mapCanvas, mapOptions);
 
-  google.maps.Marker({
+  var marker = new google.maps.Marker({
     map: map,
     animation: google.maps.Animation.DROP,
     position: latlng
