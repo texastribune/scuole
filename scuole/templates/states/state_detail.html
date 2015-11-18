@@ -57,7 +57,7 @@
 {% endblock content %}
 
 {% block extra_script %}
+{{ block.super }}
 <script>SHAPE = {"type": "Feature", "geometry": {{ state.shape.geojson|safe|default:'null' }}};</script>
-<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
 <script src="{% static 'scripts/state.js' %}"></script>
 {% endblock extra_script %}

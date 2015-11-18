@@ -83,6 +83,5 @@
 {{ block.super }}
 <script>COORDS = {{ district.campus_geojson|safe }};</script>
 <script>SHAPE = {"type": "Feature", "geometry": {{ district.shape.geojson|safe|default:'null' }}};</script>
-<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
 <script src="{% static 'scripts/district.js' %}"></script>
 {% endblock extra_script %}

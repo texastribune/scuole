@@ -1,15 +1,12 @@
-'use strict';
+'use strict'
 
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
+var gulp = require('gulp')
+var $ = require('gulp-load-plugins')()
 
-var autoprefixer = require('autoprefixer');
-var bs = require('browser-sync').create();
+var autoprefixer = require('autoprefixer')
+var bs = require('browser-sync').create()
 
-var reload = bs.reload;
-
-
-gulp.task('styles', function() {
+gulp.task('styles', function () {
   return gulp.src('./scuole/static_src/scss/*.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
@@ -26,32 +23,26 @@ gulp.task('styles', function() {
     .pipe(bs.stream({
       match: '**/*.css'
     }))
-    .pipe($.size({title: 'styles'}));
-});
+    .pipe($.size({title: 'styles'}))
+})
 
-gulp.task('images', function() {
+gulp.task('images', function () {
   return gulp.src('./scuole/static_src/images/**/*')
     .pipe($.imagemin({
       progressive: true,
       interlaced: true
     }))
     .pipe(gulp.dest('./scuole/static/images'))
-    .pipe($.size({title: 'images'}));
-});
+    .pipe($.size({title: 'images'}))
+})
 
-gulp.task('scripts', function() {
-  return gulp.src('./scuole/static_src/scripts/**/*')
-    .pipe(gulp.dest('./scuole/static/scripts'))
-    .pipe($.size({title: 'scripts'}));
-});
-
-gulp.task('fonts', function() {
+gulp.task('fonts', function () {
   return gulp.src('./scuole/static_src/fonts/**/*')
     .pipe(gulp.dest('./scuole/static/fonts'))
-    .pipe($.size({title: 'fonts'}));
-});
+    .pipe($.size({title: 'fonts'}))
+})
 
-gulp.task('serve', ['styles', 'images', 'scripts', 'fonts'], function() {
+gulp.task('serve', ['styles', 'images', 'fonts'], function () {
   bs.init({
     logConnections: true,
     logPrefix: 'SCHOOLS',
@@ -60,12 +51,11 @@ gulp.task('serve', ['styles', 'images', 'scripts', 'fonts'], function() {
     proxy: 'localhost:8000',
     tunnel: true,
     xip: true
-  });
+  })
 
-  gulp.watch('./scuole/static_src/scss/**/*.scss', ['styles']);
-  gulp.watch('./scuole/static_src/scripts/**/*.js', ['scripts', reload]);
-});
+  gulp.watch('./scuole/static_src/scss/**/*.scss', ['styles'])
+})
 
-gulp.task('build', ['styles', 'images', 'scripts', 'fonts']);
+gulp.task('build', ['styles', 'images', 'fonts'])
 
-gulp.task('default', ['build']);
+gulp.task('default', ['build'])
