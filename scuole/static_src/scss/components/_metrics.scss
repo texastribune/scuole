@@ -1,5 +1,6 @@
-.metrics-container {
+.metrics-block {
   @include create-row();
+  position: relative;
 }
 
 .metrics-nav {
@@ -134,7 +135,7 @@
 
 .attach-to-bottom {
   bottom: 0;
-  position: fixed;
+  position: absolute;
 
   + .metrics-section {
     @include mq($from: tablet) {
