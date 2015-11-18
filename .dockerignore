@@ -2,3 +2,5 @@ node_modules
 scuole/assets
 scuole/static
 *.dump
+env-docker
+.git
