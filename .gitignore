@@ -81,3 +81,6 @@ bower_components
 
 # PostgreSQL dumps
 *.dump
+
+# Docker
+env-docker

@@ -38,6 +38,18 @@ docker/run: docker/build docker/static-compile
 		--env-file=env-docker \
 		${APP}
 
+docker/run-debug: docker/build docker/static-compile
+	@echo "Running app in debug mode..."
+	@docker run \
+		--name ${APP} \
+		--detach \
+		--publish 8000:8000 \
+		--link ${APP}-db:db \
+		--volumes-from ${APP}-assets \
+		--env-file env-docker \
+		--env DJANGO_DEBUG="True" \
+		${APP}
+
 docker/static-assets:
 	@echo "Attempting to create static assets volume (if needed)..."
 	@docker create \

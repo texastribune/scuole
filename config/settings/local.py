@@ -9,7 +9,7 @@ import dj_database_url
 #######################
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DEBUG
-DEBUG = env('DEBUG', True)
+DEBUG = env('DJANGO_DEBUG', True)
 
 ##########################
 # SECURITY CONFIGURATION #

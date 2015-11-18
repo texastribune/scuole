@@ -9,7 +9,7 @@ import dj_database_url
 #######################
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DEBUG
-DEBUG = env('DEBUG', False)
+DEBUG = env('DJANGO_DEBUG', False)
 
 ##########################
 # DATABASE CONFIGURATION #
@@ -73,7 +73,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#allowed-hosts
 # https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
-ALLOWED_HOSTS = ['*.texastribune.org']
+ALLOWED_HOSTS = ['*']
 
 ##########################
 # SECURITY CONFIGURATION #
