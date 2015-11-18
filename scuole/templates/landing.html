@@ -11,7 +11,7 @@
 {% block content %}
 <article class="landing-content">
   <h1 class="landing-header">{% trans "Texas Public Schools" %}</h1>
-  <p class="landing-subheader">This is about public schools in Texas</p>
+  <p class="landing-subheader">Your source for state public education&nbsp;data</p>
 
   <section class="search-bar">
     <div class="container">
@@ -27,27 +27,13 @@
 {% include "includes/menu.html" %}
 
 <section class="landing-prose">
-  {% lorem 1 p %}
-  <small class="landing-prose-credit">By Ryan Murphy, Annie Daniel and Miles Hutson</small>
+  <p class="landing-paragraph">Use our Texas Public Schools database to learn more about the state’s 1,300 districts and 8,500 public schools, including hundreds of charter schools and alternative campuses. You can easily navigate through information on demographics, academic performance, college readiness and average teacher salaries for each school or district.</p>
+  <p class="landing-paragraph landing-paragraph--credit">By Ryan Murphy, Annie Daniel and Miles Hutson</p>
 </section>
 
 <section class="container">
-  <h2 class="page-section-subheader">Latest Public Education Stories</h2>
-  <div class="row">
-    {% for i in "x"|rjust:"8" %}
-      <div class="story-box-container">
-        <div class="story-box">
-          <div class="story-box__media">
-            <img src="http://placehold.it/100/75" alt="Placeholder image">
-          </div>
-          <div class="story-box__body">
-            <h3 class="story-box__header">Story Headline</h3>
-            <p class="story-box__prose">{% lorem 20 w %}.</p>
-          </div>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
+  <h2 class="page-section-header"><a href="http://www.texastribune.org/education/public-education/">Latest Public Education Stories</a></h2>
+  <div class="row" id="js-story-box"></div>
 </section>
 
 {% endblock content %}

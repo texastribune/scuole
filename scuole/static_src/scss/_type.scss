@@ -27,6 +27,10 @@
   font-family: $font-soleil;
   margin-bottom: $gutter;
   padding-bottom: $gutter-half;
+
+  @include mq($from: tablet) {
+    @include font-size(24);
+  }
 }
 
 .page-section-subheader {

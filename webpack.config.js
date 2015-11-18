@@ -7,7 +7,8 @@ module.exports = {
     standard: './standard.js',
     campus: './campus.js',
     district: './district.js',
-    state: './state.js'
+    state: './state.js',
+    loadStoryGrid: './utils/loadStoryGrid.js'
   },
   output: {
     path: path.join(__dirname, '/scuole/static/scripts'),
