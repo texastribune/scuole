@@ -1,6 +1,6 @@
 import forEach from 'lodash/collection/each'
 import findOne from 'lodash/collection/find'
-import scrollMonitor from 'scrollMonitor'
+import scrollMonitor from 'scrollmonitor'
 
 import activeButtonClass from './utils/activeButtonClass'
 
