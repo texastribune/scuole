@@ -15,6 +15,11 @@ data/base:
 
 local/reset-db-and-bootstrap: local/reset-db data/base
 
+docker/pull:
+	@echo "Getting a fresh copy of master..."
+	git checkout master
+	git pull
+
 docker/build:
 	@echo "Building app..."
 	@docker build \
@@ -28,8 +33,9 @@ docker/build-assets:
 		--file Dockerfile.assets \
 		.
 
-docker/run: docker/build docker/static-compile
+docker/run: docker/pull docker/build docker/static-compile
 	@echo "Running app..."
+	-@docker stop ${APP} && docker rm -v ${APP}
 	@docker run \
 		--name ${APP} \
 		--detach \
