@@ -2,6 +2,10 @@
 
 {% block title %}{{ state.get_name_display }}{% endblock title %}
 
+{% block extra_content %}
+{% include "includes/reminder_bar.html" with title=state.get_name_display year=stat.year.name %}
+{% endblock extra_content %}
+
 {% block breadcrumbs %}
 <nav class="breadcrumbs">
   <a class="breadcrumbs__item" href="{% url 'landing' %}">Home</a>

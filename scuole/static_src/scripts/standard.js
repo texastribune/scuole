@@ -3,12 +3,13 @@ import findOne from 'lodash/collection/find'
 import scrollMonitor from 'scrollmonitor'
 
 import activeButtonClass from './utils/activeButtonClass'
+import './utils/reminderBar'
 
 let metricNav = document.querySelector('#metrics-nav')
 
 let metricSection = document.querySelector('#metrics-section')
 let metricSectionWatcher = scrollMonitor.create(metricSection, {
-  top: 20
+  top: 60
 })
 
 metricSectionWatcher.partiallyExitViewport(function () {
@@ -45,7 +46,7 @@ forEach(metricJumpers, (jumper) => {
     let attr = activeEl.getAttribute('data-jumper')
 
     let el = document.querySelector('#' + attr)
-    window.scrollTo(0, el.getBoundingClientRect().top + window.pageYOffset - 10)
+    window.scrollTo(0, el.getBoundingClientRect().top + window.pageYOffset - 50)
   })
 })
 

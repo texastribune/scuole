@@ -2,6 +2,10 @@
 
 {% block title %}{{ campus.name }}{% endblock title %}
 
+{% block extra_content %}
+{% include "includes/reminder_bar.html" with title=campus.name year=stat.year.name %}
+{% endblock extra_content %}
+
 {% block breadcrumbs %}
 <nav class="breadcrumbs">
   <a class="breadcrumbs__item" href="{% url 'landing' %}">{% trans "Home" %}</a> » <a class="breadcrumbs__item" href="{% url 'districts:list' %}">{% trans "School Districts" %}</a> » <a class="breadcrumbs__item" href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a>

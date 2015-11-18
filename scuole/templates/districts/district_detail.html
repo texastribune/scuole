@@ -2,6 +2,10 @@
 
 {% block title %}{{ district.name }}{% endblock title %}
 
+{% block extra_content %}
+{% include "includes/reminder_bar.html" with title=district.name year=stat.year.name %}
+{% endblock extra_content %}
+
 {% block breadcrumbs %}
 <nav class="breadcrumbs">
   <a class="breadcrumbs__item" href="{% url 'landing' %}">Home</a> » <a class="breadcrumbs__item" href="{% url 'districts:list' %}">{% trans "School Districts" %}</a>
@@ -12,7 +16,7 @@
 
 <section class="row section">
 <div class="intro-block">
-<header class="page-header">
+<header class="page-header" id="js-reminder-bar-trigger">
   <h1 class="page-headline">{{ district.name }}</h1>
   <p class="page-subtext">{{ district.location }}</p>
   <p class="page-subtext">Accountability Rating: {{ district.get_accountability_rating_display }}</p>

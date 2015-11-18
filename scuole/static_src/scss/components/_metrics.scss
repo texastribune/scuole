@@ -118,7 +118,7 @@
 }
 
 .attach-to-top {
-  margin-top: $gutter;
+  margin-top: $gutter * 3;
   position: fixed;
   top: 0;
 

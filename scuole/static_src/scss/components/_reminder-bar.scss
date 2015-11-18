@@ -1,0 +1,25 @@
+.reminder-bar {
+  @include font-size(16);
+  background-color: transparentize($color-white, .1);
+  border-bottom: 1px solid $color-primary;
+  color: $color-text;
+  display: none;
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  z-index: 10;
+}
+
+.reminder-bar__title {
+  text-align: left;
+}
+
+.reminder-bar__year {
+  float: right;
+}
+
+.reminder-bar--display {
+  display: block;
+  position: fixed;
+  top: 0;
+}
