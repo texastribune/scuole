@@ -41,7 +41,7 @@ forEach(metricJumpers, (jumper) => {
   jumper.addEventListener('click', function (e) {
     let activeEl = e.target
 
-    activeButtonClass(metricJumpers, activeEl, 'btn-dark', 'btn-gray-ghost')
+    activeButtonClass(metricJumpers, activeEl, 'btn-link', 'btn-gray-ghost')
 
     let attr = activeEl.getAttribute('data-jumper')
 
@@ -61,7 +61,7 @@ forEach(metricJumperHeaders, (header) => {
 
     if (monitor.isInViewport && monitor.isAboveViewport) {
       let el = findOne(metricJumpers, jumper => header.id === jumper.getAttribute('data-jumper'))
-      activeButtonClass(metricJumpers, el, 'btn-dark', 'btn-gray-ghost')
+      activeButtonClass(metricJumpers, el, 'btn-link', 'btn-gray-ghost')
     }
   })
 })

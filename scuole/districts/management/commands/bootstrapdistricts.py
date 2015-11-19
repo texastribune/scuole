@@ -19,6 +19,9 @@ from scuole.regions.models import Region
 
 from ...models import District, Superintendent
 
+from scuole.core.replacements import ISD_REPLACEMENT
+from scuole.core.utils import massage_name
+
 
 class Command(BaseCommand):
     help = 'Bootstraps District models using TEA, FAST and AskTED data.'
@@ -107,7 +110,15 @@ class Command(BaseCommand):
         return payload
 
     def create_district(self, district):
-        fast_match = self.fast_data[str(int(district['DISTRICT']))]
+        district_id = str(int(district['DISTRICT']))
+
+        if district_id in self.fast_data:
+            fast_match = self.fast_data[district_id]
+        else:
+            fast_match = {
+                'District Name': massage_name(
+                    district['DISTNAME'], ISD_REPLACEMENT)
+            }
 
         name = remove_charter_c(fast_match['District Name'])
         self.stdout.write('Creating {}...'.format(name))

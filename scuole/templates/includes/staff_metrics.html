@@ -3,10 +3,20 @@
 <section class="section js-metrics-block" id="staff">
   <h2 class="page-section-header js-metrics-header">Staff</h2>
 
+  <h3 class="page-section-subheader">Students per Teacher</h3>
+
+  <section class="page-prose">
+    <p>This statistic shows the total number of students divided by the total full-time equivalent count of teachers for {{ stat.year.name }}.</p>
+  </section>
+
+  <section class="row metrics">
+    {% include 'includes/metric.html' with title="Student per Teacher" field="students_per_teacher" field_type="number" %}
+  </section>
+
   <h3 class="page-section-subheader">Teacher Experience</h3>
 
   <section class="page-prose">
-    <p>{% lorem 25 w %}.</p>
+    <p>This measure is obtained by multiplying each teacher’s full-time equivalent (FTE) count by years of experience, totaling the sums for all teachers and then dividing that total by the teacher FTE count. This figure, for the {{ stat.year.name }} school year, refers to tenure, i.e., the number of years employed in the reporting district, whether or not there has been any interruption in service.</p>
   </section>
 
   <section class="row metrics">
@@ -16,7 +26,7 @@
   <h3 class="page-section-subheader">Teacher Salaries</h3>
 
   <section class="page-prose">
-    <p>{% lorem 25 w %}.</p>
+    <p>This measure is calculated by taking the total pay for teachers within each group and dividing that figure by the total teacher full-time equivalent (FTE) count for the group. The total actual salary amount is pay for regular duties only and does not include supplemental pay. For teachers who also have nonteaching roles, only the portion of time and pay dedicated to classroom responsibilities is factored into this calculation.</p>
   </section>
 
   <section class="row metrics">

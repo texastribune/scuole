@@ -102,4 +102,11 @@
     padding-bottom: .25rem;
     padding-top: .25rem;
   }
+
+  &-link-hover {
+    &:hover {
+      background-color: $color-link;
+      border-color: $color-link;
+    }
+  }
 }

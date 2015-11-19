@@ -18,6 +18,16 @@ class SchoolYear(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def ninth_grade_year(self):
+        start, end = self.name.split('-')
+
+        return '{}-{}'.format(int(start) - 4, int(end) - 4)
+
+    @property
+    def end_year(self):
+        return self.name.split('-')[1]
+
 
 class StatsBase(StaffStudentBase, PostSecondaryReadinessBase):
     """

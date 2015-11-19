@@ -27,6 +27,7 @@
   font-family: $font-soleil;
   margin-bottom: $gutter;
   padding-bottom: $gutter-half;
+  position: relative;
 
   @include mq($from: tablet) {
     @include font-size(24);
@@ -61,4 +62,15 @@
 
 .bold {
   font-weight: 700;
+}
+
+.anchor {
+  display: block;
+  height: 0;
+  left: 0;
+  position: absolute;
+  top: -50px;
+  visibility: hidden;
+  width: 0;
+  z-index: -1;
 }

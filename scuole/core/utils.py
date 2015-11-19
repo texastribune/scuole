@@ -89,6 +89,13 @@ def cap_following_o_apostrophe(text):
     return re.sub("O\'[a-z]", lambda x: x.group(0).upper(), text)
 
 
+def remove_charter_c(text):
+    """
+    A function to remove (C) from charter school names.
+    """
+    return re.sub(' \(C\)', '', text)
+
+
 def massage_name(text, key_dict):
     """
     A function to combine all the powers of name cleaning provided in `utils`.
@@ -101,9 +108,3 @@ def massage_name(text, key_dict):
     text = cap_following_o_apostrophe(text)
 
     return text
-
-def remove_charter_c(text):
-    """
-    A function to remove (C) from charter school names.
-    """
-    return re.sub(' \(C\)', '', text)

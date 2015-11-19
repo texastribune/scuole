@@ -51,7 +51,7 @@ class Command(BaseCommand):
         try:
             model = instance.objects.get(tea_id=identifier)
         except instance.DoesNotExist:
-            self.stdout.write('Could not find {}'.format(identifier))
+            self.stderr.write('Could not find {}'.format(identifier))
             return None
 
         return model

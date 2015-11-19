@@ -9,6 +9,16 @@ register = template.Library()
 
 
 @register.filter
+def absolute(value):
+    return abs(value)
+
+
+@register.filter
+def subtract(value, other):
+    return value - other
+
+
+@register.filter
 def get_by_key(value, key):
     return getattr(value, key, None)
 

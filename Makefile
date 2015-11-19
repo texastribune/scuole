@@ -7,11 +7,12 @@ local/reset-db:
 	python manage.py migrate
 
 data/base:
+	python manage.py bootstrapstates
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
 	python manage.py bootstrapdistricts
 	python manage.py bootstrapcampuses
-	python manage.py loadtaprdata 2013-2014
+	python manage.py loadtaprdata 2014-2015
 
 local/reset-db-and-bootstrap: local/reset-db data/base
 

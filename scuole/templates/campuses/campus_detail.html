@@ -1,4 +1,4 @@
-{% extends 'standard.html' %}{% load humanize i18n static %}
+{% extends 'standard.html' %}{% load humanize i18n static stats_tags %}
 
 {% block title %}{{ campus.name }}{% endblock title %}
 
@@ -17,7 +17,7 @@
 <section class="row section">
 <div class="intro-block">
 <header class="page-header">
-  <h1 class="page-headline">{{ campus.name }}</h1>
+  <h1 class="page-headline" id="js-reminder-bar-trigger">{{ campus.name }}</h1>
   <ul>
     <li class="page-subtext">{% if campus.location %}{{ campus.location }} | {% endif %}<a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></li>
     <li class="page-subtext">{{ campus.get_school_type_display }}</li>
@@ -28,9 +28,13 @@
 {% include "includes/intro_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
 
 <section class="page-prose">
-  <p><strong>{{ campus.name }}</strong> is a {{ campus.get_school_type_display|lower }} in <strong>{{ campus.location|default:"Texas" }}</strong>. It is in the <strong>{{ campus.district.name }}</strong> school district. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>.</p>
-  <p>An average teacher's salary is <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>. On average, teachers have <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.</p>
-  {% lorem 1 p %}
+  <p><strong>{{ campus.name }}</strong> is a {{ campus.get_school_type_display|lower }} in <strong>{{ campus.location|default:"Texas" }}</strong>, in the <strong>{{ campus.district.name }}</strong> school district. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received a <strong>{{ campus.get_accountability_rating_display }}</strong> accountability rating.</p>
+
+  <p>An average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>, which is <strong>${{ stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary|absolute|floatformat:"0"|intcomma }} {% if stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary < 0 %}less{% else %}more{% endif %}</strong> than the state average. On average, teachers have <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.</p>
+
+  {% if campus.is_secondary_school %}
+  <p>The average SAT score at {{ campus.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>, and the average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>.</p>
+  {% endif %}
 </section>
 
 </div>

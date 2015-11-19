@@ -18,6 +18,9 @@ from scuole.districts.models import District
 
 from ...models import Campus, Principal
 
+from scuole.core.replacements import ISD_REPLACEMENT
+from scuole.core.utils import massage_name
+
 LOCALE_MAP = {
     '11': 'LARGE_CITY',
     '12': 'MID_SIZE_CITY',
@@ -123,9 +126,17 @@ class Command(BaseCommand):
         return payload
 
     def create_campus(self, campus):
-        fast_match = self.fast_data[str(int(campus['CAMPUS']))]
-        name = remove_charter_c(fast_match['Campus Name'])
+        campus_id = str(int(campus['CAMPUS']))
 
+        if campus_id in self.fast_data:
+            fast_match = self.fast_data[campus_id]
+        else:
+            fast_match = {
+                'Campus Name': massage_name(
+                    campus['CAMPNAME'], ISD_REPLACEMENT)
+            }
+
+        name = remove_charter_c(fast_match['Campus Name'])
         self.stdout.write('Creating {}...'.format(name))
 
         low_grade, high_grade = campus['GRDSPAN'].split(' - ')
@@ -179,6 +190,7 @@ class Command(BaseCommand):
                 'coordinates': geometry,
                 'low_grade': low_grade,
                 'high_grade': high_grade,
+                'accountability_rating': campus['C_RATING'],
                 'school_type': campus['GRDTYPE'],
                 'district': district,
                 'county': county,

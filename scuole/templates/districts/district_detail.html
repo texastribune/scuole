@@ -49,7 +49,7 @@
 {% endif %}
 </section>
 
-<a class="btn btn-dark btn-block" href="#campuses">View Campus List</a>
+<a class="btn btn-link btn-block" href="#campuses">View Campus List</a>
 
 </div>
 </section>
@@ -65,7 +65,7 @@
 
 {% include "includes/metrics_block.html" with stat=stat state=state include_postsecondary=True only %}
 
-<h2 class="page-section-header" id="campuses">Campuses</h2>
+<h2 class="page-section-header">Campuses<span class="anchor" id="campuses"></span></h2>
 <div class="section row">
   {% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
   {% for campus in campus_list %}
