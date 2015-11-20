@@ -49,7 +49,6 @@ gulp.task('serve', ['styles', 'images', 'fonts'], function () {
     notify: false,
     open: false,
     proxy: 'localhost:8000',
-    tunnel: true,
     xip: true
   })
 

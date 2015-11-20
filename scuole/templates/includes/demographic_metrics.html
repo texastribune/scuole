@@ -7,7 +7,7 @@
 
   <section class="row metrics">
     {% include 'includes/metric.html' with title="Total Students" field="all_students_count" field_type="number" skip_district_state=True full_row=True bigger_value=True %}
-    {% include 'includes/metric.html' with title="White" field="white_count" field_type="number" %}
+    {% include 'includes/metric.html' with title="White" field="white_count" field_type="number" extra_field="white_percent" extra_field_type="percent" use_extra_for_context=True %}
     {% include 'includes/metric.html' with title="Hispanic" field="hispanic_count" field_type="number" %}
     {% include 'includes/metric.html' with title="African American" field="african_american_count" field_type="number" %}
     {% include 'includes/metric.html' with title="Asian" field="asian_count" field_type="number" %}

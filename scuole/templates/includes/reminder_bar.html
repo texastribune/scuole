@@ -1,6 +1,6 @@
 <div class="reminder-bar" id="js-reminder-bar">
   <div class="container">
-    <span class="reminder-bar__title">{{ title }}</span>
+    <span class="reminder-bar__title">{{ title }}{% if subtitle %} | {{ subtitle }}{% endif %}</span>
     <span class="reminder-bar__year">{{ year }}</span>
   </div>
 </div>

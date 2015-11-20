@@ -27,6 +27,7 @@
   width: auto;
 
   &:focus {
+    animation: 0.3s ease-in-out 0s normal none 1 running active-input;
     border-color: $color-link;
     outline: 0;
   }

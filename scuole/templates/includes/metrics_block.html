@@ -23,13 +23,13 @@
 
 <div class="metrics-section" id="metrics-section">
 
-{% include "includes/demographic_metrics.html" with stat=stat state=state only %}
+{% include "includes/demographic_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
 
-{% include "includes/academic_metrics.html" with stat=stat state=state only %}
+{% include "includes/academic_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
 
-{% if campus.is_secondary_school or include_postsecondary %}{% include "includes/postsecondary_readiness_metrics.html" with stat=stat state=state only %}{% endif %}
+{% if campus.is_secondary_school or include_postsecondary %}{% include "includes/postsecondary_readiness_metrics.html" with stat=stat state=state district=district district_name=district_name only %}{% endif %}
 
-{% include "includes/staff_metrics.html" with stat=stat state=state only %}
+{% include "includes/staff_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
 
 </div>
 </section>

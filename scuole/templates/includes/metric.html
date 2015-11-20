@@ -2,16 +2,29 @@
 <div class="metric{% if full_row %} metric--full-row{% endif %}">
   <p class="metric-title">{{ title }}</p>
   <p class="metric-value{% if bigger_value %} metric-value--bigger{% endif %}">
-    {% if field_type == 'dollars' %}${% endif %}{{ stat|get_by_key:field|display_value:field_type }}<span class="metric-value-label"> {% if field_type == 'percent' %}%{% endif %}{% if field_type == 'years' %}years{% endif %}</span>{% if extra_value %}<span class="metric-subtext"> ({{ extra_value|display_value:extra_field_type }}{% if extra_field_type == 'percent' %}%{% endif %}{% if extra_field_type == 'years' %} years{% endif %})</span>{% endif %}
+    {% if field_type == 'dollars' %}${% endif %}{{ stat|get_by_key:field|display_value:field_type }}<span class="metric-value-label"> {% if field_type == 'percent' %}%{% endif %}{% if field_type == 'years' %}years{% endif %}</span>{% if extra_field %}<span class="metric-subtext"> ({{ stat|get_by_key:extra_field|display_value:extra_field_type }}{% if extra_field_type == 'percent' %}%{% endif %}{% if extra_field_type == 'years' %} years{% endif %})</span>{% endif %}
   </p>
-  {% if district and not skip_district_state %}
+{% if use_extra_for_context %}
+  {% if district and not skip_district_state and not skip_district %}
+  <p class="metric-subtext">
+    {{ district_name }}: {% if extra_field_type == 'dollars' %}${% endif %}{{ district|get_by_key:extra_field|display_value:extra_field_type }}{% if extra_field_type == 'percent' %}%{% endif %}{% if extra_field_type == 'years' %} years{% endif %}
+  </p>
+  {% endif %}
+  {% if state and not skip_district_state and not skip_state %}
+  <p class="metric-subtext">
+    Statewide: {% if extra_field_type == 'dollars' %}${% endif %}{{ state|get_by_key:extra_field|display_value:extra_field_type }}{% if extra_field_type == 'percent' %}%{% endif %}{% if extra_field_type == 'years' %} years{% endif %}
+  </p>
+  {% endif %}
+{% else %}
+  {% if district and not skip_district_state and not skip_district %}
   <p class="metric-subtext">
     {{ district_name }}: {% if field_type == 'dollars' %}${% endif %}{{ district|get_by_key:field|display_value:field_type }}{% if field_type == 'percent' %}%{% endif %}{% if field_type == 'years' %} years{% endif %}
   </p>
   {% endif %}
-  {% if state and not skip_district_state %}
+  {% if state and not skip_district_state and not skip_state %}
   <p class="metric-subtext">
     Statewide: {% if field_type == 'dollars' %}${% endif %}{{ state|get_by_key:field|display_value:field_type }}{% if field_type == 'percent' %}%{% endif %}{% if field_type == 'years' %} years{% endif %}
   </p>
   {% endif %}
+{% endif %}
 </div>

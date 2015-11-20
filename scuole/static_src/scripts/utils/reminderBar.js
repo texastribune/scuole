@@ -6,13 +6,13 @@ let reminderBarTrigger = document.querySelector('#js-reminder-bar-trigger')
 let monitor = scrollMonitor.create(reminderBarTrigger)
 
 monitor.enterViewport(() => {
-  reminderBar.classList.remove('reminder-bar--display')
+  reminderBar.classList.remove('reminder-bar--appear')
 })
 
 monitor.exitViewport(() => {
-  reminderBar.classList.add('reminder-bar--display')
+  reminderBar.classList.add('reminder-bar--appear')
 })
 
 if (!monitor.isInViewport) {
-  reminderBar.classList.add('reminder-bar--display')
+  reminderBar.classList.add('reminder-bar--appear')
 }

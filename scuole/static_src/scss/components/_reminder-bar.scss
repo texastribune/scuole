@@ -1,24 +1,30 @@
 .reminder-bar {
   @include font-size(16);
-  background-color: transparentize($color-white, .1);
-  border-bottom: 1px solid $color-primary;
-  color: $color-text;
+  background-color: transparentize($color-primary, .1);
+  color: $color-text-inverse;
   display: none;
   height: 40px;
   line-height: 40px;
+  overflow: hidden;
   width: 100%;
   z-index: 10;
 }
 
 .reminder-bar__title {
+  display:inline-block;
+  max-width: 65%;
+  overflow: hidden;
   text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .reminder-bar__year {
   float: right;
 }
 
-.reminder-bar--display {
+.reminder-bar--appear {
+  animation: appear .3s ease-in-out;
   display: block;
   position: fixed;
   top: 0;
