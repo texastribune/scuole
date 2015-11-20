@@ -1,4 +1,74 @@
 .footer {
   background-color: $color-primary;
   color: $color-text-inverse;
+  letter-spacing: .03em;
+  padding: .625rem 0;
+
+  nav {
+    @include mq($from: footer-break) {
+      float: left;
+    }
+
+    &.last-nav {
+      @include mq($from: footer-break) {
+        float: right;
+      }
+    }
+
+    a {
+      color: $color-text-inverse;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  ul {
+    display: block;
+  }
+
+  li {
+    color: $color-text-inverse;
+
+    @include mq($until: footer-break) {
+      @include font-size(14);
+      @include create-column(6);
+      padding: .5rem 0;
+      text-align: center;
+    }
+
+    @include mq($from: footer-break) {
+      @include font-size(12);
+      border-left: 1px solid $color-text-inverse;
+      float: left;
+      padding: 0 .5rem;
+      text-align: left;
+    }
+
+    &:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+  }
+
+  .copywrite {
+    color: $color-text-inverse;
+    width: 100%;
+
+    a {
+      color: $color-text-inverse;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .donate {
+    a {
+      color: $color-link;
+      font-weight: 800;
+    }
+  }
 }

@@ -10,10 +10,11 @@
 
 {% block content %}
 
-<h1 class="page-header">{% trans "You searched for: " %}{{ request.GET.q }}</h1><br>
+<h1 class="page-header">{% trans "You searched for: " %}{{ request.GET.q }}</h1>
 
 {% if matching_districts %}
-<h2 class="page-section-header">{{ matching_districts|length }} {% trans "Districts Found" %}</h2>
+<section class="section">
+<h2 class="page-section-header">{% blocktrans count counter=matching_districts|length %}1 District Found{% plural %}{{ counter }} Districts Found{% endblocktrans %}</h2>
 
 <table class="table table-striped">
   <thead>
@@ -37,7 +38,8 @@
 {% endif %}
 
 {% if matching_campuses %}
-<h2 class="page-section-header">{{ matching_campuses|length }} {% trans "Campuses Found" %}</h2>
+<section class="section">
+<h2 class="page-section-header">{% blocktrans count counter=matching_campuses|length %}1 Campus Found{% plural %}{{ counter }} Campuses Found{% endblocktrans %}</h2>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -53,6 +55,9 @@
   {% endfor %}
   </tbody>
 </table>
+</section>
 {% endif %}
+
+{% include "includes/story_grid_insert.html" %}
 
 {% endblock content %}
