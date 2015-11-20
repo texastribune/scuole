@@ -25,7 +25,7 @@
 
 {% include "includes/demographic_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
 
-{% include "includes/academic_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
+{% include "includes/academic_metrics.html" with stat=stat state=state district=district district_name=district_name %}
 
 {% if campus.is_secondary_school or include_postsecondary %}{% include "includes/postsecondary_readiness_metrics.html" with stat=stat state=state district=district district_name=district_name only %}{% endif %}
 
