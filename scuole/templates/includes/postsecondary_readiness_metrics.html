@@ -68,4 +68,6 @@
     {% include 'includes/metric.html' with title="Math" field="college_ready_graduates_math_all_students_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="English + Math" field="college_ready_graduates_both_all_students_percent" field_type="percent" %}
   </section>
+
+  {% include "includes/bar_chart.html" with rows=stat.college_readiness_percents %}
 </section>

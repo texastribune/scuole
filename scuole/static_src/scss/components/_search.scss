@@ -3,38 +3,60 @@
   margin-bottom: $gutter;
   padding-bottom: $gutter;
   padding-top: $gutter;
-  text-align: center;
+}
+
+.search-form {
+  width: 100%;
+
+  @include mq($from: tablet) {
+    margin: 0 auto;
+    width: 30rem;
+  }
+}
+
+.search-input-group {
+  border-collapse: separate;
+  display: table;
+  width: 100%;
 }
 
 .search-form-label {
   @include font-size(16);
   color: $color-white;
-  line-height: 1.6;
-  margin-right: $gutter-half;
+  display: inline-block;
+  line-height: 1;
+  margin-bottom: $gutter-quarter;
+
+  @include mq($from: tablet) {
+
+  }
 }
 
 .search-form-input {
   @include font-size(16);
-  border: .0625rem solid transparent;
+  border: .125rem solid transparent;
   border-radius: 0;
-  display: inline-block;
+  display: table-cell;
+  float: left;
   font-family: $font-soleil;
   font-weight: 300;
   line-height: 1.6;
-  margin: 0;
   padding: .375rem .75rem;
   vertical-align: middle;
-  width: auto;
+  width: 100%;
 
   &:focus {
-    animation: 0.3s ease-in-out 0s normal none 1 running active-input;
     border-color: $color-link;
     outline: 0;
   }
+}
 
-  @include mq($from: tablet) {
-    width: 30rem;
-  }
+.search-form-submit {
+  display: table-cell;
+  padding-left: 1rem;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 1%;
 }
 
 .search-card {

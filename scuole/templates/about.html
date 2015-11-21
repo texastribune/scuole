@@ -1,0 +1,25 @@
+{% extends 'standard.html' %}{% load i18n %}
+
+{% block content %}
+
+<section class="section about">
+
+<h1 class="page-headline" style="margin-bottom: 40px;">About the Data</h1>
+
+<h2 class="page-section-header">Where does the data come from?</h2>
+
+<div class="page-prose">
+  <p>The majority of the data found on this app is downloaded from the Texas Education Agency’s annual <a href="http://ritter.tea.state.tx.us/perfreport/tapr/2015/xplore/DownloadSelData.html">Texas Academic Performance Report</a>.</p>
+
+  <p>The TEA provides <a href="http://ritter.tea.state.tx.us/perfreport/tapr/2015/xplore/taprref.html">master reference</a> tables where the raw data can be referenced against keys that we use to label our sections.</p>
+
+  <p>We also used TEA’s shape data to map districts and campuses which can be found <a href="http://tea.texas.gov/Texas_Schools/General_Information/School_District_Locator/Data_Download/">here</a>. Note that the district shapefiles are approximate and should be used for general information, not for determining district affiliation.</p>
+
+  <p>Superintendents, principals, and campus and district contact information are pulled from <a href="http://mansfield.tea.state.tx.us/tea.askted.web/Forms/Home.aspx">AskTED</a>.</p>
+</div>
+
+</section>
+
+{% include "includes/story_grid_insert.html" %}
+
+{% endblock content %}

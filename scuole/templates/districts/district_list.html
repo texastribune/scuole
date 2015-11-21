@@ -11,6 +11,8 @@
 {% block content %}
 {{ block.super }}
 
+<section class="section">
+
 <h1 class="page-section-header">{% trans "All Districts" %}</h1>
 
 <table class="table table-striped">
@@ -19,7 +21,6 @@
       <th>{% trans "District" %}</th>
       <th>{% trans "Accountability Rating" %}</th>
       <th>{% trans "City" %}</th>
-      <th>{% trans "County" %}</th>
     </tr>
   </thead>
   <tbody>
@@ -28,11 +29,12 @@
       <td><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></td>
       <td>{{ district.get_accountability_rating_display }}</td>
       <td>{{ district.location }}</td>
-      <td>{{ district.county.name }}</td>
     </tr>
   {% endfor %}
   </tbody>
 </table>
+
+</section>
 
 {% include "includes/story_grid_insert.html" %}
 

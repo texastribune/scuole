@@ -16,17 +16,7 @@
     {% include 'includes/metric.html' with title="Two or More Races" field="two_or_more_races_count" field_type="number" extra_field="two_or_more_races_percent" extra_field_type="percent" use_extra_for_context=True %}
   </section>
 
-  <section class="bar-chart">
-    {% for race in stat.student_percent %}
-    <div class="bar-chart-row">
-      <p class="bar-chart-label">{{ race.name }}</p>
-      <div class="bar-chart-bar">
-        <span class="bar-chart-bar-color" style="width: {{ race.value }}%"></span>
-      </div>
-      <p class="bar-chart-value">{{ race.value }}%</p>
-    </div>
-    {% endfor %}
-  </section>
+  {% include "includes/bar_chart.html" with rows=stat.student_percent %}
 
   <h3 class="page-section-subheader">Risk Factors</h3>
 
@@ -40,6 +30,8 @@
     {% include 'includes/metric.html' with title="Limited English Proficiency" field="limited_english_proficient_percent" field_type="percent" %}
   </section>
 
+  {% include "includes/bar_chart.html" with rows=stat.factors_percents %}
+
   <h3 class="page-section-subheader">Enrollment by Program</h3>
 
   <section class="page-prose">
@@ -52,4 +44,6 @@
     {% include 'includes/metric.html' with title="Gifted and Talented" field="gifted_and_talented_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="Special Education" field="special_education_percent" field_type="percent" %}
   </section>
+
+  {% include "includes/bar_chart.html" with rows=stat.program_enrollment_percents %}
 </section>

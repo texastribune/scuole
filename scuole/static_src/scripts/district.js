@@ -3,6 +3,8 @@
 import google from 'google'
 import zoomMap from './utils/zoomMap'
 
+import'./utils/campusList'
+
 var map
 
 function initialize () {

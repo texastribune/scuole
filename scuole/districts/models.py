@@ -22,15 +22,16 @@ class District(models.Model):
     MET_STANDARD = 'M'
     MET_ALTERNATIVE_STANDARD = 'A'
     IMPROVEMENT_REQUIRED = 'I'
-    NOT_RATED = 'X'
-    NOT_RATED = 'Z'
+    NOT_RATED_X = 'X'
+    NOT_RATED_Z = 'Z'
     NOT_RATED_DUE_TO_DATA_INTEGRITY_ISSUE = 'Q'
 
     RATING_CHOICES = (
         (MET_STANDARD, 'Met standard'),
         (MET_ALTERNATIVE_STANDARD, 'Met alternative standard'),
         (IMPROVEMENT_REQUIRED, 'Improvement required'),
-        (NOT_RATED, 'Not rated'),
+        (NOT_RATED_X, 'Not rated'),
+        (NOT_RATED_Z, 'Not rated'),
         (NOT_RATED_DUE_TO_DATA_INTEGRITY_ISSUE,
             'Not rated due to data integrity issue'),
     )

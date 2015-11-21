@@ -47,12 +47,16 @@
   > p {
     @include font-size(16);
     font-family: $font-soleil;
-    line-height: 1.4;
+    line-height: 1.5;
     margin-bottom: $gutter-half;
 
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  .about & {
+    max-width: 37.5rem;
   }
 
   strong {

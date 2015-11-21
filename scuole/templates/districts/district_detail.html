@@ -24,13 +24,9 @@
 {% include "includes/intro_metrics.html" with stat=stat state=state only %}
 
 <section class="page-prose">
-  <p><strong>{{ district.name }}</strong> is a school district in <strong>{{ district.location|default:"Texas" }}</strong>. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received an accountability rating of <strong>{{ district.get_accountability_rating_display }}</strong>.</p>
+  <p><strong>{{ district.name }}</strong> is a school district in <strong>{{ district.location|default:"Texas" }}</strong>. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received an accountability rating of <strong>{{ district.get_accountability_rating_display }}</strong>. There were <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students considered at risk of dropping out of school. There were <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students enrolled in bilingual and English language learning programs.</p>
 
-  <p>There were <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students considered at risk of dropping out of school. There were <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students enrolled in bilingual and English language learning programs.</p>
-
-  <p>An average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>, which is <strong>${{ stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary|absolute|floatformat:"0"|intcomma }} {% if stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary < 0 %}less{% else %}more{% endif %}</strong> than the state average. On average, teachers have <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.</p>
-
-  <p>The average SAT score at {{ district.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>, and the average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>. In the {{ stat.year.name }} class, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diploma on time or earlier. The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
+  <p>An average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>, which is <strong>${{ stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary|absolute|floatformat:"0"|intcomma }} {% if stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary < 0 %}less{% else %}more{% endif %}</strong> than the state average. On average, teachers have <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience. The average SAT score at {{ district.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>, and the average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>. In the {{ stat.year.name }} class, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diploma on time or earlier. The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
 </section>
 </div>
 <div class="contact-block">
@@ -68,15 +64,15 @@
 
 {% include "includes/metrics_block.html" with stat=stat state=state include_postsecondary=True only %}
 
-<h2 class="page-section-header">Campuses<span class="anchor" id="campuses"></span></h2>
+<h2 class="page-section-header">All Campuses<span class="anchor" id="campuses"></span></h2>
 <div class="section row">
   {% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
   {% for campus in campus_list %}
-    <div class="campus-list-container">
-    <h3 class="card-title">{{ campus.grouper }}s</h3>
+    <div class="campus-list-container js-campus-list-group">
+    <h3 class="campus-list-title">{{ campus.grouper }}s</h3>
     <ul class="card-list">
       {% for school in campus.list %}
-      <li class="card-list-item campus-list-item"><a href="{{ school.get_absolute_url }}">{{ school.name }}</a></li>
+      <li class="campus-list-item"><a href="{{ school.get_absolute_url }}">{{ school.name }}</a></li>
       {% endfor %}
     </ul>
     {% if campus.list|length > 10 %}<button class="btn btn-gray-ghost btn-thin btn-block">+ More</button>{% endif %}

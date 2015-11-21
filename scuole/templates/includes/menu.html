@@ -1,7 +1,7 @@
 <nav class="menu-bar-container container">
   <ul class="menu-bar">
-    <li class="menu-bar__item"><a class="btn btn-link-ghost btn-block btn-thin" href="{% url 'states:detail' 'tx' %}">View Statewide Data</a></li>
+    <li class="menu-bar__item"><a class="btn btn-link-ghost btn-block btn-thin" href="{% url 'states:detail' 'tx' %}">Statewide Data</a></li>
     <li class="menu-bar__item"><a class="btn btn-link-ghost btn-block btn-thin" href="{% url 'districts:list' %}">All Districts</a></li>
-    <li class="menu-bar__item"><a class="btn btn-link-ghost btn-block btn-thin" href="#">About the Data</a></li>
+    <li class="menu-bar__item"><a class="btn btn-link-ghost btn-block btn-thin" href="{% url 'about' %}">About the Data</a></li>
   </ul>
 </nav>

@@ -7,6 +7,10 @@ from scuole.campuses.models import Campus
 from scuole.districts.models import District
 
 
+class AboutView(TemplateView):
+    template_name = 'about.html'
+
+
 class SearchView(TemplateView):
     template_name = 'search.html'
 

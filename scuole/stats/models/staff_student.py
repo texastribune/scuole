@@ -225,3 +225,32 @@ class StaffStudentBase(models.Model):
     @property
     def student_percent(self):
         return self.get_percentages_for_all_races('{}_percent')
+
+    @property
+    def factors_percents(self):
+        return [{
+            'name': 'Students at Risk',
+            'value': self.at_risk_percent
+        }, {
+            'name': 'Econ. Disadvantaged',
+            'value': self.economically_disadvantaged_percent
+        }, {
+            'name': 'Limited Eng. Proficiency',
+            'value': self.limited_english_proficient_percent
+        }]
+
+    @property
+    def program_enrollment_percents(self):
+        return [{
+            'name': 'Bilingual/ESL',
+            'value': self.bilingual_esl_percent
+        }, {
+            'name': 'Career and Technical',
+            'value': self.career_technical_education_percent
+        }, {
+            'name': 'Gifted and Talented',
+            'value': self.gifted_and_talented_percent
+        }, {
+            'name': 'Special Education',
+            'value': self.special_education_percent
+        }]

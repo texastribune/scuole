@@ -583,3 +583,16 @@ class PostSecondaryReadinessBase(models.Model):
     def four_year_graduate_percent(self):
         return self.get_percentages_for_all_races(
             'four_year_graduate_{}_percent')
+
+    @property
+    def college_readiness_percents(self):
+        return [{
+            'name': 'English',
+            'value': self.college_ready_graduates_english_all_students_percent
+        }, {
+            'name': 'Math',
+            'value': self.college_ready_graduates_math_all_students_percent
+        }, {
+            'name': 'English + Math',
+            'value': self.college_ready_graduates_both_all_students_percent
+        }]
