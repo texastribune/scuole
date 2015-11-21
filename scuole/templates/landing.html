@@ -17,8 +17,12 @@
     <div class="container">
       <form class="search-form" action="{% url 'search' %}" method="GET">
         <label class="search-form-label" for="search">Search by district or campus</label>
-        <input id="search" class="search-form-input" type="text" name="q" placeholder="{% trans "E.g. Austin ISD, Travis High School" %}">
-        <button class="search-form-submit btn btn-link" type="submit">{% trans "Search" %}</button>
+        <div class="search-input-group">
+        <input class="search-form-input" type="search" name="q" placeholder="{% trans "E.g. Austin ISD, Travis High School" %}">
+        <span class="search-form-submit">
+          <button class="btn btn-link" type="submit">{% trans "Search" %}</button>
+        </span>
+        </div>
       </form>
     </div>
   </section>
