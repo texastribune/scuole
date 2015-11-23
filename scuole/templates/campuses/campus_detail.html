@@ -44,7 +44,7 @@
   <div class="col-6">
   {% if campus.website %}
   <h3 class="card-title">Website</h3>
-  <p class="card-text card-website"><a href="{{ campus.website }}">{{ campus.website }}</a></p>
+  <p class="card-text card-website">{{ campus.website|urlize }}</p>
   {% endif %}
   <h3 class="card-title">{% trans "Address" %}</h3>
   <address class="card-address">
@@ -66,7 +66,7 @@
   <ul class="card-list">
   {% for principal in campus.principals.all %}
     <li class="card-list-item">{{ principal.name }}</li>
-    {% if principal.email %}<li class="card-list-item card-website"><a href="mailto:{{ principal.email }}">{{ principal.email }}</a></li>{% endif %}
+    {% if principal.email %}<li class="card-list-item card-website">{{ principal.email|urlize }}</li>{% endif %}
     {% if principal.phone_number %}<li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ principal.phone_number }}">{{ principal.phone_number }}</a></li>{% endif %}
   {% endfor %}
   </ul>
