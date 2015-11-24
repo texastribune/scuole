@@ -3,52 +3,52 @@
 <section class="section js-metrics-block" id="academics">
   <h2 class="page-section-header">Academics</h2>
 
-  <h3 class="page-section-subheader">Accountability Rating</h3>
+  <h3 class="page-section-subheader">Accountability rating</h3>
 
   <div class="page-prose">
     <p>This refers to the district and campus ratings assigned by the 2014 state accountability system, which is based on four performance indexes. For an explanation of this year’s accountability system, see the <a href="http://ritter.tea.state.tx.us/perfreport/account/2015/manual/index.html">2015 Accountability Manual</a>.</p>
   </div>
 
   <section class="row metrics">
-    {% include 'includes/metric.html' with title="Accountability Rating" field="" field_type="" skip_state=True %}
+    {% include 'includes/metric.html' with title="Accountability rating" field="" field_type="" skip_state=True %}
   </section>
   {% if campus.is_secondary_school or include_postsecondary %}
-  <h3 class="page-section-subheader">Four Year Graduation Rates</h3>
+  <h3 class="page-section-subheader">Four-year graduation rates</h3>
 
   <div class="page-prose">
-    <p>This indicator shows the status a class of students after four years in high school. The class represented here consists of students who first attended ninth grade in {{ stat.year.ninth_grade_year }} and were expected to graduate in the Class of {{ stat.year.end_year }}. This figure represents those in the class who received their high school diploma on time (in four years) or earlier — by Aug. 31, {{ stat.year.end_year }}. It is calculated dividing the number of the cohort’s students who received a high school diploma by the total number of students in the class.</p>
+    <p>The percentage of students who started ninth grade in {{ stat.year.ninth_grade_year }} who received a high school diploma on time &mdash; by Aug. 31, {{ stat.year.end_year }}.</p>
   </div>
 
   <section class="row metrics">
-    {% include 'includes/metric.html' with title="All Students" field="four_year_graduate_all_students_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="All students" field="four_year_graduate_all_students_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="White" field="four_year_graduate_white_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="Hispanic" field="four_year_graduate_hispanic_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="African American" field="four_year_graduate_african_american_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="Asian" field="four_year_graduate_asian_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="American Indian" field="four_year_graduate_american_indian_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="Pacific Islander" field="four_year_graduate_pacific_islander_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Two or More Races" field="four_year_graduate_two_or_more_races_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Two or more races" field="four_year_graduate_two_or_more_races_percent" field_type="percent" %}
   </section>
 
   {% include "includes/bar_chart.html" with rows=stat.four_year_graduate_percent %}
   {% endif %}
 
   {% if campus.is_secondary_school or include_postsecondary %}
-  <h3 class="page-section-subheader">Dropout Rates</h3>
+  <h3 class="page-section-subheader">Dropout rates</h3>
 
   <div class="page-prose">
-    <p>This shows the dropout rate for students in grades 9 through 12 for the {{ stat.year.name }} school year. It is calculated by dividing the number of dropouts by the number of students who were in attendance at any time during the school year.</p>
+    <p>The dropout rate for students in grades 9-12 for the {{ stat.year.name }} school year. It is calculated by dividing the number of dropouts by the number of students who were in attendance at any time during the school year.</p>
   </div>
 
   <section class="row metrics">
-    {% include 'includes/metric.html' with title="All Students" field="dropout_all_students_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="All students" field="dropout_all_students_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="White" field="dropout_white_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="Hispanic" field="dropout_hispanic_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="African American" field="dropout_african_american_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="Asian" field="dropout_asian_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="American Indian" field="dropout_american_indian_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="Pacific Islander" field="dropout_pacific_islander_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Two or More Races" field="dropout_two_or_more_races_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Two or more races" field="dropout_two_or_more_races_percent" field_type="percent" %}
   </section>
   {% endif %}
 

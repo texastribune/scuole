@@ -19,8 +19,8 @@
 <header class="page-header">
   <h1 class="page-headline" id="js-reminder-bar-trigger">{{ campus.name }}</h1>
   <ul>
-    <li class="page-subtext">{% if campus.location %}{{ campus.location }} | {% endif %}<a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></li>
-    <li class="page-subtext">{{ campus.get_school_type_display }}</li>
+    <li class="page-subtext">{% if campus.location %}{{ campus.location }}{% endif %}</li>
+    <li class="page-subtext">{{ campus.get_school_type_display }} in <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></li>
     <li class="page-subtext">{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</li>
   </ul>
 </header>
@@ -28,9 +28,9 @@
 {% include "includes/intro_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
 
 <section class="page-prose">
-  <p><strong>{{ campus.name }}</strong> is a {{ campus.get_school_type_display|lower }} in <strong>{{ campus.location|default:"Texas" }}</strong>, in the <strong>{{ campus.district.name }}</strong> school district. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received an accountability rating of <strong>{{ campus.get_accountability_rating_display }}</strong>. There were <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students considered at risk of dropping out of school. There were <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students enrolled in bilingual and English language learning programs.</p>
+  <p><strong>{{ campus.name }}</strong> is a {{ campus.get_school_type_display|lower }} in <strong>{{ campus.city|default:"Texas" }}</strong>, in the <strong>{{ campus.district.name }}</strong> school district. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received an accountability rating of &ldquo;<strong>{{ campus.get_accountability_rating_display|lower }}</strong>.&rdquo; <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school. <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs.</p>
 
-  <p>An average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>, which is <strong>${{ stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary|absolute|floatformat:"0"|intcomma }} {% if stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary < 0 %}less{% else %}more{% endif %}</strong> than the state average. On average, teachers have <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.{% if campus.is_secondary_school %} The average SAT score at {{ campus.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>, and the average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>. In the {{ stat.year.name }} class, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diploma on time or earlier. The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
+  <p>An average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>, which is <strong>${{ stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary|absolute|floatformat:"0"|intcomma }} {% if stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary < 0 %}less{% else %}more{% endif %}</strong> than the state average. On average, teachers had <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.{% if campus.is_secondary_school %} The average SAT score at {{ campus.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>, and the average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>. In the {{ stat.year.name }} class, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diplomas on time or earlier. The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
   {% endif %}
 </section>
 
@@ -39,7 +39,7 @@
 <div class="map" id="map-campus"></div>
 
 <section class="card">
-  <h2 class="card-header">Contact Information</h2>
+  <h2 class="card-header">Contact information</h2>
   <div class="row">
   <div class="col-6">
   {% if campus.website %}
