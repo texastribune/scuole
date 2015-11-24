@@ -42,7 +42,13 @@ gulp.task('fonts', function () {
     .pipe($.size({title: 'fonts'}))
 })
 
-gulp.task('serve', ['styles', 'images', 'fonts'], function () {
+gulp.task('favicon', function () {
+  return gulp.src('./scuole/static_src/favicon.ico')
+    .pipe(gulp.dest('./scuole/static'))
+    .pipe($.size({title: 'favicon'}))
+})
+
+gulp.task('serve', ['styles', 'images', 'fonts', 'favicon'], function () {
   bs.init({
     logConnections: true,
     logPrefix: 'SCHOOLS',
@@ -55,6 +61,6 @@ gulp.task('serve', ['styles', 'images', 'fonts'], function () {
   gulp.watch('./scuole/static_src/scss/**/*.scss', ['styles'])
 })
 
-gulp.task('build', ['styles', 'images', 'fonts'])
+gulp.task('build', ['styles', 'images', 'fonts', 'favicon'])
 
 gulp.task('default', ['build'])
