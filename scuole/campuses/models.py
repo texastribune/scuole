@@ -125,6 +125,13 @@ class Campus(models.Model):
         })
 
     @property
+    def city_display(self):
+        if self.city:
+            return string.capwords(self.city)
+        else:
+            return ''
+
+    @property
     def location(self):
         if self.city and self.state:
             return '{city}, {state}'.format(
