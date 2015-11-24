@@ -30,7 +30,11 @@ googletag.cmd.push(function () {
   googletag.defineSlot('/5805113/TexasTribune_Data_DataPage_ATF_RightRail1_MediumRectangle_300x250', [300, 250], 'ad-sidebar')
   .addService(googletag.pubads())
 
-  googletag.defineSlot('/5805113/TexasTribune_Data_InsideStory1_468x60', [468, 60], 'ad-metrics')
+  googletag.defineSlot('/5805113/TexasTribune_Content_StoryPage_InsideStory_468x60', [468, 60], 'ad-metrics-1')
+    .defineSizeMapping(metricsMapping)
+    .addService(googletag.pubads())
+
+  googletag.defineSlot('/5805113/TexasTribune_Content_StoryPage_InsideStory2_468x60', [468, 60], 'ad-metrics-2')
     .defineSizeMapping(metricsMapping)
     .addService(googletag.pubads())
 
@@ -45,6 +49,7 @@ googletag.cmd.push(function () {
 googletag.cmd.push(function () {
   googletag.display('ad-banner-leader')
   googletag.display('ad-sidebar')
-  googletag.display('ad-metrics')
+  googletag.display('ad-metrics-1')
+  googletag.display('ad-metrics-2')
   googletag.display('ad-banner-footer')
 })
