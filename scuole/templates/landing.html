@@ -37,14 +37,7 @@
   <p class="landing-paragraph landing-paragraph--credit">By <a href="http://www.texastribune.org/about/staff/ryan-murphy/">Ryan Murphy</a>, <a href="http://www.texastribune.org/about/staff/annie-daniel/">Annie Daniel</a> and Miles Hutson</p>
 </section>
 
-<div class="ad-slot">
-  <div class="ad-slot-banner">
-    <img src="https://placehold.it/728x90">
-  </div>
-  <div class="ad-slot-box">
-    <img src="https://placehold.it/300x250">
-  </div>
-</div>
+{% include "includes/ad_slot_leader.html" %}
 
 <section class="container">
   <h2 class="page-section-header"><a href="http://www.texastribune.org/education/public-education/">Latest Public Education Stories</a></h2>
@@ -52,3 +45,5 @@
 </section>
 
 {% endblock content %}
+
+{% block footer_ad %}{% endblock footer_ad %}

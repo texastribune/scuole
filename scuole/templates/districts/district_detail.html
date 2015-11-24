@@ -53,14 +53,7 @@
 </div>
 </section>
 
-<div class="ad-slot">
-  <div class="ad-slot-banner">
-    <img src="https://placehold.it/728x90">
-  </div>
-  <div class="ad-slot-box">
-    <img src="https://placehold.it/300x250">
-  </div>
-</div>
+{% include "includes/ad_slot_leader.html" %}
 
 {% include "includes/metrics_block.html" with stat=stat state=state include_postsecondary=True only %}
 

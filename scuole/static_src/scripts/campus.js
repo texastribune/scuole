@@ -2,6 +2,9 @@
 
 import google from 'google'
 
+import './utils/metricNavs'
+import './utils/reminderBar'
+
 function initialize () {
   var mapCanvas = document.getElementById('map-campus')
   var latlng = new google.maps.LatLng(COORDS.coordinates[1], COORDS.coordinates[0])
