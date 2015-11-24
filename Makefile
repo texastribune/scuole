@@ -27,51 +27,45 @@ docker/build:
 		--tag ${APP} \
 		.
 
-docker/build-assets:
-	@echo "Building asset compiler..."
+docker/build-static:
+	@echo "Building static assets compiler..."
 	@docker build \
-		--tag ${APP}-node \
+		--tag ${APP}-assets \
 		--file Dockerfile.assets \
 		.
 
-docker/run: docker/pull docker/build docker/static-compile
+docker/run:
 	@echo "Running app..."
 	-@docker stop ${APP} && docker rm -v ${APP}
 	@docker run \
 		--name ${APP} \
 		--detach \
+		--volume /usr/src/app/scuole/assets \
 		--volumes-from ${APP}-assets \
 		--env-file=env-docker \
 		${APP}
 
-docker/run-debug: docker/build docker/static-compile
+docker/run-debug:
 	@echo "Running app in debug mode..."
+	-@docker stop ${APP} && docker rm -v ${APP}
 	@docker run \
 		--name ${APP} \
 		--detach \
-		--publish 8000:8000 \
 		--link ${APP}-db:db \
+		--volume /usr/src/app/scuole/assets \
 		--volumes-from ${APP}-assets \
-		--env-file env-docker \
 		--env DJANGO_DEBUG="True" \
+		--env DATABASE_URL="postgis://docker:docker@db/docker" \
 		${APP}
 
-docker/static-assets:
-	@echo "Attempting to create static assets volume (if needed)..."
-	@docker create \
-		--name ${APP}-assets \
-		--volume /usr/src/app/scuole/static \
-		--entrypoint /bin/echo \
-		${APP} "Data-only" 2>/dev/null || true
-
-docker/static-compile: docker/build-assets docker/static-assets
+docker/static-compile: docker/build-static
 	@echo "Compiling static assets..."
+	-@docker stop ${APP}-assets && docker rm -v ${APP}-assets
 	@docker run \
-		--interactive \
+		--name ${APP}-assets \
 		--tty \
-		--rm \
-		--volumes-from ${APP}-assets \
-		${APP}-node
+		--volume /usr/src/app/scuole/static \
+		${APP}-assets
 
 docker/db-data:
 	@echo "Attempting to create data volume (if needed)..."
@@ -99,3 +93,23 @@ docker/pg-interactive:
 		--link ${APP}-db:postgres \
 		mdillon/postgis:9.4 \
 		/bin/bash
+
+docker/nginx-build:
+	@echo "Building nginx container..."
+	@docker build \
+		--tag=${APP}-nginx \
+		--file Dockerfile.nginx \
+		.
+
+docker/nginx: docker/nginx-build
+	@echo "Running nginx container..."
+	-@docker stop ${APP}-nginx && docker rm -v ${APP}-nginx
+	@docker run \
+		--detach \
+		--name ${APP}-nginx \
+		--volumes-from ${APP} \
+		--link ${APP}:web \
+		--publish 80:80 \
+		${APP}-nginx
+
+docker/kickstart: docker/pull docker/build docker/static-compile docker/run docker/nginx

@@ -1,0 +1,17 @@
+web:
+  build: .
+  env_file: env-docker
+
+nginx:
+  build: .
+  dockerfile: Dockerfile.nginx
+  links:
+    - web
+  ports:
+    "80:80"
+  volumes_from:
+    - assets
+
+assets:
+  build: .
+  dockerfile: Dockerfile.assets
