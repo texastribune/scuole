@@ -3,7 +3,9 @@
 import google from 'google'
 import zoomMap from './utils/zoomMap'
 
-import'./utils/campusList'
+import './utils/campusList'
+import './utils/metricNavs'
+import './utils/reminderBar'
 
 var map
 

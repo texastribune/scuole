@@ -4,11 +4,13 @@ var webpack = require('webpack')
 module.exports = {
   context: path.join(__dirname, 'scuole/static_src/scripts'),
   entry: {
-    standard: './standard.js',
     campus: './campus.js',
     district: './district.js',
     state: './state.js',
-    loadStoryGrid: './utils/loadStoryGrid.js'
+    commons: [
+      './utils/loadStoryGrid.js',
+      './utils/adLoader.js'
+    ]
   },
   output: {
     path: path.join(__dirname, '/scuole/static/scripts'),
@@ -34,6 +36,9 @@ module.exports = {
     google: 'google'
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('standard-common.js')
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'commons',
+      minChunks: 2
+    })
   ]
 }

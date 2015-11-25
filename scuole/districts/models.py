@@ -74,6 +74,13 @@ class District(models.Model):
             'district_slug': self.slug, })
 
     @property
+    def city_display(self):
+        if self.city:
+            return string.capwords(self.city)
+        else:
+            return ''
+
+    @property
     def location(self):
         if self.city and self.state:
             return '{city}, {state}'.format(

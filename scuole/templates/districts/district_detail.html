@@ -1,4 +1,4 @@
-{% extends 'standard.html' %}{% load humanize i18n static stats_tags %}
+{% extends 'standard.html' %}{% load humanize i18n stats_tags %}{% load static from staticfiles %}
 
 {% block title %}{{ district.name }}{% endblock title %}
 
@@ -24,9 +24,9 @@
 {% include "includes/intro_metrics.html" with stat=stat state=state only %}
 
 <section class="page-prose">
-  <p><strong>{{ district.name }}</strong> is a school district in <strong>{{ district.location|default:"Texas" }}</strong>. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received an accountability rating of <strong>{{ district.get_accountability_rating_display }}</strong>. There were <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students considered at risk of dropping out of school. There were <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students enrolled in bilingual and English language learning programs.</p>
+  <p><strong>{{ district.name }}</strong> is a school district in <strong>{{ district.city_display|default:"Texas" }}</strong>. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received an accountability rating of &ldquo;<strong>{{ district.get_accountability_rating_display|lower }}</strong>.&rdquo; <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school. <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs.</p>
 
-  <p>An average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>, which is <strong>${{ stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary|absolute|floatformat:"0"|intcomma }} {% if stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary < 0 %}less{% else %}more{% endif %}</strong> than the state average. On average, teachers have <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience. The average SAT score at {{ district.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>, and the average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>. In the {{ stat.year.name }} class, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diploma on time or earlier. The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
+  <p>An average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>, which is <strong>${{ stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary|absolute|floatformat:"0"|intcomma }} {% if stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary < 0 %}less{% else %}more{% endif %}</strong> than the state average. On average, teachers had <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience. The average SAT score at {{ district.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>, and the average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>. In the {{ stat.year.name }} class, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diplomas on time or earlier. The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
 </section>
 </div>
 <div class="contact-block">
@@ -36,13 +36,13 @@
   <h2 class="card-header">Contact information</h2>
   {% if district.website %}
   <h3 class="card-title">Website</h3>
-  <p class="card-text card-website"><a href="{{ district.website }}">{{ district.website }}</a></p>
+  <p class="card-text card-website">{{ district.website|urlize }}</p>
   {% endif %}
   {% if district.superintendent_of %}
   <h3 class="card-title">{{ district.superintendent_of.role }}</h3>
   <ul class="card-list">
     <li class="card-list-item">{{ district.superintendent_of.name }}</li>
-    <li class="card-list-item"><a href="mailto:{{ principal.email }}">{{ district.superintendent_of.email }}</a></li>
+    <li class="card-list-item">{{ district.superintendent_of.email|urlize }}</li>
     <li class="card-list-item"><a href="tel://{{ principal.phone_number }}">{{ district.superintendent_of.phone_number }}</a></li>
   </ul>
 {% endif %}
@@ -53,18 +53,11 @@
 </div>
 </section>
 
-<div class="ad-slot">
-  <div class="ad-slot-banner">
-    <img src="https://placehold.it/728x90">
-  </div>
-  <div class="ad-slot-box">
-    <img src="https://placehold.it/300x250">
-  </div>
-</div>
+{% include "includes/ad_slot_leader.html" %}
 
 {% include "includes/metrics_block.html" with stat=stat state=state include_postsecondary=True only %}
 
-<h2 class="page-section-header">All Campuses<span class="anchor" id="campuses"></span></h2>
+<h2 class="page-section-header">All campuses<span class="anchor" id="campuses"></span></h2>
 <div class="section row">
   {% regroup district.campuses.all|dictsort:"school_type" by get_school_type_display as campus_list  %}
   {% for campus in campus_list %}

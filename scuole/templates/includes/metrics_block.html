@@ -4,15 +4,11 @@
   <ul class="metrics-jumper">
     <li class="metrics-jumper__item btn btn-link btn-link-hover js-metric-jumper" data-jumper="demographics">Demographics</li>
     <li class="metrics-jumper__item btn btn-gray-ghost btn-link-hover js-metric-jumper" data-jumper="academics">Academics</li>
-    {% if campus.is_secondary_school or include_postsecondary %}<li class="metrics-jumper__item btn btn-gray-ghost btn-link-hover js-metric-jumper" data-jumper="college">College Readiness</li>{% endif %}
+    {% if campus.is_secondary_school or include_postsecondary %}<li class="metrics-jumper__item btn btn-gray-ghost btn-link-hover js-metric-jumper" data-jumper="college">College readiness</li>{% endif %}
     <li class="metrics-jumper__item btn btn-gray-ghost btn-link-hover js-metric-jumper" data-jumper="staff">Staff</li>
   </ul>
 
-  <div class="ad-slot ad-slot--small-margin">
-    <div class="metrics-nav-ad">
-      <img src="https://placehold.it/300x250">
-    </div>
-  </div>
+  {% include "includes/ad_slot_sidebar.html" %}
 
   <div class="card">
     <p class="card-text"><span class="bold">Masked</span> &mdash; This statistic is hidden because it may make it possible to identify a student.</p>
@@ -25,9 +21,14 @@
 
 {% include "includes/demographic_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
 
+{% include "includes/ad_slot_metrics_1.html" %}
+
 {% include "includes/academic_metrics.html" with stat=stat state=state district=district district_name=district_name %}
 
-{% if campus.is_secondary_school or include_postsecondary %}{% include "includes/postsecondary_readiness_metrics.html" with stat=stat state=state district=district district_name=district_name only %}{% endif %}
+{% if campus.is_secondary_school or include_postsecondary %}
+  {% include "includes/postsecondary_readiness_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
+  {% include "includes/ad_slot_metrics_2.html" %}
+{% endif %}
 
 {% include "includes/staff_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
 

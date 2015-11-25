@@ -1,66 +1,66 @@
 {% load humanize %}
 
 <section class="section js-metrics-block" id="college">
-  <h2 class="page-section-header js-metrics-header">College Readiness</h2>
+  <h2 class="page-section-header js-metrics-header">College readiness</h2>
 
-  <h3 class="page-section-subheader">AP/IB Participation</h3>
+  <h3 class="page-section-subheader">AP/IB participation</h3>
 
   <section class="page-prose">
-    <p>This shows the percent of students in grades 11 and 12 during the {{ stat.year.name }} school year taking at least one AP or IB examination in any subject. It is calculated by dividing the number of grade 11 and 12 students taking at least one AP or IB examination by the number of 11th- and 12th-grade students.</p>
+    <p>The percentage of students in grades 11 and 12 taking at least one Advanced Placement (AP) or International Baccalaureate (IB) exam in any subject during the {{ stat.year.name }} school year.</p>
   </section>
 
   <section class="row metrics">
-    {% include 'includes/metric.html' with title="All Students" field="ap_ib_all_students_percent_taking" field_type="percent" %}
+    {% include 'includes/metric.html' with title="All students" field="ap_ib_all_students_percent_taking" field_type="percent" %}
     {% include 'includes/metric.html' with title="White" field="ap_ib_white_percent_taking" field_type="percent" %}
     {% include 'includes/metric.html' with title="Hispanic" field="ap_ib_hispanic_percent_taking" field_type="percent" %}
     {% include 'includes/metric.html' with title="African American" field="ap_ib_african_american_percent_taking" field_type="percent" %}
     {% include 'includes/metric.html' with title="Asian" field="ap_ib_asian_percent_taking" field_type="percent" %}
     {% include 'includes/metric.html' with title="American Indian" field="ap_ib_american_indian_percent_taking" field_type="percent" %}
     {% include 'includes/metric.html' with title="Pacific Islander" field="ap_ib_pacific_islander_percent_taking" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Two or More Races" field="ap_ib_two_or_more_races_percent_taking" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Two or more races" field="ap_ib_two_or_more_races_percent_taking" field_type="percent" %}
   </section>
 
-  <h3 class="page-section-subheader">AP/IB Performance</h3>
+  <h3 class="page-section-subheader">AP/IB performance</h3>
 
   <section class="page-prose">
-    <p>These figures reflect the results of the College Board’s Advanced Placement (AP) and International Baccalaureate’s (IB) Diploma Program examinations taken by Texas public school students in the {{ stat.year.name }} school year. High school students may take one or more of these examinations and may receive advanced placement, credit, or both upon entering college. Generally, colleges will award credit or advanced placement for scores of 3, 4, or 5 on AP examinations and scores of 4, 5, 6, or 7 on IB examinations. Requirements vary by college and by subject tested.</p>
+    <p>The percentage of test-taking students who passed at least one AP or IB exam in the {{ stat.year.name }} school year. A passing score on the AP exam is a 3, 4 or 5. On an IB exam, it is a 4, 5, 6 or 7.</p>
   </section>
 
   <section class="row metrics">
-    {% include 'includes/metric.html' with title="All Students" field="ap_ib_all_students_percent_above_criterion" field_type="percent" %}
+    {% include 'includes/metric.html' with title="All students" field="ap_ib_all_students_percent_above_criterion" field_type="percent" %}
     {% include 'includes/metric.html' with title="White" field="ap_ib_white_percent_above_criterion" field_type="percent" %}
     {% include 'includes/metric.html' with title="Hispanic" field="ap_ib_hispanic_percent_above_criterion" field_type="percent" %}
     {% include 'includes/metric.html' with title="African American" field="ap_ib_african_american_percent_above_criterion" field_type="percent" %}
     {% include 'includes/metric.html' with title="Asian" field="ap_ib_asian_percent_above_criterion" field_type="percent" %}
     {% include 'includes/metric.html' with title="American Indian" field="ap_ib_american_indian_percent_above_criterion" field_type="percent" %}
     {% include 'includes/metric.html' with title="Pacific Islander" field="ap_ib_pacific_islander_percent_above_criterion" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Two or More Races" field="ap_ib_two_or_more_races_percent_above_criterion" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Two or more races" field="ap_ib_two_or_more_races_percent_above_criterion" field_type="percent" %}
   </section>
 
   <h3 class="page-section-subheader">SAT</h3>
 
   <section class="page-prose">
-    <p>This shows the average SAT score for {{ stat.year.name }} with critical reading, writing and mathematics results combined. The maximum score is 2400. This average is calculated by dividing the sum of total scores of all students taking the SAT divided by the number of students who took the SAT. </p>
+    <p>The average SAT score for {{ stat.year.name }}, with critical reading, writing and mathematics results combined. The maximum score is 2400.</p>
   </section>
 
   <section class="row metrics">
-    {% include 'includes/metric.html' with title="Avg. SAT Score" field="avg_sat_score_all_students" field_type="test_score" %}
+    {% include 'includes/metric.html' with title="Avg. SAT score" field="avg_sat_score_all_students" field_type="test_score" %}
   </section>
 
   <h3 class="page-section-subheader">ACT</h3>
 
   <section class="page-prose">
-    <p>This shows the average ACT composite score for {{ stat.year.name }}. The maximum score is 36. This average is calculated by dividing the sum of composite scores for all students who took the ACT by the number of students who took the ACT.</p>
+    <p>The average ACT composite score for {{ stat.year.name }}. The maximum score is 36.</p>
   </section>
 
   <section class="row metrics">
-    {% include 'includes/metric.html' with title="Avg. ACT Score" field="avg_act_score_all_students" field_type="test_score" %}
+    {% include 'includes/metric.html' with title="Avg. ACT score" field="avg_act_score_all_students" field_type="test_score" %}
   </section>
 
-  <h3 class="page-section-subheader">College Ready Graduates</h3>
+  <h3 class="page-section-subheader">College-ready graduates</h3>
 
   <section class="page-prose">
-    <p>As defined by this indicator, a graduate is college ready in these subjects if he or she has met or exceeded the college-ready criteria on the TAKS exit-level test, the SAT or the ACT test. These figures are for the {{ stat.year.name }} school year.</p>
+    <p>A graduate is considered college ready in these subjects if he or she has met or exceeded the college-ready criteria on the TAKS exit-level test, the SAT or the ACT test. These figures are for the {{ stat.year.name }} school year.</p>
   </section>
 
   <section class="row metrics">

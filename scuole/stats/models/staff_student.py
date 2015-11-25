@@ -207,7 +207,7 @@ class StaffStudentBase(models.Model):
             ('Asian', 'asian'),
             ('American Indian', 'american_indian'),
             ('Pacific Islander', 'pacific_islander'),
-            ('Two or More Races', 'two_or_more_races'),
+            ('Two or more races', 'two_or_more_races'),
         )
 
         payload = []
@@ -229,13 +229,13 @@ class StaffStudentBase(models.Model):
     @property
     def factors_percents(self):
         return [{
-            'name': 'Students at Risk',
+            'name': 'At-risk students',
             'value': self.at_risk_percent
         }, {
-            'name': 'Econ. Disadvantaged',
+            'name': 'Econ. disadvantaged',
             'value': self.economically_disadvantaged_percent
         }, {
-            'name': 'Limited Eng. Proficiency',
+            'name': 'Limited Eng. proficiency',
             'value': self.limited_english_proficient_percent
         }]
 
@@ -245,12 +245,12 @@ class StaffStudentBase(models.Model):
             'name': 'Bilingual/ESL',
             'value': self.bilingual_esl_percent
         }, {
-            'name': 'Career and Technical',
+            'name': 'Career and technical',
             'value': self.career_technical_education_percent
         }, {
-            'name': 'Gifted and Talented',
+            'name': 'Gifted and talented',
             'value': self.gifted_and_talented_percent
         }, {
-            'name': 'Special Education',
+            'name': 'Special education',
             'value': self.special_education_percent
         }]

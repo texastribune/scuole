@@ -3,6 +3,9 @@
 import google from 'google'
 import zoomMap from './utils/zoomMap'
 
+import './utils/metricNavs'
+import './utils/reminderBar'
+
 function initialize () {
   let mapCanvas = document.getElementById('map-state')
 

@@ -3,38 +3,38 @@
 <section class="section js-metrics-block" id="staff">
   <h2 class="page-section-header js-metrics-header">Staff</h2>
 
-  <h3 class="page-section-subheader">Students per Teacher</h3>
+  <h3 class="page-section-subheader">Students per teacher</h3>
 
   <section class="page-prose">
-    <p>This statistic shows the total number of students divided by the total full-time equivalent count of teachers for {{ stat.year.name }}.</p>
+    <p>The total number of students divided by the total full-time equivalent count of teachers for {{ stat.year.name }}.</p>
   </section>
 
   <section class="row metrics">
-    {% include 'includes/metric.html' with title="Student per Teacher" field="students_per_teacher" field_type="number" %}
+    {% include 'includes/metric.html' with title="Students per teacher" field="students_per_teacher" field_type="number" %}
   </section>
 
-  <h3 class="page-section-subheader">Teacher Experience</h3>
+  <h3 class="page-section-subheader">Teacher experience</h3>
 
   <section class="page-prose">
-    <p>This measure is obtained by multiplying each teacher’s full-time equivalent (FTE) count by years of experience, totaling the sums for all teachers and then dividing that total by the teacher FTE count. This figure, for the {{ stat.year.name }} school year, refers to tenure, i.e., the number of years employed in the reporting district, whether or not there has been any interruption in service.</p>
+    <p>This figure for the {{ stat.year.name }} school year refers to tenure &mdash; the number of years a teacher has been employed in the district, whether or not there was an interruption in service.</p>
   </section>
 
   <section class="row metrics">
-    {% include 'includes/metric.html' with title="Avg. Teacher Experience" field="teacher_avg_experience" field_type="years" %}
+    {% include 'includes/metric.html' with title="Avg. teacher experience" field="teacher_avg_experience" field_type="years" %}
   </section>
 
-  <h3 class="page-section-subheader">Teacher Salaries</h3>
+  <h3 class="page-section-subheader">Teacher salaries</h3>
 
   <section class="page-prose">
-    <p>This measure is calculated by taking the total pay for teachers within each group and dividing that figure by the total teacher full-time equivalent (FTE) count for the group. The total actual salary amount is pay for regular duties only and does not include supplemental pay. For teachers who also have nonteaching roles, only the portion of time and pay dedicated to classroom responsibilities is factored into this calculation.</p>
+    <p>The average salaries listed here are for regular duties only and do not include supplemental pay. For teachers who also have nonteaching roles, only the portion of time and pay dedicated to classroom responsibilities is factored into the calculation.</p>
   </section>
 
   <section class="row metrics">
-    {% include 'includes/metric.html' with title="Base Average" field="teacher_avg_base_salary" field_type="dollars" %}
+    {% include 'includes/metric.html' with title="Base average" field="teacher_avg_base_salary" field_type="dollars" %}
     {% include 'includes/metric.html' with title="Beginner" field="teacher_avg_beginning_salary" field_type="dollars" %}
-    {% include 'includes/metric.html' with title="1-to-5 Years" field="teacher_avg_1_to_5_year_salary" field_type="dollars" %}
-    {% include 'includes/metric.html' with title="6-to-10 Years" field="teacher_avg_6_to_10_year_salary" field_type="dollars" %}
-    {% include 'includes/metric.html' with title="11-to-10 Years" field="teacher_avg_11_to_20_year_salary" field_type="dollars" %}
+    {% include 'includes/metric.html' with title="1 to 5 Years" field="teacher_avg_1_to_5_year_salary" field_type="dollars" %}
+    {% include 'includes/metric.html' with title="6 to 10 Years" field="teacher_avg_6_to_10_year_salary" field_type="dollars" %}
+    {% include 'includes/metric.html' with title="11 to 20 Years" field="teacher_avg_11_to_20_year_salary" field_type="dollars" %}
     {% include 'includes/metric.html' with title="20+ Years" field="teacher_avg_20_plus_year_salary" field_type="dollars" %}
   </section>
 </section>

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% load i18n static %}
+{% extends 'base.html' %}{% load i18n %}{% load static from staticfiles %}
 
 {% block header_class %}header header-landing{% endblock header_class %}
 
@@ -10,8 +10,10 @@
 
 {% block content %}
 <article class="landing-content">
-  <h1 class="landing-header">{% trans "Texas Public Schools" %}</h1>
-  <p class="landing-subheader">Your source for state public education&nbsp;data</p>
+  <div class="container">
+    <h1 class="landing-header">{% trans "Texas Public Schools" %}</h1>
+    <p class="landing-subheader">Your source for state public education&nbsp;data</p>
+  </div>
 
   <section class="search-bar">
     <div class="container">
@@ -35,9 +37,13 @@
   <p class="landing-paragraph landing-paragraph--credit">By <a href="http://www.texastribune.org/about/staff/ryan-murphy/">Ryan Murphy</a>, <a href="http://www.texastribune.org/about/staff/annie-daniel/">Annie Daniel</a> and Miles Hutson</p>
 </section>
 
+{% include "includes/ad_slot_leader.html" %}
+
 <section class="container">
-  <h2 class="page-section-header"><a href="http://www.texastribune.org/education/public-education/">Latest Public Education Stories</a></h2>
+  <h2 class="page-section-header"><a href="http://www.texastribune.org/education/public-education/">Latest public education stories</a></h2>
   <div class="row" id="js-story-box"></div>
 </section>
 
 {% endblock content %}
+
+{% block footer_ad %}{% endblock footer_ad %}
