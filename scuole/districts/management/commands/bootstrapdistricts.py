@@ -54,7 +54,7 @@ class Command(BaseCommand):
             settings.DATA_FOLDER,
             'tapr', 'reference', 'district', 'reference.csv')
 
-        with open(tea_file, 'r') as f:
+        with open(tea_file, 'rU') as f:
             reader = csv.DictReader(f)
 
             for row in reader:
@@ -65,7 +65,7 @@ class Command(BaseCommand):
     def load_askted_file(self, file):
         payload = {}
 
-        with open(file, 'r') as f:
+        with open(file, 'rU') as f:
             reader = csv.DictReader(f)
 
             for row in reader:

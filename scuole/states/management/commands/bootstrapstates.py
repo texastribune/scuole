@@ -35,7 +35,7 @@ class Command(BaseCommand):
     def load_geojson_file(self, file):
         payload = {}
 
-        with open(file, 'r') as f:
+        with open(file, 'rU') as f:
             data = json.load(f)
 
             for feature in data['features']:

@@ -24,7 +24,7 @@ class Command(BaseCommand):
             settings.DATA_FOLDER,
             'tapr', 'reference', 'region', 'reference.csv')
 
-        with open(regions_file, 'r') as f:
+        with open(regions_file, 'rU') as f:
             reader = csv.DictReader(f)
 
             regions = []

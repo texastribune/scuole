@@ -68,7 +68,7 @@ class Command(BaseCommand):
             settings.DATA_FOLDER,
             'tapr', 'reference', 'campus', 'reference.csv')
 
-        with open(tea_file, 'r') as f:
+        with open(tea_file, 'rU') as f:
             reader = csv.DictReader(f)
 
             for row in reader:

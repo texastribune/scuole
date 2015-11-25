@@ -239,5 +239,8 @@ SCHEMA = {
         # 'four_year_graduate_limited_english_proficient_count': 'L3C4X',
         'four_year_graduate_limited_english_proficient_percent': 'L3C4X',
         'attendance_rate': 'A0AT',
-    }
+    },
+    'reference': {
+        'accountability_rating': '_RATING',
+    },
 }
