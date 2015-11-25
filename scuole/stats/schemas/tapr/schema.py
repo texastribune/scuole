@@ -73,7 +73,9 @@ SCHEMA = {
         'class_size_avg_secondary_science': 'PCTSCIA',
         'class_size_avg_secondary_social_studies': 'PCTSOCA',
         'students_per_teacher': 'PSTKIDR',
+        # teacher_avg_tenure is Average Years Experience of Teachers with District
         'teacher_avg_tenure': 'PSTTENA',
+        # teacher_avg_experience is Average Years Experience of Teachers
         'teacher_avg_experience': 'PSTEXPA',
         'teacher_avg_base_salary': 'PSTTOSA',
         'teacher_avg_beginning_salary': 'PST00SA',
