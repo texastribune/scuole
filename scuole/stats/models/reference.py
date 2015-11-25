@@ -11,7 +11,7 @@ class ReferenceBase(models.Model):
     apps for establishing their stats models.
 
     """
-    accountabilityRating = models.CharField(
+    accountability_rating = models.CharField(
         'Accountability rating', null=True, blank=True, max_length=30)
 
     class Meta:

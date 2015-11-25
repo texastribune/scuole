@@ -66,48 +66,47 @@ class Command(BaseCommand):
             # Loop through all the field mappings
             for schema, values in SCHEMA.items():
                 file_name = '{}.csv'.format(schema)
-                if name != 'state' and name != 'region':
-                    data_file = os.path.join(self.year_folder, name, file_name)
+                if schema == 'reference' and (name != 'state' or name != 'region'):
+                    continue
 
-                    with open(data_file, 'rU') as f:
-                        reader = csv.DictReader(f)
+                data_file = os.path.join(self.year_folder, name, file_name)
 
-                        for row in reader:
-                            identifier = row[id_match] if id_match else None
+                with open(data_file, 'rU') as f:
+                    reader = csv.DictReader(f)
 
-                            model = self.get_model_instance(
-                                name, identifier, active_model)
+                    for row in reader:
+                        identifier = row[id_match] if id_match else None
 
-                            if not model:
-                                continue
+                        model = self.get_model_instance(
+                            name, identifier, active_model)
 
-                            payload = {
-                                'year': self.school_year,
-                                'defaults': {}
-                            }
+                        if not model:
+                            continue
 
-                            payload[name] = model
+                        payload = {
+                            'year': self.school_year,
+                            'defaults': {}
+                        }
 
-                            self.stdout.write(model.name)
+                        payload[name] = model
 
-                            if schema == 'staff-and-student-information':
-                                payload['defaults'].update(
-                                    self.load_staff_students(
-                                        m['short_code'], values, row))
-                            if schema == ('postsecondary-readiness-and-'
-                                          'non-staar-performance-indicators'):
-                                payload['defaults'].update(
-                                    self.load_postsecondary_readiness(
-                                        m['short_code'], values, row))
-                            if schema == 'reference':
-                                if name != 'state':
-                                    payload['defaults'].update(
-                                        self.load_reference(
-                                            m['short_code'], values, row))
-                                else:
-                                    return None
+                        self.stdout.write(model.name)
 
-                            stats_model.objects.update_or_create(**payload)
+                        if schema == 'staff-and-student-information':
+                            payload['defaults'].update(
+                                self.load_staff_students(
+                                    m['short_code'], values, row))
+                        if schema == ('postsecondary-readiness-and-'
+                                      'non-staar-performance-indicators'):
+                            payload['defaults'].update(
+                                self.load_postsecondary_readiness(
+                                    m['short_code'], values, row))
+                        if schema == 'reference':
+                            payload['defaults'].update(
+                                self.load_reference(
+                                    m['short_code'], values, row))
+
+                        stats_model.objects.update_or_create(**payload)
 
     def load_staff_students(self, short_code, schema, row):
         payload = {}
