@@ -26,8 +26,15 @@
 
   <section class="row metrics">
     {% include 'includes/metric.html' with title="Students at Risk" field="at_risk_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Economically Disadvantaged" field="economically_disadvantaged_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="Limited English Proficiency" field="limited_english_proficient_percent" field_type="percent" %}
+  </section>
+
+  <section class="page-prose">
+    <p>The percentage of students eligible for free or reduced-price lunch or eligible for other public assistance.</p>
+  </section>
+
+  <section class="row metrics">
+    {% include 'includes/metric.html' with title="Economically Disadvantaged" field="economically_disadvantaged_percent" field_type="percent" %}
   </section>
 
   {% include "includes/bar_chart.html" with rows=stat.factors_percents %}
