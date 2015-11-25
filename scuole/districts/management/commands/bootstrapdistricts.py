@@ -173,7 +173,6 @@ class Command(BaseCommand):
                 'zip_code': zip_code,
                 'region': region,
                 'county': county,
-                'accountability_rating': district['D_RATING'],
                 'shape': geometry,
             }
         )

@@ -190,7 +190,6 @@ class Command(BaseCommand):
                 'coordinates': geometry,
                 'low_grade': low_grade,
                 'high_grade': high_grade,
-                'accountability_rating': campus['C_RATING'],
                 'school_type': campus['GRDTYPE'],
                 'district': district,
                 'county': county,

@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from django import template
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.template.defaultfilters import floatformat
+from django.utils import six
 
 register = template.Library()
 
@@ -27,6 +28,9 @@ def get_by_key(value, key):
 def get_value_display(value, value_type):
     if value is None:
         return ('N/A', '')
+
+    if isinstance(value, six.string_types):
+        return (value, '')
 
     if value < 0:
         return ('Masked', '')
@@ -52,6 +56,10 @@ def get_value_display(value, value_type):
 @register.simple_tag
 def display_stat(stat, key, value_type=None, value_label=False):
     value = get_by_key(stat, key)
+
+    if callable(value):
+        value = value()
+
     display_value, display_descriptor = get_value_display(value, value_type)
 
     if value_label and display_descriptor != '$':

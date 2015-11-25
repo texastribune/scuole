@@ -66,7 +66,8 @@ class Command(BaseCommand):
             # Loop through all the field mappings
             for schema, values in SCHEMA.items():
                 file_name = '{}.csv'.format(schema)
-                if schema == 'reference' and (name != 'state' or name != 'region'):
+                if schema == 'reference' and (name not in (
+                        'campus', 'district')):
                     continue
 
                 data_file = os.path.join(self.year_folder, name, file_name)
@@ -133,7 +134,7 @@ class Command(BaseCommand):
                 suffix = 'R'
 
             if 'four_year_graduate' in field and (
-                short_code == 'S' or short_code == 'R'):
+                    short_code == 'S' or short_code == 'R'):
                 code = code[:-1]
 
             if 'four_year_graduate' in field and 'count' in field:

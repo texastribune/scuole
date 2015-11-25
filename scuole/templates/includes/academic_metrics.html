@@ -10,7 +10,7 @@
   </div>
 
   <section class="row metrics">
-    {% include 'includes/metric.html' with title="Accountability rating" field="" field_type="" skip_state=True %}
+    {% include 'includes/metric.html' with title="Accountability rating" field="get_accountability_rating_display" field_type="" skip_state=True %}
   </section>
   {% if campus.is_secondary_school or include_postsecondary %}
   <h3 class="page-section-subheader">Four-year graduation rates</h3>
