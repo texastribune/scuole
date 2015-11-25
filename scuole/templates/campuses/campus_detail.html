@@ -19,8 +19,8 @@
 <header class="page-header">
   <h1 class="page-headline" id="js-reminder-bar-trigger">{{ campus.name }}</h1>
   <ul>
-    <li class="page-subtext">{% if campus.location %}{{ campus.location }}{% endif %}</li>
     <li class="page-subtext">{{ campus.get_school_type_display }} in <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></li>
+    {% if campus.location %}<li class="page-subtext">{{ campus.location }}</li>{% endif %}
     <li class="page-subtext">{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</li>
   </ul>
 </header>
