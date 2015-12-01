@@ -10,6 +10,7 @@ from slugify import slugify
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
+from django.db.models import Count
 from django.contrib.gis.geos import GEOSGeometry
 
 from scuole.core.utils import remove_charter_c
@@ -73,6 +74,8 @@ class Command(BaseCommand):
 
             for row in reader:
                 self.create_campus(row)
+
+        self.make_slugs_unique()
 
     def load_askted_file(self, file):
         payload = {}
@@ -202,6 +205,18 @@ class Command(BaseCommand):
             self.load_principals(instance, instance_principals)
         else:
             self.stderr.write('No principal data for {}'.format(name))
+
+    def make_slugs_unique(self):
+        models = Campus.objects.values('slug').annotate(
+            Count('slug')).order_by().filter(slug__count__gt=1)
+        slugs = [i['slug'] for i in models]
+
+        campuses = Campus.objects.filter(slug__in=slugs)
+
+        for campus in campuses:
+            campus.slug = '{0}-{1}-{2}'.format(
+                campus.slug, campus.low_grade, campus.high_grade)
+            campus.save()
 
     def load_principals(self, campus, principals):
         for principal in principals:
