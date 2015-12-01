@@ -33,6 +33,7 @@ $font-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-serif: Georgia, 'Times New Roman', Times, serif;
 $font-livory: 'livory', $font-serif;
 $font-soleil: 'soleil', $font-sans-serif;
+$font-soleil: $font-sans-serif;
 
 // sass-mq
 $mq-responsive: true;
