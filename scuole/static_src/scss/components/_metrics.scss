@@ -69,6 +69,7 @@
 
 .metric-value {
   @include font-size(28);
+  font-family: $font-metric;
   margin-bottom: .375rem;
 
   &--bigger {
