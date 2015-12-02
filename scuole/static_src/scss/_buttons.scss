@@ -5,7 +5,6 @@
   cursor: pointer;
   display: inline-block;
   font-family: $font-soleil;
-  font-weight: 300;
   line-height: 1.6;
   margin: 0;
   padding-bottom: .375rem;
@@ -70,6 +69,18 @@
   }
 
   &-gray-ghost {
+    background-color: transparent;
+    border-color: $color-secondary;
+    border-width: .125rem;
+    color: $color-secondary;
+
+    &:hover {
+      background-color: $color-secondary;
+      color: $color-text-inverse;
+    }
+  }
+
+  &-dark-ghost {
     background-color: transparent;
     border-color: $color-primary;
     border-width: .125rem;

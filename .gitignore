@@ -84,3 +84,6 @@ bower_components
 
 # Docker
 env-docker
+
+# geoip
+geoip

@@ -5,6 +5,7 @@ from django import template
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.template.defaultfilters import floatformat
 from django.utils import six
+from django.utils.html import format_html
 
 register = template.Library()
 
@@ -63,15 +64,15 @@ def display_stat(stat, key, value_type=None, value_label=False):
     display_value, display_descriptor = get_value_display(value, value_type)
 
     if value_label and display_descriptor != '$':
-        html = '<span class="metric-value-label"> {}</span>'.format(
-            display_descriptor)
+        html = format_html(
+            '<span class="metric-value-label"> {}</span>', display_descriptor)
         display_descriptor = html
 
     if display_descriptor == '$':
-        output = '{}{}'.format(display_descriptor, display_value)
+        output = format_html('{}{}', display_descriptor, display_value)
     elif display_descriptor == 'years':
-        output = '{} {}'.format(display_value, display_descriptor)
+        output = format_html('{} {}', display_value, display_descriptor)
     else:
-        output = '{}{}'.format(display_value, display_descriptor)
+        output = format_html('{}{}', display_value, display_descriptor)
 
     return output

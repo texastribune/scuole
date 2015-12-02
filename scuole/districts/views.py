@@ -10,7 +10,7 @@ from scuole.stats.models import SchoolYear
 
 
 class DistrictListView(ListView):
-    queryset = District.objects.all().defer('shape').select_related('county')
+    queryset = District.objects.all().defer('shape')
 
 
 class DistrictDetailView(DetailView):
