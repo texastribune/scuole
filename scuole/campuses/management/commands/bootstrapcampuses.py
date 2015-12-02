@@ -207,17 +207,18 @@ class Command(BaseCommand):
             self.stderr.write('No principal data for {}'.format(name))
 
     def make_slugs_unique(self):
-        campus_slug = District.objects.campus.slug
-        models = campus_slug.annotate(
-            Count(campus_slug)).order_by().filter(slug__count__gt=1)
-        slugs = [i[campus_slug] for i in models]
+        for district in District.objects.all():
 
-        campuses = Campus.objects.filter(slug__in=slugs)
+            models = district.campuses.values('slug').annotate(
+                Count('slug')).order_by().filter(slug__count__gt=1)
+            slugs = [i['slug'] for i in models]
 
-        for campus in campuses:
-            campus.slug = '{0}-{1}-{2}'.format(
-                campus.slug, campus.low_grade, campus.high_grade)
-            campus.save()
+            campuses = district.campuses.filter(slug__in=slugs)
+
+            for campus in campuses:
+                campus.slug = '{0}-{1}-{2}'.format(
+                    campus.slug, campus.low_grade, campus.high_grade)
+                campus.save()
 
     def load_principals(self, campus, principals):
         for principal in principals:

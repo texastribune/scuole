@@ -6,6 +6,13 @@ local/reset-db:
 	psql -d ${APP} -c 'CREATE EXTENSION postgis;'
 	python manage.py migrate
 
+bootstrap:
+	python manage.py bootstrapstates
+	python manage.py bootstrapregions
+	python manage.py bootstrapcounties
+	python manage.py bootstrapdistricts
+	python manage.py bootstrapcampuses
+
 data/base:
 	python manage.py bootstrapstates
 	python manage.py bootstrapregions
