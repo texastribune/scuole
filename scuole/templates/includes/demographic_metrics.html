@@ -11,8 +11,8 @@
     {% include 'includes/metric.html' with title="American Indian" field="american_indian_count" field_type="number" extra_field="american_indian_percent" extra_field_type="percent" use_extra_for_context=True %}
     {% include 'includes/metric.html' with title="Asian" field="asian_count" field_type="number" extra_field="asian_percent" extra_field_type="percent" use_extra_for_context=True %}
     {% include 'includes/metric.html' with title="Hispanic" field="hispanic_count" field_type="number" extra_field="hispanic_percent" extra_field_type="percent" use_extra_for_context=True %}    {% include 'includes/metric.html' with title="Pacific Islander" field="pacific_islander_count" field_type="number" extra_field="pacific_islander_percent" extra_field_type="percent" use_extra_for_context=True %}
-    {% include 'includes/metric.html' with title="Two or more races" field="two_or_more_races_count" field_type="number" extra_field="two_or_more_races_percent" extra_field_type="percent" use_extra_for_context=True %}
     {% include 'includes/metric.html' with title="White" field="white_count" field_type="number" extra_field="white_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="Two or more races" field="two_or_more_races_count" field_type="number" extra_field="two_or_more_races_percent" extra_field_type="percent" use_extra_for_context=True %}
   </section>
 
   {% include "includes/bar_chart.html" with rows=stat.student_percent %}

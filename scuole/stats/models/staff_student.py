@@ -206,8 +206,8 @@ class StaffStudentBase(models.Model):
             ('Asian', 'asian'),
             ('Hispanic', 'hispanic'),
             ('Pacific Islander', 'pacific_islander'),
-            ('Two or More Races', 'two_or_more_races'),
             ('White', 'white'),
+            ('Two or More Races', 'two_or_more_races'),
         )
 
         payload = []
