@@ -558,13 +558,13 @@ class PostSecondaryReadinessBase(models.Model):
 
     def get_percentages_for_all_races(self, field_template):
         races = (
-            ('White', 'white'),
-            ('Hispanic', 'hispanic'),
             ('African American', 'african_american'),
-            ('Asian', 'asian'),
             ('American Indian', 'american_indian'),
+            ('Asian', 'asian'),
+            ('Hispanic', 'hispanic'),
             ('Pacific Islander', 'pacific_islander'),
             ('Two or More Races', 'two_or_more_races'),
+            ('White', 'white'),
         )
 
         payload = []
