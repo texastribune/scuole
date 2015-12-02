@@ -9,6 +9,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from scuole.core.models import PersonnelBase
 from scuole.stats.models import SchoolYear, StatsBase
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 
 
 @python_2_unicode_compatible
@@ -40,4 +41,4 @@ class Commissioner(PersonnelBase):
     state = models.OneToOneField(State, related_name='commissioner_of')
 
     def __str__(self):
-        return 'Texas Education Commissioner'
+        return ugettext('Texas Education Commissioner')

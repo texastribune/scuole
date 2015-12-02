@@ -14,6 +14,7 @@ from scuole.counties.models import County
 from scuole.districts.models import District
 from scuole.stats.models import ReferenceBase, SchoolYear, StatsBase
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 
 
 @python_2_unicode_compatible
@@ -138,7 +139,8 @@ class CampusStats(StatsBase, ReferenceBase):
         verbose_name_plural = _('Campus stats')
 
     def __str__(self):
-        return '{0} {1}'.format(self.year.name, self.campus.name)
+        return ugettext('{year_name} {campus_name}').format(year_name=self.year.name,
+                                                            campus_name=self.campus.name)
 
 
 @python_2_unicode_compatible
@@ -146,4 +148,5 @@ class Principal(PersonnelBase):
     campus = models.ForeignKey(Campus, related_name='principals')
 
     def __str__(self):
-        return '{} at {}'.format(self.name, self.campus.name)
+        return ugettext('{principal} at {campus_name}').format(principal=self.name,
+                                                               campus_name=self.campus.name)
