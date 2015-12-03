@@ -1,0 +1,54 @@
+.typeahead {
+  position: relative;
+}
+
+.listbox {
+  background-color: $color-white;
+  border-bottom: 1px solid $color-gray;
+  border-top: 1px solid $color-gray;
+  margin-top: .125rem;
+  max-height: 18.75rem;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+}
+
+.listbox li {
+  border-bottom: 1px solid $color-gray;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.listbox__link {
+  border-left: 1px solid $color-gray;
+  border-right: 1px solid $color-gray;
+  color: $color-primary;
+  display: block;
+  padding: $gutter-half;
+
+  &:hover {
+    background-color: $color-gray;
+    text-decoration: none;
+  }
+}
+
+.listbox__label {
+  @include font-size(12);
+  font-weight: 700;
+  margin-bottom: .25rem;
+}
+
+.listbox__title {
+  @include font-size(14);
+}
+
+.listbox--hidden {
+  display: none;
+}
+
+.listbox--selected {
+  background-color: $color-gray;
+}

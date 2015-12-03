@@ -21,7 +21,7 @@ from django.contrib import admin
 from django.views import defaults
 from django.views.generic import TemplateView
 
-from scuole.core.views import AboutView, SearchView
+from scuole.core.views import AboutView, LookupView, SearchView
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(
@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^states/', include(
         'scuole.states.urls', namespace='states')),
     url(r'^search/', SearchView.as_view(), name='search'),
+    url(r'^lookup/', LookupView.as_view(), name='lookup'),
     url(r'^about/', AboutView.as_view(), name='about'),
     url(r'^admin/', include(admin.site.urls)),
 ]
