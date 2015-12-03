@@ -56,6 +56,7 @@ class Typeahead {
   addData (data) {
     if (data.results.length === 0) return this.close()
 
+    this.index = -1
     this.ul.innerHTML = ''
     let fragment = document.createDocumentFragment()
 
