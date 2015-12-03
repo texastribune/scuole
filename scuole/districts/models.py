@@ -29,7 +29,7 @@ class District(models.Model):
         _('Phone number extension'), max_length=4, blank=True, default='')
     website = models.URLField(
         _('District website'), blank=True, default='')
-    charter = models.BooleanField(default=False)
+    charter = models.BooleanField(_('Charter status'), default=False)
     street = models.CharField(_('District street'), max_length=200)
     city = models.CharField(_('District office city'), max_length=100)
     state = USStateField(
