@@ -9,7 +9,8 @@ module.exports = {
     state: './state.js',
     commons: [
       './utils/loadStoryGrid.js',
-      './utils/adLoader.js'
+      './utils/adLoader.js',
+      './utils/searchTypeahead.js'
     ]
   },
   output: {
