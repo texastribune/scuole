@@ -17,14 +17,14 @@
 <section class="row section">
 <div class="intro-block">
 <header class="page-header" id="js-reminder-bar-trigger">
-  <h1 class="page-headline">{{ district.name }}</h1>
+  <h1 class="page-headline">{{ district.name }}{% if district.charter %}<span class="is-charter">Charter</span>{% endif %}</h1>
   <p class="page-subtext">{{ district.location }}</p>
 </header>
 
 {% include "includes/intro_metrics.html" with stat=stat state=state only %}
 
 <section class="page-prose">
-  <p><strong>{{ district.name }}</strong> is a school district in <strong>{{ district.city_display|default:"Texas" }}</strong>. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received an accountability rating of &ldquo;<strong>{{ stat.get_accountability_rating_display|lower }}</strong>.&rdquo; <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school. <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs.</p>
+  <p><strong>{{ district.name }}</strong> is a {% if district.charter %}charter {% endif %}school district in <strong>{{ district.location|default:"Texas" }}</strong>. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received an accountability rating of &ldquo;<strong>{{ stat.get_accountability_rating_display|lower }}</strong>.&rdquo; <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school. <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs.</p>
 
   <p>An average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>, which is <strong>${{ stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary|absolute|floatformat:"0"|intcomma }} {% if stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary < 0 %}less{% else %}more{% endif %}</strong> than the state average. On average, teachers had <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience. The average SAT score at {{ district.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>, and the average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>. In the {{ stat.year.name }} class, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diplomas on time or earlier. The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
 </section>
