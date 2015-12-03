@@ -124,6 +124,12 @@ class Command(BaseCommand):
         self.stdout.write('Creating {}...'.format(name))
         county = County.objects.get(name__iexact=district['CNTYNAME'])
         region = Region.objects.get(region_id=district['REGION'])
+
+        if district['DFLCHART'] == 'N':
+            charter = False
+        else:
+            charter = True
+
         if district['DISTRICT'] in self.shape_data:
             geometry = GEOSGeometry(
                 json.dumps(self.shape_data[district['DISTRICT']]))
@@ -167,6 +173,7 @@ class Command(BaseCommand):
                 'phone_number': phone_number,
                 'phone_number_extension': phone_number_extension,
                 'website': website,
+                'charter': charter,
                 'street': street,
                 'city': city,
                 'state': state,
