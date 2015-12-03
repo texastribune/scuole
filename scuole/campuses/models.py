@@ -74,6 +74,7 @@ class Campus(models.Model):
         _('Phone number extension'), max_length=4, blank=True, default='')
     website = models.URLField(
         _('Campus website'), blank=True, default='')
+    charter = models.BooleanField(_('Charter status'), default=False)
     street = models.CharField(_('Campus street'), max_length=100, null=True)
     city = models.CharField(_('Campus city'), max_length=200, null=True)
     state = USStateField(_('Campus state'), max_length=2, null=True)
