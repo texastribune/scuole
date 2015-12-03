@@ -125,6 +125,15 @@ class Campus(models.Model):
             return ''
 
     @property
+    def location_full(self):
+        if self.city and self.state:
+            return '{city}, {state}'.format(
+                city=string.capwords(self.city),
+                state=self.get_state_display())
+        else:
+            return ''
+
+    @property
     def is_secondary_school(self):
         return (self.school_type == 'S' or self.school_type == 'B')
 

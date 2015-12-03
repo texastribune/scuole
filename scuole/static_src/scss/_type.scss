@@ -78,3 +78,13 @@
   width: 0;
   z-index: -1;
 }
+
+.is-charter {
+  @include font-size(12);
+  background-color: $color-secondary;
+  border-radius: 4px;
+  color: $color-text-inverse;
+  margin-left: $gutter-half;
+  padding: $gutter-quarter;
+  vertical-align: middle;
+}

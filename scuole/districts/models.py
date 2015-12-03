@@ -71,6 +71,15 @@ class District(models.Model):
             return ''
 
     @property
+    def location_full(self):
+        if self.city and self.state:
+            return '{city}, {state}'.format(
+                city=string.capwords(self.city),
+                state=self.get_state_display())
+        else:
+            return ''
+
+    @property
     def campus_geojson(self):
         return serialize(
             'geojson', self.campuses.all(), fields=('name', 'coordinates'))
