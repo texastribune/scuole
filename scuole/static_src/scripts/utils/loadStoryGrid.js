@@ -1,3 +1,5 @@
+/* global BLANK_STORY_IMAGE */
+
 import map from 'lodash/collection/map'
 import reqwest from 'reqwest'
 
@@ -7,20 +9,16 @@ function htmlify (data) {
   let content = ''
 
   content += `<div class="story-box-container">
-          <a class="story-box" href="${data.url}">`
-
-  if (data.leadArt) {
-    content += `<div class="story-box__media">
-                  <img class="story-box__image" src="${data.leadArt}" alt="Placeholder image">
-                </div>`
-  }
-
-  content += `<div class="story-box__body">
-              <h3 class="story-box__header">${data.title}</h3>
-              <p class="story-box__prose">${data.description}</p>
-            </div>
-          </a>
-        </div>`
+                <a class="story-box" href="${data.url}">
+                  <div class="story-box__media">
+                    <img class="story-box__image" src="${data.leadArt || BLANK_STORY_IMAGE}" alt="Placeholder image">
+                  </div>
+                  <div class="story-box__body">
+                    <h3 class="story-box__header">${data.title}</h3>
+                    <p class="story-box__prose">${data.description}</p>
+                  </div>
+                </a>
+              </div>`
 
   return content
 }
