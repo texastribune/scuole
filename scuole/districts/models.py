@@ -29,6 +29,7 @@ class District(models.Model):
         _('Phone number extension'), max_length=4, blank=True, default='')
     website = models.URLField(
         _('District website'), blank=True, default='')
+    charter = models.BooleanField(_('Charter status'), default=False)
     street = models.CharField(_('District street'), max_length=200)
     city = models.CharField(_('District office city'), max_length=100)
     state = USStateField(
@@ -66,6 +67,15 @@ class District(models.Model):
             return '{city}, {state}'.format(
                 city=string.capwords(self.city),
                 state=self.state)
+        else:
+            return ''
+
+    @property
+    def location_full(self):
+        if self.city and self.state:
+            return '{city}, {state}'.format(
+                city=string.capwords(self.city),
+                state=self.get_state_display())
         else:
             return ''
 

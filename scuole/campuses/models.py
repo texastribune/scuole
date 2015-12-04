@@ -74,6 +74,7 @@ class Campus(models.Model):
         _('Phone number extension'), max_length=4, blank=True, default='')
     website = models.URLField(
         _('Campus website'), blank=True, default='')
+    charter = models.BooleanField(_('Charter status'), default=False)
     street = models.CharField(_('Campus street'), max_length=100, null=True)
     city = models.CharField(_('Campus city'), max_length=200, null=True)
     state = USStateField(_('Campus state'), max_length=2, null=True)
@@ -120,6 +121,15 @@ class Campus(models.Model):
             return '{city}, {state}'.format(
                 city=string.capwords(self.city),
                 state=self.state)
+        else:
+            return ''
+
+    @property
+    def location_full(self):
+        if self.city and self.state:
+            return '{city}, {state}'.format(
+                city=string.capwords(self.city),
+                state=self.get_state_display())
         else:
             return ''
 
