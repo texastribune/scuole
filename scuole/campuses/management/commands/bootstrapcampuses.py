@@ -146,6 +146,11 @@ class Command(BaseCommand):
         district = District.objects.get(tea_id=campus['DISTRICT'])
         county = County.objects.get(name__iexact=campus['CNTYNAME'])
 
+        if campus['CFLCHART'] == 'N':
+            charter = False
+        else:
+            charter = True
+
         if campus['CAMPUS'] in self.shape_data:
             geometry = GEOSGeometry(
                 json.dumps(self.shape_data[campus['CAMPUS']])
@@ -186,6 +191,7 @@ class Command(BaseCommand):
                 'phone_number': phone_number,
                 'phone_number_extension': phone_number_extension,
                 'website': website,
+                'charter': charter,
                 'street': street,
                 'city': city,
                 'state': state,
