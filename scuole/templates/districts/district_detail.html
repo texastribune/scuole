@@ -1,5 +1,7 @@
 {% extends 'standard.html' %}{% load humanize i18n stats_tags %}{% load static from staticfiles %}
 
+{% block meta %}{% include "includes/meta.html" with title=district.name %}{% endblock meta %}
+
 {% block title %}{{ district.name }}{% endblock title %}
 
 {% block extra_content %}
