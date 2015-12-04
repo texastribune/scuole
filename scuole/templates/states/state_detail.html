@@ -1,5 +1,7 @@
 {% extends 'standard.html' %}{% load humanize i18n %}{% load static from staticfiles %}
 
+{% block meta %}{% include "includes/meta.html" with title=state.get_name_display %}{% endblock meta %}
+
 {% block title %}{{ state.get_name_display }}{% endblock title %}
 
 {% block extra_content %}
