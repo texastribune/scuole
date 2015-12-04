@@ -4,3 +4,4 @@ scuole/static
 *.dump
 env-docker
 .git
+Makefile
