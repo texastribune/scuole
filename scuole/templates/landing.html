@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% load i18n %}{% load static from staticfiles %}
+{% extends 'base.html' %}{% load i18n humanize %}{% load static from staticfiles %}
 
 {% block header_class %}header header-landing{% endblock header_class %}
 
@@ -33,7 +33,7 @@
 {% include "includes/menu.html" %}
 
 <section class="landing-prose">
-  <p class="landing-paragraph">Use our Texas public schools database to learn more about the state’s 1,300 districts and 8,500 public schools, including hundreds of charter schools and alternative campuses. You can easily navigate through information on demographics, academic performance, college readiness and average teacher salaries for each school or&nbsp;district.</p>
+  <p class="landing-paragraph">Use our Texas public schools database to learn more about the state’s {{ district_count|intcomma }} districts and {{ campus_count|intcomma }} public schools, including hundreds of charter schools and alternative campuses. You can easily navigate through information on demographics, academic performance, college readiness and average teacher salaries for each school or&nbsp;district.</p>
   <p class="landing-paragraph landing-paragraph--credit">By <a href="http://www.texastribune.org/about/staff/ryan-murphy/">Ryan Murphy</a>, <a href="http://www.texastribune.org/about/staff/annie-daniel/">Annie Daniel</a> and Miles Hutson</p>
 </section>
 

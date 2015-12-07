@@ -52,3 +52,15 @@ class LookupView(View):
             campuses + districts, key=itemgetter('name'))
 
         return JsonResponse(context, **kwargs)
+
+
+class LandingView(TemplateView):
+    template_name = 'landing.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(LandingView, self).get_context_data(**kwargs)
+
+        context['district_count'] = District.objects.count()
+        context['campus_count'] = Campus.objects.count()
+
+        return context

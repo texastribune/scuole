@@ -20,9 +20,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.views import defaults
-from django.views.generic import TemplateView
 
-from scuole.core.views import AboutView, LookupView, SearchView
+from scuole.core.views import AboutView, LookupView, SearchView, LandingView
 
 from scuole.campuses.sitemaps import CampusSitemap
 from scuole.core.sitemaps import StaticSitemap
@@ -37,8 +36,7 @@ sitemaps = {
 }
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(
-        template_name='landing.html'), name='landing'),
+    url(r'^$', LandingView.as_view(), name='landing'),
     url(r'^districts/', include(
         'scuole.districts.urls', namespace='districts')),
     url(r'^states/', include(
