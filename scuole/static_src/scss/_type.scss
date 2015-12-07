@@ -88,21 +88,3 @@
   padding: $gutter-quarter;
   vertical-align: middle;
 }
-
-.about-container {
-  max-width: 45rem;
-}
-
-.tea-pullout {
-  @extend .page-prose;
-  // background-color: $color-gray-light;
-  color: $color-secondary;
-  font-style: italic;
-  padding: $gutter-half;
-
-  > ul {
-    list-style-type: disc;
-    line-height: 1.5;
-    margin-left: $gutter;
-  }
-}
