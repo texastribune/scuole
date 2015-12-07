@@ -37,12 +37,18 @@
 
 <section class="card">
   <h2 class="card-header">Contact information</h2>
+  <h3 class="card-title">Website</h3>
+  <p class="card-text card-website"><a href="http://tea.texas.gov/">http://tea.texas.gov/</a></p>
   {% if state.commissioner_of %}
   <h3 class="card-title">{{ state.commissioner_of.role }}</h3>
   <ul class="card-list">
     <li class="card-list-item">{{ state.commissioner_of.name }}</li>
+    {% if state.commissioner_of.email %}
     <li class="card-list-item">{{ state.commissioner_of.email|urlize }}</li>
-    <li class="card-list-item"><a href="tel://{{ state.commissioner_of.phone_number }}">{{ state.commissioner_of.phone_number }}</a></li>
+    {% endif %}
+    {% if state.commissioner_of.phone_number %}
+    <li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ state.commissioner_of.phone_number }}">{{ state.commissioner_of.phone_number }}</a></li>
+    {% endif %}
   </ul>
   {% endif %}
 </section>

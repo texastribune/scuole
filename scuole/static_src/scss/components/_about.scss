@@ -1,0 +1,36 @@
+.about-content {
+  @include create-column(12);
+
+  @include mq($from: tablet) {
+    @include create-column(8);
+  }
+}
+
+.about-menu {
+  display: none;
+
+  @include mq($from: tablet) {
+    @include create-column(4);
+    display: block;
+  }
+}
+
+.about-menu__item {
+  @include font-size(18);
+  line-height: 1.2;
+  margin-bottom: $gutter-half;
+}
+
+.tea-pullout {
+  color: $color-secondary;
+  font-family: $font-soleil;
+  font-style: italic;
+  line-height: 1.5;
+  padding: $gutter-half;
+
+  > ul {
+    list-style-type: disc;
+    line-height: 1.5;
+    margin-left: $gutter;
+  }
+}
