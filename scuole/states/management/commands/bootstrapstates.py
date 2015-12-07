@@ -76,8 +76,6 @@ class Command(BaseCommand):
             defaults={
                 'name': name,
                 'role': commissioner['Role'],
-                'email': commissioner['Email Address'],
                 'phone_number': commissioner['Phone'],
-                'fax_number': commissioner['Fax'],
             }
         )
