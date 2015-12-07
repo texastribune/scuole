@@ -52,3 +52,16 @@ class LookupView(View):
             campuses + districts, key=itemgetter('name'))
 
         return JsonResponse(context, **kwargs)
+
+
+class AcceptRedirectView(View):
+    """
+    The `AcceptRedirectView` is intended to be the recipient of redirected
+    visitors from the previous version of public schools in the texastribune
+    app. It attempts to parse the URL of the page sent its way and guide the
+    user to the campus or district they wanted, if possible. Otherwise, they go
+    to the home page.
+    """
+
+    def get(self, request, *args, **kwargs):
+        pass
