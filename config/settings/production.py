@@ -156,6 +156,7 @@ X_FRAME_OPTIONS = 'DENY'
 # https://getsentry.com/for/django/
 RAVEN_CONFIG = {
     'dsn': env('SENTRY_DSN'),
+    'site': env('SENTRY_SITE', 'Public Schools')
 }
 
 INSTALLED_APPS = INSTALLED_APPS + (
