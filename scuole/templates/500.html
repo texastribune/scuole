@@ -1,36 +1,10 @@
-{% extends 'base.html' %}{% load i18n %}{% load static from staticfiles %}
+{% extends 'standard.html' %}{% load i18n %}
 
-{% block header_class %}header header-landing{% endblock header_class %}
+{% block meta %}{% include "includes/meta.html" with title="About" %}{% endblock meta %}
 
-{% block header %}
-<div class="container">
-  <a href="http://www.texastribune.org/"><img class="tribune-logo" src="{% static 'images/logos/tribune-white.svg' %}" alt={% trans "The Texas Tribune" %}></a>
-</div>
-{% endblock header %}
+{% block title %}About{% endblock title %}
 
 {% block content %}
-<article class="landing-content">
-  <div class="container">
-    <h1 class="landing-header">{% trans "Texas Public Schools Explorer" %}</h1>
-    <p class="landing-subheader">Your source for state public education&nbsp;data</p>
-  </div>
-
-  <section class="search-bar">
-    <div class="container">
-      <form class="search-form" action="{% url 'search' %}" method="GET">
-        <label class="search-form-label" for="search">Search by district or campus</label>
-        <div class="search-input-group">
-        <input class="search-form-input" id="search" type="search" name="q" placeholder="{% trans "E.g. Austin ISD, Travis High School" %}" autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false">
-        <span class="search-form-submit">
-          <button class="btn btn-link" type="submit">{% trans "Search" %}</button>
-        </span>
-        </div>
-      </form>
-    </div>
-  </section>
-</article>
-
-{% include "includes/menu.html" %}
 
 <section class="landing-prose">
   <p class="landing-paragraph">Uh oh, looks like the site is down. Try refreshing the page, going back to the <a href="{% url 'landing' %}">home page</a> or shoot us an email <a href="schools-feedback@texastribune.org">schools-feedback@texastribune.org</a> to let us know what's wrong.</p>
