@@ -64,10 +64,14 @@
   <h3 class="card-title">{{ district.superintendent_of.role }}</h3>
   <ul class="card-list">
     <li class="card-list-item">{{ district.superintendent_of.name }}</li>
+    {% if district.superintendent_of.email %}
     <li class="card-list-item">{{ district.superintendent_of.email|urlize }}</li>
-    <li class="card-list-item"><a href="tel://{{ principal.phone_number }}">{{ district.superintendent_of.phone_number }}</a></li>
+    {% endif %}
+    {% if district.superintendent_of.phone_number %}
+    <li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ district.superintendent_of.phone_number }}">{{ district.superintendent_of.phone_number }}</a></li>
+    {% endif %}
   </ul>
-{% endif %}
+  {% endif %}
 </section>
 
 <a class="btn btn-link btn-block" href="#campuses">View Campus List</a>
