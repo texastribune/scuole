@@ -41,11 +41,12 @@ $mq-responsive: true;
 
 $mq-breakpoints: (
   mobile: 520px,
-  tablet:  760px,
+  tablet: 760px,
 
   metrics-flip: 900px,
   ad-switch: 760px,
-  footer-break: 900px
+  footer-break: 900px,
+  menu-label-break: 450px
 );
 
 $mq-media-type: screen;
