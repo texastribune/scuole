@@ -8,6 +8,22 @@
   }
 }
 
+// visuallyhidden
+// source: http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+//
+// Content isn't visible, but still readable by screen readers.
+
+@mixin visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
 // create-container
 // Generate container using variables
 @mixin create-container() {
