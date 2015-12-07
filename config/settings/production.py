@@ -100,3 +100,17 @@ CSRF_COOKIE_HTTPONLY = True
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#x-frame-options
 X_FRAME_OPTIONS = 'DENY'
+
+
+########################
+# SENTRY CONFIGURATION #
+########################
+
+# https://getsentry.com/for/django/
+RAVEN_CONFIG = {
+    'dsn': env('SENTRY_DSN'),
+}
+
+INSTALLED_APPS = INSTALLED_APPS + (
+    'raven.contrib.django.raven_compat',
+)

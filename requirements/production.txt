@@ -2,3 +2,4 @@
 
 gunicorn==19.4.1
 whitenoise==2.0.6
+raven==5.8.1
