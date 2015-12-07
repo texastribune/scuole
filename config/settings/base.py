@@ -60,6 +60,7 @@ DJANGO_APPS = (
     'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 )
@@ -144,6 +145,14 @@ USE_TZ = True
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#site-id
 SITE_ID = 1
+
+##################################
+# CUSTOM MIGRATION CONFIGURATION #
+##################################
+
+MIGRATION_MODULES = {
+    'sites': 'scuole.core.sites_migrations',
+}
 
 #########################
 # GENERAL CONFIGURATION #
