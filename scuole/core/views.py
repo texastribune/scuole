@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from operator import itemgetter
 
 from django.http import JsonResponse
+from django.shortcuts import redirect
 from django.views.generic import TemplateView, View
 
 from scuole.campuses.models import Campus
@@ -64,4 +65,22 @@ class AcceptRedirectView(View):
     """
 
     def get(self, request, *args, **kwargs):
-        pass
+        request_params = request.GET
+
+        district_slug = request_params.get('district_slug')
+        campus_slug = request_params.get('campus_slug')
+
+        if campus_slug and district_slug:
+            try:
+                return redirect(Campus.objects.get(
+                    district__slug=district_slug, slug=campus_slug))
+            except Campus.DoesNotExist:
+                pass
+
+        if district_slug:
+            try:
+                return redirect(District.objects.get(slug=district_slug))
+            except District.DoesNotExist:
+                pass
+
+        return redirect('landing')
