@@ -1,4 +1,4 @@
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary_large_image">{% from static import staticfiles %}
   <meta name="twitter:site" content="@texastribune">
   <meta name="twitter:creator" content="@texastribune">
   <meta property="og:url" content="{{ request.build_absolute_uri }}">
@@ -8,5 +8,5 @@
   <meta property="article:published_time" content="2015-12-08">
   <meta property="og:description" content="{% if description %}{% else %}Texas Public Schools Explorer: Use our database to learn more about the state’s 1,300 districts and 8,500 public schools, including hundreds of charter schools and alternative campuses. You can easily navigate through information on demographics, academic performance, college readiness and average teacher salaries for each school or district.{% endif %}">
   <meta property="og:site_name" content="Texas Public Schools Explorer">
-  <meta property="og:image" content="TK">
+  <meta property="og:image" content="{% static 'images/facebook-share.jpg' %}">
   <meta property="fb:app_id" content="154122474650943">
