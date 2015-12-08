@@ -56,22 +56,28 @@
 
 <section class="card">
   <h2 class="card-header">Contact information</h2>
-  {% if district.website %}
-  <h3 class="card-title">Website</h3>
-  <p class="card-text card-website">{{ district.website|urlize }}</p>
-  {% endif %}
-  {% if district.superintendent_of %}
-  <h3 class="card-title">{{ district.superintendent_of.role }}</h3>
-  <ul class="card-list">
-    <li class="card-list-item">{{ district.superintendent_of.name }}</li>
-    {% if district.superintendent_of.email %}
-    <li class="card-list-item">{{ district.superintendent_of.email|urlize }}</li>
+  <div class="row">
+    {% if district.website %}
+    <div class="col-6">
+      <h3 class="card-title">Website</h3>
+      <p class="card-text card-website">{{ district.website|urlize }}</p>
+    </div>
     {% endif %}
-    {% if district.superintendent_of.phone_number %}
-    <li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ district.superintendent_of.phone_number }}">{{ district.superintendent_of.phone_number }}</a></li>
+    {% if district.superintendent_of %}
+    <div class="col-6">
+      <h3 class="card-title">{{ district.superintendent_of.role }}</h3>
+      <ul class="card-list">
+        <li class="card-list-item">{{ district.superintendent_of.name }}</li>
+        {% if district.superintendent_of.email %}
+        <li class="card-list-item">{{ district.superintendent_of.email|urlize }}</li>
+        {% endif %}
+        {% if district.superintendent_of.phone_number %}
+        <li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ district.superintendent_of.phone_number }}">{{ district.superintendent_of.phone_number }}</a></li>
+        {% endif %}
+      </ul>
+    </div>
     {% endif %}
-  </ul>
-  {% endif %}
+  </div>
 </section>
 
 <a class="btn btn-link btn-block" href="#campuses">View Campus List</a>

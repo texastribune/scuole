@@ -19,9 +19,9 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
-from django.views import defaults
-
-from scuole.core.views import AboutView, LandingView, LookupView, SearchView
+from scuole.core.views import (AboutView, AcceptRedirectView, LandingView,
+                               LookupView, SearchView)
+from django.views import defaults as default_views
 
 from scuole.campuses.sitemaps import CampusSitemap
 from scuole.core.sitemaps import StaticSitemap
@@ -44,6 +44,7 @@ urlpatterns = [
     url(r'^search/', SearchView.as_view(), name='search'),
     url(r'^lookup/', LookupView.as_view(), name='lookup'),
     url(r'^about/', AboutView.as_view(), name='about'),
+    url(r'^redirect/', AcceptRedirectView.as_view(), name='redirect'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap')
@@ -52,8 +53,8 @@ urlpatterns = [
 # Test pages normally not reachable when DEBUG = True
 if settings.DEBUG:
     urlpatterns += [
-        url(r'^400/$', defaults.bad_request),
-        url(r'^403/$', defaults.permission_denied),
-        url(r'^404/$', defaults.page_not_found),
-        url(r'^500/$', defaults.server_error),
+        url(r'^400/$', default_views.bad_request, {'exception': None}),
+        url(r'^403/$', default_views.permission_denied, {'exception': None}),
+        url(r'^404/$', default_views.page_not_found, {'exception': None}),
+        url(r'^500/$', default_views.server_error),
     ]
