@@ -8,6 +8,7 @@
   border-top: 1px solid $color-gray;
   margin-top: .125rem;
   max-height: 18.75rem;
+  -webkit-overflow-scrolling: touch;
   overflow-y: auto;
   position: absolute;
   width: 100%;

@@ -22,9 +22,10 @@
 }
 
 .page-section-header {
-  @include font-size(24);
+  @include font-size(22);
   border-bottom: 2px solid $color-gray;
   font-family: $font-soleil;
+  line-height: 1.2;
   margin-bottom: $gutter;
   padding-bottom: $gutter-half;
   position: relative;
