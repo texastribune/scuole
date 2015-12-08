@@ -21,7 +21,7 @@ from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.views import defaults
 
-from scuole.core.views import AboutView, LookupView, SearchView, LandingView
+from scuole.core.views import AboutView, LandingView, LookupView, SearchView
 
 from scuole.campuses.sitemaps import CampusSitemap
 from scuole.core.sitemaps import StaticSitemap
