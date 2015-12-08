@@ -121,7 +121,7 @@ class Typeahead {
     if (i > -1 && lis.length > 0) {
       let li = lis[i]
       classie.add(li, 'listbox--selected')
-      li.scrollIntoView(false)
+      li.parentNode.scrollTop = li.offsetTop
 
       this.index = i
     }
