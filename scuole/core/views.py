@@ -18,6 +18,12 @@ class AboutView(TemplateView):
 class SearchView(TemplateView):
     template_name = 'search.html'
 
+    def get(self, request, *args, **kwargs):
+        if not self.request.GET.get('q'):
+            return redirect('landing')
+
+        return super(SearchView, self).get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(SearchView, self).get_context_data(**kwargs)
 
@@ -56,6 +62,10 @@ class LookupView(View):
 
 
 class LandingView(TemplateView):
+    """
+    The view for the landing page. Pulls in counts for `District` and `Campus`.
+    """
+
     template_name = 'landing.html'
 
     def get_context_data(self, **kwargs):
