@@ -19,10 +19,9 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
+from scuole.core.views import (AboutView, AcceptRedirectView, LandingView,
+                               LookupView, SearchView)
 from django.views import defaults as default_views
-from django.views.generic import TemplateView
-
-from scuole.core.views import AboutView, LookupView, SearchView
 
 from scuole.campuses.sitemaps import CampusSitemap
 from scuole.core.sitemaps import StaticSitemap
@@ -37,8 +36,7 @@ sitemaps = {
 }
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(
-        template_name='landing.html'), name='landing'),
+    url(r'^$', LandingView.as_view(), name='landing'),
     url(r'^districts/', include(
         'scuole.districts.urls', namespace='districts')),
     url(r'^states/', include(
@@ -46,6 +44,7 @@ urlpatterns = [
     url(r'^search/', SearchView.as_view(), name='search'),
     url(r'^lookup/', LookupView.as_view(), name='lookup'),
     url(r'^about/', AboutView.as_view(), name='about'),
+    url(r'^redirect/', AcceptRedirectView.as_view(), name='redirect'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap')
