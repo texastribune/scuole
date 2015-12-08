@@ -44,7 +44,7 @@
   <ul class="card-list">
     <li class="card-list-item">{{ state.commissioner_of.name }}</li>
     {% if state.commissioner_of.email %}
-    <li class="card-list-item">{{ state.commissioner_of.email|urlize }}</li>
+    <li class="card-list-item card-website">{{ state.commissioner_of.email|urlize }}</li>
     {% endif %}
     {% if state.commissioner_of.phone_number %}
     <li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ state.commissioner_of.phone_number }}">{{ state.commissioner_of.phone_number }}</a></li>

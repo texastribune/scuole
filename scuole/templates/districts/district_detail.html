@@ -69,7 +69,7 @@
       <ul class="card-list">
         <li class="card-list-item">{{ district.superintendent_of.name }}</li>
         {% if district.superintendent_of.email %}
-        <li class="card-list-item">{{ district.superintendent_of.email|urlize }}</li>
+        <li class="card-list-item card-website">{{ district.superintendent_of.email|urlize }}</li>
         {% endif %}
         {% if district.superintendent_of.phone_number %}
         <li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ district.superintendent_of.phone_number }}">{{ district.superintendent_of.phone_number }}</a></li>
