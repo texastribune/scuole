@@ -55,6 +55,18 @@ class LookupView(View):
         return JsonResponse(context, **kwargs)
 
 
+class LandingView(TemplateView):
+    template_name = 'landing.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(LandingView, self).get_context_data(**kwargs)
+
+        context['district_count'] = District.objects.count()
+        context['campus_count'] = Campus.objects.count()
+
+        return context
+
+
 class AcceptRedirectView(View):
     """
     The `AcceptRedirectView` is intended to be the recipient of redirected
