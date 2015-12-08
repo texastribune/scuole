@@ -1,13 +1,19 @@
 {% extends 'standard.html' %}{% load i18n %}
 
-{% block meta %}{% include "includes/meta.html" with title="About" %}{% endblock meta %}
+{% block meta %}{% include "includes/meta.html" with title="500" %}{% endblock meta %}
 
-{% block title %}About{% endblock title %}
+{% block title %}500{% endblock title %}
 
 {% block content %}
 
-<section class="landing-prose">
-  <p class="landing-paragraph">Uh oh, looks like the site is down. Try refreshing the page, going back to the <a href="{% url 'landing' %}">home page</a> or shoot us an email <a href="schools-feedback@texastribune.org">schools-feedback@texastribune.org</a> to let us know what's wrong.</p>
+<header class="page-header">
+  <h1 class="page-headline">Uh-oh.</h1>
+</header>
+
+<section class="section">
+  <div class="page-prose">
+    <p>The site is having technical difficulties. Please try again later, or try to head back to the <a href="{% url 'landing' %}">home page</a>.</p>
+  </div>
 </section>
 
 

@@ -1,13 +1,19 @@
 {% extends 'standard.html' %}{% load i18n %}
 
-{% block meta %}{% include "includes/meta.html" with title="About" %}{% endblock meta %}
+{% block meta %}{% include "includes/meta.html" with title="404" %}{% endblock meta %}
 
-{% block title %}About{% endblock title %}
+{% block title %}404{% endblock title %}
 
 {% block content %}
 
-<section class="landing-prose">
-  <p class="landing-paragraph">Looks like you landed here by mistake. Did you type in the correct URL? Or go back to the <a href="{% url 'landing' %}">home page</a>.</p>
+<header class="page-header">
+  <h1 class="page-headline">Oops.</h1>
+</header>
+
+<section class="section">
+  <div class="page-prose">
+    <p>We couldn't find this page. Please try again later, or head back to the <a href="{% url 'landing' %}">home page</a>.</p>
+  </div>
 </section>
 
 
