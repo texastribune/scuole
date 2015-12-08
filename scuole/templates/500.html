@@ -1,0 +1,25 @@
+{% extends 'standard.html' %}{% load i18n %}
+
+{% block meta %}{% include "includes/meta.html" with title="500" %}{% endblock meta %}
+
+{% block title %}500{% endblock title %}
+
+{% block content %}
+
+<header class="page-header">
+  <h1 class="page-headline">Uh-oh.</h1>
+</header>
+
+<section class="section">
+  <div class="page-prose">
+    <p>The site is having technical difficulties. Please try again later, or try to head back to the <a href="{% url 'landing' %}">home page</a>.</p>
+  </div>
+</section>
+
+
+<section class="container">
+  <h2 class="page-section-header"><a href="http://www.texastribune.org/education/public-education/">Latest public education stories in The Texas Tribune</a></h2>
+  <div class="row" id="js-story-box"></div>
+</section>
+
+{% endblock content %}
