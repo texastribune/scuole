@@ -33,6 +33,13 @@ class Typeahead {
     this.ul.addEventListener('mousedown', (event) => {
       event.preventDefault()
     })
+
+    document.addEventListener('touchend', (event) => {
+      if (event.target !== this.container && !this.container.contains(event.target)) {
+        this.close()
+        document.activeElement.blur()
+      }
+    })
   }
 
   isValidLength () {

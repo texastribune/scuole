@@ -35,6 +35,14 @@
   }
 }
 
+.page-section-header--smaller {
+  @include font-size(18);
+
+  @include mq($from: mobile) {
+    @include font-size(20);
+  }
+}
+
 .page-section-subheader {
   @include font-size(18);
   font-family: $font-soleil;
