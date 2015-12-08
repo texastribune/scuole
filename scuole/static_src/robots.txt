@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /search/
+Disallow: /lookup/
+Disallow: /redirect/

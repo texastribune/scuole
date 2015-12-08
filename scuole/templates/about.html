@@ -2,25 +2,110 @@
 
 {% block meta %}{% include "includes/meta.html" with title="About" %}{% endblock meta %}
 
-{% block title %}About{% endblock title %}
+{% block title %}About the Data{% endblock title %}
 
 {% block content %}
 
-<section class="section about">
+<header class="page-header">
+  <h1 class="page-headline">About the Data</h1>
+</header>
 
-<h1 class="page-headline" style="margin-bottom: 40px;">About the Data</h1>
+<section class="row section">
 
-<h2 class="page-section-header">Where does the data come from?</h2>
+<div class="about-content">
+<h2 class="page-section-header" id="where-data">Where does the data come from?</h2>
 
 <div class="page-prose">
-  <p>The majority of the data found on this app is downloaded from the Texas Education Agency’s annual <a href="http://ritter.tea.state.tx.us/perfreport/tapr/2015/xplore/DownloadSelData.html">Texas Academic Performance Report</a>.</p>
+  <p>Most of the data is sourced from the Texas Education Agency’s annual <a href="http://ritter.tea.state.tx.us/perfreport/tapr/2015/xplore/DownloadSelData.html">Texas Academic Performance Report</a>. We report all data as it’s reported and labeled by the TEA unless otherwise specified.</p>
 
-  <p>The TEA provides <a href="http://ritter.tea.state.tx.us/perfreport/tapr/2015/xplore/taprref.html">master reference</a> tables where the raw data can be referenced against keys that we use to label our sections.</p>
+  <p>We also use <a href="http://tea.texas.gov/Texas_Schools/General_Information/School_District_Locator/Data_Download/">TEA’s geographic data</a> to map districts and campuses. Please note that the district’s shapefiles are approximate and should be used for general information, not for determining district affiliation.</p>
 
-  <p>We also used TEA’s shape data to map districts and campuses which can be found <a href="http://tea.texas.gov/Texas_Schools/General_Information/School_District_Locator/Data_Download/">here</a>. Note that the district shapefiles are approximate and should be used for general information, not for determining district affiliation.</p>
-
-  <p>Superintendents, principals, and campus and district contact information are pulled from <a href="http://mansfield.tea.state.tx.us/tea.askted.web/Forms/Home.aspx">AskTED</a>.</p>
+  <p>Superintendents, principals, and campus and district contact are provided via <a href="http://mansfield.tea.state.tx.us/tea.askted.web/Forms/Home.aspx">AskTED</a>.</p>
 </div>
+
+<h2 class="page-section-header" id="can-i-download">Can I download it?</h2>
+
+<div class="page-prose">
+  <p>Sure! <a href="http://ritter.tea.state.tx.us/perfreport/tapr/2015/xplore/DownloadSelData.html">TEA has its own download page</a>.</p>
+
+  <!-- We can make our files public as soon as the repo's public! -->
+
+  <!-- <p>You can also download <a href="https://github.com/texastribune/scuole-data">our files</a>. We split them up into staff and student information, post-secondary readiness and reference. They are available in CSV format.</p> -->
+</div>
+
+<h2 class="page-section-header" id="at-risk">What does “at risk” mean?</h2>
+
+<div class="page-prose">
+  <p>TEA presents “at risk” as the percentage of students identified as being at risk of dropping out of school. According to the <a href="http://ritter.tea.state.tx.us/perfreport/tapr/2015/glossary.pdf">TAPR 2014-2015 glossary</a>:</p>
+
+  <div class="tea-pullout">
+    <p>State law defines a student as being at risk of dropping out of school if he or she is under 26 years of age and:</p>
+    <ul>
+      <li>Was not advanced from one grade level to the next for one or more school years;</li>
+      <li>Is in grades 7, 8, 9, 10, 11, or 12 and did not maintain an average equivalent to 70 on a scale of 100 in two or more subjects in the foundation curriculum during a semester in the preceding or current school year, or is not maintaining such an average in two or more subjects in the foundation curriculum in the current semester</li>
+      <li>Did not perform satisfactorily on an assessment instrument administered to the student under Texas Education Code Subchapter B, Chapter 39, and has not in the previous or current school year subsequently performed on that instrument or another appropriate instrument at a level equal to at least 110 percent of the level of satisfactory performance on that instrument</li>
+      <li>Is in pre-kindergarten, kindergarten or grades 1, 2, or 3 and did not perform satisfactorily on a readiness test or assessment instrument administered during the current school year</li>
+      <li>Is pregnant or is a parent</li>
+      <li>Has been placed in an alternative education program in accordance with TEC §37.006 during the preceding or current school year</li>
+      <li>Has been expelled in accordance with Texas Education Code Section 37.007 during the preceding or current school year</li>
+      <li>Is currently on parole, probation, deferred prosecution, or other conditional release</li>
+      <li>Was previously reported through the Public Education Information Management System to have dropped out of school</li>
+      <li>Is a student of limited English proficiency, as defined by Texas Education Code Section 29.052;</li>
+      <li>Is in the custody or care of the Department of Protective and Regulatory Services or has, during the current school year, been referred to the department by a school official, officer of the juvenile court, or law enforcement official;</li>
+      <li>Is homeless, as defined by 42 U.S. Code Section 11302, and its subsequent amendments</li>
+      <li>Resided in the preceding school year or resides in the current school year in a residential placement facility in the district, including a detention facility, substance abuse treatment facility, emergency shelter, psychiatric hospital, halfway house, or foster group home.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="page-section-header" id="masked">What does “Masked” mean?</h2>
+
+<div class="page-prose">
+  <p>Some statistics are hidden by TEA because it could make it possible to identify a student. <a href="http://ritter.tea.state.tx.us/perfreport/tapr/2015/masking.html">Learn more about the Texas Academic Performance Report’s masking rules here</a>.</p>
+</div>
+
+<h2 class="page-section-header" id="college-ready">What is a “college-ready graduate?”</h2>
+
+<div class="page-prose">
+  <p>College-ready graduates are defined by the TEA as the percentage of graduates who meet or exceed the college-ready criteria on the TAKS exit-level test, the SAT test or the ACT test. Criteria for each are as follows:</p>
+
+  <p><strong>English</strong></p>
+  <p>To meet the college-ready criteria for English/language arts, a student must receive at least a score of 2200 on the English/Language Arts exit-level TAKS test and a “3” or higher on the essay, or at least a 500 on critical reading and at least 1070 total on the SAT or at least a 19 on English and at least a 23 composite score on the ACT.</p>
+
+  <p><strong>Math</strong></p>
+  <p>To meet the college-ready criteria for math, a student must receive at least a 2200 scale score on the exit-level TAKS mathematics test, or at least 500 on math and at least 1070 total on the SAT or at least 19 on math and at least a 23 composite score on the ACT.</p>
+</div>
+
+<h2 class="page-section-header" id="four-year-grad">How is a four-year graduation rate defined?</h2>
+
+<div class="page-prose">
+  <p>TEA refers to a four-year graduation rate as a four-year longitudinal rate. This measures the  status of a group of students, or cohort, after four years in high school. For this rate, the cohort consists of students who first attended ninth grade in 2010–11. They are followed through their expected graduation with the Class of 2014.</p>
+
+  <p>The four-year-graduation rate as reported in the Texas Public Schools Explorer is the percentage of students who received their high school diploma on time (in four years) or earlier —by Aug. 31, 2014, for the 2010–11 cohort.</p>
+</div>
+
+<h2 class="page-section-header" id="why">Why did you make this?</h2>
+
+<div class="page-prose">
+  <p>The TEA collects hundreds of metrics about schools, but they are not always very accessible. We created the Texas Public Schools Explorer to make it easier for parents and others to learn more about Texas public schools. We surveyed our readers, parents and other interested parties to learn more about what you’re looking for, and we incorporated that feedback into what you see here.</p>
+
+  <p>Did we miss anything? Have more questions? Let us know!</p>
+  <p><a href="mailto:schools-feedback@texastribune.org">schools-feedback@texastribune.org</a></p>
+</div>
+
+</div>
+
+<nav class="about-menu" id="about-menu">
+  <ul class="about-menu__list">
+    <li class="about-menu__item"><a href="#where-data">Where does the data come from?</a></li>
+    <li class="about-menu__item"><a href="#can-i-download">Can I download it?</a></li>
+    <li class="about-menu__item"><a href="#at-risk">What does “at risk” mean?</a></li>
+    <li class="about-menu__item"><a href="#masked">What does “Masked” mean?</a></li>
+    <li class="about-menu__item"><a href="#college-ready">What is a “college-ready graduate?”</a></li>
+    <li class="about-menu__item"><a href="#four-year-grad">How is a four-year graduation rate defined?</a></li>
+    <li class="about-menu__item"><a href="#why">Why did you make this?</a></li>
+  </ul>
+</nav>
 
 </section>
 

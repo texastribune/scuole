@@ -65,13 +65,17 @@
   <h3 class="card-title">Website</h3>
   <p class="card-text card-website">{{ campus.website|urlize }}</p>
   {% endif %}
+  {% if campus.street and campus.location and campus.zip_code %}
   <h3 class="card-title">{% trans "Address" %}</h3>
   <address class="card-address">
     {{ campus.street|title }}<br>
     {{ campus.location }} {{ campus.zip_code }}
   </address>
+  {% endif %}
+  {% if campus.phone_number %}
   <h3 class="card-title">{% trans "Office phone number" %}</h3>
   <p class="card-text"><span class="icon-phone"></span> <a href="tel://{{ campus.phone_number }}">{{ campus.phone_number }}</a></p>
+  {% endif %}
   </div>
   <div class="col-6">
   {% if campus.principals.all %}
