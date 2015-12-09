@@ -41,8 +41,8 @@
   {% endif %}
 
   {% if campus.is_secondary_school %}
-  {% if stat.avg_sat_score_all_students %}The average SAT score at {{ campus.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>.{% endif %}
-  {% if stat.avg_act_score_all_students %}The average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>.{% endif %}
+  {% if stat.avg_sat_score_all_students >= 0 %}The average SAT score at {{ campus.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>.{% endif %}
+  {% if stat.avg_act_score_all_students >= 0 %}The average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>.{% endif %}
   {% endif %}
 
   {% if stat.four_year_graduate_all_students_percent and stat.four_year_graduate_all_students_percent >= 0 %}
