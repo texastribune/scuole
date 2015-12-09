@@ -35,11 +35,11 @@
   On average, teachers had <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.
   {% endif %}
 
-  {% if stat.avg_sad_score_all_students %}
+  {% if stat.avg_sat_score_all_students >= 0 %}
   The average SAT score at {{ district.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>.
   {% endif %}
 
-  {% if stat.avg_act_score_all_students %}
+  {% if stat.avg_act_score_all_students >= 0 %}
   The average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>.
   {% endif %}
 
