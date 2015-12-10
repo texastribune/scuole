@@ -219,12 +219,17 @@ class Command(BaseCommand):
                 Count('slug')).order_by().filter(slug__count__gt=1)
             slugs = [i['slug'] for i in models]
 
-            campuses = district.campuses.filter(slug__in=slugs)
+            campuses = district.campuses.filter(
+                slug__in=slugs).order_by('tea_id')
+
+            count = 0
 
             for campus in campuses:
-                campus.slug = '{0}-{1}-{2}'.format(
-                    campus.slug, campus.low_grade, campus.high_grade)
-                campus.save()
+                count = count + 1
+                if count >= 2:
+                    campus.slug = '{0}-{1}'.format(
+                        campus.slug, count)
+                    campus.save()
 
     def load_principals(self, campus, principals):
         for principal in principals:
