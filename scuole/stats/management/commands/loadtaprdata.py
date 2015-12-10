@@ -19,10 +19,13 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('year', nargs='?', type=str, default=None)
+        parser.add_argument('--bulk', action='store_true')
 
     def handle(self, *args, **options):
         if options['year'] is None:
             raise CommandError('A year is required.')
+
+        self.use_bulk = options['bulk']
 
         # get the base TAPR folder
         tapr_folder = os.path.join(settings.DATA_FOLDER, 'tapr')
@@ -41,6 +44,25 @@ class Command(BaseCommand):
 
         self.load_data()
 
+    def data_list_joiner(self, key, lists):
+        output = {}
+
+        if key:
+            all_lists = sum(lists, [])
+
+            for item in all_lists:
+                if item[key] in output:
+                    output[item[key]].update(item)
+                else:
+                    output[item[key]] = item
+        else:
+            output['STATE'] = {}
+
+            for d in lists:
+                output['STATE'].update(d[0])
+
+        return [i for (_, i) in output.items()]
+
     def get_model_instance(self, name, identifier, instance):
         if name == 'state':
             return State.objects.get(name='TX')
@@ -57,103 +79,90 @@ class Command(BaseCommand):
         return model
 
     def load_data(self):
+        file_names = ['{}.csv'.format(
+            schema) for (schema, _) in SCHEMA.items()]
+
+        no_reference_file = ('state', 'region')
+
         for m in MAPPING:
             name = m['folder']
             id_match = m['identifier']
             active_model = m['model']
             stats_model = m['stats_model']
 
-            # Loop through all the field mappings
-            for schema, values in SCHEMA.items():
-                file_name = '{}.csv'.format(schema)
-                if schema == 'reference' and (name not in (
-                        'campus', 'district')):
-                    continue
+            data = []
 
+            for file_name in file_names:
+                if name in no_reference_file and file_name == 'reference.csv':
+                    continue
                 data_file = os.path.join(self.year_folder, name, file_name)
 
                 with open(data_file, 'rU') as f:
                     reader = csv.DictReader(f)
+                    data.append([i for i in reader])
 
-                    for row in reader:
-                        identifier = row[id_match] if id_match else None
+            if self.use_bulk:
+                bulk_list = []
 
-                        model = self.get_model_instance(
-                            name, identifier, active_model)
+            for row in self.data_list_joiner(id_match, data):
+                identifier = row[id_match] if id_match else None
 
-                        if not model:
-                            continue
+                model = self.get_model_instance(
+                    name, identifier, active_model)
 
-                        payload = {
-                            'year': self.school_year,
-                            'defaults': {}
-                        }
+                if not model:
+                    continue
 
-                        payload[name] = model
+                payload = {
+                    'year': self.school_year,
+                    'defaults': {}
+                }
 
-                        self.stdout.write(model.name)
+                payload[name] = model
 
-                        if schema == 'staff-and-student-information':
-                            payload['defaults'].update(
-                                self.load_staff_students(
-                                    m['short_code'], values, row))
-                        if schema == ('postsecondary-readiness-and-'
-                                      'non-staar-performance-indicators'):
-                            payload['defaults'].update(
-                                self.load_postsecondary_readiness(
-                                    m['short_code'], values, row))
-                        if schema == 'reference':
-                            payload['defaults'].update(
-                                self.load_reference(
-                                    m['short_code'], values, row))
+                self.stdout.write(model.name)
 
-                        stats_model.objects.update_or_create(**payload)
+                for schema_type, schema in SCHEMA.items():
+                    if (name in no_reference_file
+                            and schema_type == 'reference'):
+                        continue
+                    payload['defaults'].update(self.prepare_row(
+                        m['short_code'], schema_type, schema, row))
 
-    def load_staff_students(self, short_code, schema, row):
-        payload = {}
+                if not self.use_bulk:
+                    stats_model.objects.update_or_create(**payload)
+                else:
+                    new_payload = payload['defaults']
+                    new_payload['year'] = payload['year']
+                    new_payload[name] = payload[name]
 
-        for field, code in schema.items():
-            datum = row[short_code + code]
+                    bulk_list.append(stats_model(**new_payload))
 
-            if datum == '.':
-                datum = None
+            stats_model.objects.bulk_create(bulk_list)
 
-            payload[field] = datum
-
-        return payload
-
-    def load_postsecondary_readiness(self, short_code, schema, row):
+    def prepare_row(self, short_code, schema_type, schema, row):
         payload = {}
 
         short_year = self.school_year.name.split('-')[0][2:]
 
         for field, code in schema.items():
-            if 'count' in field:
-                suffix = 'D'
-            elif 'percent' in field or 'rate' in field or 'avg' in field:
-                suffix = 'R'
+            if schema_type == ('postsecondary-readiness-and-'
+                               'non-staar-performance-indicators'):
+                if 'count' in field:
+                    suffix = 'D'
+                elif 'percent' in field or 'rate' in field or 'avg' in field:
+                    suffix = 'R'
 
-            if 'four_year_graduate' in field and (
-                    short_code == 'S' or short_code == 'R'):
-                code = code[:-1]
+                if 'four_year_graduate' in field and (
+                        short_code == 'S' or short_code == 'R'):
+                    code = code[:-1]
 
-            if 'four_year_graduate' in field and 'count' in field:
-                suffix = 'N'
+                if 'four_year_graduate' in field and 'count' in field:
+                    suffix = 'N'
 
-            datum = row[short_code + code + short_year + suffix]
-
-            if datum == '.':
-                datum = None
-
-            payload[field] = datum
-
-        return payload
-
-    def load_reference(self, short_code, schema, row):
-        payload = {}
-
-        for field, code in schema.items():
-            datum = row[short_code + code]
+                datum = row[short_code + code + short_year + suffix]
+            else:
+                datum = row[short_code + code]
 
             if datum == '.':
                 datum = None
