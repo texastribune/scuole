@@ -1,13 +1,14 @@
+import classie from 'desandro-classie'
 import forEach from 'lodash/collection/each'
 
 module.exports = (elementList, activeElement, activeClass, inactiveClass) => {
   forEach(elementList, function (el) {
     if (el === activeElement) {
-      el.classList.remove(inactiveClass)
-      el.classList.add(activeClass)
+      classie.remove(el, inactiveClass)
+      classie.add(el, activeClass)
     } else {
-      el.classList.remove(activeClass)
-      el.classList.add(inactiveClass)
+      classie.remove(el, activeClass)
+      classie.add(el, inactiveClass)
     }
   })
 }

@@ -1,5 +1,7 @@
 {% extends 'standard.html' %}{% load i18n %}
 
+{% block meta %}{% include "includes/meta.html" with title="School Districts" %}{% endblock meta %}
+
 {% block title %}{% trans "School Districts" %}{% endblock title %}
 
 {% block breadcrumbs %}
@@ -28,7 +30,7 @@
   {% for district in district_list %}
     <tr>
       <td><a href="{{ district.get_absolute_url }}">{{ district.name }}</a></td>
-      <td>{{ district.location }}</td>
+      <td>{{ district.location|default:"Not provided" }}</td>
     </tr>
   {% endfor %}
   </tbody>

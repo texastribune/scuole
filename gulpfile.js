@@ -48,6 +48,18 @@ gulp.task('favicon', function () {
     .pipe($.size({title: 'favicon'}))
 })
 
+gulp.task('robots', function () {
+  return gulp.src('./scuole/static_src/robots.txt')
+    .pipe(gulp.dest('./scuole/static'))
+    .pipe($.size({title: 'robots'}))
+})
+
+gulp.task('sitemap', function () {
+  return gulp.src('./scuole/static_src/sitemap.xml')
+    .pipe(gulp.dest('./scuole/static'))
+    .pipe($.size({title: 'sitemap'}))
+})
+
 gulp.task('serve', ['styles', 'images', 'fonts', 'favicon'], function () {
   bs.init({
     logConnections: true,
@@ -61,6 +73,6 @@ gulp.task('serve', ['styles', 'images', 'fonts', 'favicon'], function () {
   gulp.watch('./scuole/static_src/scss/**/*.scss', ['styles'])
 })
 
-gulp.task('build', ['styles', 'images', 'fonts', 'favicon'])
+gulp.task('build', ['styles', 'images', 'fonts', 'favicon', 'robots', 'sitemap'])
 
 gulp.task('default', ['build'])

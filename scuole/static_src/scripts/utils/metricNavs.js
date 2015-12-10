@@ -1,3 +1,4 @@
+import classie from 'desandro-classie'
 import forEach from 'lodash/collection/each'
 import findOne from 'lodash/collection/find'
 import scrollMonitor from 'scrollmonitor'
@@ -13,25 +14,25 @@ let metricSectionWatcher = scrollMonitor.create(metricSection, {
 
 metricSectionWatcher.partiallyExitViewport(function () {
   if (this.isAboveViewport) {
-    metricNav.classList.remove('attach-to-top')
-    metricNav.classList.add('attach-to-bottom')
+    classie.remove(metricNav, 'attach-to-top')
+    classie.add(metricNav, 'attach-to-bottom')
   }
 
   if (this.isBelowViewport) {
-    metricNav.classList.remove('attach-to-top')
+    classie.remove(metricNav, 'attach-to-top')
   }
 })
 
 metricSectionWatcher.enterViewport(function () {
   if (this.isAboveViewport) {
-    metricNav.classList.remove('attach-to-top')
-    metricNav.classList.add('attach-to-bottom')
+    classie.remove(metricNav, 'attach-to-top')
+    classie.add(metricNav, 'attach-to-bottom')
   }
 })
 
 metricSectionWatcher.fullyEnterViewport(function () {
-  metricNav.classList.remove('attach-to-bottom')
-  metricNav.classList.add('attach-to-top')
+  classie.remove(metricNav, 'attach-to-bottom')
+  classie.add(metricNav, 'attach-to-top')
 })
 
 let metricJumpers = document.querySelectorAll('.js-metric-jumper')

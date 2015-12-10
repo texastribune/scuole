@@ -4,6 +4,7 @@ var webpack = require('webpack')
 module.exports = {
   context: path.join(__dirname, 'scuole/static_src/scripts'),
   entry: {
+    // about: './about.js',
     campus: './campus.js',
     district: './district.js',
     state: './state.js',

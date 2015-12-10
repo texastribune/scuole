@@ -1,3 +1,4 @@
+import classie from 'desandro-classie'
 import debounce from 'lodash/function/debounce'
 import forEach from 'lodash/collection/each'
 import reqwest from 'reqwest'
@@ -12,13 +13,15 @@ class Typeahead {
 
     // create a container for typeahead, put input inside of it
     this.container = document.createElement('div')
-    this.container.classList.add('typeahead')
+    classie.add(this.container, 'typeahead')
     this.input.parentNode.insertBefore(this.container, this.input)
     this.container.appendChild(this.input)
 
     // create <ul> for options, add to typeahead container
     this.ul = document.createElement('ul')
-    this.ul.classList.add('listbox', 'listbox--hidden')
+
+    classie.add(this.ul, 'listbox')
+    classie.add(this.ul, 'listbox--hidden')
     this.container.appendChild(this.ul)
 
     // events
@@ -29,6 +32,13 @@ class Typeahead {
     // do not let blur event fire if someone is clicking
     this.ul.addEventListener('mousedown', (event) => {
       event.preventDefault()
+    })
+
+    document.addEventListener('touchend', (event) => {
+      if (event.target !== this.container && !this.container.contains(event.target)) {
+        this.close()
+        document.activeElement.blur()
+      }
     })
   }
 
@@ -77,11 +87,11 @@ class Typeahead {
   }
 
   open () {
-    this.ul.classList.remove('listbox--hidden')
+    classie.remove(this.ul, 'listbox--hidden')
   }
 
   close () {
-    this.ul.classList.add('listbox--hidden')
+    classie.add(this.ul, 'listbox--hidden')
     this.index = -1
   }
 
@@ -105,13 +115,13 @@ class Typeahead {
     let lis = this.ul.children
 
     if (this.index > -1) {
-      lis[this.index].classList.remove('listbox--selected')
+      classie.remove(lis[this.index], 'listbox--selected')
     }
 
     if (i > -1 && lis.length > 0) {
       let li = lis[i]
-      li.classList.add('listbox--selected')
-      li.scrollIntoView(false)
+      classie.add(li, 'listbox--selected')
+      li.parentNode.scrollTop = li.offsetTop
 
       this.index = i
     }

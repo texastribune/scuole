@@ -36,6 +36,17 @@ docker/build-static:
 		--file Dockerfile.assets \
 		.
 
+docker/interactive:
+	@echo "Running interactive mode..."
+	@docker run \
+		--name ${APP}-interactive \
+		--interactive \
+		--tty \
+		--rm \
+		--entrypoint=/bin/bash \
+		--env-file=env-docker \
+		${APP}
+
 docker/run:
 	@echo "Running app..."
 	-@docker stop ${APP} && docker rm -v ${APP}

@@ -21,6 +21,12 @@ class State(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('states:detail', kwargs={
+            'slug': self.slug,
+        })
+
 
 @python_2_unicode_compatible
 class StateStats(StatsBase):

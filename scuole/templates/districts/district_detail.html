@@ -1,5 +1,7 @@
 {% extends 'standard.html' %}{% load humanize i18n stats_tags %}{% load static from staticfiles %}
 
+{% block meta %}{% include "includes/meta.html" with title=district.name %}{% endblock meta %}
+
 {% block title %}{{ district.name }}{% endblock title %}
 
 {% block extra_content %}
@@ -33,19 +35,19 @@
   On average, teachers had <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.
   {% endif %}
 
-  {% if stat.avg_sad_score_all_students %}
+  {% if stat.avg_sat_score_all_students >= 0 %}
   The average SAT score at {{ district.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>.
   {% endif %}
 
-  {% if stat.avg_act_score_all_students %}
+  {% if stat.avg_act_score_all_students >= 0 %}
   The average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>.
   {% endif %}
 
-  {% if stat.four_year_graduate_all_students_percent %}
+  {% if stat.four_year_graduate_all_students_percent and stat.four_year_graduate_all_students_percent >= 0 %}
   In the {{ stat.year.name }} class, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diplomas on time or earlier.
   {% endif %}
 
-  {% if stat.dropout_all_students_percent %}
+  {% if stat.dropout_all_students_percent and stat.dropout_all_students_percent >= 0 %}
   The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.{% endif %}</p>
 </section>
 </div>
@@ -54,18 +56,28 @@
 
 <section class="card">
   <h2 class="card-header">Contact information</h2>
-  {% if district.website %}
-  <h3 class="card-title">Website</h3>
-  <p class="card-text card-website">{{ district.website|urlize }}</p>
-  {% endif %}
-  {% if district.superintendent_of %}
-  <h3 class="card-title">{{ district.superintendent_of.role }}</h3>
-  <ul class="card-list">
-    <li class="card-list-item">{{ district.superintendent_of.name }}</li>
-    <li class="card-list-item">{{ district.superintendent_of.email|urlize }}</li>
-    <li class="card-list-item"><a href="tel://{{ principal.phone_number }}">{{ district.superintendent_of.phone_number }}</a></li>
-  </ul>
-{% endif %}
+  <div class="row">
+    {% if district.website %}
+    <div class="col-6">
+      <h3 class="card-title">Website</h3>
+      <p class="card-text card-website">{{ district.website|urlize }}</p>
+    </div>
+    {% endif %}
+    {% if district.superintendent_of %}
+    <div class="col-6">
+      <h3 class="card-title">{{ district.superintendent_of.role }}</h3>
+      <ul class="card-list">
+        <li class="card-list-item">{{ district.superintendent_of.name }}</li>
+        {% if district.superintendent_of.email %}
+        <li class="card-list-item card-website">{{ district.superintendent_of.email|urlize }}</li>
+        {% endif %}
+        {% if district.superintendent_of.phone_number %}
+        <li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ district.superintendent_of.phone_number }}">{{ district.superintendent_of.phone_number }}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
 </section>
 
 <a class="btn btn-link btn-block" href="#campuses">View Campus List</a>

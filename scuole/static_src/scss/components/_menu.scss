@@ -7,11 +7,17 @@
 }
 
 .menu-bar__item {
-  @include create-column(6);
+  @include create-column(12);
   margin-bottom: $gutter-half;
   text-align: center;
 
-  @include mq($from: tablet) {
+  @include mq($from: menu-stack-break) {
     @include create-column(4);
+  }
+}
+
+.menu-bar__text {
+  @include mq($until: menu-label-break) {
+    @include visuallyhidden;
   }
 }

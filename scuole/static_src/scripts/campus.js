@@ -12,7 +12,9 @@ function initialize () {
   var mapOptions = {
     center: latlng,
     zoom: 14,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    draggable: false,
+    scrollwheel: false
   }
 
   var map = new google.maps.Map(mapCanvas, mapOptions)
@@ -21,6 +23,13 @@ function initialize () {
     map: map,
     animation: google.maps.Animation.DROP,
     position: latlng
+  })
+
+  mapCanvas.addEventListener('click', () => {
+    map.setOptions({
+      draggable: true,
+      scrollwheel: true
+    })
   })
 }
 
