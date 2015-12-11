@@ -23,6 +23,10 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.8/topics/db/transactions/#tying-transactions-to-http-requests
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
+# https://docs.djangoproject.com/en/1.9/ref/databases/#persistent-connections
+# https://docs.djangoproject.com/en/1.9/ref/settings/#std:setting-CONN_MAX_AGE
+DATABASES['default']['CONN_MAX_AGE'] = 60
+
 #######################
 # CACHE CONFIGURATION #
 #######################
