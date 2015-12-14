@@ -37,4 +37,20 @@
     {% include 'includes/metric.html' with title="11 to 20 years" field="teacher_avg_11_to_20_year_salary" field_type="dollars" %}
     {% include 'includes/metric.html' with title="20+ years" field="teacher_avg_20_plus_year_salary" field_type="dollars" %}
   </section>
+
+  <h3 class="page-section-subheader">Teacher Ethnicities</h3>
+
+  <section class="page-prose">
+    <p>The count of teacher full time equivalents by ethnic group. Counts are expressed as a percentage of the total teacher full time equivalents.</p>
+  </section>
+
+    <section class="row metrics">
+    {% include 'includes/metric.html' with title="Total" field="teacher_total_fte_count" field_type="number" skip_district_state=True full_row=True bigger_value=True %}
+    {% include 'includes/metric.html' with title="African American" field="teacher_african_american_count" field_type="number" extra_field="teacher_african_american_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="American Indian" field="teacher_american_indian_count" field_type="number" extra_field="teacher_american_indian_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="Asian" field="teacher_asian_count" field_type="number" extra_field="teacher_asian_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="Hispanic" field="teacher_hispanic_count" field_type="number" extra_field="teacher_hispanic_percent" extra_field_type="percent" use_extra_for_context=True %}    {% include 'includes/metric.html' with title="Pacific Islander" field="teacher_pacific_islander_count" field_type="number" extra_field="teacher_pacific_islander_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="White" field="teacher_white_count" field_type="number" extra_field="teacher_white_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="Two or more races" field="teacher_two_or_more_races_count" field_type="number" extra_field="teacher_two_or_more_races_percent" extra_field_type="percent" use_extra_for_context=True %}
+  </section>
 </section>

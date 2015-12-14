@@ -196,34 +196,38 @@ class StaffStudentBase(models.Model):
         'Average salary for teachers with over 20 years experience',
         max_digits=10, decimal_places=2, null=True, blank=True)
 
-    teacher_african_american_count = models.FloatField(
+    teacher_total_fte_count = models.FloatField(
+        'Number of full time equivalent teachers', null=True, blank=True)
+    teacher_african_american_fte_count = models.FloatField(
         'Number of African American teachers', null=True, blank=True)
-    teacher_american_indian_count = models.FloatField(
+    teacher_american_indian_fte_count = models.FloatField(
         'Number of American Indian teachers', null=True, blank=True)
-    teacher_asian_count = models.FloatField(
+    teacher_asian_fte_count = models.FloatField(
         'Number of Asian teachers', null=True, blank=True)
-    teacher_hispanic_count = models.FloatField(
+    teacher_hispanic_fte_count = models.FloatField(
         'Number of Hispanic teachers', null=True, blank=True)
-    teacher_pacific_islander_count = models.FloatField(
+    teacher_pacific_islander_fte_count = models.FloatField(
         'Number of Pacific Islander teachers', null=True, blank=True)
-    teacher_two_or_more_races_count = models.FloatField(
+    teacher_two_or_more_races_fte_count = models.FloatField(
         'Number of teachers of two or more races', null=True, blank=True)
-    teacher_white_count = models.FloatField(
+    teacher_white_fte_count = models.FloatField(
         'Number of white teachers', null=True, blank=True)
 
-    teacher_african_american_percent = models.FloatField(
+    teacher_total_fte_percent = models.FloatField(
+        'Percent of full time equivalent teachers', null=True, blank=True)
+    teacher_african_american_fte_percent = models.FloatField(
         'Percent of African American teachers', null=True, blank=True)
-    teacher_american_indian_percent = models.FloatField(
+    teacher_american_indian_fte_percent = models.FloatField(
         'Percent of American Indian teachers', null=True, blank=True)
-    teacher_asian_percent = models.FloatField(
+    teacher_asian_fte_percent = models.FloatField(
         'Percent of Asian teachers', null=True, blank=True)
-    teacher_hispanic_percent = models.FloatField(
+    teacher_hispanic_fte_percent = models.FloatField(
         'Percent of Hispanic teachers', null=True, blank=True)
-    teacher_pacific_islander_percent = models.FloatField(
+    teacher_pacific_islander_fte_percent = models.FloatField(
         'Percent of Pacific Islander teachers', null=True, blank=True)
-    teacher_two_or_more_races_percent = models.FloatField(
+    teacher_two_or_more_races_fte_percent = models.FloatField(
         'Percent of teachers of two or more races', null=True, blank=True)
-    teacher_white_percent = models.FloatField(
+    teacher_white_fte_percent = models.FloatField(
         'Percent of white teachers', null=True, blank=True)
 
     teacher_no_degree_count = models.FloatField(
