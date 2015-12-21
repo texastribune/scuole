@@ -3,6 +3,35 @@
 <section class="section js-metrics-block" id="staff">
   <h2 class="page-section-header js-metrics-header">Staff</h2>
 
+  <h3 class="page-section-subheader">Teacher ethnicities</h3>
+
+  <section class="page-prose">
+    <p>Counts are expressed as a percentage of the total teacher <a href="{% url 'about' %}#fte">full-time equivalent</a>.</p>
+  </section>
+
+    <section class="row metrics">
+    {% include 'includes/metric.html' with title="Total" field="teacher_total_fte_count" field_type="number" skip_district_state=True full_row=True bigger_value=True %}
+    {% include 'includes/metric.html' with title="African American" field="teacher_african_american_fte_count" field_type="number" extra_field="teacher_african_american_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="American Indian" field="teacher_american_indian_fte_count" field_type="number" extra_field="teacher_american_indian_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="Asian" field="teacher_asian_fte_count" field_type="number" extra_field="teacher_asian_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="Hispanic" field="teacher_hispanic_fte_count" field_type="number" extra_field="teacher_hispanic_fte_percent" extra_field_type="percent" use_extra_for_context=True %}    {% include 'includes/metric.html' with title="Pacific Islander" field="teacher_pacific_islander_fte_count" field_type="number" extra_field="teacher_pacific_islander_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="White" field="teacher_white_fte_count" field_type="number" extra_field="teacher_white_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="Two or more races" field="teacher_two_or_more_races_fte_count" field_type="number" extra_field="teacher_two_or_more_races_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
+  </section>
+
+  <h3 class="page-section-subheader">Teacher highest degree held</h3>
+
+  <section class="page-prose">
+    <p>Counts are expressed as a percentage of the total teacher <a href="{% url 'about' %}#fte">full-time equivalent</a>. </p>
+  </section>
+
+  <section class="row metrics">
+    {% include 'includes/metric.html' with title="No degree" field="teacher_no_degree_count" field_type="number" extra_field="teacher_no_degree_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="Bachelor's" field="teacher_bachelors_count" field_type="number" extra_field="teacher_bachelors_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="Master's" field="teacher_masters_count" field_type="number" extra_field="teacher_masters_percent" extra_field_type="percent" use_extra_for_context=True %}
+    {% include 'includes/metric.html' with title="Doctorate" field="teacher_doctorate_count" field_type="number" extra_field="teacher_doctorate_percent" extra_field_type="percent" use_extra_for_context=True %}
+  </section>
+
   <h3 class="page-section-subheader">Students per teacher</h3>
 
   <section class="page-prose">
@@ -37,33 +66,4 @@
     {% include 'includes/metric.html' with title="11 to 20 years" field="teacher_avg_11_to_20_year_salary" field_type="dollars" %}
     {% include 'includes/metric.html' with title="20+ years" field="teacher_avg_20_plus_year_salary" field_type="dollars" %}
   </section>
-
-  <h3 class="page-section-subheader">Teacher ethnicities</h3>
-
-  <section class="page-prose">
-    <p>Counts are expressed as a percentage of the total teacher <a href="{% url 'about' %}#fte">full-time equivalent</a>.</p>
-  </section>
-
-    <section class="row metrics">
-    {% include 'includes/metric.html' with title="Total" field="teacher_total_fte_count" field_type="number" skip_district_state=True full_row=True bigger_value=True %}
-    {% include 'includes/metric.html' with title="African American" field="teacher_african_american_fte_count" field_type="number" extra_field="teacher_african_american_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
-    {% include 'includes/metric.html' with title="American Indian" field="teacher_american_indian_fte_count" field_type="number" extra_field="teacher_american_indian_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
-    {% include 'includes/metric.html' with title="Asian" field="teacher_asian_fte_count" field_type="number" extra_field="teacher_asian_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
-    {% include 'includes/metric.html' with title="Hispanic" field="teacher_hispanic_fte_count" field_type="number" extra_field="teacher_hispanic_fte_percent" extra_field_type="percent" use_extra_for_context=True %}    {% include 'includes/metric.html' with title="Pacific Islander" field="teacher_pacific_islander_fte_count" field_type="number" extra_field="teacher_pacific_islander_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
-    {% include 'includes/metric.html' with title="White" field="teacher_white_fte_count" field_type="number" extra_field="teacher_white_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
-    {% include 'includes/metric.html' with title="Two or more races" field="teacher_two_or_more_races_fte_count" field_type="number" extra_field="teacher_two_or_more_races_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
-  </section>
-
-  <h3 class="page-section-subheader">Teacher highest degree held</h3>
-
-  <section class="page-prose">
-    <p>Counts are expressed as a percentage of the total teacher <a href="{% url 'about' %}#fte">full-time equivalent</a>. </p>
-  </section>
-
-  <section class="row metrics">
-      {% include 'includes/metric.html' with title="No degree" field="teacher_no_degree_count" field_type="number" extra_field="teacher_no_degree_percent" extra_field_type="percent" use_extra_for_context=True %}
-      {% include 'includes/metric.html' with title="Bachelors" field="teacher_bachelors_count" field_type="number" extra_field="teacher_bachelors_percent" extra_field_type="percent" use_extra_for_context=True %}
-      {% include 'includes/metric.html' with title="Masters" field="teacher_masters_count" field_type="number" extra_field="teacher_masters_percent" extra_field_type="percent" use_extra_for_context=True %}
-      {% include 'includes/metric.html' with title="Doctorate" field="teacher_doctorate_count" field_type="number" extra_field="teacher_doctorate_percent" extra_field_type="percent" use_extra_for_context=True %}
-    </section>
 </section>
