@@ -1,4 +1,4 @@
-FROM node:5.1
+FROM node:5.4
 
 # Create the folder to work in
 RUN mkdir -p /usr/src/app
