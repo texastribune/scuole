@@ -77,5 +77,6 @@ class Command(BaseCommand):
                 'name': name,
                 'role': commissioner['Role'],
                 'phone_number': commissioner['Phone'],
+                'email': commissioner['Email'],
             }
         )
