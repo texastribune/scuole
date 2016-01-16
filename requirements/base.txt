@@ -1,4 +1,4 @@
-Django==1.9
+Django==1.9.1
 
 dj-database-url==0.3.0
 django-localflavor==1.2
