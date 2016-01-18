@@ -10,7 +10,7 @@
   </section>
 
     <section class="row metrics">
-    {% include 'includes/metric.html' with title="Total" field="teacher_total_fte_count" field_type="number" skip_district_state=True full_row=True bigger_value=True %}
+    {% include 'includes/metric.html' with title="Total teacher FTEs" field="teacher_total_fte_count" field_type="number" skip_district_state=True full_row=True bigger_value=True %}
     {% include 'includes/metric.html' with title="African American" field="teacher_african_american_fte_count" field_type="number" extra_field="teacher_african_american_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
     {% include 'includes/metric.html' with title="American Indian" field="teacher_american_indian_fte_count" field_type="number" extra_field="teacher_american_indian_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
     {% include 'includes/metric.html' with title="Asian" field="teacher_asian_fte_count" field_type="number" extra_field="teacher_asian_fte_percent" extra_field_type="percent" use_extra_for_context=True %}
