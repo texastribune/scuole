@@ -3,7 +3,7 @@
 import map from 'lodash/collection/map'
 import reqwest from 'reqwest'
 
-const FEED_URL = 'http://rsstojson.texastribune.org/public-education'
+const FEED_URL = 'https://rsstojson.texastribune.org/public-education'
 
 function htmlify (data) {
   let content = ''
