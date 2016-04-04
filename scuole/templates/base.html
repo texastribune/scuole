@@ -14,6 +14,19 @@
     googletag.cmd = googletag.cmd || [];
     var BLANK_STORY_IMAGE = '{% static "images/trib-bug.png" %}';
   </script>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "NewsArticle",
+      "headline": "{% block parsely_title %}Home{% endblock parsely_title %} (Public Schools)",
+      "url": "{{ request.build_absolute_uri }}",
+      "thumbnailUrl": "http://schools.texastribune.org{% static 'images/facebook-share.jpg' %}",
+      "dateCreated": "2015-12-08T06:00:00-06:00",
+      "articleSection": "Public Education",
+      "creator": ["Ryan Murphy", "Annie Daniel"],
+      "keywords": ["education", "public schools", "public education"]
+    }
+  </script>
 </head>
 <body class="{% block body_class %}{% endblock body_class %}">
 
@@ -68,5 +81,21 @@
   ga('create', 'UA-9827490-1', 'auto');
   ga('send', 'pageview');
 </script>
+<!-- START Parse.ly Include: Standard -->
+<div id="parsely-root" style="display: none">
+  <span id="parsely-cfg" data-parsely-site="texastribune.org"></span>
+</div>
+<script>
+(function(s, p, d) {
+  var h=d.location.protocol, i=p+"-"+s,
+      e=d.getElementById(i), r=d.getElementById(p+"-root"),
+      u=h==="https:"?"d1z2jf7jlzjs58.cloudfront.net"
+      :"static."+p+".com";
+  if (e) return;
+  e = d.createElement(s); e.id = i; e.async = true;
+  e.src = h+"//"+u+"/p.js"; r.appendChild(e);
+})("script", "parsely", document);
+</script>
+<!-- END Parse.ly Include: Standard -->
 </body>
 </html>
