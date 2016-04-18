@@ -17,6 +17,7 @@
     "webpack": "^1.12.8"
   },
   "dependencies": {
+    "carebot-tracker": "^0.8.0",
     "desandro-classie": "^1.0.1",
     "lodash": "^3.10.1",
     "reqwest": "^2.0.5",
