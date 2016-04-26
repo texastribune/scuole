@@ -152,6 +152,9 @@ CSRF_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/1.8/ref/settings/#x-frame-options
 X_FRAME_OPTIONS = 'DENY'
 
+# https://docs.djangoproject.com/en/1.8/ref/settings/#secure-proxy-ssl-header
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 ########################
 # SENTRY CONFIGURATION #
