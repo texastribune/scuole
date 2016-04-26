@@ -3,7 +3,7 @@
 {% block meta %}{% include "includes/meta.html" with title=campus.name %}{% endblock meta %}
 
 {% block title %}{{ campus.name }}{% endblock title %}
-{% block parsely_title %}{{ campus.name }}{% endblock parsely_title %}
+{% block parsely_title %}{{ campus.name }} - {{ campus.district.name }}{% endblock parsely_title %}
 
 {% block extra_content %}
 {% include "includes/reminder_bar.html" with title=campus.name subtitle=campus.district.name year=stat.year.name %}

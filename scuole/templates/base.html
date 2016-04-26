@@ -17,8 +17,8 @@
   <script type="application/ld+json">
     {
       "@context": "http://schema.org",
-      "@type": "WebPage",
-      "headline": "{% block parsely_title %}Home{% endblock parsely_title %} | Texas Public Schools Explorer | The Texas Tribune",
+      "@type": "NewsArticle",
+      "headline": "{% block parsely_title %}Home{% endblock parsely_title %} (Public Schools)",
       "url": "{{ request.build_absolute_uri }}",
       "thumbnailUrl": "http://schools.texastribune.org{% static 'images/facebook-share.jpg' %}",
       "dateCreated": "2015-12-08T06:00:00-06:00",
@@ -38,7 +38,7 @@
 
 {% block extra_content %}{% endblock %}
 
-<main class="{% block main_class %}{% endblock main_class %}" role="main">
+<main class="{% block main_class %}{% endblock main_class %}" id="main" role="main">
 {% block breadcrumbs %}{% endblock breadcrumbs %}
 {% block content %}{% endblock content %}
 </main>
