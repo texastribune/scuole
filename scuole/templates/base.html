@@ -9,11 +9,8 @@
   <script src="https://use.typekit.net/gbr6cnk.js"></script>
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
   <link rel="stylesheet" href="{% static 'styles/main.css' %}">
-  <script>
-    var googletag = googletag || {};
-    googletag.cmd = googletag.cmd || [];
-    var BLANK_STORY_IMAGE = '{% static "images/trib-bug.png" %}';
-  </script>
+  <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', 'UA-9827490-1', 'auto');ga('send', 'pageview');var googletag = googletag || {};googletag.cmd = googletag.cmd || [];var BLANK_STORY_IMAGE = '{% static "images/trib-bug.png" %}';</script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
   <script type="application/ld+json">
     {
       "@context": "http://schema.org",
@@ -73,14 +70,6 @@
 {% block extra_script %}
 <script src="{% static 'scripts/commons.js' %}"></script>
 {% endblock extra_script %}
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-9827490-1', 'auto');
-  ga('send', 'pageview');
-</script>
 <!-- START Parse.ly Include: Standard -->
 <div id="parsely-root" style="display: none">
   <span id="parsely-cfg" data-parsely-site="texastribune.org"></span>
