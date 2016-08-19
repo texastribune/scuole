@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% block meta %}{% include "includes/meta.html" %}{% endblock meta %}
   <title>{% block title %}{% trans "Home" %}{% endblock title %} | {% trans "Texas Public Schools Explorer" %} | {% trans "The Texas Tribune" %}</title>
+  <link rel="canonical" href="https://schools.texastribune.org{{ request.path }}" />
   <script src="https://use.typekit.net/gbr6cnk.js"></script>
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
   <link rel="stylesheet" href="{% static 'styles/main.css' %}">
@@ -16,7 +17,7 @@
       "@context": "http://schema.org",
       "@type": "{% block schema_type %}NewsArticle{% endblock schema_type %}",
       "headline": "{% block parsely_title %}Home{% endblock parsely_title %} (Public Schools)",
-      "url": "{{ request.build_absolute_uri }}",
+      "url": "https://schools.texastribune.org{{ request.path }}",
       "thumbnailUrl": "http://schools.texastribune.org{% static 'images/facebook-share.jpg' %}",
       "dateCreated": "2015-12-08T06:00:00-06:00",
       "articleSection": "Public Education",
