@@ -62,6 +62,10 @@ if not env('DISABLE_DEBUG_TOOLBAR', False):
         'debug_toolbar',
     )
 
+    MIDDLEWARE += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+
 ###################################
 # DJANGO EXTENSIONS CONFIGURATION #
 ###################################
