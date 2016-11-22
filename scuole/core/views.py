@@ -48,7 +48,7 @@ class LookupView(View):
              'url': i.get_absolute_url(),
              'type': 'Campus - {}'.format(i.district.name)}
             for i in Campus.objects.filter(
-                name__icontains=q).select_related('district__name')[:15]]
+                name__icontains=q).select_related('district')[:15]]
 
         districts = [
             {'name': i.name, 'url': i.get_absolute_url(), 'type': 'District'}
