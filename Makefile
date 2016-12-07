@@ -14,7 +14,7 @@ data/bootstrap:
 	python manage.py bootstrapcampuses
 
 data/base: data/bootstrap
-	python manage.py loadtaprdata 2014-2015 --bulk
+	python manage.py loadtaprdata 2015-2016 --bulk
 
 local/reset-db-and-bootstrap: local/reset-db data/base
 

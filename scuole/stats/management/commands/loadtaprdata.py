@@ -146,8 +146,8 @@ class Command(BaseCommand):
         short_year = self.school_year.name.split('-')[0][2:]
 
         for field, code in schema.items():
-            if schema_type == ('postsecondary-readiness-and-'
-                               'non-staar-performance-indicators'):
+            if schema_type == ('postsecondary-readiness-and-non-staar-performance-'
+                               'indicators') or schema_type == ('longitudinal-rate'):
                 if 'count' in field:
                     suffix = 'D'
                 elif 'percent' in field or 'rate' in field or 'avg' in field:
