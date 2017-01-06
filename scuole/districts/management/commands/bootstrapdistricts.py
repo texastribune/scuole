@@ -9,7 +9,7 @@ import string
 from slugify import slugify
 
 from django.conf import settings
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Count
 from django.contrib.gis.geos import GEOSGeometry, MultiPolygon
 
@@ -26,7 +26,13 @@ from scuole.core.utils import massage_name
 class Command(BaseCommand):
     help = 'Bootstraps District models using TEA, FAST and AskTED data.'
 
+    def add_arguments(self, parser):
+        parser.add_argument('year', nargs='?', type=str, default=None)
+
     def handle(self, *args, **options):
+        if options['year'] is None:
+            raise CommandError('A year is required.')
+
         askted_file_location = os.path.join(
             settings.DATA_FOLDER, 'askted', 'directory.csv')
 
@@ -46,6 +52,23 @@ class Command(BaseCommand):
         superintendent_csv = os.path.join(
             settings.DATA_FOLDER,
             'askted', 'district', 'superintendents.csv')
+
+        # path to file where new, cleaned up district names and IDs are stored
+        new_districts = os.path.join(
+            settings.DATA_FOLDER,
+            'tapr', 'reference', 'district', 'updates', options['year'],
+            'new_districts.csv')
+
+        self.newDistrict_data = self.load_newDistrict_file(new_districts)
+
+        # path to file where new, cleaned up names and IDs of districts whose
+        # names have changed since the last update
+        changed_districts = os.path.join(
+            settings.DATA_FOLDER,
+            'tapr', 'reference', 'district', 'updates', options['year'],
+            'changed_districts.csv')
+
+        self.changedDistrict_data = self.load_changedDistrict_file(changed_districts)
 
         self.superintendent_data = self.load_superintendent_file(
             superintendent_csv)
@@ -109,11 +132,39 @@ class Command(BaseCommand):
 
         return payload
 
+    def load_newDistrict_file(self, file):
+        payload = {}
+
+        with open(file, 'rU') as f:
+            reader = csv.DictReader(f)
+
+            for row in reader:
+                tea_id = row['District Number']
+                payload[tea_id] = row
+
+        return payload
+
+    def load_changedDistrict_file(self, file):
+        payload = {}
+
+        with open(file, 'rU') as f:
+            reader = csv.DictReader(f)
+
+            for row in reader:
+                tea_id = row['District Number']
+                payload[tea_id] = row
+
+        return payload
+
     def create_district(self, district):
         district_id = str(int(district['DISTRICT']))
 
         if district_id in self.fast_data:
             fast_match = self.fast_data[district_id]
+        elif district_id in self.newDistrict_data:
+            fast_match = self.newDistrict_data[district_id]
+        elif district_id in self.changedDistrict_data:
+            fast_match = self.changedDistrict_data[district_id]
         else:
             fast_match = {
                 'District Name': massage_name(

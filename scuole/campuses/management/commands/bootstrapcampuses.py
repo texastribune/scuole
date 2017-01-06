@@ -92,14 +92,6 @@ class Command(BaseCommand):
 
         self.changedCampus_data = self.load_changedCampus_file(changed_campuses)
 
-        # path to file where names and IDs of now defunct campuses are stored
-        defunct_campuses = os.path.join(
-            settings.DATA_FOLDER,
-            'tapr', 'reference', 'campus', 'updates', options['year'],
-            'defunct_campuses.csv')
-
-        self.defunctCampus_data = self.load_defunctCampus_file(defunct_campuses)
-
         tea_file = os.path.join(
             settings.DATA_FOLDER,
             'tapr', 'reference', 'campus', 'reference.csv')
@@ -176,18 +168,6 @@ class Command(BaseCommand):
         return payload
 
     def load_changedCampus_file(self, file):
-        payload = {}
-
-        with open(file, 'rU') as f:
-            reader = csv.DictReader(f)
-
-            for row in reader:
-                tea_id = row['Campus Number']
-                payload[tea_id] = row
-
-        return payload
-
-    def load_defunctCampus_file(self, file):
         payload = {}
 
         with open(file, 'rU') as f:

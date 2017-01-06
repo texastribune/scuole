@@ -10,7 +10,7 @@ data/bootstrap:
 	python manage.py bootstrapstates
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
-	python manage.py bootstrapdistricts
+	python manage.py bootstrapdistricts 2015-2016
 	python manage.py bootstrapcampuses 2015-2016
 
 data/base: data/bootstrap
