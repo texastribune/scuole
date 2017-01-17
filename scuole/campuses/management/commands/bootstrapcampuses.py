@@ -94,7 +94,7 @@ class Command(BaseCommand):
 
         tea_file = os.path.join(
             settings.DATA_FOLDER,
-            'tapr', 'reference', 'campus', 'reference.csv')
+            'tapr', 'reference', 'campus', 'reference', 'reference.csv')
 
         with open(tea_file, 'rU') as f:
             reader = csv.DictReader(f)
