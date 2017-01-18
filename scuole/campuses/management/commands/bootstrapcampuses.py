@@ -182,12 +182,19 @@ class Command(BaseCommand):
     def create_campus(self, campus):
         campus_id = str(int(campus['CAMPUS']))
 
+        # first looks to see if the campus' ID is in both changed campus
+        # and FAST data. If it is, it uses the changed name not the FAST name
         if campus_id in self.changedCampus_data and self.fast_data:
             fast_match = self.changedCampus_data[campus_id]
+        # then it looks to see if the ID is in the new data
         elif campus_id in self.newCampus_data:
+            # if it is it'll use the name in the new campus CSV
             fast_match = self.newCampus_data[campus_id]
+        # if it's not in the update or new list, it'l use the FAST name
         elif campus_id in self.fast_data:
             fast_match = self.fast_data[campus_id]
+        # if it's not in new, updated or FAST- it gets massaged with our
+        # name massager
         else:
             fast_match = {
                 'Campus Name': massage_name(

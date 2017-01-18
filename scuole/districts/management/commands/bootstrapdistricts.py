@@ -159,12 +159,23 @@ class Command(BaseCommand):
     def create_district(self, district):
         district_id = str(int(district['DISTRICT']))
 
+        # first checks to see if the District ID is in both the changed
+        # district data and FAST data
         if district_id in self.changedDistrict_data and self.fast_data:
+            # if it is, it'll update the existing name to the new name
+            # in the changed district CSV
             fast_match = self.changedDistrict_data[district_id]
+        # then it'll look to see if the ID is in the FAST data
         elif district_id in self.fast_data:
+            # if it is, it'll use the nice name in there
             fast_match = self.fast_data[district_id]
+        # if the ID isn't in the changed list or in the FAST data, it'll
+        # check if it's in the new district list
         elif district_id in self.newDistrict_data:
+            # if it is, it'll use the name in the new district data
             fast_match = self.newDistrict_data[district_id]
+        # if there are no clean name options anywhere, we'll use our name
+        # massager and clean it up there
         else:
             fast_match = {
                 'District Name': massage_name(
