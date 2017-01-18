@@ -182,12 +182,12 @@ class Command(BaseCommand):
     def create_campus(self, campus):
         campus_id = str(int(campus['CAMPUS']))
 
-        if campus_id in self.fast_data:
-            fast_match = self.fast_data[campus_id]
+        if campus_id in self.changedCampus_data and self.fast_data:
+            fast_match = self.changedCampus_data[campus_id]
         elif campus_id in self.newCampus_data:
             fast_match = self.newCampus_data[campus_id]
-        elif campus_id in self.changedCampus_data:
-            fast_match = self.changedCampus_data[campus_id]
+        elif campus_id in self.fast_data:
+            fast_match = self.fast_data[campus_id]
         else:
             fast_match = {
                 'Campus Name': massage_name(

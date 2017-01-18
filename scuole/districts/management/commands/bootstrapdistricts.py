@@ -159,12 +159,12 @@ class Command(BaseCommand):
     def create_district(self, district):
         district_id = str(int(district['DISTRICT']))
 
-        if district_id in self.fast_data:
+        if district_id in self.changedDistrict_data and self.fast_data:
+            fast_match = self.changedDistrict_data[district_id]
+        elif district_id in self.fast_data:
             fast_match = self.fast_data[district_id]
         elif district_id in self.newDistrict_data:
             fast_match = self.newDistrict_data[district_id]
-        elif district_id in self.changedDistrict_data:
-            fast_match = self.changedDistrict_data[district_id]
         else:
             fast_match = {
                 'District Name': massage_name(
