@@ -16,7 +16,15 @@ data/bootstrap:
 data/base: data/bootstrap
 	python manage.py loadtaprdata 2015-2016 --bulk
 
+data/base-all: data/bootstrap
+	python manage.py loadtaprdata 2015-2019 --bulk
+	python manage.py loadtaprdata 2014-2015 --bulk
+	python manage.py loadtaprdataOld 2013-2014 --bulk
+	python manage.py loadtaprdataOld 2012-2013 --bulk
+
 local/reset-db-and-bootstrap: local/reset-db data/base
+
+local/reset-db-and-bootstrap-over-time: local/reset-db  data/base-all
 
 docker/pull:
 	@echo "Getting a fresh copy of master..."
