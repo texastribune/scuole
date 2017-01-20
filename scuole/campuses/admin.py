@@ -15,4 +15,4 @@ class CampusAdmin(ReadOnlyAdmin):
 @admin.register(CampusStats)
 class CampusStatsAdmin(ReadOnlyAdmin):
     list_filter = ('year__name',)
-    search_fields = ('campus__name',)
+    search_fields = ('campus__name', 'campus__tea_id')
