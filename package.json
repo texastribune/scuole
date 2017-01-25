@@ -27,6 +27,8 @@
   },
   "scripts": {
     "serve": "gulp serve & webpack --watch",
+    "serve:runserver": "npm run runserver & npm run serve",
+    "runserver": "python manage.py runserver 0.0.0.0:8000",
     "build": "gulp build && webpack -p"
   }
 }
