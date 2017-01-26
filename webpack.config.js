@@ -11,8 +11,7 @@ module.exports = {
     commons: [
       './utils/loadStoryGrid.js',
       './utils/adLoader.js',
-      './utils/searchTypeahead.js',
-      './utils/carebot.js'
+      './utils/searchTypeahead.js'
     ]
   },
   output: {
