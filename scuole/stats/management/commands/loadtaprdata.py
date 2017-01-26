@@ -97,9 +97,12 @@ class Command(BaseCommand):
                     continue
                 data_file = os.path.join(self.year_folder, name, file_name)
 
-                with open(data_file, 'rU') as f:
-                    reader = csv.DictReader(f)
-                    data.append([i for i in reader])
+                try:
+                    with open(data_file, 'rU') as f:
+                        reader = csv.DictReader(f)
+                        data.append([i for i in reader])
+                except FileNotFoundError:
+                    continue
 
             if self.use_bulk:
                 bulk_list = []
@@ -163,7 +166,10 @@ class Command(BaseCommand):
 
                 datum = row[short_code + code + short_year + suffix]
             else:
-                datum = row[short_code + code]
+                try:
+                    datum = row[short_code + code]
+                except KeyError:
+                    continue
 
             if datum == '.':
                 datum = None
