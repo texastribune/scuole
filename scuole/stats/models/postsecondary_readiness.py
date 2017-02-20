@@ -200,7 +200,7 @@ class PostSecondaryReadinessBase(models.Model):
         _('Percent of college ready American Indian graduates in math'),
         null=True, blank=True)
     college_ready_graduates_math_pacific_islander_percent = models.FloatField(
-        _('Percent of college ready Pacific Islander graduates in  math'),
+        _('Percent of college ready Pacific Islander graduates in math'),
         null=True, blank=True)
     college_ready_graduates_math_two_or_more_races_percent = models.FloatField(
         _('Percent of college ready graduages of two or more races in math'),

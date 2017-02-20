@@ -9,7 +9,7 @@ from .models import District, DistrictStats
 
 @admin.register(District)
 class DistrictAdmin(ReadOnlyAdmin):
-    search_fields = ['name']
+    search_fields = ('name', 'tea_id')
 
 
 @admin.register(DistrictStats)

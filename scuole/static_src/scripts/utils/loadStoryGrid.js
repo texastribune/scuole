@@ -3,7 +3,7 @@
 import map from 'lodash/collection/map'
 import reqwest from 'reqwest'
 
-const FEED_URL = 'https://rsstojson.texastribune.org/public-education'
+const FEED_URL = 'https://www.texastribune.org/api/stories/?format=json&limit=6&tag=subject-public-education'
 
 function htmlify (data) {
   let content = ''
@@ -11,11 +11,11 @@ function htmlify (data) {
   content += `<div class="story-box-container">
                 <a class="story-box" href="${data.url}">
                   <div class="story-box__media">
-                    <img class="story-box__image" src="${data.leadArt || BLANK_STORY_IMAGE}" alt="Placeholder image">
+                    <img class="story-box__image" src="${data.lead_art.url || BLANK_STORY_IMAGE}" alt="Placeholder image">
                   </div>
                   <div class="story-box__body">
-                    <h3 class="story-box__header">${data.title}</h3>
-                    <p class="story-box__prose">${data.description}</p>
+                    <h3 class="story-box__header">${data.headline}</h3>
+                    <p class="story-box__prose">${data.short_summary}</p>
                   </div>
                 </a>
               </div>`
@@ -31,8 +31,8 @@ function loadStories (destEl) {
     contentType: 'application/json',
     crossOrigin: true,
     success: (res) => {
-      let output = map(res.data.slice(0, 6), (entry) => {
-        return htmlify(entry)
+      let output = map(res.results.slice(0, 6), (results) => {
+        return htmlify(results)
       })
 
       destEl.innerHTML = output.join('')

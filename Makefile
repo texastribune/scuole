@@ -10,13 +10,21 @@ data/bootstrap:
 	python manage.py bootstrapstates
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
-	python manage.py bootstrapdistricts
-	python manage.py bootstrapcampuses
+	python manage.py bootstrapdistricts 2015-2016
+	python manage.py bootstrapcampuses 2015-2016
 
 data/base: data/bootstrap
+	python manage.py loadtaprdata 2015-2016 --bulk
+
+data/base-all: data/bootstrap
+	python manage.py loadtaprdata 2015-2016 --bulk
 	python manage.py loadtaprdata 2014-2015 --bulk
+	python manage.py loadtaprdata 2013-2014 --bulk
+	python manage.py loadtaprdata 2012-2013 --bulk
 
 local/reset-db-and-bootstrap: local/reset-db data/base
+
+local/reset-db-and-bootstrap-over-time: local/reset-db data/base-all
 
 docker/pull:
 	@echo "Getting a fresh copy of master..."

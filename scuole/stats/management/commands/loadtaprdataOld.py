@@ -11,11 +11,11 @@ from scuole.states.models import State
 from ...models import SchoolYear
 
 from ...schemas.tapr.mapping import MAPPING
-from ...schemas.tapr.schema import SCHEMA
+from ...schemas.tapr.pre2014schema import SCHEMA
 
 
 class Command(BaseCommand):
-    help = 'Loads a school year worth of TAPR data.'
+    help = 'Loads 2012-2013 and 2013-2014 TAPR data.'
 
     def add_arguments(self, parser):
         parser.add_argument('year', nargs='?', type=str, default=None)
@@ -97,12 +97,9 @@ class Command(BaseCommand):
                     continue
                 data_file = os.path.join(self.year_folder, name, file_name)
 
-                try:
-                    with open(data_file, 'rU') as f:
-                        reader = csv.DictReader(f)
-                        data.append([i for i in reader])
-                except FileNotFoundError:
-                    continue
+                with open(data_file, 'rU') as f:
+                    reader = csv.DictReader(f)
+                    data.append([i for i in reader])
 
             if self.use_bulk:
                 bulk_list = []
@@ -166,10 +163,7 @@ class Command(BaseCommand):
 
                 datum = row[short_code + code + short_year + suffix]
             else:
-                try:
-                    datum = row[short_code + code]
-                except KeyError:
-                    continue
+                datum = row[short_code + code]
 
             if datum == '.':
                 datum = None

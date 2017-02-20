@@ -9,10 +9,10 @@ from .models import Campus, CampusStats
 
 @admin.register(Campus)
 class CampusAdmin(ReadOnlyAdmin):
-    search_fields = ['name']
+    search_fields = ('name', 'tea_id')
 
 
 @admin.register(CampusStats)
 class CampusStatsAdmin(ReadOnlyAdmin):
     list_filter = ('year__name',)
-    search_fields = ('campus__name',)
+    search_fields = ('campus__name', 'campus__tea_id')
