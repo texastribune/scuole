@@ -1,4 +1,7 @@
-#!/bin/sh
+#!/bin/bash
+
+# Collect static files
+python manage.py collectstatic --noinput
 
 # Run app
 exec gunicorn config.wsgi:application \
