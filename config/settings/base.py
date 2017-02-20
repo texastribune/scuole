@@ -52,7 +52,6 @@ def env(setting, default=None):
 # APP CONFIGURATION #
 #####################
 
-
 DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -63,7 +62,6 @@ DJANGO_APPS = (
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
 )
 
@@ -89,8 +87,6 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # https://docs.djangoproject.com/en/1.8/topics/http/middleware/
 MIDDLEWARE = (
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -98,6 +94,7 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 )
 
 #####################

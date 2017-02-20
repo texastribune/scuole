@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .base import * # noqa
+from .base import *
 
 import dj_database_url
 
@@ -69,7 +69,7 @@ TEMPLATES = [
 #############################
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#staticfiles-storage
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 ######################
 # HOST CONFIGURATION #
@@ -161,12 +161,11 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ########################
 
 # https://getsentry.com/for/django/
-if not env('DISABLE_SENTRY', False):
-    RAVEN_CONFIG = {
-        'dsn': env('SENTRY_DSN'),
-        'site': env('SENTRY_SITE', 'Public Schools'),
-    }
+RAVEN_CONFIG = {
+    'dsn': env('SENTRY_DSN'),
+    'site': env('SENTRY_SITE', 'Public Schools')
+}
 
-    INSTALLED_APPS = INSTALLED_APPS + (
-        'raven.contrib.django.raven_compat',
-    )
+INSTALLED_APPS = INSTALLED_APPS + (
+    'raven.contrib.django.raven_compat',
+)
