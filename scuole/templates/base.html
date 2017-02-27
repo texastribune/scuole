@@ -10,8 +10,7 @@
   <script src="https://use.typekit.net/gbr6cnk.js"></script>
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
   <link rel="stylesheet" href="{% static 'styles/main.css' %}">
-  <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', 'UA-9827490-1', 'auto');ga('send', 'pageview');var googletag = googletag || {};googletag.cmd = googletag.cmd || [];var BLANK_STORY_IMAGE = '{% static "images/trib-bug.png" %}';</script>
-  <script async src='https://www.google-analytics.com/analytics.js'></script>
+  <script>var googletag = googletag || {};googletag.cmd = googletag.cmd || [];var BLANK_STORY_IMAGE = '{% static "images/trib-bug.png" %}';</script>
   <script type="application/ld+json">
     {
       "@context": "http://schema.org",
@@ -76,6 +75,25 @@
 {% block extra_script %}
 <script src="{% static 'scripts/commons.js' %}"></script>
 {% endblock extra_script %}
+
+<!-- Google Analytics -->
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', 'UA-9827490-1', 'auto');ga('send', 'pageview');</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NSCKTR');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSCKTR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <!-- START Parse.ly Include: Standard -->
 <div id="parsely-root" style="display: none">
   <span id="parsely-cfg" data-parsely-site="texastribune.org"></span>
@@ -92,5 +110,6 @@
 })("script", "parsely", document);
 </script>
 <!-- END Parse.ly Include: Standard -->
+
 </body>
 </html>
