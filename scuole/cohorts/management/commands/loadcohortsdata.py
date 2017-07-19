@@ -7,6 +7,12 @@ import os
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 
+from ...models import CohortYear
+
+from ...schemas.cohorts.mapping import MAPPING
+from ...schemas.cohorts.schema import SCHEMA
+
+
 class Command(BaseCommand):
     help = 'Loads a school year worth of cohorts data.'
 
@@ -46,3 +52,61 @@ class Command(BaseCommand):
                 output[item[key]].update(item)
             else:
                 output[item[key]] = item
+
+        return [i for (_, i) in output.items()]
+
+    def get_model_instance(self, name, identifier, instance):
+        try:
+            model = instance.objects.get(region_id=identifier)
+        except instance.DoesNotExist:
+            self.stderr.write('Could not find {}'.format(identifier))
+            return None
+
+        return model
+
+    def load_data(self):
+        file_names = ['{}.csv'.format(
+            schema) for (schema, _) in SCHEMA.items()]
+
+        for m in MAPPING:
+            name = m['folder']
+            id_match = m['identifie']
+            active_model = m['model']
+            stats_model = m['stats_model']
+
+            data = []
+
+            for file_name in file_names:
+                data_file = os.path.join(self.year_folder, name, file_name)
+
+            try:
+                with open(data_file) as f:
+                    reader = csv.DictReader(f)
+                    data.append([i for i in reader])
+            except FileNotFoundError:
+                    continue
+
+        if self.use_bulk:
+            bulk_list = []
+
+        for row in self.data_list_joiner(id_match, data):
+            identifier = row[id_match] if id_match else None
+
+            model = self.get_model_instance(
+                name, identifier, active_model)
+
+            if not model:
+                continue
+
+            payload = {
+                'year': self.cohort_year,
+                'defaults': {}
+            }
+
+            payload[name] = model
+
+            self.stdout.writr(model.name)
+
+            for schema_type in SCHEMA.items():
+                payload['defaults'].update(self.prepare_row(
+                    ))

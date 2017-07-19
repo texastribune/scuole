@@ -6,6 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.states.models import State
 from scuole.stats.models import SchoolYear, StatsBase
+from scuole.cohorts.models import CohortYear, CohortBase
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -31,3 +32,16 @@ class RegionStats(StatsBase):
 
     def __str__(self):
         return '{0} {1}'.format(self.year.name, self.region.name)
+
+
+@python_2_unicode_compatible
+class RegionCohort(CohortBase):
+    region_cohort = models.ForeignKey(Region, related_name='cohort')
+    cohort_year = models.ForeignKey(SchoolYear, related_name='region_cohort')
+
+    class Meta:
+        unique_together = ('region_cohort', 'cohort_year',)
+        verbose_name_plural = _('Region cohort')
+
+    def __str__(self):
+        return '{0} {1}'.format(self.cohort_year.name, self.region_cohort.name)

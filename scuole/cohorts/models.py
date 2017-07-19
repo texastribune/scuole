@@ -6,14 +6,14 @@ from django.utils.encoding import python_2_unicode_compatible
 
 
 @python_2_unicode_compatible
-class SchoolYear(models.Model):
+class CohortYear(models.Model):
     name = models.CharField(max_length=4)
 
 
-class Cohort(models.Model):
-    ethnicity = models.CharField(max_length=1)
-    gender = models.Charield(max_length=1)
-    economic_status = models.CharField(max_length=1)
+class CohortBase(models.Model):
+    ethnicity = models.CharField(max_length=15)
+    gender = models.Charield(max_length=15)
+    economic_status = models.CharField(max_length=30)
     year = models.IntegerField()
     enrolled_8th = models.IntegerField()
     enrolled_9th = models.IntegerField()
@@ -39,3 +39,5 @@ class Cohort(models.Model):
     accoc_cert = models.IntegerField()
     cert = models.IntegerField()
 
+    class Meta:
+        abstract = True
