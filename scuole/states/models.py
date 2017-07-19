@@ -8,6 +8,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.core.models import PersonnelBase
 from scuole.stats.models import SchoolYear, StatsBase
+from scuole.cohorts.models import CohortYear, CohortBase
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -47,3 +48,16 @@ class Commissioner(PersonnelBase):
 
     def __str__(self):
         return 'Texas Education Commissioner'
+
+
+@python_2_unicode_compatible
+class StateCohort(CohortBase):
+    state_cohort = models.ForeignKey(State, related_name='cohort')
+    cohort_year = models.ForeignKey(CohortYear, related_name='state_cohort')
+
+    class Meta:
+        unique_together = ('state_cohort', 'cohort_year',)
+        verbose_name_plural = _('State cohort')
+
+    def __str__(self):
+        return '{0} {1}'.format(self.cohort_year.name, self.state_cohort.name)

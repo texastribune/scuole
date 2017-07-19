@@ -37,7 +37,7 @@ class RegionStats(StatsBase):
 @python_2_unicode_compatible
 class RegionCohort(CohortBase):
     region_cohort = models.ForeignKey(Region, related_name='cohort')
-    cohort_year = models.ForeignKey(SchoolYear, related_name='region_cohort')
+    cohort_year = models.ForeignKey(CohortYear, related_name='region_cohort')
 
     class Meta:
         unique_together = ('region_cohort', 'cohort_year',)

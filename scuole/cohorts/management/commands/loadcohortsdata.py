@@ -110,3 +110,13 @@ class Command(BaseCommand):
             for schema_type in SCHEMA.items():
                 payload['defaults'].update(self.prepare_row(
                     ))
+
+    def prepare_row(self, schema, row):
+        payload = {}
+
+        for field, code in schema.items():
+            datum = row[code]
+            payload[field] = datum
+
+        return payload
+
