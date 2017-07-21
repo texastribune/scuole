@@ -1,17 +1,17 @@
-from scuole.regions.models import Region, RegionCohort
-from scuole.states.models import State, StateCohort
+from scuole.regions.models import Region, RegionCohorts
+from scuole.states.models import State, StateCohorts
 
 
 MAPPING = [
     {
-        'folder': 'cohorts',
+        'folder': 'state',
         'identifier': None,
         'model': State,
-        'stats_model': StateCohort,
+        'cohorts_model': StateCohorts,
     }, {
         'folder': 'region',
         'identifier': 'Region Code',
         'model': Region,
-        'stats_model': RegionCohort,
+        'cohorts_model': RegionCohorts,
     },
 ]

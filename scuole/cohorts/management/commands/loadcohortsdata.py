@@ -7,7 +7,8 @@ import os
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 
-from ...models import CohortYear
+from scuole.states.models import State
+from ...models import CohortsYear
 
 from ...schemas.cohorts.mapping import MAPPING
 from ...schemas.cohorts.schema import SCHEMA
@@ -17,7 +18,7 @@ class Command(BaseCommand):
     help = 'Loads a school year worth of cohorts data.'
 
     def add_arguments(self, parser):
-        parser.add_arguments('year', nargs='?', type=str, default=None)
+        parser.add_argument('year', nargs='?', type=str, default=None)
         parser.add_argument('--bulk', action='store_true')
 
     def handle(self, *args, **options):
@@ -37,27 +38,40 @@ class Command(BaseCommand):
                 '`{}` was not found in your cohorts data directory'.format(
                     self.year_folder))
 
-        # if it is there, we get or create our CohortYear model
-        self.cohort_year = CohortYear.objects.get_or_create(
+        # if it is there, we get or create our CohortsYear model
+        self.cohorts_year = CohortsYear.objects.get_or_create(
             name=options['year'])
 
         self.load_data()
 
     def data_list_joiner(self, key, lists):
         output = {}
-        all_lists = sum(lists, [])
 
-        for item in all_lists:
-            if item[key] in output:
-                output[item[key]].update(item)
-            else:
-                output[item[key]] = item
+        if key:
+            all_lists = sum(lists, [])
+
+            for item in all_lists:
+                if item[key] in output:
+                    output[item[key]].update(item)
+                else:
+                    output[item[key]] = item
+        else:
+            output['STATE'] = {}
+
+            for d in lists:
+                output['STATE'].update(d[0])
 
         return [i for (_, i) in output.items()]
 
     def get_model_instance(self, name, identifier, instance):
+        if name == 'state':
+            return State.objects.get(name='TX')
+
+        if name == 'region':
+            return instance.objects.get(region_id=identifier)
+
         try:
-            model = instance.objects.get(region_id=identifier)
+            model = instance.objects.get(cohorts=identifier)
         except instance.DoesNotExist:
             self.stderr.write('Could not find {}'.format(identifier))
             return None
@@ -70,46 +84,58 @@ class Command(BaseCommand):
 
         for m in MAPPING:
             name = m['folder']
-            id_match = m['identifie']
+            id_match = m['identifier']
             active_model = m['model']
-            stats_model = m['stats_model']
+            cohorts_model = m['cohorts_model']
 
             data = []
 
             for file_name in file_names:
-                data_file = os.path.join(self.year_folder, name, file_name)
+                data_file = os.path.join(self.year_folder, file_name)
 
-            try:
-                with open(data_file) as f:
-                    reader = csv.DictReader(f)
-                    data.append([i for i in reader])
-            except FileNotFoundError:
+                try:
+                    with open(data_file) as f:
+                        reader = csv.DictReader(f)
+                        data.append([i for i in reader])
+                except FileNotFoundError:
                     continue
 
-        if self.use_bulk:
-            bulk_list = []
+            if self.use_bulk:
+                bulk_list = []
 
-        for row in self.data_list_joiner(id_match, data):
-            identifier = row[id_match] if id_match else None
+            for row in self.data_list_joiner(id_match, data):
+                identifier = row[id_match] if id_match else None
 
-            model = self.get_model_instance(
-                name, identifier, active_model)
+                model = self.get_model_instance(
+                    name, identifier, active_model)
 
-            if not model:
-                continue
+                if not model:
+                    continue
 
-            payload = {
-                'year': self.cohort_year,
-                'defaults': {}
-            }
+                payload = {
+                    'year': self.cohorts_year,
+                    'defaults': {}
+                }
 
-            payload[name] = model
+                payload[name] = model
 
-            self.stdout.writr(model.name)
+                self.stdout.write(model.name)
 
-            for schema_type in SCHEMA.items():
-                payload['defaults'].update(self.prepare_row(
-                    ))
+                for schema_type, schema in SCHEMA.items():
+                    print(row)
+                    payload['defaults'].update(self.prepare_row(
+                        schema, row))
+
+                if not self.use_bulk:
+                    cohorts_model.objects.update_or_create(**payload)
+                else:
+                    new_payload = payload['defaults']
+                    new_payload['year'] = payload['year']
+                    new_payload[name] = payload[name]
+
+                    bulk_list.append(cohorts_model(**new_payload))
+
+            cohorts_model.objects.bulk_create(bulk_list)
 
     def prepare_row(self, schema, row):
         payload = {}
@@ -119,4 +145,3 @@ class Command(BaseCommand):
             payload[field] = datum
 
         return payload
-

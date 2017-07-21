@@ -1,5 +1,8 @@
 SCHEMA = {
     '8thGradeRegionGenderEthnicityEconFY06': {
+        'gender': 'Gender',
+        'ethnicity': 'Ethnicity',
+        'economic_status': 'Economic Status',
         'enrolled_8th': '8th Grade (FY 2006)',
         'enrolled_9th': 'Enrolled in 9th Grade (FY 2007)',
         'enrolled_9th_percent': '% Enrolled in 9th Grade (FY 2007)',
@@ -10,7 +13,7 @@ SCHEMA = {
         'graduated': 'High School Graduate FY 2009-2011',
         'graduated_percent': '% High School Graduate FY 2009-2011',
         'enrolled_4yr': 'Enrolled TX 4-year',
-        'enrolled_4yr_percent': '%Enrolled TX 4-year',
+        'enrolled_4yr_percent': '% Enrolled TX 4-year',
         'enrolled_2yr': 'Enrolled TX 2-year',
         'enrolled_2yr_percent': '% Enrolled TX 2-year',
         'total_enrolled': 'Enrolled in Higher Education',
@@ -18,13 +21,6 @@ SCHEMA = {
         # '': 'No Public HS Grad Record Enrolled in Higher Ed',
         # '': '% No Public HS Grad Record Enrolled in Higher Ed',
         'total_degrees': 'Higher Ed Degree or Certificate Texas',
-        'total_degrees_percent': '% Higher Ed Degree or Certificate Texas',
-        'bacc': 'Bacc. Only',
-        'bacc_accoc': 'Bacc. & Assoc.',
-        'bacc_cert': 'Bacc. & Cert.',
-        'bacc_assoc_cert': 'Bacc. & Assoc. & Cert.',
-        'assoc': 'Assoc. Only',
-        'accoc_cert': 'Assoc. & Cert.',
-        'cert': 'Cert. Only'
+        'total_degrees_percent': '% Higher Ed Degree or Certificate Texas'
     }
 }
