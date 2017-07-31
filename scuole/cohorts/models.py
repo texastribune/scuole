@@ -9,10 +9,9 @@ class CohortsYear(models.Model):
 
 
 class CohortsBase(models.Model):
-    ethnicity = models.CharField(max_length=15)
-    gender = models.CharField(max_length=15)
-    economic_status = models.CharField(max_length=30)
-    year = models.IntegerField()
+    ethnicity = models.CharField(max_length=30, blank=True)
+    gender = models.CharField(max_length=30, blank=True)
+    economic_status = models.CharField(max_length=30, blank=True)
 
     enrolled_8th = models.IntegerField()
     enrolled_9th = models.IntegerField()
@@ -34,12 +33,12 @@ class CohortsBase(models.Model):
 
     total_degrees = models.IntegerField()
     total_degrees_percent = models.FloatField()
-    bacc = models.IntegerField()
-    bacc_acc = models.IntegerField()
-    bacc_cert = models.IntegerField()
-    assoc = models.IntegerField()
-    accoc_cert = models.IntegerField()
-    cert = models.IntegerField()
+    bacc = models.IntegerField(null=True, blank=True)
+    bacc_acc = models.IntegerField(null=True, blank=True)
+    bacc_cert = models.IntegerField(null=True, blank=True)
+    assoc = models.IntegerField(null=True, blank=True)
+    accoc_cert = models.IntegerField(null=True, blank=True)
+    cert = models.IntegerField(null=True, blank=True)
 
     class Meta:
         abstract = True

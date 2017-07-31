@@ -7,7 +7,8 @@ import os
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 
-from scuole.states.models import State
+from scuole.regions.models import Region, RegionCohorts
+from scuole.states.models import State, StateCohorts
 from ...models import CohortsYear
 
 from ...schemas.cohorts.mapping import MAPPING
@@ -39,18 +40,20 @@ class Command(BaseCommand):
                     self.year_folder))
 
         # if it is there, we get or create our CohortsYear model
-        self.cohorts_year = CohortsYear.objects.get_or_create(
+        year, _ = CohortsYear.objects.get_or_create(
             name=options['year'])
+
+        self.year = year
 
         self.load_data()
 
     def data_list_joiner(self, key, lists):
         output = {}
-
         if key:
             all_lists = sum(lists, [])
 
             for item in all_lists:
+                # print(key)
                 if item[key] in output:
                     output[item[key]].update(item)
                 else:
@@ -81,80 +84,142 @@ class Command(BaseCommand):
         return model
 
     def load_data(self):
-        # Finds the file based on what the schema dict is called
+        # # Finds the file based on what the schema dict is called
         file_names = ['{}.csv'.format(
             schema) for (schema, _) in SCHEMA.items()]
 
-        for m in MAPPING:
-            name = m['folder']
-            id_match = m['identifier']
-            active_model = m['model']
-            cohorts_model = m['cohorts_model']
+        data = []
+        for file_name in file_names:
+            data_file = os.path.join(self.year_folder, file_name)
 
-            data = []
-            # For now we only have one file in the schema, but we'll need
-            # more when we start introducing counties
-            for file_name in file_names:
-                data_file = os.path.join(self.year_folder, file_name)
-                # Grabs the data in the file and adds it to the data list
-                try:
-                    with open(data_file) as f:
-                        reader = csv.DictReader(f)
-                        data.append([i for i in reader])
-                except FileNotFoundError:
-                    continue
+            with open(data_file) as f:
+                reader = csv.DictReader(f)
+                data.append([i for i in reader])
 
             if self.use_bulk:
                 bulk_list = []
 
-            # loops through each row in the data file and updates or
-            # creates a model based on the identifier listed in the
-            # mapping.py file. Regions are identified by their
-            # 'Region Code' in the spreadsheet. If a row doesn't have a
-            # 'Region Code', then it's state data.
+            id_match = 'Region Code'
+
             for row in self.data_list_joiner(id_match, data):
-                identifier = row[id_match] if id_match else None
 
-                model = self.get_model_instance(
-                    name, identifier, active_model)
-
-                if not model:
-                    continue
-
-                # help what's a payload
                 payload = {
-                    'year': self.cohorts_year,
+                    'year': self.year,
                     'defaults': {}
                 }
 
-                payload[name] = model
+                if row[id_match] is '' or None:
+                    model = self.get_model_instance('state', None, State)
+                    payload['state'] = model
+
+                    for schema_type, schema in SCHEMA.items():
+                        payload['defaults'].update(self.prepare_row(
+                            schema, row))
+
+                        if not self.use_bulk:
+                            StateCohorts.objects.update_or_create(**payload)
+                        else:
+                            new_payload = payload['defaults']
+                            new_payload['year'] = payload['year']
+                            new_payload['state'] = payload['state']
+
+                            bulk_list.append(StateCohorts(**new_payload))
+
+                    if self.use_bulk:
+                        StateCohorts.objects.bulk_create(bulk_list)
+                else:
+                    # Cohorts data has no zeroes in front of single-digit
+                    # IDs,but TEA does :(
+                    if row[id_match] in ['1', '2', '3', '4', '5', '6', '7', '8', '9']:
+                        identifier = '0' + row[id_match]
+                        print(identifier)
+                    model = self.get_model_instance('region', identifier, Region)
+                    payload['region'] = model
+
+                    for schema_type, schema in SCHEMA.items():
+                        payload['defaults'].update(self.prepare_row(
+                            schema, row))
+
+                    if not self.use_bulk:
+                        RegionCohorts.objects.update_or_create(**payload)
+                    else:
+                        new_payload = payload['defaults']
+                        new_payload['year'] = payload['year']
+                        new_payload['region'] = payload['region']
+
+                        bulk_list.append(RegionCohorts(**new_payload))
+
+                    if self.use_bulk:
+                        RegionCohorts.objects.bulk_create(bulk_list)
 
                 self.stdout.write(model.name)
 
-                for schema_type, schema in SCHEMA.items():
-                    payload['defaults'].update(self.prepare_row(
-                        schema, row))
-                # This is where I get lost. I don't know what new_payload
-                # does or means other than it creates the model.
-                if not self.use_bulk:
-                    cohorts_model.objects.update_or_create(**payload)
-                else:
-                    new_payload = payload['defaults']
-                    new_payload['year'] = payload['year']
-                    new_payload[name] = payload[name]
+        # file_names = ['{}.csv'.format(
+        #     schema) for (schema, _) in SCHEMA.items()]
 
-                    # I get an error here saying:
-                    # TypeError: 'state' is an invalid keyword argument
-                    # for this function
-                    bulk_list.append(cohorts_model(**new_payload))
+        # for m in MAPPING:
+        #     name = m['folder']
+        #     id_match = m['identifier']
+        #     active_model = m['model']
+        #     cohorts_model = m['cohorts_model']
 
-            cohorts_model.objects.bulk_create(bulk_list)
+        #     data = []
+        #     # For now we only have one file in the schema, but we'll need
+        #     # more when we start introducing counties
+        #     for file_name in file_names:
+        #         data_file = os.path.join(self.year_folder, file_name)
+        #         # Grabs the data in the file and adds it to the data list
+        #         try:
+        #             with open(data_file) as f:
+        #                 reader = csv.DictReader(f)
+        #                 data.append([i for i in reader])
+        #         except FileNotFoundError:
+        #             continue
 
-    # For the stats loader, this was used to create the weird column headers
-    # that had different suffixes and prefixes based on the year, whether
-    # it was a count or percent, and whether it was for state, region county,
-    # district or campus. We don't need these as much here- so this just
-    # matches fields with schema names and codes used in the spreadsheet
+        #     if self.use_bulk:
+        #         bulk_list = []
+
+        #     # loops through each row in the data file and updates or
+        #     # creates a model based on the identifier listed in the
+        #     # mapping.py file. Regions are identified by their
+        #     # 'Region Code' in the spreadsheet. If a row doesn't have a
+        #     # 'Region Code', then it's state data.
+        #     for row in self.data_list_joiner(id_match, data):
+        #         print(id_match)
+        #         # print(data)
+        #         identifier = row[id_match] if id_match else None
+
+        #         model = self.get_model_instance(
+        #             name, identifier, active_model)
+
+        #         if not model:
+        #             continue
+
+        #         payload = {
+        #             'year': self.year,
+        #             'defaults': {}
+        #         }
+
+        #         payload[name] = model
+
+        #         self.stdout.write(model.name)
+
+        #         for schema_type, schema in SCHEMA.items():
+        #             payload['defaults'].update(self.prepare_row(
+        #                 schema, row))
+
+        #         if not self.use_bulk:
+        #             cohorts_model.objects.update_or_create(**payload)
+        #         else:
+        #             new_payload = payload['defaults']
+        #             new_payload['year'] = payload['year']
+        #             new_payload[name] = payload[name]
+
+        #             bulk_list.append(cohorts_model(**new_payload))
+
+        #     if self.use_bulk:
+        #         cohorts_model.objects.bulk_create(bulk_list)
+
     def prepare_row(self, schema, row):
         payload = {}
 

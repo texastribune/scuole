@@ -52,12 +52,12 @@ class Commissioner(PersonnelBase):
 
 @python_2_unicode_compatible
 class StateCohorts(CohortsBase):
-    state_cohorts = models.ForeignKey(State, related_name='cohorts')
-    cohorts_year = models.ForeignKey(CohortsYear, related_name='state_cohorts')
+    state = models.ForeignKey(State, related_name='cohorts')
+    year = models.ForeignKey(CohortsYear, related_name='state_cohorts')
 
     class Meta:
-        unique_together = ('state_cohorts', 'cohorts_year',)
+        unique_together = ('state', 'year',)
         verbose_name_plural = _('State cohorts')
 
     def __str__(self):
-        return '{0} {1}'.format(self.cohorts_year.name, self.state_cohorts.name)
+        return '{0} {1}'.format(self.year.name, self.state.name)

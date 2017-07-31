@@ -36,12 +36,12 @@ class RegionStats(StatsBase):
 
 @python_2_unicode_compatible
 class RegionCohorts(CohortsBase):
-    region_cohorts = models.ForeignKey(Region, related_name='cohorts')
-    cohorts_year = models.ForeignKey(CohortsYear, related_name='region_cohorts')
+    region = models.ForeignKey(Region, related_name='cohorts')
+    year = models.ForeignKey(CohortsYear, related_name='region_cohorts')
 
     class Meta:
-        unique_together = ('region_cohorts', 'cohorts_year',)
+        unique_together = ('region', 'year',)
         verbose_name_plural = _('Region cohorts')
 
     def __str__(self):
-        return '{0} {1}'.format(self.cohorts_year.name, self.region_cohorts.name)
+        return '{0} {1}'.format(self.year.name, self.region.name)
