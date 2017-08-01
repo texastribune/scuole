@@ -66,14 +66,15 @@ class Command(BaseCommand):
 
         return [i for (_, i) in output.items()]
 
-    def get_model_instance(self, name, identifier, instance):
+    def get_state_model_instance(self, name, identifier, instance):
         # name is a parameter set in the mapping.py file that
         # I set this manually as state or region
-        if name == 'state':
-            return State.objects.get(name='TX')
+        return State.objects.get(name='TX')
 
-        if name == 'region':
-            return instance.objects.get(region_id=identifier)
+    def get_region_model_instance(self, name, identifier, instance):
+        # name is a parameter set in the mapping.py file that
+        # I set this manually as state or region
+        return instance.objects.get(region_id=identifier)
 
         try:
             model = instance.objects.get(cohorts=identifier)
@@ -103,13 +104,15 @@ class Command(BaseCommand):
 
             for row in self.data_list_joiner(id_match, data):
 
-                payload = {
-                    'year': self.year,
-                    'defaults': {}
-                }
-
                 if row[id_match] is '' or None:
-                    model = self.get_model_instance('state', None, State)
+                    print('state:')
+                    print(row[id_match])
+
+                    payload = {
+                        'year': self.year,
+                        'defaults': {}
+                    }
+                    model = self.get_state_model_instance('state', None, State)
                     payload['state'] = model
 
                     for schema_type, schema in SCHEMA.items():
@@ -127,13 +130,18 @@ class Command(BaseCommand):
 
                     if self.use_bulk:
                         StateCohorts.objects.bulk_create(bulk_list)
+
+                    self.stdout.write(model.name)
                 else:
                     # Cohorts data has no zeroes in front of single-digit
                     # IDs,but TEA does :(
+                    print('region:')
+                    print(row[id_match])
                     if row[id_match] in ['1', '2', '3', '4', '5', '6', '7', '8', '9']:
                         identifier = '0' + row[id_match]
-                        print(identifier)
-                    model = self.get_model_instance('region', identifier, Region)
+                    else:
+                        identifier = row[id_match]
+                    model = self.get_region_model_instance('region', identifier, Region)
                     payload['region'] = model
 
                     for schema_type, schema in SCHEMA.items():
@@ -152,73 +160,7 @@ class Command(BaseCommand):
                     if self.use_bulk:
                         RegionCohorts.objects.bulk_create(bulk_list)
 
-                self.stdout.write(model.name)
-
-        # file_names = ['{}.csv'.format(
-        #     schema) for (schema, _) in SCHEMA.items()]
-
-        # for m in MAPPING:
-        #     name = m['folder']
-        #     id_match = m['identifier']
-        #     active_model = m['model']
-        #     cohorts_model = m['cohorts_model']
-
-        #     data = []
-        #     # For now we only have one file in the schema, but we'll need
-        #     # more when we start introducing counties
-        #     for file_name in file_names:
-        #         data_file = os.path.join(self.year_folder, file_name)
-        #         # Grabs the data in the file and adds it to the data list
-        #         try:
-        #             with open(data_file) as f:
-        #                 reader = csv.DictReader(f)
-        #                 data.append([i for i in reader])
-        #         except FileNotFoundError:
-        #             continue
-
-        #     if self.use_bulk:
-        #         bulk_list = []
-
-        #     # loops through each row in the data file and updates or
-        #     # creates a model based on the identifier listed in the
-        #     # mapping.py file. Regions are identified by their
-        #     # 'Region Code' in the spreadsheet. If a row doesn't have a
-        #     # 'Region Code', then it's state data.
-        #     for row in self.data_list_joiner(id_match, data):
-        #         print(id_match)
-        #         # print(data)
-        #         identifier = row[id_match] if id_match else None
-
-        #         model = self.get_model_instance(
-        #             name, identifier, active_model)
-
-        #         if not model:
-        #             continue
-
-        #         payload = {
-        #             'year': self.year,
-        #             'defaults': {}
-        #         }
-
-        #         payload[name] = model
-
-        #         self.stdout.write(model.name)
-
-        #         for schema_type, schema in SCHEMA.items():
-        #             payload['defaults'].update(self.prepare_row(
-        #                 schema, row))
-
-        #         if not self.use_bulk:
-        #             cohorts_model.objects.update_or_create(**payload)
-        #         else:
-        #             new_payload = payload['defaults']
-        #             new_payload['year'] = payload['year']
-        #             new_payload[name] = payload[name]
-
-        #             bulk_list.append(cohorts_model(**new_payload))
-
-        #     if self.use_bulk:
-        #         cohorts_model.objects.bulk_create(bulk_list)
+                    self.stdout.write(model.name)
 
     def prepare_row(self, schema, row):
         payload = {}
