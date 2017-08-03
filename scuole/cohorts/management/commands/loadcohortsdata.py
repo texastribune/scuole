@@ -66,12 +66,12 @@ class Command(BaseCommand):
 
         return [i for (_, i) in output.items()]
 
-    def get_state_model_instance(self, name, identifier, instance):
+    def get_state_model_instance(self):
         # name is a parameter set in the mapping.py file that
         # I set this manually as state or region
         return State.objects.get(name='TX')
 
-    def get_region_model_instance(self, name, identifier, instance):
+    def get_region_model_instance(self, identifier, instance):
         # name is a parameter set in the mapping.py file that
         # I set this manually as state or region
         return instance.objects.get(region_id=identifier)
@@ -98,51 +98,54 @@ class Command(BaseCommand):
                 data.append([i for i in reader])
 
             if self.use_bulk:
-                bulk_list = []
+                # bulk_list = []
+                region_bulk_list = []
+                state_bulk_list = []
 
             id_match = 'Region Code'
 
             for row in self.data_list_joiner(id_match, data):
 
                 if row[id_match] is '' or None:
-                    print('state:')
-                    print(row[id_match])
 
                     payload = {
                         'year': self.year,
                         'defaults': {}
                     }
-                    model = self.get_state_model_instance('state', None, State)
+                    model = self.get_state_model_instance()
                     payload['state'] = model
 
                     for schema_type, schema in SCHEMA.items():
                         payload['defaults'].update(self.prepare_row(
                             schema, row))
 
-                        if not self.use_bulk:
-                            StateCohorts.objects.update_or_create(**payload)
-                        else:
-                            new_payload = payload['defaults']
-                            new_payload['year'] = payload['year']
-                            new_payload['state'] = payload['state']
+                    if not self.use_bulk:
+                        StateCohorts.objects.update_or_create(**payload)
+                    else:
+                        new_payload = payload['defaults']
+                        new_payload['year'] = payload['year']
+                        new_payload['state'] = payload['state']
 
-                            bulk_list.append(StateCohorts(**new_payload))
-
-                    if self.use_bulk:
-                        StateCohorts.objects.bulk_create(bulk_list)
+                        state_bulk_list.append(StateCohorts(**new_payload))
 
                     self.stdout.write(model.name)
                 else:
                     # Cohorts data has no zeroes in front of single-digit
                     # IDs,but TEA does :(
-                    print('region:')
-                    print(row[id_match])
-                    if row[id_match] in ['1', '2', '3', '4', '5', '6', '7', '8', '9']:
+                    if row[id_match] in ['1', '2', '3', '4', '5', '6',
+                                         '7', '8', '9']:
                         identifier = '0' + row[id_match]
                     else:
                         identifier = row[id_match]
-                    model = self.get_region_model_instance('region', identifier, Region)
+
+                    payload = {
+                        'year': self.year,
+                        'defaults': {}
+                    }
+                    model = self.get_region_model_instance(identifier, Region)
                     payload['region'] = model
+
+                    self.stdout.write(model.name)
 
                     for schema_type, schema in SCHEMA.items():
                         payload['defaults'].update(self.prepare_row(
@@ -155,12 +158,12 @@ class Command(BaseCommand):
                         new_payload['year'] = payload['year']
                         new_payload['region'] = payload['region']
 
-                        bulk_list.append(RegionCohorts(**new_payload))
-
-                    if self.use_bulk:
-                        RegionCohorts.objects.bulk_create(bulk_list)
+                        region_bulk_list.append(RegionCohorts(**new_payload))
 
                     self.stdout.write(model.name)
+
+            StateCohorts.objects.bulk_create(state_bulk_list)
+            RegionCohorts.objects.bulk_create(region_bulk_list)
 
     def prepare_row(self, schema, row):
         payload = {}

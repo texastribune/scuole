@@ -29,7 +29,7 @@ local/reset-db-and-bootstrap-over-time: local/reset-db data/base-all
 local/cohorts: local/reset-db
 	python manage.py bootstrapstates
 	python manage.py bootstrapregions
-	python manage.py loadcohortsdata 2006
+	python manage.py loadcohortsdata 2006 --bulk
 
 docker/pull:
 	@echo "Getting a fresh copy of master..."
