@@ -40,7 +40,8 @@ class RegionCohorts(CohortsBase):
     year = models.ForeignKey(CohortsYear, related_name='region_cohorts')
 
     class Meta:
-        unique_together = ('region', 'year',)
+        unique_together = (
+            'region', 'year', 'gender', 'ethnicity', 'economic_status',)
         verbose_name_plural = _('Region cohorts')
 
     def __str__(self):

@@ -104,8 +104,7 @@ class Command(BaseCommand):
 
             id_match = 'Region Code'
 
-            for row in self.data_list_joiner(id_match, data):
-
+            for row in sum(data, []):
                 if row[id_match] is '' or None:
 
                     payload = {

@@ -20,4 +20,6 @@ class RegionStatsAdmin(ReadOnlyAdmin):
 
 @admin.register(RegionCohorts)
 class RegionCohortsAdmin(ReadOnlyAdmin):
+    list_filter = (
+        'year__name', 'region__name', 'gender', 'ethnicity', 'economic_status',)
     search_fields = ('region__name',)

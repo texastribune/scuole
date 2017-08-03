@@ -56,7 +56,8 @@ class StateCohorts(CohortsBase):
     year = models.ForeignKey(CohortsYear, related_name='state_cohorts')
 
     class Meta:
-        unique_together = ('state', 'year',)
+        unique_together = (
+            'state', 'year', 'gender', 'ethnicity', 'economic_status',)
         verbose_name_plural = _('State cohorts')
 
     def __str__(self):

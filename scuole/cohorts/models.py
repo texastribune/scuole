@@ -9,13 +9,12 @@ class CohortsYear(models.Model):
 
 
 class CohortsBase(models.Model):
-
     FEMALE = 'Female'
     MALE = 'Male'
 
     GENDER_CHOICES = (
         (FEMALE, 'Female'),
-        (MALE, 'Male')
+        (MALE, 'Male'),
     )
 
     WHITE = 'White'
@@ -27,7 +26,7 @@ class CohortsBase(models.Model):
         (WHITE, 'White'),
         (HISPANIC, 'Hispanic'),
         (AFRICAN_AMERICAN, 'African American'),
-        (OTHERS, 'Others')
+        (OTHERS, 'Others'),
     )
 
     ECONOMICALLY_DISADVANTAGED = 'Economically Disadvantaged'
@@ -39,11 +38,11 @@ class CohortsBase(models.Model):
     )
 
     gender = models.CharField(
-        'Gender', max_length=30, choices=GENDER_CHOICES, null=True)
+        'Gender', max_length=30, choices=GENDER_CHOICES, blank=True)
     ethnicity = models.CharField(
-        'Ethnicity', max_length=30, choices=ETHNICITY_CHOICES, null=True)
+        'Ethnicity', max_length=30, choices=ETHNICITY_CHOICES, blank=True)
     economic_status = models.CharField(
-        'Economic status', max_length=30, choices=ECON_CHOICES, null=True)
+        'Economic status', max_length=30, choices=ECON_CHOICES, blank=True)
 
     enrolled_8th = models.IntegerField()
     enrolled_9th = models.IntegerField()
