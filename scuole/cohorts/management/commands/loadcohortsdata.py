@@ -11,7 +11,6 @@ from scuole.regions.models import Region, RegionCohorts
 from scuole.states.models import State, StateCohorts
 from ...models import CohortsYear
 
-from ...schemas.cohorts.mapping import MAPPING
 from ...schemas.cohorts.schema import SCHEMA
 
 
@@ -20,13 +19,13 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('year', nargs='?', type=str, default=None)
-        parser.add_argument('--bulk', action='store_true')
+        # parser.add_argument('--bulk', action='store_true')
 
     def handle(self, *args, **options):
         if options['year'] is None:
             raise CommandError('A year is required.')
 
-        self.use_bulk = options['bulk']
+        # self.use_bulk = options['bulk']
 
         # get cohorts folder
         cohorts_folder = os.path.join(settings.DATA_FOLDER, 'cohorts')
@@ -46,25 +45,6 @@ class Command(BaseCommand):
         self.year = year
 
         self.load_data()
-
-    def data_list_joiner(self, key, lists):
-        output = {}
-        if key:
-            all_lists = sum(lists, [])
-
-            for item in all_lists:
-                # print(key)
-                if item[key] in output:
-                    output[item[key]].update(item)
-                else:
-                    output[item[key]] = item
-        else:
-            output['STATE'] = {}
-
-            for d in lists:
-                output['STATE'].update(d[0])
-
-        return [i for (_, i) in output.items()]
 
     def get_state_model_instance(self):
         # name is a parameter set in the mapping.py file that
@@ -97,11 +77,6 @@ class Command(BaseCommand):
                 reader = csv.DictReader(f)
                 data.append([i for i in reader])
 
-            if self.use_bulk:
-                # bulk_list = []
-                region_bulk_list = []
-                state_bulk_list = []
-
             id_match = 'Region Code'
 
             for row in sum(data, []):
@@ -118,19 +93,14 @@ class Command(BaseCommand):
                         payload['defaults'].update(self.prepare_row(
                             schema, row))
 
-                    if not self.use_bulk:
-                        StateCohorts.objects.update_or_create(**payload)
-                    else:
-                        new_payload = payload['defaults']
-                        new_payload['year'] = payload['year']
-                        new_payload['state'] = payload['state']
+                    payload['ethnicity'] = payload['defaults']['ethnicity']
+                    payload['gender'] = payload['defaults']['gender']
+                    payload['economic_status'] = payload['defaults']['economic_status']
 
-                        state_bulk_list.append(StateCohorts(**new_payload))
+                    StateCohorts.objects.update_or_create(**payload)
 
                     self.stdout.write(model.name)
                 else:
-                    # Cohorts data has no zeroes in front of single-digit
-                    # IDs,but TEA does :(
                     if row[id_match] in ['1', '2', '3', '4', '5', '6',
                                          '7', '8', '9']:
                         identifier = '0' + row[id_match]
@@ -150,19 +120,10 @@ class Command(BaseCommand):
                         payload['defaults'].update(self.prepare_row(
                             schema, row))
 
-                    if not self.use_bulk:
-                        RegionCohorts.objects.update_or_create(**payload)
-                    else:
-                        new_payload = payload['defaults']
-                        new_payload['year'] = payload['year']
-                        new_payload['region'] = payload['region']
-
-                        region_bulk_list.append(RegionCohorts(**new_payload))
-
-                    self.stdout.write(model.name)
-
-            StateCohorts.objects.bulk_create(state_bulk_list)
-            RegionCohorts.objects.bulk_create(region_bulk_list)
+                    payload['ethnicity'] = payload['defaults']['ethnicity']
+                    payload['gender'] = payload['defaults']['gender']
+                    payload['economic_status'] = payload['defaults']['economic_status']
+                    RegionCohorts.objects.update_or_create(**payload)
 
     def prepare_row(self, schema, row):
         payload = {}
