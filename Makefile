@@ -29,7 +29,7 @@ local/reset-db-and-bootstrap-over-time: local/reset-db data/base-all
 local/cohorts: local/reset-db
 	python manage.py bootstrapstates
 	python manage.py bootstrapregions
-	python manage.py loadcohortsdata 2006
+	python manage.py loadcohortsregionstatedata 2006
 	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | python manage.py shell --plain
 
 docker/pull:

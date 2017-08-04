@@ -5,6 +5,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.states.models import State
+from scuole.cohorts.models import CohortsYear, CohortsBase
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -20,3 +21,17 @@ class County(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@python_2_unicode_compatible
+class CountyCohorts(CohortsBase):
+    county = models.ForeignKey(County, related_name='cohorts')
+    year = models.ForeignKey(CohortsYear, related_name='county_cohorts')
+
+    class Meta:
+        unique_together = (
+            'county', 'year', 'economic_status',)
+        verbose_name_plural = _('County cohorts')
+
+    def __str__(self):
+        return '{0} {1}'.format(self.year.name, self.county.name)

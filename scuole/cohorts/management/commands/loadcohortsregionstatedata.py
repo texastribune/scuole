@@ -19,13 +19,10 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('year', nargs='?', type=str, default=None)
-        # parser.add_argument('--bulk', action='store_true')
 
     def handle(self, *args, **options):
         if options['year'] is None:
             raise CommandError('A year is required.')
-
-        # self.use_bulk = options['bulk']
 
         # get cohorts folder
         cohorts_folder = os.path.join(settings.DATA_FOLDER, 'cohorts')
@@ -47,13 +44,9 @@ class Command(BaseCommand):
         self.load_data()
 
     def get_state_model_instance(self):
-        # name is a parameter set in the mapping.py file that
-        # I set this manually as state or region
         return State.objects.get(name='TX')
 
     def get_region_model_instance(self, identifier, instance):
-        # name is a parameter set in the mapping.py file that
-        # I set this manually as state or region
         return instance.objects.get(region_id=identifier)
 
         try:
