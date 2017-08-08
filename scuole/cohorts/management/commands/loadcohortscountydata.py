@@ -101,40 +101,6 @@ class Command(BaseCommand):
             payload['economic_status'] = payload['defaults']['economic_status']
             CountyCohorts.objects.update_or_create(**payload)
 
-
-
-        # counties_fips = {}
-        # counties_cohorts = {}
-        # with open(counties_fips_file) as f:
-        #     reader = csv.DictReader(f)
-        #     for row in reader:
-        #         counties_fips.update(self.create_county_fips_key(row))
-
-        # with open(counties_cohorts_file) as f:
-        #     reader = csv.DictReader(f)
-
-        #     for row in reader:
-        #         counties_cohorts.update(self.create_county_cohorts(row))
-
-        # all_counties = counties_fips.copy()
-        # all_counties.update(counties_cohorts)
-        # print(all_counties)
-
-    def create_county_fips_key(self, county):
-        key = [county['County Name'].replace(" ", "").lower()]
-        value = [county]
-
-        fips_dict = dict(zip(key, value))
-
-        return fips_dict
-
-    def create_county_cohorts(self, county):
-        key = [county['County Name'].replace(" ", "").lower()]
-        value = [county]
-
-        cohorts_dict = dict(zip(key, value))
-        return cohorts_dict
-
     def prepare_row(self, schema, row):
         payload = {}
 
