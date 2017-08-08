@@ -45,7 +45,7 @@ class Command(BaseCommand):
         self.load_data()
 
     def get_model_instance(self, identifier, instance):
-        return instance.objects.get(slug=identifier)
+        return instance.objects.get(fips=identifier)
 
         try:
             model = instance.objects.get(cohorts=identifier)
@@ -57,10 +57,16 @@ class Command(BaseCommand):
 
     def load_data(self):
 
-        counties_fips_file = os.path.join(
-            settings.DATA_FOLDER, 'counties', 'counties.csv')
+        counties_fips_id_file = os.path.join(
+            self.year_folder, 'county-fips-id-map.csv')
 
-        counties_cohorts_file = os.path.join(self.year_folder, 'RegionCountyEconFY06.csv')
+        counties_cohorts_file = os.path.join(
+            self.year_folder, 'RegionCountyEconFY06.csv')
+
+        counties = []
+        with open(counties_fips_id_file) as f:
+            reader = csv.DictReader(f)
+            counties.append([i for i in reader])
 
         data = []
         with open(counties_cohorts_file) as f:
@@ -68,9 +74,14 @@ class Command(BaseCommand):
             data.append([i for i in reader])
 
         for row in sum(data, []):
-            # ################ TO DO ################# #
-            # This needs to be changed to a FIPS code or something
-            identifier = slugify(row['County Name'])
+            # This is bad and I know it.
+            # Loops through the counties in the FIPS/THECB id map sheet
+            # and matches it to the FIPS code stored in the County model
+            master_name = slugify(row['County Name'])
+            for i in sum(counties, []):
+                map_name = slugify(i['THECB County Name'])
+                if master_name == map_name:
+                    identifier = i['FIPS'].zfill(3)
 
             payload = {
                 'year': self.year,
@@ -129,6 +140,10 @@ class Command(BaseCommand):
 
         for field, code in schema.items():
             datum = row[code]
+            if datum == '':
+                datum = None
+            else:
+                datum = row[code]
             payload[field] = datum
 
         return payload
