@@ -10,7 +10,7 @@ from django.core.management.base import BaseCommand, CommandError
 from scuole.counties.models import County, CountyCohorts
 from ...models import CohortsYear
 
-from ...schemas.cohorts.schema import SCHEMA
+from ...schemas.cohorts.countyGenderSchema import SCHEMA
 
 from slugify import slugify
 
@@ -60,8 +60,9 @@ class Command(BaseCommand):
         counties_fips_id_file = os.path.join(
             self.year_folder, 'county-fips-id-map.csv')
 
-        counties_cohorts_file = os.path.join(
-            self.year_folder, 'RegionCountyEconFY06.csv')
+        cohorts_files = [
+            os.path.join(self.year_folder, 'RegionCountyEconFY06.csv')]
+        # os.path.join(self.year_folder, 'RegionCountyGenderFY06.csv')]
 
         counties = []
         with open(counties_fips_id_file) as f:
@@ -69,9 +70,10 @@ class Command(BaseCommand):
             counties.append([i for i in reader])
 
         data = []
-        with open(counties_cohorts_file) as f:
-            reader = csv.DictReader(f)
-            data.append([i for i in reader])
+        for file_name in cohorts_files:
+            with open(file_name) as f:
+                reader = csv.DictReader(f)
+                data.append([i for i in reader])
 
         for row in sum(data, []):
             # This is bad and I know it.
@@ -93,12 +95,18 @@ class Command(BaseCommand):
 
             self.stdout.write(model.name)
 
+            county_schemas = [
+                'RegionCountyEconFY06',
+                'RegionCountyGenderFY06'
+            ]
+
             for schema_type, schema in SCHEMA.items():
-                if schema_type == 'RegionCountyEconFY06.csv':
+                if schema_type in county_schemas:
                     payload['defaults'].update(self.prepare_row(
                         schema, row))
 
-            payload['economic_status'] = payload['defaults']['economic_status']
+            payload['economic_status'] = getattr(payload['defaults'], 'economic_status', '')
+            # payload['gender'] = getattr(payload['defaults'], 'gender', '')
             CountyCohorts.objects.update_or_create(**payload)
 
     def prepare_row(self, schema, row):
