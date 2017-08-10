@@ -3,6 +3,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 
+from .managers import CohortQuerySet
+
 
 class CohortsYear(models.Model):
     name = models.CharField(max_length=4)
@@ -70,6 +72,8 @@ class CohortsBase(models.Model):
     assoc = models.IntegerField(null=True)
     accoc_cert = models.IntegerField(null=True)
     cert = models.IntegerField(null=True)
+
+    objects = CohortQuerySet.as_manager()
 
     class Meta:
         abstract = True
