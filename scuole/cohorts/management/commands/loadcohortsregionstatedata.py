@@ -11,8 +11,6 @@ from scuole.regions.models import Region, RegionCohorts
 from scuole.states.models import State, StateCohorts
 from ...models import CohortsYear
 
-from ...schemas.cohorts.schema import SCHEMA
-
 
 class Command(BaseCommand):
     help = 'Loads a school year worth of cohorts data.'
@@ -58,71 +56,94 @@ class Command(BaseCommand):
         return model
 
     def load_data(self):
-        # # Finds the file based on what the schema dict is called
-        file_names = ['{}.csv'.format(
-            schema) for (schema, _) in SCHEMA.items()]
 
         data = []
-        for file_name in file_names:
-            data_file = os.path.join(self.year_folder, file_name)
 
-            with open(data_file) as f:
-                reader = csv.DictReader(f)
-                data.append([i for i in reader])
+        data_file = os.path.join(self.year_folder, 'regionState.csv')
 
-            id_match = 'Region Code'
+        with open(data_file) as f:
+            reader = csv.DictReader(f)
+            data.append([i for i in reader])
 
-            for row in sum(data, []):
-                if row[id_match] is '' or None:
+        id_match = 'Region Code'
 
-                    payload = {
-                        'year': self.year,
-                        'defaults': {}
-                    }
-                    model = self.get_state_model_instance()
-                    payload['state'] = model
+        for row in sum(data, []):
+            if row[id_match] is '' or None:
 
-                    for schema_type, schema in SCHEMA.items():
-                        payload['defaults'].update(self.prepare_row(
-                            schema, row))
+                payload = {
+                    'year': self.year,
+                    'defaults': {}
+                }
+                model = self.get_state_model_instance()
+                payload['state'] = model
 
-                    payload['ethnicity'] = payload['defaults']['ethnicity']
-                    payload['gender'] = payload['defaults']['gender']
-                    payload['economic_status'] = payload['defaults']['economic_status']
+                payload['defaults'].update(self.prepare_row(row))
 
-                    StateCohorts.objects.update_or_create(**payload)
+                payload['ethnicity'] = payload['defaults']['ethnicity']
+                payload['gender'] = payload['defaults']['gender']
+                payload['economic_status'] = payload['defaults']['economic_status']
 
-                    self.stdout.write(model.name)
+                print(payload)
+
+                StateCohorts.objects.update_or_create(**payload)
+
+                self.stdout.write(model.name)
+            else:
+                if row[id_match] in ['1', '2', '3', '4', '5', '6',
+                                     '7', '8', '9']:
+                    identifier = '0' + row[id_match]
                 else:
-                    if row[id_match] in ['1', '2', '3', '4', '5', '6',
-                                         '7', '8', '9']:
-                        identifier = '0' + row[id_match]
-                    else:
-                        identifier = row[id_match]
+                    identifier = row[id_match]
 
-                    payload = {
-                        'year': self.year,
-                        'defaults': {}
-                    }
-                    model = self.get_region_model_instance(identifier, Region)
-                    payload['region'] = model
+                payload = {
+                    'year': self.year,
+                    'defaults': {}
+                }
+                model = self.get_region_model_instance(identifier, Region)
+                payload['region'] = model
 
-                    self.stdout.write(model.name)
+                self.stdout.write(model.name)
 
-                    for schema_type, schema in SCHEMA.items():
-                        payload['defaults'].update(self.prepare_row(
-                            schema, row))
+                payload['defaults'].update(self.prepare_row(row))
 
-                    payload['ethnicity'] = payload['defaults']['ethnicity']
-                    payload['gender'] = payload['defaults']['gender']
-                    payload['economic_status'] = payload['defaults']['economic_status']
-                    RegionCohorts.objects.update_or_create(**payload)
+                payload['ethnicity'] = payload['defaults']['ethnicity']
+                payload['gender'] = payload['defaults']['gender']
+                payload['economic_status'] = payload['defaults']['economic_status']
+                RegionCohorts.objects.update_or_create(**payload)
 
-    def prepare_row(self, schema, row):
+    def prepare_row(self, row):
+        fields = [
+            'enrolled_8th',
+            'enrolled_9th',
+            'enrolled_9th_percent',
+            'enrolled_10th',
+            'enrolled_10th_percent',
+            'lessthan_10th_enrolled',
+            'lessthan_10th_enrolled_percent',
+            'graduated',
+            'graduated_percent',
+            'enrolled_4yr',
+            'enrolled_4yr_percent',
+            'enrolled_2yr',
+            'enrolled_2yr_percent',
+            'enrolled_out_of_state',
+            'enrolled_out_of_state_percent',
+            'total_enrolled',
+            'total_enrolled_percent',
+            'enrolled_wo_record',
+            'enrolled_wo_record_percent',
+            'total_degrees',
+            'total_degrees_percent',
+            'ethnicity',
+            'gender',
+            'economic_status'
+        ]
+
         payload = {}
 
-        for field, code in schema.items():
-            datum = row[code]
-            payload[field] = datum
+        for field in row:
+            if field in fields:
+                datum = row[field]
+                payload[field] = datum
 
         return payload

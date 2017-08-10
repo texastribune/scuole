@@ -10,8 +10,6 @@ from django.core.management.base import BaseCommand, CommandError
 from scuole.counties.models import County, CountyCohorts
 from ...models import CohortsYear
 
-from ...schemas.cohorts.countyGenderSchema import SCHEMA
-
 from slugify import slugify
 
 
@@ -61,8 +59,9 @@ class Command(BaseCommand):
             self.year_folder, 'county-fips-id-map.csv')
 
         cohorts_files = [
-            os.path.join(self.year_folder, 'RegionCountyEconFY06.csv')]
-        # os.path.join(self.year_folder, 'RegionCountyGenderFY06.csv')]
+            os.path.join(self.year_folder, 'countyEcon.csv'),
+            os.path.join(self.year_folder, 'countyGender.csv'),
+            os.path.join(self.year_folder, 'countyEthnicity.csv')]
 
         counties = []
         with open(counties_fips_id_file) as f:
@@ -95,31 +94,55 @@ class Command(BaseCommand):
 
             self.stdout.write(model.name)
 
-            county_schemas = [
-                'RegionCountyEconFY06',
-                'RegionCountyGenderFY06'
-            ]
-
-            for schema_type, schema in SCHEMA.items():
-                if schema_type in county_schemas:
-                    payload['defaults'].update(self.prepare_row(
-                        schema, row))
+            payload['defaults'].update(self.prepare_row(row))
 
             payload['economic_status'] = payload['defaults'].get('economic_status', '')
             payload['gender'] = payload['defaults'].get('gender', '')
+            payload['ethnicity'] = payload['defaults'].get('ethnicity', '')
             if model.name == 'Galveston':
                 print(payload)
             CountyCohorts.objects.sum_update_or_create(**payload)
 
-    def prepare_row(self, schema, row):
+    def prepare_row(self, row):
+        fields = [
+            'enrolled_8th',
+            'enrolled_9th',
+            'enrolled_9th_percent',
+            'enrolled_10th',
+            'enrolled_10th_percent',
+            'lessthan_10th_enrolled',
+            'lessthan_10th_enrolled_percent',
+            'graduated',
+            'graduated_percent',
+            'enrolled_4yr',
+            'enrolled_4yr_percent',
+            'enrolled_2yr',
+            'enrolled_2yr_percent',
+            'enrolled_out_of_state',
+            'enrolled_out_of_state_percent',
+            'total_enrolled',
+            'total_enrolled_percent',
+            'enrolled_wo_record',
+            'enrolled_wo_record_percent',
+            'total_degrees',
+            'total_degrees_percent',
+            'ethnicity',
+            'gender',
+            'economic_status'
+        ]
         payload = {}
 
-        for field, code in schema.items():
-            datum = row[code]
-            if datum == '':
-                datum = None
-            else:
-                datum = row[code]
-            payload[field] = datum
+        for field in row:
+            if field in fields:
+                print(field)
+                datum = row[field]
+                if datum.strip() == '' or '-':
+                    if field == 'ethnicity' or 'gender' or 'economic_status':
+                        datum = ''
+                    else:
+                        datum = None
+                else:
+                    datum = row[field]
+                payload[field] = datum
 
         return payload
