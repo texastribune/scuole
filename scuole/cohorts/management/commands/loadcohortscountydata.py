@@ -105,9 +105,11 @@ class Command(BaseCommand):
                     payload['defaults'].update(self.prepare_row(
                         schema, row))
 
-            payload['economic_status'] = getattr(payload['defaults'], 'economic_status', '')
-            # payload['gender'] = getattr(payload['defaults'], 'gender', '')
-            CountyCohorts.objects.update_or_create(**payload)
+            payload['economic_status'] = payload['defaults'].get('economic_status', '')
+            payload['gender'] = payload['defaults'].get('gender', '')
+            if model.name == 'Galveston':
+                print(payload)
+            CountyCohorts.objects.sum_update_or_create(**payload)
 
     def prepare_row(self, schema, row):
         payload = {}

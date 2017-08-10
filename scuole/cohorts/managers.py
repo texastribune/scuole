@@ -22,7 +22,7 @@ class CohortQuerySet(models.QuerySet):
                 if created:
                     return obj, created
             for k, v in defaults.items():
-                if isinstance(self.model.get_field(k), (
+                if isinstance(self.model._meta.get_field(k), (
                     DecimalField, FloatField, IntegerField,)):
                     setattr(obj, k, F(k) + (v() if callable(v) else v))
                 else:

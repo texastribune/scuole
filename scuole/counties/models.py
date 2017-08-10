@@ -31,7 +31,6 @@ class CountyCohorts(CohortsBase):
     class Meta:
         unique_together = (
             'county', 'year', 'economic_status', 'gender')
-        verbose_name_plural = _('County cohorts')
 
     def __str__(self):
         return '{0} {1}'.format(self.year.name, self.county.name)
