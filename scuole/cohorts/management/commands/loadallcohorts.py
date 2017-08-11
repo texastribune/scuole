@@ -36,8 +36,8 @@ class Command(BaseCommand):
                 '`{}` was not found in your cohorts data directory'.format(
                     self.year_folder))
 
-        firstYear = int(options['year']) + 10
-        secondYear = int(options['year']) + 11
+        firstYear = int(options['year']) + 9
+        secondYear = int(options['year']) + 10
 
         schoolYear = str(firstYear) + '-' + str(secondYear)
 
