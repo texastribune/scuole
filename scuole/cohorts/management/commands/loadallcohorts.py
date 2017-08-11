@@ -70,6 +70,13 @@ class Command(BaseCommand):
 
         return model
 
+    def prep_payload(self, payload, row):
+        payload['defaults'].update(self.prepare_row(row))
+
+        payload['ethnicity'] = payload['defaults']['ethnicity']
+        payload['gender'] = payload['defaults']['gender']
+        payload['economic_status'] = payload['defaults']['economic_status']
+
     def load_regions_state(self):
         data = []
 
@@ -91,24 +98,12 @@ class Command(BaseCommand):
                 model = self.get_state_model_instance()
                 payload['state'] = model
 
-                payload['defaults'].update(self.prepare_row(row))
-
-                payload['ethnicity'] = payload['defaults']['ethnicity']
-                payload['gender'] = payload['defaults']['gender']
-                payload['economic_status'] = payload['defaults']['economic_status']
-
-                print(payload)
-
+                self.prep_payload(payload, row)
                 StateCohorts.objects.update_or_create(**payload)
 
                 self.stdout.write(model.name)
             else:
-                if row[id_match] in ['1', '2', '3', '4', '5', '6',
-                                     '7', '8', '9']:
-                    identifier = '0' + row[id_match]
-                else:
-                    identifier = row[id_match]
-
+                identifier = row[id_match].zfill(2)
                 payload = {
                     'year': self.year,
                     'defaults': {}
@@ -118,18 +113,14 @@ class Command(BaseCommand):
 
                 self.stdout.write(model.name)
 
-                payload['defaults'].update(self.prepare_row(row))
-
-                payload['ethnicity'] = payload['defaults']['ethnicity']
-                payload['gender'] = payload['defaults']['gender']
-                payload['economic_status'] = payload['defaults']['economic_status']
+                self.prep_payload(payload, row)
                 RegionCohorts.objects.update_or_create(**payload)
 
     def load_counties(self):
         counties_fips_id_file = os.path.join(
             self.year_folder, 'county-fips-id-map.csv')
 
-        cohorts_files = [
+        county_files = [
             os.path.join(self.year_folder, 'countyEcon.csv'),
             os.path.join(self.year_folder, 'countyGender.csv'),
             os.path.join(self.year_folder, 'countyEthnicity.csv')]
@@ -140,7 +131,7 @@ class Command(BaseCommand):
             counties.append([i for i in reader])
 
         data = []
-        for file_name in cohorts_files:
+        for file_name in county_files:
             with open(file_name) as f:
                 reader = csv.DictReader(f)
                 data.append([i for i in reader])
@@ -217,8 +208,5 @@ class Command(BaseCommand):
                     datum = row[field]
 
                 payload[field] = datum
-            # if field in fields:
-            #     datum = row[field]
-            #     payload[field] = datum
 
         return payload

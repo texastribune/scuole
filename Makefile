@@ -33,12 +33,6 @@ local/cohorts: local/reset-db
 	python manage.py loadallcohorts 2006
 	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | python manage.py shell --plain
 
-local/cohorts-counties: local/reset-db
-	python manage.py bootstrapstates
-	python manage.py bootstrapregions
-	python manage.py bootstrapcounties
-	python manage.py loadcohortscountydata 2006
-
 docker/pull:
 	@echo "Getting a fresh copy of master..."
 	git checkout master
