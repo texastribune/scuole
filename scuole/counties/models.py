@@ -4,8 +4,9 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+from scuole.stats.models import SchoolYear
 from scuole.states.models import State
-from scuole.cohorts.models import CohortsYear, CohortsBase
+from scuole.cohorts.models import CohortsBase
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -26,7 +27,7 @@ class County(models.Model):
 @python_2_unicode_compatible
 class CountyCohorts(CohortsBase):
     county = models.ForeignKey(County, related_name='cohorts')
-    year = models.ForeignKey(CohortsYear, related_name='county_cohorts')
+    year = models.ForeignKey(SchoolYear, related_name='county_cohorts')
 
     class Meta:
         unique_together = (

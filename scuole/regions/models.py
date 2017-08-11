@@ -6,7 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.states.models import State
 from scuole.stats.models import SchoolYear, StatsBase
-from scuole.cohorts.models import CohortsYear, CohortsBase
+from scuole.cohorts.models import CohortsBase
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -37,7 +37,7 @@ class RegionStats(StatsBase):
 @python_2_unicode_compatible
 class RegionCohorts(CohortsBase):
     region = models.ForeignKey(Region, related_name='cohorts')
-    year = models.ForeignKey(CohortsYear, related_name='region_cohorts')
+    year = models.ForeignKey(SchoolYear, related_name='region_cohorts')
 
     class Meta:
         unique_together = (

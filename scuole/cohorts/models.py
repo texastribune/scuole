@@ -6,10 +6,6 @@ from django.db import models
 from .managers import CohortQuerySet
 
 
-class CohortsYear(models.Model):
-    name = models.CharField(max_length=4)
-
-
 class CohortsBase(models.Model):
     FEMALE = 'Female'
     MALE = 'Male'

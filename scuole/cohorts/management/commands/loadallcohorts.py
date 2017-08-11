@@ -10,7 +10,7 @@ from django.conf import settings
 from scuole.counties.models import County, CountyCohorts
 from scuole.regions.models import Region, RegionCohorts
 from scuole.states.models import State, StateCohorts
-from ...models import CohortsYear
+from scuole.stats.models import SchoolYear
 
 from slugify import slugify
 
@@ -36,9 +36,14 @@ class Command(BaseCommand):
                 '`{}` was not found in your cohorts data directory'.format(
                     self.year_folder))
 
+        firstYear = int(options['year']) + 10
+        secondYear = int(options['year']) + 11
+
+        schoolYear = str(firstYear) + '-' + str(secondYear)
+
         # if it is there, we get or create our CohortsYear model
-        year, _ = CohortsYear.objects.get_or_create(
-            name=options['year'])
+        year, _ = SchoolYear.objects.get_or_create(
+            name=schoolYear)
 
         self.year = year
 
@@ -199,11 +204,14 @@ class Command(BaseCommand):
         for field in row:
             if field in fields:
                 datum = row[field]
+                # If the data's masked or blank, return blanks for the pivots
+                # that are strings or nulls for everything else
                 if datum.strip() in problem_children:
                     if field in pivots:
                         datum = ''
                     else:
                         datum = None
+                # otherwise return the data
                 else:
                     datum = row[field]
 
