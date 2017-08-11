@@ -30,7 +30,7 @@ class CountyCohorts(CohortsBase):
 
     class Meta:
         unique_together = (
-            'county', 'year', 'economic_status', 'gender')
+            'county', 'year', 'economic_status', 'gender', 'ethnicity')
 
     def __str__(self):
         return '{0} {1}'.format(self.year.name, self.county.name)

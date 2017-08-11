@@ -99,8 +99,7 @@ class Command(BaseCommand):
             payload['economic_status'] = payload['defaults'].get('economic_status', '')
             payload['gender'] = payload['defaults'].get('gender', '')
             payload['ethnicity'] = payload['defaults'].get('ethnicity', '')
-            if model.name == 'Galveston':
-                print(payload)
+
             CountyCohorts.objects.sum_update_or_create(**payload)
 
     def prepare_row(self, row):
@@ -130,19 +129,22 @@ class Command(BaseCommand):
             'gender',
             'economic_status'
         ]
+
+        problem_children = ['', '-', '.']
+        pivots = ['ethnicity', 'gender', 'economic_status']
         payload = {}
 
         for field in row:
             if field in fields:
-                print(field)
                 datum = row[field]
-                if datum.strip() == '' or '-':
-                    if field == 'ethnicity' or 'gender' or 'economic_status':
+                if datum.strip() in problem_children:
+                    if field in pivots:
                         datum = ''
                     else:
                         datum = None
                 else:
                     datum = row[field]
+
                 payload[field] = datum
 
         return payload
