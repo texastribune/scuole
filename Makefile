@@ -30,7 +30,8 @@ local/cohorts: local/reset-db
 	python manage.py bootstrapstates
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
-	python manage.py loadallcohorts 2006
+	# python manage.py loadallcohorts 2006
+	python manage.py loadallcohorts 2004
 	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | python manage.py shell --plain
 
 docker/pull:

@@ -197,7 +197,7 @@ class Command(BaseCommand):
             'economic_status'
         ]
 
-        problem_children = ['', '-', '.']
+        problem_children = ['', '-', '.', '#VALUE!']
         pivots = ['ethnicity', 'gender', 'economic_status']
         payload = {}
 
