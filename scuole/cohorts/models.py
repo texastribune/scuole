@@ -58,7 +58,7 @@ class CohortsBase(models.Model):
     enrolled_2yr = models.IntegerField(null=True)
     enrolled_2yr_percent = models.FloatField(null=True)
     enrolled_out_of_state = models.IntegerField(null=True)
-    enrolled_out_of_state_percent = models.IntegerField(null=True)
+    enrolled_out_of_state_percent = models.FloatField(null=True)
     total_enrolled = models.IntegerField(null=True)
     total_enrolled_percent = models.FloatField(null=True)
     enrolled_wo_record = models.IntegerField(null=True)
