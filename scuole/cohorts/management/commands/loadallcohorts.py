@@ -123,7 +123,8 @@ class Command(BaseCommand):
 
     def load_counties(self):
         counties_fips_id_file = os.path.join(
-            self.year_folder, 'county-fips-id-map.csv')
+            settings.DATA_FOLDER, 'cohorts', 'reference',
+            'county-fips-id-map.csv')
 
         county_files = [
             os.path.join(self.year_folder, 'countyEcon.csv'),
