@@ -47,8 +47,10 @@ class Command(BaseCommand):
 
         self.year = year
 
-        self.load_counties()
         self.load_regions_state()
+        countyDatasets = ['2003', '2004', '2005', '2006']
+        if options['year'] in countyDatasets:
+            self.load_counties()
 
     def get_state_model_instance(self):
         return State.objects.get(name='TX')
