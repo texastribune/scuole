@@ -38,6 +38,7 @@ module.exports = {
                 loose: true,
               },
             ],
+            ['transform-react-jsx', { pragma: 'h' }],
           ],
         },
       },
