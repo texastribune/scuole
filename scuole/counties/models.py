@@ -23,6 +23,10 @@ class County(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def name_full(self):
+        return '{0} County'.format(self.name)
+
 
 @python_2_unicode_compatible
 class CountyCohorts(CohortsBase):
