@@ -6,6 +6,7 @@ import os
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
+from django.db.models import DecimalField, FloatField, IntegerField
 
 from scuole.counties.models import County, CountyCohorts
 from scuole.regions.models import Region, RegionCohorts
@@ -36,12 +37,13 @@ class Command(BaseCommand):
                 '`{}` was not found in your cohorts data directory'.format(
                     self.year_folder))
 
-        firstYear = int(options['year']) + 9
-        secondYear = int(options['year']) + 10
+        year = int(options['year'])
+        firstYear = year - 1
+        secondYear = year
 
-        schoolYear = str(firstYear) + '-' + str(secondYear)
+        schoolYear = '{0}-{1}'.format(firstYear, secondYear)
 
-        # if it is there, we get or create our CohortsYear model
+        # if it is there, we get or create our SchoolYear model
         year, _ = SchoolYear.objects.get_or_create(
             name=schoolYear)
 
@@ -123,6 +125,8 @@ class Command(BaseCommand):
                 self.prep_payload(payload, row)
                 RegionCohorts.objects.update_or_create(**payload)
 
+        self.create_regions_gender_overall()
+
     def load_counties(self):
         counties_fips_id_file = os.path.join(
             settings.DATA_FOLDER, 'cohorts', 'reference',
@@ -145,6 +149,8 @@ class Command(BaseCommand):
                 data.append([i for i in reader])
 
         for row in sum(data, []):
+            if row['County Name'] == '':
+                continue
             # This is bad and I know it.
             # Loops through the counties in the FIPS/THECB id map sheet
             # and matches it to the FIPS code stored in the County model
@@ -171,6 +177,71 @@ class Command(BaseCommand):
             payload['ethnicity'] = payload['defaults'].get('ethnicity', '')
 
             CountyCohorts.objects.sum_update_or_create(**payload)
+
+        self.create_counties_overall()
+
+    def create_counties_overall(self):
+        # get the male/female overall cohorts we just created
+        new_cohorts = CountyCohorts.objects.filter(
+            economic_status='', ethnicity='', year=self.year)
+
+        # get only the counties those cohorts interacted with
+        counties = County.objects.filter(cohorts__in=new_cohorts).distinct()
+
+        default_fields = [i.name for i in CountyCohorts._meta.get_fields() if isinstance(i, (
+                DecimalField, FloatField, IntegerField,))]
+
+        # loop 'em
+        for county in counties:
+            # filter new_cohorts for just the two we need
+            cohorts_to_combine = new_cohorts.filter(county=county)
+            print(cohorts_to_combine)
+
+            # let's be sure we only have two to work with
+            assert len(cohorts_to_combine) == 2, 'There should be only two cohorts'
+
+            for cohort in cohorts_to_combine:
+                payload = {
+                    'year': self.year,
+                    'county': county,
+                    'economic_status': '',
+                    'ethnicity': '',
+                    'gender': '',
+                    'defaults': dict((name, getattr(cohort, name)) for name in default_fields),
+                }
+
+                CountyCohorts.objects.sum_update_or_create(**payload)
+
+    def create_regions_gender_overall(self):
+        # get the ethnicity cohorts we just created
+        new_cohorts = RegionCohorts.objects.exclude(ethnicity='').filter(
+            economic_status='', year=self.year)
+
+        # get only the regions those cohorts interacted with
+        regions = Region.objects.filter(cohorts__in=new_cohorts).distinct()
+
+        default_fields = [i.name for i in RegionCohorts._meta.get_fields() if isinstance(i, (
+                DecimalField, FloatField, IntegerField,))]
+
+        # loop 'em
+        for region in regions:
+            # filter new_cohorts for just the eight we need
+            cohorts_to_combine = new_cohorts.filter(region=region)
+
+            # let's be sure we only have eight to work with
+            assert len(cohorts_to_combine) == 8, 'There should be only eight cohorts'
+
+            for cohort in cohorts_to_combine:
+                payload = {
+                    'year': self.year,
+                    'region': region,
+                    'economic_status': '',
+                    'ethnicity': '',
+                    'gender': cohort.gender,
+                    'defaults': dict((name, getattr(cohort, name)) for name in default_fields),
+                }
+
+                RegionCohorts.objects.sum_update_or_create(**payload)
 
     def prepare_row(self, row):
         fields = [
