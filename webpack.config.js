@@ -8,6 +8,7 @@ module.exports = {
   entry: {
     // about: './about.js',
     campus: './campus.js',
+    cohorts: './cohorts.js',
     district: './district.js',
     state: './state.js',
     commons: [
