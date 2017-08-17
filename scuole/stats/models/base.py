@@ -25,8 +25,12 @@ class SchoolYear(models.Model):
         return '{}-{}'.format(int(start) - 4, int(end) - 4)
 
     @property
+    def start_year(self):
+        return int(self.name.split('-')[0])
+
+    @property
     def end_year(self):
-        return self.name.split('-')[1]
+        return int(self.name.split('-')[1])
 
 
 class StatsBase(StaffStudentBase, PostSecondaryReadinessBase):
