@@ -37,6 +37,7 @@ sitemaps = {
 
 urlpatterns = [
     url(r'^$', LandingView.as_view(), name='landing'),
+    url(r'^outcomes/', include('scuole.cohorts.urls', namespace='cohorts')),
     url(r'^districts/', include(
         'scuole.districts.urls', namespace='districts')),
     url(r'^states/', include(
@@ -52,6 +53,11 @@ urlpatterns = [
 
 # Test pages normally not reachable when DEBUG = True
 if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+
     urlpatterns += [
         url(r'^400/$', default_views.bad_request, {'exception': None}),
         url(r'^403/$', default_views.permission_denied, {'exception': None}),

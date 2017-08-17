@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .base import *
+from .base import * # noqa
 
 import dj_database_url
 
@@ -65,6 +65,8 @@ if not env('DISABLE_DEBUG_TOOLBAR', False):
     MIDDLEWARE += (
         'debug_toolbar.middleware.DebugToolbarMiddleware',
     )
+
+    INTERNAL_IPS = ['127.0.0.1']
 
 ###################################
 # DJANGO EXTENSIONS CONFIGURATION #

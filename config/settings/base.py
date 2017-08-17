@@ -70,6 +70,7 @@ THIRD_PARTY_APPS = (
 )
 
 LOCAL_APPS = (
+    'scuole.core',
     'scuole.campuses',
     'scuole.cohorts',
     'scuole.counties',
