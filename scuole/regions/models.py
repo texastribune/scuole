@@ -20,6 +20,14 @@ class Region(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.name, self.region_id)
 
+    @property
+    def region_name(self):
+        return 'Region {0}'.format(self.region_id)
+
+    @property
+    def region_name_with_city(self):
+        return '{0} ({1})'.format(self.region_name, self.name)
+
 
 @python_2_unicode_compatible
 class RegionStats(StatsBase):
