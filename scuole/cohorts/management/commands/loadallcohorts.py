@@ -126,6 +126,7 @@ class Command(BaseCommand):
                 RegionCohorts.objects.update_or_create(**payload)
 
         self.create_regions_gender_overall()
+        self.create_regions_ethnicity_overall()
 
     def load_counties(self):
         counties_fips_id_file = os.path.join(
@@ -238,6 +239,37 @@ class Command(BaseCommand):
                     'economic_status': '',
                     'ethnicity': '',
                     'gender': cohort.gender,
+                    'defaults': dict((name, getattr(cohort, name)) for name in default_fields),
+                }
+
+                RegionCohorts.objects.sum_update_or_create(**payload)
+
+    def create_regions_ethnicity_overall(self):
+        # get the gender cohorts we just created
+        new_cohorts = RegionCohorts.objects.exclude(ethnicity='').filter(
+            economic_status='', year=self.year)
+
+        # get only the regions those cohorts interacted with
+        regions = Region.objects.filter(cohorts__in=new_cohorts).distinct()
+
+        default_fields = [i.name for i in RegionCohorts._meta.get_fields() if isinstance(i, (
+                DecimalField, FloatField, IntegerField,))]
+
+        # loop 'em
+        for region in regions:
+            # filter new_cohorts for just the eight we need
+            cohorts_to_combine = new_cohorts.filter(region=region)
+
+            # let's be sure we only have eight to work with
+            assert len(cohorts_to_combine) == 8, 'There should be only eight cohorts'
+
+            for cohort in cohorts_to_combine:
+                payload = {
+                    'year': self.year,
+                    'region': region,
+                    'economic_status': '',
+                    'ethnicity': cohort.ethnicity,
+                    'gender': '',
                     'defaults': dict((name, getattr(cohort, name)) for name in default_fields),
                 }
 
