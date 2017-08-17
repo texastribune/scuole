@@ -2,6 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.db import models
+from django.utils.functional import cached_property
 
 from .managers import CohortQuerySet
 
@@ -74,6 +75,20 @@ class CohortsBase(models.Model):
     cert = models.IntegerField(null=True)
 
     objects = CohortQuerySet.as_manager()
+
+    @cached_property
+    def percent_enrolled_higher_education(self):
+        try:
+            return self.total_enrolled / self.enrolled_8th
+        except (TypeError, ZeroDivisionError):
+            return 'N/A'
+
+    @cached_property
+    def percent_completed_higher_education(self):
+        try:
+            return self.total_degrees / self.enrolled_8th
+        except (TypeError, ZeroDivisionError):
+            return 'N/A'
 
     class Meta:
         abstract = True
