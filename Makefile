@@ -30,7 +30,6 @@ local/cohorts: local/reset-db
 	python manage.py bootstrapstates
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
-	# python manage.py loadallcohorts 2006
 	python manage.py loadallcohorts 1997
 	python manage.py loadallcohorts 1998
 	python manage.py loadallcohorts 1999
