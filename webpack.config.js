@@ -27,6 +27,7 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
           presets: [['es2015', { modules: false }]],
@@ -39,6 +40,7 @@ module.exports = {
               },
             ],
             ['transform-react-jsx', { pragma: 'h' }],
+            ['transform-object-rest-spread', { useBuiltIns: true }],
           ],
         },
       },
