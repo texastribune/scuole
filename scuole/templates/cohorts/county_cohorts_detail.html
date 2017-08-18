@@ -1,0 +1,119 @@
+{% extends 'cohorts_base.html' %}{% load humanize i18n journalize %}
+
+{% block extra_content %}
+{% include "includes/reminder_bar.html" with title=county.name_full %}
+{% endblock extra_content %}
+
+{% block breadcrumbs %}
+<nav class="breadcrumbs">
+  <a class="breadcrumbs__item" href="{% url 'landing' %}">Home</a> » <a class="breadcrumbs__item" href="{% url 'cohorts:landing' %}">{% trans "8th Grade Outcomes" %}</a>
+</nav>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<section class="row section">
+  <div class="intro-block">
+    <header class="page-header" id="js-reminder-bar-trigger">
+      <h1 class="page-headline">{{ county.name_full }}</h1>
+    </header>
+    <section class="row metrics">
+      {% include 'includes/cohorts/metric.html' with title="Began 8th grade in " year=latest_cohort.year.start_year field=latest_cohort.enrolled_8th|intcomma field_label="students" %}
+      {% include 'includes/cohorts/metric.html' with title="Graduated from high school" field=latest_cohort.graduated|intcomma extra_field=latest_cohort.percent_graduated|percentify subtext_field=latest_state_cohort.percent_graduated|percentify subtext_label="Statewide" %}
+      {% include 'includes/cohorts/metric.html' with title="Enrolled in college" field=latest_cohort.total_enrolled|intcomma extra_field=latest_cohort.percent_enrolled_higher_education|percentify subtext_field=latest_state_cohort.percent_enrolled_higher_education|percentify subtext_label="Statewide" %}
+      {% include 'includes/cohorts/metric.html' with title="Graduated from college" field=latest_cohort.total_degrees|intcomma extra_field=latest_cohort.percent_completed_higher_education|percentify subtext_field=latest_state_cohort.percent_completed_higher_education|percentify subtext_label="Statewide" %}
+    </section>
+    <section class="page-prose">
+      <p>Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>{{ county.name_full }}</strong> who began 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong> received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date.</p>
+
+      <p>For context, a 13-year-old student who started 8th grade in 1996 is about 34 years old; one who started 8th grade in {{ latest_cohort.year.cohort_start_year }} is now about 26.</p>
+    </section>
+  </div>
+  <div class="contact-block">
+    <div class="map map--district" id="map-container"></div>
+  </div>
+</section>
+
+{% include "includes/ad_slot_leader.html" %}
+
+<section class="metrics-block section">
+
+<nav class="metrics-nav" id="metrics-nav">
+  <ul class="metrics-jumper">
+    <li class="metrics-jumper__item btn btn-link btn-link-hover js-metric-jumper" data-jumper="ethnicity">Ethnicity</li>
+    <li class="metrics-jumper__item btn btn-gray-ghost btn-link-hover js-metric-jumper" data-jumper="gender">Gender</li>
+    <li class="metrics-jumper__item btn btn-gray-ghost btn-link-hover js-metric-jumper" data-jumper="economic">Economic status</li>
+  </ul>
+</nav>
+
+  <div class="metrics-section" id="metrics-section">
+    <section class="section js-metrics-block" id="ethnicity">
+      <h2 class="page-section-header js-metrics-header">Ethnicity</h2>
+      <section class="page-prose">
+        <p>Here's a look at students in each 8th grade cohort who enrolled in higher education and completed a certificate or degree, broken down by ethnicity.</p>
+      </section>
+      <div class="legend">
+        <div class="legend__cell"><span class="dot dot--graduated"></span>Graduated from high school</div>
+        <div class="legend__cell"><span class="dot dot--enrolled"></span>Graduated and enrolled in college</div>
+        <div class="legend__cell"><span class="dot dot--completed"></span>Graduated, enrolled in and completed college</div>
+      </div>
+      <div id="ethnicity-status-charts" class="cohorts-charts"></div>
+    </section>
+    <section class="section js-metrics-block" id="gender">
+      <h2 class="page-section-header js-metrics-header">Gender</h2>
+      <section class="page-prose">
+        <p>Here's a look at students in each 8th grade cohort who enrolled in higher education and completed a certificate or degree, broken down by gender.</p>
+      </section>
+      <div class="legend">
+        <div class="legend__cell"><span class="dot dot--graduated"></span>Graduated from high school</div>
+        <div class="legend__cell"><span class="dot dot--enrolled"></span>Graduated and enrolled in college</div>
+        <div class="legend__cell"><span class="dot dot--completed"></span>Graduated, enrolled in and completed college</div>
+      </div>
+      <div id="gender-status-charts" class="cohorts-charts"></div>
+    </section>
+    <section class="section js-metrics-block" id="economic">
+      <h2 class="page-section-header js-metrics-header">Economic status</h2>
+      <section class="page-prose">
+        <p>Students in each 8th grade cohort who enrolled in higher education and completed a certificate or degree, broken down by economic status when they entered 8th grade. For context, a 13-year-old student who started 8th grade in 1996 is about 34 years old; one who started 8th grade in 2004 is now about 26.</p>
+      </section>
+      <div class="legend">
+        <div class="legend__cell"><span class="dot dot--graduated"></span>Graduated from high school</div>
+        <div class="legend__cell"><span class="dot dot--enrolled"></span>Graduated and enrolled in college</div>
+        <div class="legend__cell"><span class="dot dot--completed"></span>Graduated, enrolled in and completed college</div>
+      </div>
+      <div id="economic-status-charts" class="cohorts-charts"></div>
+    </section>
+  </div>
+
+</section>
+
+{% comment %}
+<section class="row section">
+  <table>
+    <caption>Overall</caption>
+    <thead>
+      <tr>
+        <th scope="col">Year</th>
+        <th scope="col">Enrolled</th>
+        <th scope="col">Completed</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cohort in cohorts_overall %}
+      <tr>
+        <th scope="row">{{ cohort.year.start_year }}</th>
+        <td>{{ cohort.total_enrolled|intcomma }} ({{ cohort.percent_enrolled_higher_education|percentify }}%)</td>
+        <td>{{ cohort.total_degrees|intcomma }} ({{ cohort.percent_completed_higher_education|percentify }}%)</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endcomment %}
+
+{% endblock content %}
+
+{% block data_script %}
+{{ block.super }}
+<script>window.SHAPE = {"type": "Feature", "geometry": {{ county.shape_simple.geojson|safe|default:'null' }}};</script>
+</script>
+{% endblock data_script %}
