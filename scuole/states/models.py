@@ -5,6 +5,7 @@ from localflavor.us.models import USStateField
 
 from django.contrib.gis.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.functional import cached_property
 
 from scuole.core.models import PersonnelBase
 from scuole.stats.models import SchoolYear, StatsBase
@@ -27,6 +28,10 @@ class State(models.Model):
         return reverse('states:detail', kwargs={
             'slug': self.slug,
         })
+
+    @cached_property
+    def shape_simple(self):
+        return self.shape.simplify(0.01)
 
 
 @python_2_unicode_compatible
