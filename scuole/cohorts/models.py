@@ -77,6 +77,13 @@ class CohortsBase(models.Model):
     objects = CohortQuerySet.as_manager()
 
     @cached_property
+    def percent_graduated(self):
+        try:
+            return self.graduated / self.enrolled_8th
+        except (TypeError, ZeroDivisionError):
+            return 'N/A'
+
+    @cached_property
     def percent_enrolled_higher_education(self):
         try:
             return self.total_enrolled / self.enrolled_8th
