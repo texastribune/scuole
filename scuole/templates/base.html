@@ -72,6 +72,8 @@
 {% endblock footer %}
 </footer>
 
+{% block data_script %}{% endblock data_script %}
+
 {% block extra_script %}
 <script src="{% static 'scripts/commons.js' %}"></script>
 {% endblock extra_script %}
@@ -100,14 +102,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <script>
 (function(s, p, d) {
-  var h=d.location.protocol, i=p+"-"+s,
-      e=d.getElementById(i), r=d.getElementById(p+"-root"),
-      u=h==="https:"?"d1z2jf7jlzjs58.cloudfront.net"
-      :"static."+p+".com";
+  var h = d.location.protocol,
+    i = p + '-' + s,
+    e = d.getElementById(i),
+    r = d.getElementById(p + '-root'),
+    u =
+      h === 'https:' ? 'd1z2jf7jlzjs58.cloudfront.net' : 'static.' + p + '.com';
   if (e) return;
-  e = d.createElement(s); e.id = i; e.async = true;
-  e.src = h+"//"+u+"/p.js"; r.appendChild(e);
-})("script", "parsely", document);
+  e = d.createElement(s);
+  e.id = i;
+  e.async = true;
+  e.src = h + '//' + u + '/p.js';
+  r.appendChild(e);
+})('script', 'parsely', document);
 </script>
 <!-- END Parse.ly Include: Standard -->
 
