@@ -175,9 +175,6 @@ class Command(BaseCommand):
             payload['gender'] = payload['defaults'].get('gender', '')
             payload['ethnicity'] = payload['defaults'].get('ethnicity', '')
 
-            if payload['economic_status'] == '' and payload['gender'] == '' and payload['ethnicity'] == '':
-                print('blank!')
-                print(payload)
 
             CountyCohorts.objects.sum_update_or_create(**payload)
 
@@ -198,8 +195,6 @@ class Command(BaseCommand):
         for county in counties:
             # filter new_cohorts for just the two we need
             cohorts_to_combine = new_cohorts.filter(county=county)
-            print([i.__dict__ for i in cohorts_to_combine])
-            # print(cohorts_to_combine)
 
             # let's be sure we only have two to work with
             assert len(cohorts_to_combine) == 2, 'There should be only two cohorts'
@@ -282,25 +277,15 @@ class Command(BaseCommand):
         fields = [
             'enrolled_8th',
             'enrolled_9th',
-            'enrolled_9th_percent',
             'enrolled_10th',
-            'enrolled_10th_percent',
             'lessthan_10th_enrolled',
-            'lessthan_10th_enrolled_percent',
             'graduated',
-            'graduated_percent',
             'enrolled_4yr',
-            'enrolled_4yr_percent',
             'enrolled_2yr',
-            'enrolled_2yr_percent',
             'enrolled_out_of_state',
-            'enrolled_out_of_state_percent',
             'total_enrolled',
-            'total_enrolled_percent',
             'enrolled_wo_record',
-            'enrolled_wo_record_percent',
             'total_degrees',
-            'total_degrees_percent',
             'ethnicity',
             'gender',
             'economic_status'
