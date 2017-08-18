@@ -50,6 +50,12 @@
   margin-bottom: $gutter;
 }
 
+.page-section-subheader-cohort {
+  @include font-size(16);
+  font-family: $font-soleil;
+  font-weight: 700;
+}
+
 .page-prose {
   margin-bottom: $gutter;
 

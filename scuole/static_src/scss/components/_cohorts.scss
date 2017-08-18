@@ -1,0 +1,89 @@
+.cohorts-charts {
+  width: 100%;
+}
+
+.chart-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chart-container {
+  flex: 0 0 50%;
+  margin-bottom: $gutter;
+  max-width: 50%;
+  padding-left: $gutter-half;
+  padding-right: $gutter-half;
+}
+
+.axis {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-size: .75rem;
+
+  text {
+    fill: hsl(0, 0%, 13%);
+  }
+}
+
+.axis--x .domain,
+.axis--y .domain {
+  display: none;
+}
+
+.line {
+  stroke-opacity: 0.2;
+  fill-opacity: 0.7;
+}
+
+.line--one {
+  fill: $color-button;
+  stroke: $color-button;
+}
+
+.line--two {
+  fill: $color-button-dark;
+  stroke: $color-button-dark;
+}
+
+.line--three {
+  fill: $color-button-darker;
+  stroke: $color-button-darker;
+}
+
+.tick line {
+  stroke: #000;
+  stroke-opacity: 0.1;
+}
+
+.legend {
+  margin-bottom: $gutter;
+  text-align: center;
+}
+
+.legend__cell {
+  display: inline;
+  font-size: .875rem;
+}
+
+.legend__cell + .legend__cell {
+  margin-left: $gutter-half;
+}
+
+.dot {
+  border-radius: 4px;
+  display: inline-block;
+  height: 8px;
+  margin-right: $gutter-quarter;
+  width: 8px;
+}
+
+.dot--graduated {
+  background-color: $color-button;
+}
+
+.dot--enrolled {
+  background-color: $color-button-dark;
+}
+
+.dot--completed {
+  background-color: $color-button-darker;
+}

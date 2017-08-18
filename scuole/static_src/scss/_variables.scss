@@ -11,6 +11,13 @@ $color-text-accent: $color-secondary;
 $color-text-inverse: $color-white;
 $color-link: hsl(194, 90%, 35%);
 $color-button: hsl(177, 91%, 37%);
+$color-button-dark: darken($color-button, 15%);
+$color-button-darker: darken($color-button, 30%);
+
+$color-purple: hsl(267, 42%, 51%);
+$color-chart-purple-1: lighten($color-purple, 15%);
+$color-chart-purple-2: $color-purple;
+$color-chart-purple-3: darken($color-purple, 15%);
 
 // Spacing
 $gutter: 1.25rem;
@@ -33,7 +40,7 @@ $font-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-serif: Georgia, 'Times New Roman', Times, serif;
 $font-livory: 'livory', $font-serif;
 $font-soleil: 'soleil', $font-sans-serif;
-$font-metric: 'soleil', $font-sans-serif;;
+$font-metric: 'soleil', $font-sans-serif;
 $font-soleil: $font-sans-serif;
 
 // sass-mq
@@ -42,7 +49,6 @@ $mq-responsive: true;
 $mq-breakpoints: (
   mobile: 520px,
   tablet: 760px,
-
   metrics-flip: 900px,
   ad-switch: 760px,
   footer-break: 900px,
