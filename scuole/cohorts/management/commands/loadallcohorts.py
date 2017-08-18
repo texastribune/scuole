@@ -50,9 +50,7 @@ class Command(BaseCommand):
         self.year = year
 
         self.load_regions_state()
-        countyDatasets = ['2003', '2004', '2005', '2006']
-        if options['year'] in countyDatasets:
-            self.load_counties()
+        self.load_counties()
 
     def get_state_model_instance(self):
         return State.objects.get(name='TX')
@@ -177,6 +175,10 @@ class Command(BaseCommand):
             payload['gender'] = payload['defaults'].get('gender', '')
             payload['ethnicity'] = payload['defaults'].get('ethnicity', '')
 
+            if payload['economic_status'] == '' and payload['gender'] == '' and payload['ethnicity'] == '':
+                print('blank!')
+                print(payload)
+
             CountyCohorts.objects.sum_update_or_create(**payload)
 
         self.create_counties_overall()
@@ -196,7 +198,8 @@ class Command(BaseCommand):
         for county in counties:
             # filter new_cohorts for just the two we need
             cohorts_to_combine = new_cohorts.filter(county=county)
-            print(cohorts_to_combine)
+            print([i.__dict__ for i in cohorts_to_combine])
+            # print(cohorts_to_combine)
 
             # let's be sure we only have two to work with
             assert len(cohorts_to_combine) == 2, 'There should be only two cohorts'
