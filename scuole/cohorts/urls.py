@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from django.conf.urls import include, url
 
 from .views import (
+    CohortsLandingView,
     CountyCohortsDetailView,
     RegionCohortsDetailView,
     StateCohortsDetailView,
@@ -11,7 +12,7 @@ from .views import (
 
 urlpatterns = [
     url(r'^$',
-        StateCohortsDetailView.as_view(), name='landing'),
+        CohortsLandingView.as_view(), name='landing'),
     url(r'^states/(?P<slug>[\w-]+)/$',
         StateCohortsDetailView.as_view(), name='states'),
     url(r'^regions/(?P<slug>[\w-]+)/$',
