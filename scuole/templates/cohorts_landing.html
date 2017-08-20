@@ -1,87 +1,35 @@
-{% extends 'base.html' %}{% load i18n %}{% load static from staticfiles %}
+{% extends 'base.html' %}{% load i18n humanize %}{% load static from staticfiles %}
 
-{% block header_class %}header header-standard{% endblock header_class %}
+{% block schema_type %}WebPage{% endblock schema_type %}
+
+{% block header_class %}header header-landing{% endblock header_class %}
 
 {% block header %}
 <div class="container">
-  <div class="header-logo">
-    <a href="http://www.texastribune.org/">
-      <img class="tribune-logo tribune-logo-desktop" src="{% static 'images/logos/tribune-white.svg' %}" alt="{% trans "The Texas Tribune" %}">
-      <img class="tribune-logo tribune-logo-mobile" src="{% static 'images/logos/tribune-white-small.svg' %}" alt="{% trans "The Texas Tribune" %}">
-    </a>
-  </div>
-
-  <a class="header-title" href="{% url 'landing' %}">{% trans "8th Grade Outcomes" %}</a>
+  <a href="http://www.texastribune.org/"><img class="tribune-logo" src="{% static 'images/logos/tribune-white.svg' %}" alt={% trans "The Texas Tribune" %}></a>
 </div>
 {% endblock header %}
 
-{% block main_class %}container{% endblock main_class %}
-
-{% block search %}
-{% include "includes/cohorts/menu.html" %}
-{% endblock search %}
-
 {% block content %}
-Of the 329,095 Texas students who began 8th grade in 2004, 20.5 percent received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date. That rate has risen over the last several years; it was 17.7 percent for students starting 8th grade in 1996.
+<article class="landing-content">
+  <div class="container">
+    <h1 class="landing-header">Texas Higher Ed Outcomes</h1>
+    <p class="landing-subheader">Tracking 8th Graders' Post-Secondary Success,</p>
+  </div>
+</article>
 
-Despite this upward trend, disparities in achievement – by race and economic status – remain. Within the three largest ethnic groups, white students significantly outperform their African-American and Hispanic counterparts. Female students outpace male students by a wide margin. Economically disadvantaged students perform at far lower rates than their peers, regardless of ethnicity.
+<section class="landing-prose">
+  <p class="landing-paragraph">Use this to look for stuff TKTKTK</p>
+  <p class="landing-paragraph landing-paragraph--credit">By <a href="http://www.texastribune.org/about/staff/ryan-murphy/">Ryan Murphy</a>, <a href="http://www.texastribune.org/about/staff/annie-daniel/">Annie Daniel</p>
+</section>
 
-For context, a 13-year-old student who started 8th grade in 1996 is about 34 years old; one who started 8th grade in 2004 is now about 26.
+{% include "includes/ad_slot_leader.html" %}
 
-{{ cohorts_overall }}
-
-{% regroup cohorts_gender by gender as gender_list %}
-
-<ul>
-{% for gender in gender_list %}
-    <li>{{ gender.grouper }}
-    <ul>
-        {% for cohort in gender.list %}
-          <li>{{ cohort.year }}: {{ cohort.enrolled_8th }}</li>
-        {% endfor %}
-    </ul>
-    </li>
-{% endfor %}
-</ul>
-
-{% regroup cohorts_ethnicity by ethnicity as ethnicity_list %}
-
-<ul>
-{% for ethnicity in ethnicity_list %}
-    <li>{{ ethnicity.grouper }}
-    <ul>
-        {% for cohort in ethnicity.list %}
-          <li>{{ cohort.year }}: {{ cohort.enrolled_8th }}</li>
-        {% endfor %}
-    </ul>
-    </li>
-{% endfor %}
-</ul>
-
-{% regroup cohorts_economic_status by economic_status as economic_status_list %}
-
-<ul>
-{% for economic_status in economic_status_list %}
-    <li>{{ economic_status.grouper }}
-    <ul>
-        {% for cohort in economic_status.list %}
-          <li>{{ cohort.year }}: {{ cohort.enrolled_8th }}</li>
-        {% endfor %}
-    </ul>
-    </li>
-{% endfor %}
-</ul>
+<section class="container">
+  <h2 class="page-section-header page-section-header--smaller"><a href="http://www.texastribune.org/education/public-education/">Latest public education stories in The Texas Tribune</a></h2>
+  <div class="row" id="js-story-box"></div>
+</section>
 
 {% endblock content %}
 
-{% block data_script %}
-<script>
-window.data = {{ js_data|safe }};
-</script>
-{% endblock data_script %}
-
-{% block extra_script %}
-{{ block.super }}
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
-<script src="{% static 'scripts/cohorts.js' %}"></script>
-{% endblock extra_script %}
+{% block footer_ad %}{% endblock footer_ad %}
