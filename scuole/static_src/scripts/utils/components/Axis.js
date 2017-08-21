@@ -44,6 +44,7 @@ export default class Axis extends Component {
     orientation = 'left',
     scale,
     tickArguments = [],
+    firstTickFormat,
     tickFormat,
     tickPadding = 3,
     tickSize,
@@ -125,7 +126,7 @@ export default class Axis extends Component {
           <g class="tick" transform={transform(position(d))} key={i}>
             <line stroke="#000" {...lineProps} />
             <text fill="#000" {...textProps}>
-              {format(d)}
+              {format(d, i)}
             </text>
           </g>
         )}

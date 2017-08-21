@@ -9,6 +9,8 @@ const QUERY_URL = '/lookup/';
 class Typeahead {
   constructor(input) {
     this.input = document.querySelector(input);
+
+    if (!this.input) return;
     this.index = -1;
 
     // create a container for typeahead, put input inside of it

@@ -6,28 +6,20 @@ import { scaleLinear } from 'd3-scale';
 import Axis from './Axis';
 
 export default class Chart extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      containerWidth: null,
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      containerWidth: this.base.parentNode.clientWidth,
-    });
-  }
-
-  render(
-    { data, title, xField, yField, yField2, yField3, yMax, margins: _margins },
-    { containerWidth }
-  ) {
-    if (!containerWidth) return;
-
+  render({
+    data,
+    width: containerWidth,
+    ratio = 0.625,
+    title,
+    xField,
+    yField,
+    yField2,
+    yField3,
+    yMax,
+    margins: _margins,
+  }) {
     const width = containerWidth - 20;
-    const height = width * 0.625;
+    const height = width * ratio;
 
     const margins = Object.assign(
       {},
@@ -94,11 +86,9 @@ export default class Chart extends Component {
             class="axis axis--x"
             tickArguments={[4]}
             tickFormat={(d, i) => {
-              const str = d.toString();
+              if (i === 0) return d.toString();
 
-              if (d === xExtent[0]) return str;
-
-              return `'${str.slice(2)}`;
+              return `'${d.toString().slice(2)}`;
             }}
           />
           <Axis
