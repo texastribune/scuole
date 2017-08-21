@@ -2,6 +2,10 @@ from django.db import models, transaction
 from django.db.models import DecimalField, F, FloatField, IntegerField
 
 year_aggregation_fields = [
+    'enrolled_8th',
+    'graduated',
+    'total_enrolled',
+    'total_degrees',
     'percent_graduated',
     'percent_completed_higher_education',
     'percent_enrolled_higher_education',

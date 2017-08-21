@@ -24,9 +24,11 @@
       {% include 'includes/cohorts/metric.html' with title="Graduated from college" field=latest_cohort.total_degrees|intcomma extra_field=latest_cohort.percent_completed_higher_education|percentify subtext_field=latest_state_cohort.percent_completed_higher_education|percentify subtext_label="Statewide" %}
     </section>
     <section class="page-prose">
-      <p>Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>Region {{ region.region_id }}</strong> who began 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong> received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date.</p>
+      {% include 'includes/cohorts/standard_prose.html' %}
 
-      <p>For context, a 13-year-old student who started 8th grade in 1996 is about 34 years old; one who started 8th grade in {{ latest_cohort.year.cohort_start_year }} is now about 26.</p>
+      <p>Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>Region {{ region.region_id }}</strong> who began 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong> received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date. For context, a 13-year-old student who started 8th grade in <strong>1996</strong> is about <strong>TK</strong> years old; one who started 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong> is now about <strong>TK</strong>.</p>
+
+      {% include 'includes/cohorts/prose_closer.html' %}
     </section>
   </div>
   <div class="contact-block">
@@ -44,44 +46,64 @@
     <li class="metrics-jumper__item btn btn-gray-ghost btn-link-hover js-metric-jumper" data-jumper="gender">Gender</li>
     <li class="metrics-jumper__item btn btn-gray-ghost btn-link-hover js-metric-jumper" data-jumper="economic">Economic status</li>
   </ul>
+
+  {% include "includes/ad_slot_sidebar.html" %}
 </nav>
 
   <div class="metrics-section" id="metrics-section">
     <section class="section js-metrics-block" id="ethnicity">
       <h2 class="page-section-header js-metrics-header">Ethnicity</h2>
       <section class="page-prose">
-        <p>Here's a look at students in each 8th grade cohort who enrolled in higher education and completed a certificate or degree, broken down by ethnicity.</p>
+        <p>A look at students in 8th grade cohorts who graduated from high school, enrolled in higher education and completed a certificate or degree, broken down by ethnicity.</p>
       </section>
-      <div class="legend">
-        <div class="legend__cell"><span class="dot dot--graduated"></span>Graduated from high school</div>
-        <div class="legend__cell"><span class="dot dot--enrolled"></span>Graduated and enrolled in college</div>
-        <div class="legend__cell"><span class="dot dot--completed"></span>Graduated, enrolled in and completed college</div>
-      </div>
-      <div id="ethnicity-status-charts" class="cohorts-charts"></div>
+      <section class="cohort-section-table">
+        {% include 'includes/cohorts/ethnicity_table.html' with data=data latest_cohort=latest_cohort %}
+      </section>
+      <section class="cohort-section-charts">
+        <h3 class="page-section-subheader">Class outcomes by ethnicity over time, 1997-{{ latest_cohort.year.start_year }}</h3>
+        <div class="legend">
+          <div class="legend__cell"><span class="dot dot--graduated"></span>Graduated from high school</div>
+          <div class="legend__cell"><span class="dot dot--enrolled"></span>Graduated and enrolled in college</div>
+          <div class="legend__cell"><span class="dot dot--completed"></span>Graduated, enrolled in and completed college</div>
+        </div>
+        <div id="ethnicity-status-charts" class="cohorts-charts"></div>
+      </section>
     </section>
     <section class="section js-metrics-block" id="gender">
       <h2 class="page-section-header js-metrics-header">Gender</h2>
       <section class="page-prose">
         <p>Here's a look at students in each 8th grade cohort who enrolled in higher education and completed a certificate or degree, broken down by gender.</p>
       </section>
-      <div class="legend">
-        <div class="legend__cell"><span class="dot dot--graduated"></span>Graduated from high school</div>
-        <div class="legend__cell"><span class="dot dot--enrolled"></span>Graduated and enrolled in college</div>
-        <div class="legend__cell"><span class="dot dot--completed"></span>Graduated, enrolled in and completed college</div>
-      </div>
-      <div id="gender-status-charts" class="cohorts-charts"></div>
+      <section class="cohort-section-table">
+        {% include 'includes/cohorts/gender_table.html' with data=data latest_cohort=latest_cohort %}
+      </section>
+      <section class="cohort-section-charts">
+        <h3 class="page-section-subheader">Class outcomes by gender over time, 1997-{{ latest_cohort.year.start_year }}</h3>
+        <div class="legend">
+          <div class="legend__cell"><span class="dot dot--graduated"></span>Graduated from high school</div>
+          <div class="legend__cell"><span class="dot dot--enrolled"></span>Graduated and enrolled in college</div>
+          <div class="legend__cell"><span class="dot dot--completed"></span>Graduated, enrolled in and completed college</div>
+        </div>
+        <div id="gender-status-charts" class="cohorts-charts"></div>
+      </section>
     </section>
     <section class="section js-metrics-block" id="economic">
       <h2 class="page-section-header js-metrics-header">Economic status</h2>
       <section class="page-prose">
         <p>Students in each 8th grade cohort who enrolled in higher education and completed a certificate or degree, broken down by economic status when they entered 8th grade.</p>
       </section>
-      <div class="legend">
-        <div class="legend__cell"><span class="dot dot--graduated"></span>Graduated from high school</div>
-        <div class="legend__cell"><span class="dot dot--enrolled"></span>Graduated and enrolled in college</div>
-        <div class="legend__cell"><span class="dot dot--completed"></span>Graduated, enrolled in and completed college</div>
-      </div>
-      <div id="economic-status-charts" class="cohorts-charts"></div>
+      <section class="cohort-section-table">
+        {% include 'includes/cohorts/economic_table.html' with data=data latest_cohort=latest_cohort %}
+      </section>
+      <section class="cohort-section-charts">
+        <h3 class="page-section-subheader">Class outcomes by economic status over time, 1997-{{ latest_cohort.year.start_year }}</h3>
+        <div class="legend">
+          <div class="legend__cell"><span class="dot dot--graduated"></span>Graduated from high school</div>
+          <div class="legend__cell"><span class="dot dot--enrolled"></span>Graduated and enrolled in college</div>
+          <div class="legend__cell"><span class="dot dot--completed"></span>Graduated, enrolled in and completed college</div>
+        </div>
+        <div id="economic-status-charts" class="cohorts-charts"></div>
+      </section>
     </section>
   </div>
 

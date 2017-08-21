@@ -26,7 +26,10 @@ class CountyCohortsDetailView(DetailView):
             county=self.object)
         context['latest_state_cohort'] = StateCohorts.objects.latest_cohort(
             state__name='TX')
-        context['js_data'] = dumps(cohorts.select_related('year').data_payload())
+
+        data = cohorts.select_related('year').data_payload()
+        context['data'] = data
+        context['js_data'] = dumps(data)
 
         return context
 
@@ -46,7 +49,10 @@ class RegionCohortsDetailView(DetailView):
             region=self.object)
         context['latest_state_cohort'] = StateCohorts.objects.latest_cohort(
             state__name='TX')
-        context['js_data'] = dumps(cohorts.select_related('year').data_payload())
+
+        data = cohorts.select_related('year').data_payload()
+        context['data'] = data
+        context['js_data'] = dumps(data)
 
         return context
 
@@ -64,6 +70,9 @@ class StateCohortsDetailView(DetailView):
 
         context['latest_cohort'] = cohorts.latest_cohort(
             state=self.object)
-        context['js_data'] = dumps(cohorts.select_related('year').data_payload())
+
+        data = cohorts.select_related('year').data_payload()
+        context['data'] = data
+        context['js_data'] = dumps(data)
 
         return context
