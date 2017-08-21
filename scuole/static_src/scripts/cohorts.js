@@ -26,7 +26,7 @@ const ethnicityData = [
     data: data.white,
   },
   {
-    title: 'Asian and American Indian',
+    title: 'Other',
     data: data.other,
   },
 ];
