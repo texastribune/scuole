@@ -1,6 +1,10 @@
 // cohorts landing
 .region-list {
   column-count: 2;
+
+  @include mq($from: tablet) {
+    column-count: 4;
+  }
 }
 
 .county-list {
