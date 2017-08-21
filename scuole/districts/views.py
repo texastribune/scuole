@@ -40,7 +40,10 @@ class DistrictDetailView(DetailView):
             context['state'] = get_object_or_404(
                 StateStats, year=latest_year, state__name='TX')
 
-        context['county_cohorts'] = get_object_or_404(
-            County, name=self.object.county)
+        # context['county_cohorts'] = get_object_or_404(
+        #     County, name=self.object.county)
+
+        # context['region_cohorts'] = get_object_or_404(
+        #     Region, name=self.object.region)
 
         return context

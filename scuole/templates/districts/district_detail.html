@@ -51,7 +51,7 @@
   {% if stat.dropout_all_students_percent and stat.dropout_all_students_percent >= 0 %}
   The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.{% endif %}</p>
 
-  <p><strong>{{ district.name }}</strong> is a district in <strong>{{ district.county.name }} County</strong> and <strong>Region {{ district.region.id }}</strong>. <a href="{% url 'cohorts:counties' county_cohorts.slug %}">Click here</a> to view the 8th Grade Outcomes for this county or <a href="{% url 'cohorts:regions' district.region.id %}">or here</a> to view the 8th Grade Outcomes for this region.</p>
+  <p><strong>{{ district.name }}</strong> is a district in <strong>{{ district.county.name }} County</strong> and <strong>Region {{ district.region.id }}</strong>. <a href="{% url 'cohorts:counties' district.county.slug %}">Click here</a> to view the 8th Grade Outcomes for this county or <a href="{% url 'cohorts:regions' district.region.id %}">or here</a> to view the 8th Grade Outcomes for this region.</p>
 </section>
 </div>
 <div class="contact-block">

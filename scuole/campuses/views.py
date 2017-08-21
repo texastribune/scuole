@@ -8,10 +8,14 @@ from .models import Campus, CampusStats
 from scuole.districts.models import District, DistrictStats
 from scuole.states.models import StateStats
 from scuole.stats.models import SchoolYear
-from scuole.counties.models import County
+from scuole.counties.models import County, CountyCohorts
+from scuole.regions.models import RegionCohorts
 
 
 class CampusDetailView(DetailView):
+    county_cohorts_model = CountyCohorts
+    region_cohorts_model = RegionCohorts
+
     def get_object(self):
         return get_object_or_404(
             Campus.objects.prefetch_related('principals'),
@@ -20,7 +24,8 @@ class CampusDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CampusDetailView, self).get_context_data(**kwargs)
-
+        county_cohorts = self.county_cohorts_model.objects.filter(county=self.object.county)
+        region_cohorts = self.region_cohorts_model.objects.filter(region=self.object.district.region)
         year = self.kwargs['campus_year']
 
         if year:
@@ -41,10 +46,14 @@ class CampusDetailView(DetailView):
             context['state'] = get_object_or_404(
                 StateStats, year=latest_year, state__name='TX')
 
-        context['county_cohorts'] = get_object_or_404(
+        context['county'] = get_object_or_404(
             County, name=self.object.county)
 
-        context['region_cohorts'] = get_object_or_404(
+        context['region'] = get_object_or_404(
             District, name=self.object.district)
 
+        context['latest_county_cohort'] = county_cohorts.latest_cohort(
+            county=self.object.county)
+        context['latest_region_cohort'] = region_cohorts.latest_cohort(
+            region=self.object.district.region)
         return context
