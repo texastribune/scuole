@@ -22,7 +22,8 @@
 <header class="page-header">
   <h1 class="page-headline" id="js-reminder-bar-trigger">{{ campus.name }}{% if campus.charter %}<span class="is-charter">Charter</span>{% endif %}</h1>
   <ul>
-    <li class="page-subtext">{{ campus.get_school_type_display }} in <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></li>
+    <li class="page-subtext">{{ campus.get_school_type_display }} in <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a> in {{ campus.county.name }} County</li>
+    <li class="page-subtext"><a href="{% url 'cohorts:counties' county_cohorts.slug %}">{{ campus.county.name }} County 8th Grade Outcomes</a></li>
     {% if campus.location %}<li class="page-subtext">{{ campus.location }}</li>{% endif %}
     <li class="page-subtext">{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</li>
   </ul>
@@ -52,6 +53,8 @@
   {% if stat.dropout_all_students_percent and stat.dropout_all_students_percent >= 0 %}
   The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
   {% endif %}
+
+  <p><strong>{{ campus.name }}</strong> is a campus in <strong>{{ campus.county.name }} County</strong> and <strong>Region {{ campus.district.region.id }}</strong>. <a href="{% url 'cohorts:counties' county_cohorts.slug %}">Click here</a> to view the 8th Grade Outcomes for this county or <a href="{% url 'cohorts:regions' region_cohorts.region.id %}">or here</a> to view the 8th Grade Outcomes for this region.
 </section>
 
 </div>

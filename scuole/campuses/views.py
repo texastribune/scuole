@@ -5,9 +5,10 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView
 
 from .models import Campus, CampusStats
-from scuole.districts.models import DistrictStats
+from scuole.districts.models import District, DistrictStats
 from scuole.states.models import StateStats
 from scuole.stats.models import SchoolYear
+from scuole.counties.models import County
 
 
 class CampusDetailView(DetailView):
@@ -39,5 +40,11 @@ class CampusDetailView(DetailView):
                 DistrictStats, year=latest_year, district=self.object.district)
             context['state'] = get_object_or_404(
                 StateStats, year=latest_year, state__name='TX')
+
+        context['county_cohorts'] = get_object_or_404(
+            County, name=self.object.county)
+
+        context['region_cohorts'] = get_object_or_404(
+            District, name=self.object.district)
 
         return context
