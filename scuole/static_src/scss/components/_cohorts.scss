@@ -92,3 +92,22 @@
 .dot--completed {
   background-color: $color-button-darker;
 }
+
+.cohorts-announcement {
+  margin-bottom: $gutter;
+  text-align: center;
+}
+
+.cohorts-announcement__text {
+  font-size: 1rem;
+  font-style: italic;
+
+  > a {
+    @include default-link;
+  }
+}
+
+.cohorts-announcement__text-bold {
+  font-style: normal;
+  font-weight: 700;
+}
