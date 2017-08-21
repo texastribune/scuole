@@ -7,6 +7,8 @@ from django.views.generic import DetailView, ListView
 from .models import District, DistrictStats
 from scuole.states.models import StateStats
 from scuole.stats.models import SchoolYear
+from scuole.regions.models import Region
+from scuole.counties.models import County
 
 
 class DistrictListView(ListView):
@@ -37,5 +39,8 @@ class DistrictDetailView(DetailView):
                 district=self.object)
             context['state'] = get_object_or_404(
                 StateStats, year=latest_year, state__name='TX')
+
+        context['county_cohorts'] = get_object_or_404(
+            County, name=self.object.county)
 
         return context
