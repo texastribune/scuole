@@ -13,7 +13,7 @@
       <select class="menu-select menu-select--county">
         <option value="">Select county to view</option>
         {% for county in county_list %}
-        <option value="{% url 'cohorts:counties' county.slug %}">{{ county.name }}</option>
+        <option value="{% url 'cohorts:counties' county.slug %}">{{ county.name_cohorts }}</option>
         {% endfor %}
       </select>
     </li>

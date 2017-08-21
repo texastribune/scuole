@@ -10,6 +10,10 @@ from scuole.counties.models import County, CountyCohorts
 from scuole.regions.models import Region, RegionCohorts
 from scuole.states.models import State, StateCohorts
 
+distinct_cohort_counties = County.objects.filter(
+    cohorts__in=CountyCohorts.objects.all()).distinct().defer(
+    'shape').order_by('name')
+
 
 class CountyCohortsDetailView(DetailView):
     model = County
@@ -31,7 +35,7 @@ class CountyCohortsDetailView(DetailView):
         context['data'] = data
         context['js_data'] = dumps(data)
 
-        context['county_list'] = County.objects.all().defer('shape')
+        context['county_list'] = distinct_cohort_counties
         context['region_list'] = Region.objects.all().defer('shape')
 
         return context
@@ -57,7 +61,7 @@ class RegionCohortsDetailView(DetailView):
         context['data'] = data
         context['js_data'] = dumps(data)
 
-        context['county_list'] = County.objects.all().defer('shape')
+        context['county_list'] = distinct_cohort_counties
         context['region_list'] = Region.objects.all().defer('shape')
 
         return context
@@ -81,7 +85,7 @@ class StateCohortsDetailView(DetailView):
         context['data'] = data
         context['js_data'] = dumps(data)
 
-        context['county_list'] = County.objects.all().defer('shape')
+        context['county_list'] = distinct_cohort_counties
         context['region_list'] = Region.objects.all().defer('shape')
 
         return context
@@ -96,7 +100,7 @@ class CohortsLandingView(TemplateView):
         context = super(
             CohortsLandingView, self).get_context_data(**kwargs)
 
-        context['county_list'] = self.model.objects.all().defer('shape')
+        context['county_list'] = distinct_cohort_counties
         context['region_list'] = self.region_model.objects.all().defer('shape')
 
         return context

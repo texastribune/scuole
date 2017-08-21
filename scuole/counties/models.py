@@ -29,6 +29,20 @@ class County(models.Model):
     def name_full(self):
         return '{0} County'.format(self.name)
 
+    @property
+    def name_cohorts(self):
+        if self.name == 'El Paso':
+            return 'El Paso and Hudspeth'
+        else:
+            return self.name
+
+    @property
+    def name_full_cohorts(self):
+        if self.name == 'El Paso':
+            return 'El Paso and Hudspeth County'
+        else:
+            return self.name_full
+
     @cached_property
     def shape_simple(self):
         return self.shape.simplify(0.01)

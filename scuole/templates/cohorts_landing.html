@@ -51,7 +51,7 @@
     {% for county in county_list %}
       <div class="list-container county-list-container js-county-list-group">
       <ul class="card-list">
-        <li class="list-item county-list-item"><a href="{% url 'cohorts:counties' county.slug %}">{{ county.name }}</a></li>
+        <li class="list-item county-list-item"><a href="{% url 'cohorts:counties' county.slug %}">{{ county.name_cohorts }}</a></li>
       </ul>
       {% if county.list|length > 10 %}<button class="btn btn-dark-ghost btn-thin btn-block">+ More</button>{% endif %}
     </div>
