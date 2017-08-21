@@ -9,6 +9,7 @@ module.exports = {
     // about: './about.js',
     campus: './campus.js',
     cohorts: './cohorts.js',
+    cohortsLanding: './cohorts-landing.js',
     district: './district.js',
     state: './state.js',
     commons: [

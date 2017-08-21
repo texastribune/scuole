@@ -31,6 +31,9 @@ class CountyCohortsDetailView(DetailView):
         context['data'] = data
         context['js_data'] = dumps(data)
 
+        context['county_list'] = County.objects.all().defer('shape')
+        context['region_list'] = Region.objects.all().defer('shape')
+
         return context
 
 
@@ -54,6 +57,9 @@ class RegionCohortsDetailView(DetailView):
         context['data'] = data
         context['js_data'] = dumps(data)
 
+        context['county_list'] = County.objects.all().defer('shape')
+        context['region_list'] = Region.objects.all().defer('shape')
+
         return context
 
 
@@ -74,6 +80,9 @@ class StateCohortsDetailView(DetailView):
         data = cohorts.select_related('year').data_payload()
         context['data'] = data
         context['js_data'] = dumps(data)
+
+        context['county_list'] = County.objects.all().defer('shape')
+        context['region_list'] = Region.objects.all().defer('shape')
 
         return context
 

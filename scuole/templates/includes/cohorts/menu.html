@@ -1,7 +1,21 @@
 <nav class="menu-bar-container container" style="margin-top: 1rem;">
   <ul class="menu-bar">
-    <li class="menu-bar__item"><a class="btn btn-link-ghost btn-block btn-thin" href="{% url 'states:detail' 'tx' %}">Statewide Outcomes</a></li>
-    <li class="menu-bar__item"><a class="btn btn-link-ghost btn-block btn-thin" href="">Regions V</a></li>
-    <li class="menu-bar__item"><a class="btn btn-link-ghost btn-block btn-thin" href="">Counties V</a></li>
+    <li class="menu-bar__item"><a class="btn btn-link-ghost btn-block btn-thin" href="{% url 'cohorts:states' 'tx' %}">Statewide outcomes</a></li>
+    <li class="menu-bar__item">
+      <select class="menu-select menu-select--region">
+        <option value="">Select region to view</option>
+        {% for region in region_list %}
+        <option value="{% url 'cohorts:regions' region.slug %}">{{ region.region_name_with_city }}</option>
+        {% endfor %}
+      </select>
+    </li>
+    <li class="menu-bar__item">
+      <select class="menu-select menu-select--county">
+        <option value="">Select county to view</option>
+        {% for county in county_list %}
+        <option value="{% url 'cohorts:counties' county.slug %}">{{ county.name }}</option>
+        {% endfor %}
+      </select>
+    </li>
   </ul>
 </nav>

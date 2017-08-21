@@ -40,7 +40,7 @@
     {% for region in region_list %}
       <div class="list-container region-list-container js-region-list-group">
       <ul class="card-list">
-        <li class="list-item region-list-item"><a href="{{ region.get_absolute_url }}">{{ region.region_name_with_city }}</a></li>
+        <li class="list-item region-list-item"><a href="{% url 'cohorts:regions' region.slug %}">{{ region.region_name_with_city }}</a></li>
       </ul>
       {% if region.list|length > 10 %}<button class="btn btn-dark-ghost btn-thin btn-block">+ More</button>{% endif %}
     </div>
@@ -51,7 +51,7 @@
     {% for county in county_list %}
       <div class="list-container county-list-container js-county-list-group">
       <ul class="card-list">
-        <li class="list-item county-list-item"><a href="{{ county.get_absolute_url }}">{{ county.name }}</a></li>
+        <li class="list-item county-list-item"><a href="{% url 'cohorts:counties' county.slug %}">{{ county.name }}</a></li>
       </ul>
       {% if county.list|length > 10 %}<button class="btn btn-dark-ghost btn-thin btn-block">+ More</button>{% endif %}
     </div>
@@ -69,3 +69,8 @@
 {% endblock content %}
 
 {% block footer_ad %}{% endblock footer_ad %}
+
+{% block extra_script %}
+{{ block.super }}
+<script src="{% static 'scripts/cohortsLanding.js' %}"></script>
+{% endblock extra_script %}

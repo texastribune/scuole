@@ -1,5 +1,6 @@
 /* global SHAPE */
 
+import './utils/cohortsNav';
 import './utils/metricNavs';
 import './utils/reminderBar';
 
