@@ -1,3 +1,18 @@
+// cohorts landing
+.region-list {
+  column-count: 2;
+}
+
+.county-list {
+  column-count: 2;
+
+  @include mq($from: tablet) {
+    column-count: 5;
+  }
+}
+
+
+// cohorts charts
 .cohorts-charts {
   width: 100%;
 }

@@ -4,7 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from json import dumps
 
 # from django.shortcuts import get_list_or_404
-from django.views.generic import DetailView
+from django.views.generic import TemplateView, DetailView
 
 from scuole.counties.models import County, CountyCohorts
 from scuole.regions.models import Region, RegionCohorts
@@ -74,5 +74,20 @@ class StateCohortsDetailView(DetailView):
         data = cohorts.select_related('year').data_payload()
         context['data'] = data
         context['js_data'] = dumps(data)
+
+        return context
+
+
+class CohortsLandingView(TemplateView):
+    model = County
+    region_model = Region
+    template_name = 'cohorts_landing.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(
+            CohortsLandingView, self).get_context_data(**kwargs)
+
+        context['county_list'] = self.model.objects.all().defer('shape')
+        context['region_list'] = self.region_model.objects.all().defer('shape')
 
         return context
