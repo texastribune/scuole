@@ -6,7 +6,7 @@
 
 {% block header %}
 <div class="container">
-  <a href="http://www.texastribune.org/"><img class="tribune-logo" src="{% static 'images/logos/tribune-white.svg' %}" alt={% trans "The Texas Tribune" %}></a>
+  <a href="http://www.texastribune.org/"><img class="tribune-logo" src="{% static 'images/logos/tribune-white.svg' %}" alt="The Texas Tribune"></a>
 </div>
 {% endblock header %}
 
@@ -20,7 +20,32 @@
 
 <section class="landing-prose">
   <p class="landing-paragraph">Use this to look for stuff TKTKTK</p>
-  <p class="landing-paragraph landing-paragraph--credit">By <a href="http://www.texastribune.org/about/staff/ryan-murphy/">Ryan Murphy</a>, <a href="http://www.texastribune.org/about/staff/annie-daniel/">Annie Daniel</p>
+  <p class="landing-paragraph landing-paragraph--credit">By <a href="http://www.texastribune.org/about/staff/ryan-murphy/">Ryan Murphy</a>, <a href="http://www.texastribune.org/about/staff/annie-daniel/">Annie Daniel</a></p>
+</section>
+
+<section class="container">
+  <h2 class="page-section-header">All regions<span class="anchor" id="districts"></span></h2>
+  <div class="section row">
+    {% for region in region_list %}
+      <div class="region-list-container js-region-list-group">
+      <ul class="card-list">
+        <li class="region-list-item"><a href="{{ region.get_absolute_url }}">{{ region.name }}</a></li>
+      </ul>
+      {% if region.list|length > 10 %}<button class="btn btn-dark-ghost btn-thin btn-block">+ More</button>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  <h2 class="page-section-header">All counties<span class="anchor" id="districts"></span></h2>
+  <div class="section row">
+    {% for county in county_list %}
+      <div class="county-list-container js-county-list-group">
+      <ul class="card-list">
+        <li class="county-list-item"><a href="{{ county.get_absolute_url }}">{{ county.name }}</a></li>
+      </ul>
+      {% if county.list|length > 10 %}<button class="btn btn-dark-ghost btn-thin btn-block">+ More</button>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
 </section>
 
 {% include "includes/ad_slot_leader.html" %}
