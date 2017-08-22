@@ -81,13 +81,11 @@
     </div>
     {% endif %}
   </div>
-  <h2 class="card-header">Higher education outcomes</h2>
+  <h2 class="card-header outcomes-header">Higher education outcomes</h2>
   <div class="row">
-    <h3 class="card-title">{{ district.name }} is a district within {{ district.county.name }} County and Region {{ district.region.id }}&mdash;Austin. </h3>
-    <ul class="outcomes-list">
-      <li class="card-list-item"><a href="{% url 'cohorts:counties' district.county.slug %}">View higher education outcomes for {{ district.county.name }} County</a></li>
-      <li class="card-list-item"><a href="{% url 'cohorts:regions' district.region.id %}">View higher education outcomes for Region {{ district.region.id }} &mdash; {{ district.region.name }}</a></li>
-    </ul>
+    <div class="col-12">
+      <p class="outcomes-description">Students in this district are included in The Texas Higher Education Board's 8th Grade Outcomes for {{ district.county.name }} County and Region {{ district.region.id }} ({{ district.region.name }}). Students in <a href="{% url 'cohorts:counties' district.county.slug %}">{{ district.county.name }} County</a> and <a href="{% url 'cohorts:regions' district.region.id %}">Region {{ district.region.id }} ({{ district.region.name }})</a> saw a college graduation rate of {{ latest_county_cohort.percent_completed_higher_education|percentify }}%</strong> and <strong>{{ latest_region_cohort.percent_completed_higher_education|percentify }}%</strong>, respectively.</p>
+    </div>
   </div>
 </section>
 
