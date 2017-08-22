@@ -24,8 +24,10 @@ class CampusDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CampusDetailView, self).get_context_data(**kwargs)
-        county_cohorts = self.county_cohorts_model.objects.filter(county=self.object.county)
-        region_cohorts = self.region_cohorts_model.objects.filter(region=self.object.district.region)
+        county_cohorts = self.county_cohorts_model.objects.filter(
+            county=self.object.county)
+        region_cohorts = self.region_cohorts_model.objects.filter(
+            region=self.object.district.region)
         year = self.kwargs['campus_year']
 
         if year:

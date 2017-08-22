@@ -7,8 +7,8 @@ from django.views.generic import DetailView, ListView
 from .models import District, DistrictStats
 from scuole.states.models import StateStats
 from scuole.stats.models import SchoolYear
-from scuole.regions.models import Region
-from scuole.counties.models import County
+from scuole.regions.models import Region, RegionCohorts
+from scuole.counties.models import County, CountyCohorts
 
 
 class DistrictListView(ListView):
@@ -18,12 +18,16 @@ class DistrictListView(ListView):
 class DistrictDetailView(DetailView):
     queryset = District.objects.all().prefetch_related(
         'campuses')
-
+    county_cohorts_model = CountyCohorts
+    region_cohorts_model = RegionCohorts
     slug_url_kwarg = 'district_slug'
 
     def get_context_data(self, **kwargs):
         context = super(DistrictDetailView, self).get_context_data(**kwargs)
-
+        county_cohorts = self.county_cohorts_model.objects.filter(
+            county=self.object.county)
+        region_cohorts = self.region_cohorts_model.objects.filter(
+            region=self.object.region)
         year = self.kwargs['district_year']
 
         if year:
@@ -40,10 +44,8 @@ class DistrictDetailView(DetailView):
             context['state'] = get_object_or_404(
                 StateStats, year=latest_year, state__name='TX')
 
-        # context['county_cohorts'] = get_object_or_404(
-        #     County, name=self.object.county)
-
-        # context['region_cohorts'] = get_object_or_404(
-        #     Region, name=self.object.region)
-
+        context['latest_county_cohort'] = county_cohorts.latest_cohort(
+            county=self.object.county)
+        context['latest_region_cohort'] = region_cohorts.latest_cohort(
+            region=self.object.region)
         return context
