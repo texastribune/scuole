@@ -82,7 +82,7 @@
   <h2 class="card-header outcomes-header">8th Grade Outcomes</h2>
   <div class="row">
     <div class="col-12">
-      <p class="outcomes-description">Students in this district are included in The Texas Tribune's <a href="https://schools.texastribune.org/outcomes">8th Grade Outcomes explorer</a> for <a href="{% url 'cohorts:counties' district.county.slug %}">{{ district.county.name }} County</a> and <a href="{% url 'cohorts:regions' district.region.id %}">Region {{ district.region.id }} ({{ district.region.name }})</a>. Students who finished 8th grade in {{ latest_county_cohort.year.end_year }} in this county and region saw a college graduation rates of <strong>{{ latest_county_cohort.percent_completed_higher_education|percentify }}%</strong> and <strong>{{ latest_region_cohort.percent_completed_higher_education|percentify }}%</strong>, respectively.</p>
+      <p class="outcomes-description">Students in this district are included in The Texas Tribune's <a href="https://schools.texastribune.org/outcomes">8th Grade Outcomes explorer</a> for <a href="{% url 'cohorts:regions' district.region.id %}">Region {{ district.region.id }} ({{ district.region.name }})</a>. Students who finished 8th grade in {{ latest_county_cohort.year.end_year }} in region saw a college graduation rate of <strong>{{ latest_region_cohort.percent_completed_higher_education|percentify }}%</strong></p>
     </div>
   </div>
 </section>
