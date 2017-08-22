@@ -81,6 +81,14 @@
     </div>
     {% endif %}
   </div>
+  <h2 class="card-header">Higher education outcomes</h2>
+  <div class="row">
+    <h3 class="card-title">{{ district.name }} is a district within {{ district.county.name }} County and Region {{ district.region.id }}&mdash;Austin. </h3>
+    <ul class="outcomes-list">
+      <li class="card-list-item"><a href="{% url 'cohorts:counties' district.county.slug %}">View higher education outcomes for {{ district.county.name }} County</a></li>
+      <li class="card-list-item"><a href="{% url 'cohorts:regions' district.region.id %}">View higher education outcomes for Region {{ district.region.id }} &mdash; {{ district.region.name }}</a></li>
+    </ul>
+  </div>
 </section>
 
 <a class="btn btn-link btn-block" href="#campuses">View Campus List</a>
