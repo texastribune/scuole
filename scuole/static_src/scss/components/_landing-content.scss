@@ -29,8 +29,7 @@
   padding-right: $gutter-half;
 
   .landing-paragraph {
-    @include font-size(18);
-    font-weight: 300;
+    @include font-size(16);
     letter-spacing: .03em;
     line-height: 1.5;
     margin-bottom: $gutter;

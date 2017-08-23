@@ -14,7 +14,7 @@
 <article class="landing-content">
   <div class="container">
     <h1 class="landing-header">Texas Higher Education Outcomes</h1>
-    <p class="landing-subheader">Tracking 8th Graders' Post-Secondary Success</p>
+    <p class="landing-subheader">Tracking Eighth-Graders' Post-Secondary Success</p>
   </div>
 </article>
 
@@ -23,9 +23,9 @@
 {% include "includes/schools_announcement.html" %}
 
 <section class="landing-prose">
-  <p class="landing-paragraph">Each year approximately 300,000 students begin 8th grade in a Texas public school. National employment and earnings statistics suggest that these students will have materially better prospects as adults if they finish high school and enroll in and complete a post-secondary certificate or degree program.</p>
+  <p class="landing-paragraph">Each year, approximately 300,000 students begin eighth grade in a Texas public school. National employment and earnings statistics suggest that these students will have materially better prospects as adults if they finish high school and enroll in and complete a post-secondary certificate or degree program.</p>
 
-  <p class="landing-paragraph">With support from <a href="http://houstonendowment.org/">Houston Endowment</a>, a private philanthropic foundation, The Texas Tribune has used data from the <a href="http://www.thecb.state.tx.us/">Texas Higher Education Coordinating Board</a> and the <a href="http://www.tea.state.tx.us/">Texas Education Agency</a> to document the education outcomes of every student who started 8th grade in a Texas public school during eight academic years (1997 through 2005). Each student was anonymously tracked over 11 years to determine the percentage of Texas 8th graders who achieved a post-secondary certificate or degree from a Texas college or university within six years of their expected high school graduation date.</p>
+  <p class="landing-paragraph">With support from the Greater Texas Foundation and the <a href="http://houstonendowment.org/">Houston Endowment</a>, two institutional philanthropies, The Texas Tribune has used data from the <a href="http://www.thecb.state.tx.us/">Texas Higher Education Coordinating Board</a> and the <a href="http://www.tea.state.tx.us/">Texas Education Agency</a> to document the education outcomes of every student who started eighth grade in a Texas public school during eight academic years (1997 through 2005). Each student was anonymously tracked over 11 years to determine the percentage of Texas eighth-graders who achieved a post-secondary certificate or degree from a Texas college or university within six years of their expected high school graduation date.</p>
 
   <p class="landing-paragraph">Use this explorer to review and compare student outcomes by region or by county. Or, <a href="{% url 'cohorts:states' 'tx' %}">view outcomes at the statewide level</a>. You can also <a href="http://www.txhighereddata.org/index.cfm?objectId=F2CBE4A0-C90B-11E5-8D610050560100A9">download the data</a>.</p>
 
@@ -36,20 +36,32 @@
 
 <section class="container">
   <h2 class="page-section-header">View by region<span class="anchor" id="districts"></span></h2>
-  <div class="region-list section">
-    {% for region in region_list %}
-      <div class="list-container region-list-container js-region-list-group">
-      <ul class="card-list">
-        <li class="list-item region-list-item"><a href="{% url 'cohorts:regions' region.slug %}">{{ region.region_name_with_city }}</a></li>
-      </ul>
-      {% if region.list|length > 10 %}<button class="btn btn-dark-ghost btn-thin btn-block">+ More</button>{% endif %}
-    </div>
-    {% endfor %}
+</section>
+
+<section class="flex-container">
+  <div class="flex-column-map">
+    <div class="map map--full-region" id="map-regions"></div>
+    <div class="map-tooltip" id="map-tooltip"></div>
   </div>
+  <div class="flex-column">
+    <div class="region-list section">
+      {% for region in region_list %}
+      <div class="list-container region-list-container js-region-list-group">
+        <ul class="card-list">
+          <li class="list-item region-list-item"><a href="{% url 'cohorts:regions' region.slug %}">{{ region.region_name_with_city }}</a></li>
+        </ul>
+        {% if region.list|length > 10 %}<button class="btn btn-dark-ghost btn-thin btn-block">+ More</button>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="container">
   <h2 class="page-section-header">View by county<span class="anchor" id="districts"></span></h2>
   <div class="county-list section">
     {% for county in county_list %}
-      <div class="list-container county-list-container js-county-list-group">
+    <div class="list-container county-list-container js-county-list-group">
       <ul class="card-list">
         <li class="list-item county-list-item"><a href="{% url 'cohorts:counties' county.slug %}">{{ county.name_cohorts }}</a></li>
       </ul>
@@ -67,10 +79,18 @@
 </section>
 
 {% endblock content %}
-
 {% block footer_ad %}{% endblock footer_ad %}
+
+{% block data_script %}
+{{ block.super }}
+<script>
+  window.SHAPE = {{ regions_geojson|safe|default:'null' }};
+</script>
+</script>
+{% endblock data_script %}
 
 {% block extra_script %}
 {{ block.super }}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
 <script src="{% static 'scripts/cohortsLanding.js' %}"></script>
 {% endblock extra_script %}

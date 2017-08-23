@@ -3,7 +3,7 @@
   column-count: 2;
 
   @include mq($from: tablet) {
-    column-count: 4;
+    column-count: 2;
   }
 }
 
@@ -143,4 +143,19 @@
 .cohort-section-table {
   margin-bottom: $gutter-double;
   max-width: 36rem;
+}
+
+.map-tooltip {
+  background-color: transparentize($color-white, 0.1);
+  display: none;
+  font-family: $font-sans-serif;
+  font-size: .875rem;
+  padding: $gutter-quarter $gutter-half;
+  position: absolute;
+  right: $gutter-half;
+  top: $gutter-half;
+}
+
+.map-tooltip--visible {
+  display: block;
 }
