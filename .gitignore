@@ -117,3 +117,6 @@ env-docker
 
 # geoip
 geoip
+
+# Ignore data folder
+data
