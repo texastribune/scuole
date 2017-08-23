@@ -106,7 +106,8 @@ class Command(BaseCommand):
                 payload['state'] = model
 
                 self.prep_payload(payload, row)
-                StateCohorts.objects.update_or_create(**payload)
+                print(row)
+                StateCohorts.objects.sum_update_or_create(**payload)
 
                 self.stdout.write(model.name)
             else:
@@ -125,6 +126,7 @@ class Command(BaseCommand):
 
         self.create_regions_gender_overall()
         self.create_regions_ethnicity_overall()
+        self.create_state_ethnicity_overall()
 
     def load_counties(self):
         counties_fips_id_file = os.path.join(
@@ -273,6 +275,36 @@ class Command(BaseCommand):
 
                 RegionCohorts.objects.sum_update_or_create(**payload)
 
+    def create_state_ethnicity_overall(self):
+        # get the gender cohorts we just created
+        new_cohorts = StateCohorts.objects.exclude(ethnicity='').filter(
+            economic_status='', year=self.year)
+
+        # get only the regions those cohorts interacted with
+        states = State.objects.filter(cohorts__in=new_cohorts).distinct()
+        default_fields = [i.name for i in StateCohorts._meta.get_fields() if isinstance(i, (
+                DecimalField, FloatField, IntegerField,))]
+
+        # loop 'em
+        for state in states:
+            # filter new_cohorts for just the eight we need
+            cohorts_to_combine = new_cohorts.filter(state=state)
+
+            # let's be sure we only have eight to work with
+            assert len(cohorts_to_combine) == 8, 'There should be only eight cohorts'
+
+            for cohort in cohorts_to_combine:
+                payload = {
+                    'year': self.year,
+                    'state': state,
+                    'economic_status': '',
+                    'ethnicity': cohort.ethnicity,
+                    'gender': '',
+                    'defaults': dict((name, getattr(cohort, name)) for name in default_fields),
+                }
+
+                StateCohorts.objects.sum_update_or_create(**payload)
+
     def prepare_row(self, row):
         fields = [
             'enrolled_8th',
@@ -294,6 +326,7 @@ class Command(BaseCommand):
         problem_children = ['', '-', '.', '#VALUE!']
         pivots = ['ethnicity', 'gender', 'economic_status']
         payload = {}
+        ethnicities = ['White', 'African American', 'Hispanic', 'Others', '']
 
         for field in row:
             if field in fields:
@@ -308,6 +341,11 @@ class Command(BaseCommand):
                 # otherwise return the data
                 else:
                     datum = row[field]
+
+
+                if field == 'ethnicity':
+                    if datum not in ethnicities:
+                        datum = 'Others'
 
                 payload[field] = datum
 

@@ -83,6 +83,7 @@ class StateCohortsDetailView(DetailView):
 
         data = cohorts.select_related('year').data_payload()
         context['data'] = data
+        print(context['data'])
         context['js_data'] = dumps(data)
 
         context['county_list'] = distinct_cohort_counties
