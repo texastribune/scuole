@@ -30,7 +30,7 @@ class CohortQuerySet(models.QuerySet):
             economic_status='', ethnicity='', gender=gender, **kwargs)
 
     def latest_cohort(self, **kwargs):
-        return self.overall(**kwargs).last()
+        return self.overall(**kwargs).order_by('year').first()
 
     def aggregate_by_year(self, **kwargs):
         output = []
@@ -58,6 +58,16 @@ class CohortQuerySet(models.QuerySet):
             'other': self.by_ethnicity(model.OTHERS).aggregate_by_year(),
         }
 
+
+    def table_payload_economic(self, year):
+        model = self.model
+
+        return {
+            'economically_disadvantaged': self.by_economic_status(
+                model.ECONOMICALLY_DISADVANTAGED, year=year),
+            'not_economically_disadvantaged': self.by_economic_status(
+                model.NOT_ECONOMICALLY_DISADVANTAGED, year=year)
+        }
 
     def sum_update_or_create(self, defaults=None, **kwargs):
         """
