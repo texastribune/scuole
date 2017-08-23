@@ -26,7 +26,7 @@
     <section class="page-prose">
       {% include 'includes/cohorts/standard_prose.html' %}
 
-      <p>Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>Region {{ region.region_id }}</strong> who began 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong> received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date. For context, a 13-year-old student who started 8th grade in <strong>1996</strong> is about <strong>TK</strong> years old; one who started 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong> is now about <strong>TK</strong>.</p>
+      <p>Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>Region {{ region.region_id }}</strong> who began eighth grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong> received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date. For context, a 13-year-old student who started 8th grade in <strong>1996</strong> is about <strong>34</strong> years old; one who started 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong> is now about <strong>25</strong>.</p>
 
       {% include 'includes/cohorts/prose_closer.html' %}
     </section>
@@ -50,7 +50,7 @@
   {% include "includes/ad_slot_sidebar.html" %}
 
   <div class="card">
-    <p class="card-text"><span class="bold">N/A</span> &mdash; This statistic is hidden because it may make it possible to identify a student, or is unavailable.</p>
+    <p class="card-text"><span class="bold">N/A</span> &mdash; This statistic is hidden because it could make it possible to identify a student, or because it is unavailable.</p>
     <p class="card-text"><span class="bold">Other</span> &mdash; “Asian” and “American Indian” are grouped and classified as “Other.” When cohort sample sizes are too small, results by ethnicity are aggregated to protect privacy.</p>
   </div>
 </nav>
@@ -59,7 +59,7 @@
     <section class="section js-metrics-block" id="ethnicity">
       <h2 class="page-section-header js-metrics-header">Ethnicity</h2>
       <section class="page-prose">
-        <p>Students in 8th grade cohorts who graduated from high school, enrolled in higher education and completed a certificate or degree, broken down by ethnicity.</p>
+        <p>A breakdown, by ethnicity, of outcomes for cohorts of students who attended eighth grade in a Texas public school. You can see who graduated from high school, who enrolled in higher education and who completed a certificate or degree.</p>
       </section>
       <section class="cohort-section-table">
         {% include 'includes/cohorts/ethnicity_table.html' with data=data latest_cohort=latest_cohort %}
@@ -77,7 +77,7 @@
     <section class="section js-metrics-block" id="gender">
       <h2 class="page-section-header js-metrics-header">Gender</h2>
       <section class="page-prose">
-        <p>Students in each 8th grade cohort who enrolled in higher education and completed a certificate or degree, broken down by gender.</p>
+        <p>A breakdown, by gender, of outcomes for cohorts of students who attended eighth grade in a Texas public school. You can see who graduated from high school, who enrolled in higher education and who completed a certificate or degree.</p>
       </section>
       <section class="cohort-section-table">
         {% include 'includes/cohorts/gender_table.html' with data=data latest_cohort=latest_cohort %}
@@ -95,7 +95,7 @@
     <section class="section js-metrics-block" id="economic">
       <h2 class="page-section-header js-metrics-header">Economic status</h2>
       <section class="page-prose">
-        <p>Students in each 8th grade cohort who enrolled in higher education and completed a certificate or degree, broken down by economic status when they entered 8th grade.</p>
+        <p>A breakdown, by economic status, of outcomes for cohorts of students who attended eighth grade in a Texas public school. You can see who graduated from high school, who enrolled in higher education and who completed a certificate or degree.</p>
       </section>
       <section class="cohort-section-table">
         {% include 'includes/cohorts/economic_table.html' with data=data latest_cohort=latest_cohort %}
