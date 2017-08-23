@@ -36,20 +36,32 @@
 
 <section class="container">
   <h2 class="page-section-header">View by region<span class="anchor" id="districts"></span></h2>
-  <div class="region-list section">
-    {% for region in region_list %}
-      <div class="list-container region-list-container js-region-list-group">
-      <ul class="card-list">
-        <li class="list-item region-list-item"><a href="{% url 'cohorts:regions' region.slug %}">{{ region.region_name_with_city }}</a></li>
-      </ul>
-      {% if region.list|length > 10 %}<button class="btn btn-dark-ghost btn-thin btn-block">+ More</button>{% endif %}
-    </div>
-    {% endfor %}
+</section>
+
+<section class="flex-container">
+  <div class="flex-column-map">
+    <div class="map map--full-region" id="map-regions"></div>
+    <div class="map-tooltip" id="map-tooltip"></div>
   </div>
+  <div class="flex-column">
+    <div class="region-list section">
+      {% for region in region_list %}
+      <div class="list-container region-list-container js-region-list-group">
+        <ul class="card-list">
+          <li class="list-item region-list-item"><a href="{% url 'cohorts:regions' region.slug %}">{{ region.region_name_with_city }}</a></li>
+        </ul>
+        {% if region.list|length > 10 %}<button class="btn btn-dark-ghost btn-thin btn-block">+ More</button>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="container">
   <h2 class="page-section-header">View by county<span class="anchor" id="districts"></span></h2>
   <div class="county-list section">
     {% for county in county_list %}
-      <div class="list-container county-list-container js-county-list-group">
+    <div class="list-container county-list-container js-county-list-group">
       <ul class="card-list">
         <li class="list-item county-list-item"><a href="{% url 'cohorts:counties' county.slug %}">{{ county.name_cohorts }}</a></li>
       </ul>
@@ -67,10 +79,18 @@
 </section>
 
 {% endblock content %}
-
 {% block footer_ad %}{% endblock footer_ad %}
+
+{% block data_script %}
+{{ block.super }}
+<script>
+  window.SHAPE = {{ regions_geojson|safe|default:'null' }};
+</script>
+</script>
+{% endblock data_script %}
 
 {% block extra_script %}
 {{ block.super }}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
 <script src="{% static 'scripts/cohortsLanding.js' %}"></script>
 {% endblock extra_script %}
