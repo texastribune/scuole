@@ -39,13 +39,14 @@
       <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
     {% endwith %}</tr>
+    {% if data.unknown %}
     <tr>{% with cohort=data.unknown %}
       <th scope="row">Unknown</th>
       <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
-    {% endwith %}</tr>
+    {% endwith %}</tr>{% endif %}
     <tr class="highlight-row">{% with cohort=latest_cohort %}
       <th scope="row">Total</th>
       <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
