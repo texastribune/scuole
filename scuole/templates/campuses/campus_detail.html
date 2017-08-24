@@ -22,7 +22,7 @@
 <header class="page-header">
   <h1 class="page-headline" id="js-reminder-bar-trigger">{{ campus.name }}{% if campus.charter %}<span class="is-charter">Charter</span>{% endif %}</h1>
   <ul>
-    <li class="page-subtext">{{ campus.get_school_type_display }} in <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a> in {{ campus.county.name }} County</li>
+    <li class="page-subtext">{{ campus.get_school_type_display }} in <a href="{{ campus.district.get_absolute_url }}">{{ campus.district.name }}</a></li>
     {% if campus.location %}<li class="page-subtext">{{ campus.location }}</li>{% endif %}
     <li class="page-subtext">{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</li>
   </ul>
@@ -52,8 +52,6 @@
   {% if stat.dropout_all_students_percent and stat.dropout_all_students_percent >= 0 %}
   The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
   {% endif %}
-
-  <p><strong>{{ campus.name }}</strong> is a campus in <strong>{{ campus.county.name }} County</strong> and <strong>Region {{ campus.region.id }}</strong> which have college graduation rates of <strong>{{ latest_county_cohort.percent_completed_higher_education|percentify }}%</strong> and <strong>{{ latest_region_cohort.percent_completed_higher_education|percentify }}%</strong> respectively. <a href="{% url 'cohorts:counties' county.slug %}">Click here</a> to view the 8th Grade Outcomes for this county or <a href="{% url 'cohorts:regions' region.region.id %}">or here</a> to view the 8th Grade Outcomes for this region.</p>
 </section>
 
 </div>
@@ -98,6 +96,12 @@
   </ul>
   {% endif %}
   </div>
+  </div>
+  <h2 class="card-header outcomes-header"><a href="{% url 'cohorts:landing' %}">Higher Ed Outcomes</a></h2>
+  <div class="row">
+    <div class="col-12">
+      <p class="outcomes-description">Students in <strong>{{ campus.name }}</strong> are part of the Texas Education Agency’s <strong>{{ campus.district.region.region_name }}</strong>. Students who finished eighth grade in <strong>{{ latest_county_cohort.year.end_year }}</strong> in this region had a college graduation rate of <strong>{{ latest_region_cohort.percent_completed_higher_education|percentify }} percent</strong>. <a href="{% url 'cohorts:regions' campus.district.region.id %}">View a more comprehensive breakdown</a> of the higher education outcomes in <strong>{{ campus.district.region.region_name }}</strong>.</p>
+    </div>
   </div>
 </section>
 </div>
