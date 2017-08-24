@@ -17,9 +17,6 @@ distinct_cohort_counties = County.objects.filter(
     cohorts__in=CountyCohorts.objects.all()).distinct().defer(
     'shape').order_by('name')
 
-# This is v bad
-latest_cohort_year = SchoolYear.objects.get(name='2005-2006')
-
 
 class CountyCohortsDetailView(DetailView):
     model = County
@@ -31,6 +28,7 @@ class CountyCohortsDetailView(DetailView):
             CountyCohortsDetailView, self).get_context_data(**kwargs)
 
         cohorts = self.cohorts_model.objects.filter(county=self.object)
+        latest_cohort_year = SchoolYear.objects.get(name='2005-2006')
 
         context['latest_cohort'] = cohorts.latest_cohort(
             county=self.object)
@@ -59,6 +57,7 @@ class RegionCohortsDetailView(DetailView):
             RegionCohortsDetailView, self).get_context_data(**kwargs)
 
         cohorts = self.cohorts_model.objects.filter(region=self.object)
+        latest_cohort_year = SchoolYear.objects.get(name='2005-2006')
 
         context['latest_cohort'] = cohorts.latest_cohort(
             region=self.object)
@@ -87,6 +86,7 @@ class StateCohortsDetailView(DetailView):
             StateCohortsDetailView, self).get_context_data(**kwargs)
 
         cohorts = self.cohorts_model.objects.filter(state=self.object)
+        latest_cohort_year = SchoolYear.objects.get(name='2005-2006')
 
         context['latest_cohort'] = cohorts.latest_cohort(
             state=self.object)
