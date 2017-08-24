@@ -55,6 +55,8 @@
 <div class="contact-block">
 <div class="map map--district" id="map-district"></div>
 
+<a class="btn btn-link btn-block map-view-button" href="#campuses">View Campus List</a>
+
 <section class="card">
   <h2 class="card-header">Contact information</h2>
   <div class="row">
@@ -79,16 +81,13 @@
     </div>
     {% endif %}
   </div>
-  <h2 class="card-header outcomes-header">8th Grade Outcomes</h2>
+  <h2 class="card-header outcomes-header"><a href="{% url 'cohorts:landing' %}">Higher Education Outcomes</a></h2>
   <div class="row">
     <div class="col-12">
-      <p class="outcomes-description">Students in this district are part of the Texas Education Agency’s <span class="bold">Region {{ district.region.id }} ({{ district.region.name }})</span>. Students who finished eighth grade in <span class="bold">{{ latest_county_cohort.year.end_year }}</span> in <span class="bold">Region {{ district.region.id }}</span> had a college graduation rate of <span class="bold">{{ latest_region_cohort.percent_completed_higher_education|percentify }} percent</span>. <a href="{% url 'cohorts:regions' district.region.id %}">Read a more comprehensive breakdown</a> of the higher ed outcomes in <span class="bold">Region {{ district.region.id }}</span>.</p>
+      <p class="outcomes-description">Students in {{ district.name }} are part of the Texas Education Agency’s <strong>{{ district.region.region_name }}</strong>. Students who finished eighth grade in <strong>{{ latest_county_cohort.year.end_year }}</strong> in this region had a college graduation rate of <strong>{{ latest_region_cohort.percent_completed_higher_education|percentify }} percent</strong>. <a href="{% url 'cohorts:regions' district.region.id %}">View a more comprehensive breakdown</a> of the higher ed outcomes in <strong>{{ district.region.region_name }}</strong>.</p>
     </div>
   </div>
 </section>
-
-<a class="btn btn-link btn-block" href="#campuses">View Campus List</a>
-
 </div>
 </section>
 

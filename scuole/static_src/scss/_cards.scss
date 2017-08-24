@@ -54,7 +54,7 @@
 }
 
 .outcomes-header {
-  margin-top: $gutter-half
+  margin-top: $gutter-half;
 }
 
 .outcomes-description {
@@ -62,6 +62,10 @@
   font-weight: inherit;
   line-height: 1.5;
   margin-bottom: $gutter-half;
+
+  > strong {
+    font-weight: 700;
+  }
 }
 
 .outcomes-list {
