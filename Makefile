@@ -16,15 +16,26 @@ data/bootstrap:
 data/base: data/bootstrap
 	python manage.py loadtaprdata 2015-2016 --bulk
 
-data/base-all: data/bootstrap
+data/schools-all: data/bootstrap
 	python manage.py loadtaprdata 2015-2016 --bulk
 	python manage.py loadtaprdata 2014-2015 --bulk
 	python manage.py loadtaprdata 2013-2014 --bulk
 	python manage.py loadtaprdata 2012-2013 --bulk
 
+data/cohorts-all:
+	python manage.py loadallcohorts 1998
+	python manage.py loadallcohorts 1999
+	python manage.py loadallcohorts 2000
+	python manage.py loadallcohorts 2001
+	python manage.py loadallcohorts 2002
+	python manage.py loadallcohorts 2003
+	python manage.py loadallcohorts 2004
+	python manage.py loadallcohorts 2005
+	python manage.py loadallcohorts 2006
+
 local/reset-db-and-bootstrap: local/reset-db data/base
 
-local/reset-db-and-bootstrap-over-time: local/reset-db data/base-all
+local/reset-db-and-bootstrap-over-time: local/reset-db data/schools-all data/cohorts-all
 
 local/cohorts: local/reset-db
 	python manage.py bootstrapstates
