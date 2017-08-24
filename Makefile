@@ -42,14 +42,14 @@ local/cohorts: local/reset-db
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
 	# python manage.py loadallcohorts 1997
-	python manage.py loadallcohorts 1998
-	python manage.py loadallcohorts 1999
-	python manage.py loadallcohorts 2000
-	python manage.py loadallcohorts 2001
-	python manage.py loadallcohorts 2002
-	python manage.py loadallcohorts 2003
-	python manage.py loadallcohorts 2004
-	python manage.py loadallcohorts 2005
+	# python manage.py loadallcohorts 1998
+	# python manage.py loadallcohorts 1999
+	# python manage.py loadallcohorts 2000
+	# python manage.py loadallcohorts 2001
+	# python manage.py loadallcohorts 2002
+	# python manage.py loadallcohorts 2003
+	# python manage.py loadallcohorts 2004
+	# python manage.py loadallcohorts 2005
 	python manage.py loadallcohorts 2006
 	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | python manage.py shell --plain
 

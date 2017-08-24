@@ -56,8 +56,8 @@ class CohortQuerySet(models.QuerySet):
             'hispanic': self.by_ethnicity(model.HISPANIC).aggregate_by_year(),
             'white': self.by_ethnicity(model.WHITE).aggregate_by_year(),
             'other': self.by_ethnicity(model.OTHERS).aggregate_by_year(),
+            'unknown': self.by_ethnicity(model.UNKNOWN).aggregate_by_year(),
         }
-
 
     def table_payload_economic(self, year):
         model = self.model
