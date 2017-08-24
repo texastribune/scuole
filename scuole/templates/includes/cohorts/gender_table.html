@@ -11,14 +11,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr>{% with cohort=data.female|last %}
+    <tr>{% with cohort=data.female %}
       <th scope="row">Female</th>
       <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
     {% endwith %}</tr>
-    <tr>{% with cohort=data.male|last %}
+    <tr>{% with cohort=data.male %}
       <th scope="row">Male</th>
       <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>

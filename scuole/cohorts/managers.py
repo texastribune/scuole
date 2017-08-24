@@ -35,28 +35,54 @@ class CohortQuerySet(models.QuerySet):
     def aggregate_by_year(self, **kwargs):
         output = []
 
-        for obj in self:
+        for obj in self.filter(**kwargs):
             data = {key: getattr(obj, key) for key in year_aggregation_fields}
             output.append({'year': obj.year.start_year, **data})
 
         return output
 
-    def data_payload(self):
+    def data_payload(self, year=None):
         model = self.model
 
-        return {
-            'economically_disadvantaged': self.by_economic_status(
-                model.ECONOMICALLY_DISADVANTAGED).aggregate_by_year(),
-            'not_economically_disadvantaged': self.by_economic_status(
-                model.NOT_ECONOMICALLY_DISADVANTAGED).aggregate_by_year(),
-            'male': self.by_gender(model.MALE).aggregate_by_year(),
-            'female': self.by_gender(model.FEMALE).aggregate_by_year(),
-            'black': self.by_ethnicity(
-                model.AFRICAN_AMERICAN).aggregate_by_year(),
-            'hispanic': self.by_ethnicity(model.HISPANIC).aggregate_by_year(),
-            'white': self.by_ethnicity(model.WHITE).aggregate_by_year(),
-            'other': self.by_ethnicity(model.OTHERS).aggregate_by_year(),
-        }
+        if year:
+            economically_disadvantaged = self.by_economic_status(
+                model.ECONOMICALLY_DISADVANTAGED).aggregate_by_year(year=year)
+            not_economically_disadvantaged = self.by_economic_status(
+                model.NOT_ECONOMICALLY_DISADVANTAGED).aggregate_by_year(year=year)
+            male = self.by_gender(model.MALE).aggregate_by_year(year=year)
+            female = self.by_gender(model.FEMALE).aggregate_by_year(year=year)
+            black = self.by_ethnicity(
+                model.AFRICAN_AMERICAN).aggregate_by_year(year=year)
+            hispanic = self.by_ethnicity(model.HISPANIC).aggregate_by_year(year=year)
+            white = self.by_ethnicity(model.WHITE).aggregate_by_year(year=year)
+            other = self.by_ethnicity(model.OTHERS).aggregate_by_year(year=year)
+
+            return {
+                'economically_disadvantaged': economically_disadvantaged[0] if
+                    len(economically_disadvantaged) > 0 else None,
+                'not_economically_disadvantaged': not_economically_disadvantaged[0] if
+                    len(not_economically_disadvantaged) > 0 else None,
+                'male': male[0] if len(male) > 0 else None,
+                'female': female[0] if len(female) > 0 else None,
+                'black': black[0] if len(black) > 0 else None,
+                'hispanic': hispanic[0] if len(hispanic) > 0 else None,
+                'white': white[0] if len(white) > 0 else None,
+                'other': other[0] if len(other) > 0 else None,
+            }
+        else:
+            return {
+                'economically_disadvantaged': self.by_economic_status(
+                    model.ECONOMICALLY_DISADVANTAGED).aggregate_by_year(),
+                'not_economically_disadvantaged': self.by_economic_status(
+                    model.NOT_ECONOMICALLY_DISADVANTAGED).aggregate_by_year(),
+                'male': self.by_gender(model.MALE).aggregate_by_year(),
+                'female': self.by_gender(model.FEMALE).aggregate_by_year(),
+                'black': self.by_ethnicity(
+                    model.AFRICAN_AMERICAN).aggregate_by_year(),
+                'hispanic': self.by_ethnicity(model.HISPANIC).aggregate_by_year(),
+                'white': self.by_ethnicity(model.WHITE).aggregate_by_year(),
+                'other': self.by_ethnicity(model.OTHERS).aggregate_by_year(),
+            }
 
 
     def sum_update_or_create(self, defaults=None, **kwargs):
