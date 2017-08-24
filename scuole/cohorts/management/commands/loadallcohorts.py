@@ -149,7 +149,7 @@ class Command(BaseCommand):
                 data.append([i for i in reader])
 
         for row in sum(data, []):
-            if row['County Name'] == '' or 'ethnicity' in row and row['ethnicity'] == 'All ethnicities':
+            if row['County Name'] == '' or ('ethnicity' in row and row['ethnicity'] == 'All ethnicities'):
                 continue
             # This is bad and I know it.
             # Loops through the counties in the FIPS/THECB id map sheet
