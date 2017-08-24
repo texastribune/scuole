@@ -61,7 +61,7 @@
         <p>A breakdown, by ethnicity, of outcomes for cohorts of students who attended eighth grade in a Texas public school. You can see who graduated from high school, who enrolled in higher education and who completed a certificate or degree.</p>
       </section>
       <section class="cohort-section-table">
-        {% include 'includes/cohorts/ethnicity_table.html' with data=data latest_cohort=latest_cohort %}
+        {% include 'includes/cohorts/ethnicity_table.html' with data=latest_data latest_cohort=latest_cohort %}
       </section>
       <section class="cohort-section-charts">
         <h3 class="page-section-subheader">Class outcomes by ethnicity over time, 1997-{{ latest_cohort.year.start_year }}</h3>
@@ -79,7 +79,7 @@
         <p>A breakdown, by gender, of outcomes for cohorts of students who attended eighth grade in a Texas public school. You can see who graduated from high school, who enrolled in higher education and who completed a certificate or degree.</p>
       </section>
       <section class="cohort-section-table">
-        {% include 'includes/cohorts/gender_table.html' with data=data latest_cohort=latest_cohort %}
+        {% include 'includes/cohorts/gender_table.html' with data=latest_data latest_cohort=latest_cohort %}
       </section>
       <section class="cohort-section-charts">
         <h3 class="page-section-subheader">Class outcomes by gender over time, 1997-{{ latest_cohort.year.start_year }}</h3>
@@ -97,7 +97,7 @@
         <p>A breakdown, by economic status, of outcomes for cohorts of students who attended eighth grade in a Texas public school. You can see who graduated from high school, who enrolled in higher education and who completed a certificate or degree.</p>
       </section>
       <section class="cohort-section-table">
-        {% include 'includes/cohorts/economic_table.html' with data=data latest_cohort=latest_cohort %}
+        {% include 'includes/cohorts/economic_table.html' with data=latest_data latest_cohort=latest_cohort %}
       </section>
       <section class="cohort-section-charts">
         <h3 class="page-section-subheader">Class outcomes by economic status over time, 1997-{{ latest_cohort.year.start_year }}</h3>

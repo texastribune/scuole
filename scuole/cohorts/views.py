@@ -11,10 +11,14 @@ from scuole.core.functions import Simplify
 from scuole.counties.models import County, CountyCohorts
 from scuole.regions.models import Region, RegionCohorts
 from scuole.states.models import State, StateCohorts
+from scuole.stats.models import SchoolYear
 
 distinct_cohort_counties = County.objects.filter(
     cohorts__in=CountyCohorts.objects.all()).distinct().defer(
     'shape').order_by('name')
+
+# This is v bad
+latest_cohort_year = SchoolYear.objects.get(name='2005-2006')
 
 
 class CountyCohortsDetailView(DetailView):
@@ -33,8 +37,10 @@ class CountyCohortsDetailView(DetailView):
         context['latest_state_cohort'] = StateCohorts.objects.latest_cohort(
             state__name='TX')
 
-        data = cohorts.select_related('year').data_payload()
+        cohorts = cohorts.select_related('year')
+        data = cohorts.data_payload()
         context['data'] = data
+        context['latest_data'] = cohorts.data_payload(latest_cohort_year)
         context['js_data'] = dumps(data)
 
         context['county_list'] = distinct_cohort_counties
@@ -59,8 +65,10 @@ class RegionCohortsDetailView(DetailView):
         context['latest_state_cohort'] = StateCohorts.objects.latest_cohort(
             state__name='TX')
 
-        data = cohorts.select_related('year').data_payload()
+        cohorts = cohorts.select_related('year')
+        data = cohorts.data_payload()
         context['data'] = data
+        context['latest_data'] = cohorts.data_payload(latest_cohort_year)
         context['js_data'] = dumps(data)
 
         context['county_list'] = distinct_cohort_counties
@@ -83,8 +91,10 @@ class StateCohortsDetailView(DetailView):
         context['latest_cohort'] = cohorts.latest_cohort(
             state=self.object)
 
-        data = cohorts.select_related('year').data_payload()
+        cohorts = cohorts.select_related('year')
+        data = cohorts.data_payload()
         context['data'] = data
+        context['latest_data'] = cohorts.data_payload(latest_cohort_year)
         context['js_data'] = dumps(data)
 
         context['county_list'] = distinct_cohort_counties

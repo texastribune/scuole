@@ -11,29 +11,36 @@
     </tr>
   </thead>
   <tbody>
-    <tr>{% with cohort=data.black|last %}
+    <tr>{% with cohort=data.black %}
       <th scope="row">Black</th>
       <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
     {% endwith %}</tr>
-    <tr>{% with cohort=data.hispanic|last %}
+    <tr>{% with cohort=data.hispanic %}
       <th scope="row">Hispanic</th>
       <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
     {% endwith %}</tr>
-    <tr>{% with cohort=data.white|last %}
+    <tr>{% with cohort=data.white %}
       <th scope="row">White</th>
       <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
     {% endwith %}</tr>
-    <tr>{% with cohort=data.other|last %}
+    <tr>{% with cohort=data.other %}
       <th scope="row">Other</th>
+      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+    {% endwith %}</tr>
+    <tr>{% with cohort=data.unknown %}
+      <th scope="row">Unknown</th>
       <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
