@@ -16,7 +16,6 @@ function BlankChart({ width }) {
 
 export default class ChartGrid extends Component {
   render({ title, chartData = [] }) {
-    ////////////  TO DO //////////////
     const year = 2005;
 
     const legendShouldRender = chartData.some((c, i) => {
