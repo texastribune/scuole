@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from json import dumps
+from json import dumps, loads
 
 from django.contrib.gis.db.models.functions import AsGeoJSON
 from django.core.serializers import serialize
 from django.views.generic import TemplateView, DetailView
 
-from scuole.core.functions import Simplify
+from scuole.core.utils import build_geojson
 from scuole.counties.models import County, CountyCohorts
 from scuole.regions.models import Region, RegionCohorts
 from scuole.states.models import State, StateCohorts
@@ -115,6 +115,6 @@ class CohortsLandingView(TemplateView):
         context['county_list'] = distinct_cohort_counties
         context['region_list'] = self.region_model.objects.all().defer('shape')
 
-        context['regions_geojson'] = serialize('geojson', Region.objects.all())
+        context['regions_geojson'] = build_geojson(Region, 'shape', ['region_name_with_city'])
 
         return context
