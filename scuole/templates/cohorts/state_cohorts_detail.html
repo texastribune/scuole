@@ -6,7 +6,7 @@
 
 {% block breadcrumbs %}
 <nav class="breadcrumbs">
-  <a class="breadcrumbs__item" href="{% url 'landing' %}">Home</a> » <a class="breadcrumbs__item" href="{% url 'cohorts:landing' %}">{% trans "8th Grade Outcomes" %}</a>
+  <a class="breadcrumbs__item" href="{% url 'landing' %}">Home</a> » <a class="breadcrumbs__item" href="{% url 'cohorts:landing' %}">{% trans "Higher Ed Outcomes" %}</a>
 </nav>
 {% endblock breadcrumbs %}
 
@@ -25,7 +25,7 @@
     <section class="page-prose">
       {% include 'includes/cohorts/standard_prose.html' %}
 
-      <p>Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>{{ state.get_name_display }}</strong> who began 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong> received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date. For context, a 13-year-old student who started 8th grade in <strong>1996</strong> is about <strong>TK</strong> years old; one who started 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong> is now about <strong>TK</strong>.</p>
+      <p>Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>{{ state.get_name_display }}</strong> who began 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong> received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date. For context, a 13-year-old student who started 8th grade in <strong>1996</strong> is about <strong>34</strong> years old; one who started 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong> is now about <strong>25</strong>.</p>
 
       {% include 'includes/cohorts/prose_closer.html' %}
     </section>

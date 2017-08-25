@@ -59,24 +59,24 @@
   display: none;
 }
 
-.line {
+.area {
   stroke-opacity: 0.2;
   fill-opacity: 0.7;
 }
 
-.line--one {
+.area--one {
   fill: $color-button;
-  stroke: $color-button;
+  stroke: none;
 }
 
-.line--two {
+.area--two {
   fill: $color-button-dark;
-  stroke: $color-button-dark;
+  stroke: none;
 }
 
-.line--three {
+.area--three {
   fill: $color-button-darker;
-  stroke: $color-button-darker;
+  stroke: none;
 }
 
 .tick line {

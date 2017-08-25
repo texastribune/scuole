@@ -30,7 +30,7 @@ class CohortQuerySet(models.QuerySet):
             economic_status='', ethnicity='', gender=gender, **kwargs)
 
     def latest_cohort(self, **kwargs):
-        return self.overall(**kwargs).last()
+        return self.overall(**kwargs).order_by('year').first()
 
     def aggregate_by_year(self, **kwargs):
         output = []
@@ -56,6 +56,7 @@ class CohortQuerySet(models.QuerySet):
             hispanic = self.by_ethnicity(model.HISPANIC).aggregate_by_year(year=year)
             white = self.by_ethnicity(model.WHITE).aggregate_by_year(year=year)
             other = self.by_ethnicity(model.OTHERS).aggregate_by_year(year=year)
+            unknown = self.by_ethnicity(model.UNKNOWN).aggregate_by_year(year=year)
 
             return {
                 'economically_disadvantaged': economically_disadvantaged[0] if
@@ -68,6 +69,7 @@ class CohortQuerySet(models.QuerySet):
                 'hispanic': hispanic[0] if len(hispanic) > 0 else None,
                 'white': white[0] if len(white) > 0 else None,
                 'other': other[0] if len(other) > 0 else None,
+                'unknown': unknown[0] if len(unknown) > 0 else None,
             }
         else:
             return {
@@ -82,8 +84,8 @@ class CohortQuerySet(models.QuerySet):
                 'hispanic': self.by_ethnicity(model.HISPANIC).aggregate_by_year(),
                 'white': self.by_ethnicity(model.WHITE).aggregate_by_year(),
                 'other': self.by_ethnicity(model.OTHERS).aggregate_by_year(),
+                'unknown': self.by_ethnicity(model.UNKNOWN).aggregate_by_year(),
             }
-
 
     def sum_update_or_create(self, defaults=None, **kwargs):
         """
