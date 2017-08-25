@@ -62,12 +62,6 @@
         {% include 'includes/cohorts/ethnicity_table.html' with data=latest_data latest_cohort=latest_cohort %}
       </section>
       <section class="cohort-section-charts">
-        <h3 class="page-section-subheader">Class outcomes by ethnicity over time, 1997-{{ latest_cohort.year.start_year }}</h3>
-        <div class="legend">
-          <div class="legend__cell"><span class="dot dot--graduated"></span>Graduated from high school</div>
-          <div class="legend__cell"><span class="dot dot--enrolled"></span>Graduated and enrolled in college</div>
-          <div class="legend__cell"><span class="dot dot--completed"></span>Graduated, enrolled in and completed college</div>
-        </div>
         <div id="ethnicity-status-charts" class="cohorts-charts"></div>
       </section>
     </section>
@@ -80,12 +74,6 @@
         {% include 'includes/cohorts/gender_table.html' with data=latest_data latest_cohort=latest_cohort %}
       </section>
       <section class="cohort-section-charts">
-        <h3 class="page-section-subheader">Class outcomes by gender over time, 1997-{{ latest_cohort.year.start_year }}</h3>
-        <div class="legend">
-          <div class="legend__cell"><span class="dot dot--graduated"></span>Graduated from high school</div>
-          <div class="legend__cell"><span class="dot dot--enrolled"></span>Graduated and enrolled in college</div>
-          <div class="legend__cell"><span class="dot dot--completed"></span>Graduated, enrolled in and completed college</div>
-        </div>
         <div id="gender-status-charts" class="cohorts-charts"></div>
       </section>
     </section>
@@ -98,12 +86,6 @@
         {% include 'includes/cohorts/economic_table.html' with data=latest_data latest_cohort=latest_cohort %}
       </section>
       <section class="cohort-section-charts">
-        <h3 class="page-section-subheader">Class outcomes by economic status over time, 1997-{{ latest_cohort.year.start_year }}</h3>
-        <div class="legend">
-          <div class="legend__cell"><span class="dot dot--graduated"></span>Graduated from high school</div>
-          <div class="legend__cell"><span class="dot dot--enrolled"></span>Graduated and enrolled in college</div>
-          <div class="legend__cell"><span class="dot dot--completed"></span>Graduated, enrolled in and completed college</div>
-        </div>
         <div id="economic-status-charts" class="cohorts-charts"></div>
       </section>
     </section>
