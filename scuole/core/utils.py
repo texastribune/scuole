@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import json
 import re
 import string
+
+from django.urls import reverse
+
+from .functions import Simplify
 
 
 def string_replace(text, key_dict):
@@ -108,3 +113,20 @@ def massage_name(text, key_dict):
     text = cap_following_o_apostrophe(text)
 
     return text
+
+
+def build_geojson(model, shape_field, fields=[]):
+    output = {'type': 'FeatureCollection', 'features': []}
+
+    for instance in model.objects.annotate(simple_shape=Simplify(shape_field, 0.01)):
+        shape = json.loads(instance.simple_shape.geojson)
+        fields = {f: getattr(instance, f, None) for f in fields}
+        fields['url'] = reverse('cohorts:regions', kwargs={ 'slug': instance.slug })
+
+        output['features'].append({
+            'type': 'Feature',
+            'geometry': shape,
+            'properties': fields
+        })
+
+    return json.dumps(output)

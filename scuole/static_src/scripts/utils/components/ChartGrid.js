@@ -25,37 +25,25 @@ export default class ChartGrid extends Component {
     return (
       <div class="chart-grid">
         {chartData.map((c, i) => {
-          if (c.data.length === 0) {
-            return (
-              <div class="chart-container">
-                <h3 class="page-section-subheader-cohort">
-                  {c.title}
-                </h3>
-                <ResponsiveContainer>
-                  <BlankChart />
-                </ResponsiveContainer>
-              </div>
-            );
-          } else {
-            return (
-              <div class="chart-container">
-                <h3 class="page-section-subheader-cohort">
-                  {c.title}
-                </h3>
-                <ResponsiveContainer>
-                  <Chart
-                    data={c.data}
-                    xField="year"
-                    yField="percent_graduated"
-                    yField2="percent_enrolled_higher_education"
-                    yField3="percent_completed_higher_education"
-                    yMax={yMax}
-                    margins={{ left: 40 }}
-                  />
-                </ResponsiveContainer>
-              </div>
-            );
-          }
+          return (
+            c.data.length !== 0 &&
+            <div class="chart-container">
+              <h3 class="page-section-subheader-cohort">
+                {c.title}
+              </h3>
+              <ResponsiveContainer>
+                <Chart
+                  data={c.data}
+                  xField="year"
+                  yField="percent_graduated"
+                  yField2="percent_enrolled_higher_education"
+                  yField3="percent_completed_higher_education"
+                  yMax={yMax}
+                  margins={{ left: 40 }}
+                />
+              </ResponsiveContainer>
+            </div>
+          );
         })}
       </div>
     );

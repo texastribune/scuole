@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% block meta %}{% include "includes/meta.html" %}{% endblock meta %}
-  <title>{% block title %}{% trans "Home" %}{% endblock title %} | {% trans "Higher Ed Outcomes" %} | {% trans "The Texas Tribune" %}</title>
+  {% block meta %}{% include "includes/cohorts_meta.html" %}{% endblock meta %}
+  <title>{% block title %}{% trans "Home" %}{% endblock title %} | {% trans "Texas Public Schools Explorer" %} | {% trans "The Texas Tribune" %}</title>
   <link rel="canonical" href="https://schools.texastribune.org{{ request.path }}" />
   <script src="https://use.typekit.net/gbr6cnk.js"></script>
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
@@ -21,12 +21,7 @@
       "dateCreated": "2017-25-08T06:00:00-12:00",
       "articleSection": "Public Education",
       "creator": ["Ryan Murphy", "Annie Daniel"],
-      "keywords": ["education", "public schools", "public education"],
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://schools.texastribune.org/outcomes",
-        "query-input": "required name=search_term_string"
-      }
+      "keywords": ["education", "public schools", "public education"]
     }
   </script>
 </head>

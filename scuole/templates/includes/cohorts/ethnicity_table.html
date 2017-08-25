@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th scope="column">Ethnicity</th>
-      <th scope="column" class="numeric-cell">Size of class</th>
+      <th scope="column" class="numeric-cell">Class size</th>
       <th scope="column" class="numeric-cell">Graduated high school</th>
       <th scope="column" class="numeric-cell">Enrolled in college</th>
       <th scope="column" class="numeric-cell">Graduated from college</th>
@@ -39,6 +39,14 @@
       <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
       <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
     {% endwith %}</tr>
+    {% if data.unknown %}
+    <tr>{% with cohort=data.unknown %}
+      <th scope="row">Unknown</th>
+      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+    {% endwith %}</tr>{% endif %}
     <tr class="highlight-row">{% with cohort=latest_cohort %}
       <th scope="row">Total</th>
       <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>

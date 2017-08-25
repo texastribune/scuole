@@ -1,6 +1,6 @@
 import { Component, h } from 'preact';
 import { extent, max } from 'd3-array';
-import { area } from 'd3-shape';
+import { area, line } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
 import Axis from './Axis';
@@ -30,6 +30,8 @@ export default class Chart extends Component {
     const innerWidth = width - margins.left - margins.right;
     const innerHeight = height - margins.top - margins.bottom;
 
+    data = data.sort((a, b) => a.year - b.year);
+
     const xExtent = extent(data, d => d[xField]);
 
     const x = scaleLinear().rangeRound([0, innerWidth]).domain(xExtent).nice();
@@ -39,41 +41,59 @@ export default class Chart extends Component {
       .domain([0, yMax || max(data, d => d[yField])])
       .nice();
 
-    const areaGenerator = area()
+    const lineGenerator = line()
+      .defined(d => d[yField])
       .x(d => x(d[xField]))
+      .y(d => y(d[yField]));
+
+    const areaGenerator = area()
+      .defined(lineGenerator.defined())
+      .x(lineGenerator.x())
       .y0(y(0))
-      .y1(d => y(d[yField]));
+      .y1(lineGenerator.y());
+
+    const lineGenerator2 = line()
+      .defined(d => d[yField2])
+      .x(d => x(d[xField]))
+      .y(d => y(d[yField2]));
 
     const areaGenerator2 = area()
-      .x(d => x(d[xField]))
+      .defined(lineGenerator2.defined())
+      .x(lineGenerator2.x())
       .y0(y(0))
-      .y1(d => y(d[yField2]));
+      .y1(lineGenerator2.y());
+
+    const lineGenerator3 = line()
+      .defined(d => d[yField3])
+      .x(d => x(d[xField]))
+      .y(d => y(d[yField3]));
 
     const areaGenerator3 = area()
-      .x(d => x(d[xField]))
+      .defined(lineGenerator3.defined())
+      .x(lineGenerator3.x())
       .y0(y(0))
-      .y1(d => y(d[yField3]));
+      .y1(lineGenerator3.y());
 
     return (
       <svg width={width} height={height}>
         <g transform={`translate(${margins.left},${margins.top})`}>
           <rect width={innerWidth} height={innerHeight} fill="#eee" />
           <path
-            class="line line--one"
+            class="area area--one"
             stroke="#08b4ac"
             fill="#08b4ac"
             stroke-width="1"
             d={areaGenerator(data)}
           />
           <path
-            class="line line--two"
+            class="area area--two"
             stroke="#04524f"
             fill="#04524f"
             stroke-width="1"
             d={areaGenerator2(data)}
           />
           <path
-            class="line line--three"
+            class="area area--three"
             stroke="#04524f"
             fill="#04524f"
             stroke-width="1"
