@@ -1,5 +1,7 @@
 {% extends 'cohorts_base.html' %}{% load i18n humanize %}{% load static from staticfiles %}
 
+{% block meta %}{% include "includes/cohorts_meta.html" %}{% endblock meta %}
+
 {% block schema_type %}WebPage{% endblock schema_type %}
 
 {% block header_class %}header header-landing{% endblock header_class %}

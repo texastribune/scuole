@@ -23,58 +23,7 @@
 {% include "includes/schools_announcement.html" %}
 {% endblock search %}
 
-{% block content %}
-Of the 329,095 Texas students who began 8th grade in 2004, 20.5 percent received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date. That rate has risen over the last several years; it was 17.7 percent for students starting 8th grade in 1996.
-
-Despite this upward trend, disparities in achievement – by race and economic status – remain. Within the three largest ethnic groups, white students significantly outperform their African-American and Hispanic counterparts. Female students outpace male students by a wide margin. Economically disadvantaged students perform at far lower rates than their peers, regardless of ethnicity.
-
-For context, a 13-year-old student who started 8th grade in 1996 is about 34 years old; one who started 8th grade in 2004 is now about 26.
-
-{{ cohorts_overall }}
-
-{% regroup cohorts_gender by gender as gender_list %}
-
-<ul>
-{% for gender in gender_list %}
-    <li>{{ gender.grouper }}
-    <ul>
-        {% for cohort in gender.list %}
-          <li>{{ cohort.year }}: {{ cohort.enrolled_8th }}</li>
-        {% endfor %}
-    </ul>
-    </li>
-{% endfor %}
-</ul>
-
-{% regroup cohorts_ethnicity by ethnicity as ethnicity_list %}
-
-<ul>
-{% for ethnicity in ethnicity_list %}
-    <li>{{ ethnicity.grouper }}
-    <ul>
-        {% for cohort in ethnicity.list %}
-          <li>{{ cohort.year }}: {{ cohort.enrolled_8th }}</li>
-        {% endfor %}
-    </ul>
-    </li>
-{% endfor %}
-</ul>
-
-{% regroup cohorts_economic_status by economic_status as economic_status_list %}
-
-<ul>
-{% for economic_status in economic_status_list %}
-    <li>{{ economic_status.grouper }}
-    <ul>
-        {% for cohort in economic_status.list %}
-          <li>{{ cohort.year }}: {{ cohort.enrolled_8th }}</li>
-        {% endfor %}
-    </ul>
-    </li>
-{% endfor %}
-</ul>
-
-{% endblock content %}
+{% block content %}{% endblock content %}
 
 {% block data_script %}
 <script>
