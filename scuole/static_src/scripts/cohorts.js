@@ -54,17 +54,17 @@ const economicData = [
 ];
 
 render(
-  <ChartGrid chartData={ethnicityData} />,
+  <ChartGrid title="ethnicity" chartData={ethnicityData} />,
   document.getElementById('ethnicity-status-charts')
 );
 
 render(
-  <ChartGrid chartData={genderData} />,
+  <ChartGrid title="gender" chartData={genderData} />,
   document.getElementById('gender-status-charts')
 );
 
 render(
-  <ChartGrid chartData={economicData} />,
+  <ChartGrid title="economic status" chartData={economicData} />,
   document.getElementById('economic-status-charts')
 );
 
