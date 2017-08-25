@@ -5,7 +5,10 @@ register = template.Library()
 
 @register.filter
 def percentify(value):
-    if value <= 1:
-        value = value * 100
+    try:
+        if value <= 1:
+            value = value * 100
+    except TypeError:
+        return None
 
     return '{:.1f}'.format(value)
