@@ -1,4 +1,9 @@
-{% extends 'cohorts_base.html' %}{% load humanize i18n journalize %}
+{% extends 'cohorts_standard.html' %}{% load humanize i18n journalize %}
+
+{% block meta %}{% include "includes/cohorts_meta.html" with title=county.name_full_cohorts %}{% endblock meta %}
+
+{% block title %}{{ county.name_full_cohorts }}{% endblock title %}
+{% block parsely_title %}{{ county.name_full_cohorts }}{% endblock parsely_title %}
 
 {% block extra_content %}
 {% include "includes/reminder_bar.html" with title=county.name_full_cohorts %}

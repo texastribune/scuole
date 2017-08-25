@@ -1,5 +1,6 @@
 from django.db import models, transaction
-from django.db.models import DecimalField, F, FloatField, IntegerField
+from django.db.models import DecimalField, F, FloatField, IntegerField, Value
+from django.db.models.functions import Coalesce
 
 year_aggregation_fields = [
     'enrolled_8th',
@@ -106,10 +107,14 @@ class CohortQuerySet(models.QuerySet):
                 if created:
                     return obj, created
             for k, v in defaults.items():
+                value = v() if callable(v) else v
                 if isinstance(self.model._meta.get_field(k), (
                         DecimalField, FloatField, IntegerField,)):
-                    setattr(obj, k, F(k) + (v() if callable(v) else v))
+                    if getattr(obj, k, None) is None and value is not None:
+                        setattr(obj, k, value)
+                    else:
+                        setattr(obj, k, F(k) + (Value(0) if value is None else value))
                 else:
-                    setattr(obj, k, v() if callable(v) else v)
+                    setattr(obj, k, value)
             obj.save(using=self.db)
         return obj, False
