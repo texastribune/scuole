@@ -67,21 +67,21 @@ class CohortsBase(models.Model):
         try:
             return self.graduated / self.enrolled_8th
         except (TypeError, ZeroDivisionError):
-            return 'N/A'
+            return None
 
     @cached_property
     def percent_enrolled_higher_education(self):
         try:
             return self.total_enrolled / self.enrolled_8th
         except (TypeError, ZeroDivisionError):
-            return 'N/A'
+            return None
 
     @cached_property
     def percent_completed_higher_education(self):
         try:
             return self.total_degrees / self.enrolled_8th
         except (TypeError, ZeroDivisionError):
-            return 'N/A'
+            return None
 
     class Meta:
         abstract = True

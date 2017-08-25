@@ -30,7 +30,7 @@ function initialize() {
     const feature = event.feature;
 
     tooltip.classList.add('map-tooltip--visible');
-    tooltip.textContent = feature.getProperty('name');
+    tooltip.textContent = feature.getProperty('region_name_with_city');
     map.data.revertStyle();
     map.data.overrideStyle(feature, { fillColor: '#9b9b9b', strokeWeight: 2 });
   });
@@ -39,6 +39,11 @@ function initialize() {
     tooltip.classList.remove('map-tooltip--visible');
     tooltip.textContent = '';
     map.data.revertStyle();
+  });
+
+  map.data.addListener('click', event => {
+    const feature = event.feature;
+    window.location.href = feature.getProperty('url');
   });
 
   zoomMap(map);
