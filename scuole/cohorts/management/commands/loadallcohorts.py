@@ -149,7 +149,7 @@ class Command(BaseCommand):
                 data.append([i for i in reader])
 
         for row in sum(data, []):
-            if row['County Name'] == '' or ('ethnicity' in row and row['ethnicity'] == 'All ethnicities'):
+            if row['County Name'] in ['', 'BRISCOE'] or ('ethnicity' in row and row['ethnicity'] == 'All ethnicities'):
                 continue
             # This is bad and I know it.
             # Loops through the counties in the FIPS/THECB id map sheet
@@ -175,7 +175,6 @@ class Command(BaseCommand):
             payload['economic_status'] = payload['defaults'].get('economic_status', '')
             payload['gender'] = payload['defaults'].get('gender', '')
             payload['ethnicity'] = payload['defaults'].get('ethnicity', '')
-
             CountyCohorts.objects.sum_update_or_create(**payload)
 
         self.create_counties_overall()

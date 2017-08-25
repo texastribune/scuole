@@ -15,7 +15,17 @@ function BlankChart({ width }) {
 }
 
 export default class ChartGrid extends Component {
-  render({ chartData = [] }) {
+  render({ title, chartData = [] }) {
+    const year = 2005;
+
+    const legendShouldRender = chartData.some((c, i) => {
+      if (c.data.some(d => d.percent_graduated) && c.data.length > 3) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
     const yMax = Math.max(
       ...[].concat(
         ...chartData.map(({ data }) => data.map(d => d.percent_graduated))
@@ -23,28 +33,51 @@ export default class ChartGrid extends Component {
     );
 
     return (
-      <div class="chart-grid">
-        {chartData.map((c, i) => {
-          return (
-            c.data.length !== 0 &&
-            <div class="chart-container">
-              <h3 class="page-section-subheader-cohort">
-                {c.title}
-              </h3>
-              <ResponsiveContainer>
-                <Chart
-                  data={c.data}
-                  xField="year"
-                  yField="percent_graduated"
-                  yField2="percent_enrolled_higher_education"
-                  yField3="percent_completed_higher_education"
-                  yMax={yMax}
-                  margins={{ left: 40 }}
-                />
-              </ResponsiveContainer>
+      <div class="chart-block">
+        {legendShouldRender &&
+          <div class="legend-block">
+            <h3 class="page-section-subheader">
+              Class outcomes by {title} over time, 1997-{year}
+            </h3>
+            <div class="legend">
+              <div class="legend__cell">
+                <span class="dot dot--graduated" />Graduated from high school
+              </div>
+              <div class="legend__cell">
+                <span class="dot dot--enrolled" />Graduated and enrolled in
+                college
+              </div>
+              <div class="legend__cell">
+                <span class="dot dot--completed" />Graduated, enrolled in and
+                completed college
+              </div>
             </div>
-          );
-        })}
+          </div>}
+
+        <div class="chart-grid">
+          {legendShouldRender &&
+            chartData.map((c, i) => {
+              return (
+                c.data.length > 3 &&
+                <div class="chart-container">
+                  <h3 class="page-section-subheader-cohort">
+                    {c.title}
+                  </h3>
+                  <ResponsiveContainer>
+                    <Chart
+                      data={c.data}
+                      xField="year"
+                      yField="percent_graduated"
+                      yField2="percent_enrolled_higher_education"
+                      yField3="percent_completed_higher_education"
+                      yMax={yMax}
+                      margins={{ left: 40 }}
+                    />
+                  </ResponsiveContainer>
+                </div>
+              );
+            })}
+        </div>
       </div>
     );
   }
