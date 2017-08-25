@@ -1,5 +1,8 @@
 {% extends 'cohorts_standard.html' %}{% load humanize i18n journalize %}
 
+{% block title %}Texas{% endblock title %}
+{% block parsely_title %}Texas{% endblock parsely_title %}
+
 {% block extra_content %}
 {% include "includes/reminder_bar.html" with title=state.get_name_display %}
 {% endblock extra_content %}

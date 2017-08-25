@@ -1,5 +1,8 @@
 {% extends 'cohorts_standard.html' %}{% load humanize i18n journalize %}
 
+{% block title %}{{ county.name }}{% endblock title %}
+{% block parsely_title %}{{ county.name }}{% endblock parsely_title %}
+
 {% block extra_content %}
 {% include "includes/reminder_bar.html" with title=county.name_full_cohorts %}
 {% endblock extra_content %}
