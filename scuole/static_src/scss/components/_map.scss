@@ -11,10 +11,18 @@
   }
 }
 
-.map-district {
+.map--district {
   height: 250px;
 }
 
-.map-state {
+.map--state {
   height: 300px;
+}
+
+.map--full-region {
+  height: 400px;
+}
+
+.map-view-button {
+  margin-bottom: $gutter;
 }

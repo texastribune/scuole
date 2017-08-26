@@ -10,7 +10,8 @@
   min-height: 1px;
   padding-left: $gutter-half;
   padding-right: $gutter-half;
-  position: relative;
+  position: sticky;
+  top: $gutter * 3;
 
   @include mq($from: tablet) {
     display: block;

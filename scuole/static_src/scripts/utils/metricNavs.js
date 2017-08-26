@@ -1,67 +1,49 @@
-import classie from 'desandro-classie'
-import forEach from 'lodash/collection/each'
-import findOne from 'lodash/collection/find'
-import scrollMonitor from 'scrollmonitor'
+import forEach from 'lodash/collection/each';
+import findOne from 'lodash/collection/find';
+import scrollMonitor from 'scrollmonitor';
 
-import activeButtonClass from './activeButtonClass'
+import activeButtonClass from './activeButtonClass';
 
-let metricNav = document.querySelector('#metrics-nav')
+let metricNav = document.querySelector('#metrics-nav');
 
-let metricSection = document.querySelector('#metrics-section')
+let metricSection = document.querySelector('#metrics-section');
 let metricSectionWatcher = scrollMonitor.create(metricSection, {
-  top: 60
-})
+  top: 60,
+});
 
-metricSectionWatcher.partiallyExitViewport(function () {
-  if (this.isAboveViewport) {
-    classie.remove(metricNav, 'attach-to-top')
-    classie.add(metricNav, 'attach-to-bottom')
-  }
+let metricJumpers = document.querySelectorAll('.js-metric-jumper');
 
-  if (this.isBelowViewport) {
-    classie.remove(metricNav, 'attach-to-top')
-  }
-})
+forEach(metricJumpers, jumper => {
+  jumper.addEventListener('click', function(e) {
+    let activeEl = e.target;
 
-metricSectionWatcher.enterViewport(function () {
-  if (this.isAboveViewport) {
-    classie.remove(metricNav, 'attach-to-top')
-    classie.add(metricNav, 'attach-to-bottom')
-  }
-})
+    activeButtonClass(metricJumpers, activeEl, 'btn-link', 'btn-gray-ghost');
 
-metricSectionWatcher.fullyEnterViewport(function () {
-  classie.remove(metricNav, 'attach-to-bottom')
-  classie.add(metricNav, 'attach-to-top')
-})
+    let attr = activeEl.getAttribute('data-jumper');
 
-let metricJumpers = document.querySelectorAll('.js-metric-jumper')
+    let el = document.querySelector('#' + attr);
+    window.scrollTo(
+      0,
+      el.getBoundingClientRect().top + window.pageYOffset - 50
+    );
+  });
+});
 
-forEach(metricJumpers, (jumper) => {
-  jumper.addEventListener('click', function (e) {
-    let activeEl = e.target
+let metricJumperHeaders = document.querySelectorAll('.js-metrics-block');
 
-    activeButtonClass(metricJumpers, activeEl, 'btn-link', 'btn-gray-ghost')
-
-    let attr = activeEl.getAttribute('data-jumper')
-
-    let el = document.querySelector('#' + attr)
-    window.scrollTo(0, el.getBoundingClientRect().top + window.pageYOffset - 50)
-  })
-})
-
-let metricJumperHeaders = document.querySelectorAll('.js-metrics-block')
-
-forEach(metricJumperHeaders, (header) => {
-  let monitor = scrollMonitor.create(header, 20)
+forEach(metricJumperHeaders, header => {
+  let monitor = scrollMonitor.create(header, 20);
 
   monitor.stateChange(() => {
     // if the section isn't in view at all, skip
-    if (!monitor.isInViewport) return
+    if (!monitor.isInViewport) return;
 
     if (monitor.isInViewport && monitor.isAboveViewport) {
-      let el = findOne(metricJumpers, jumper => header.id === jumper.getAttribute('data-jumper'))
-      activeButtonClass(metricJumpers, el, 'btn-link', 'btn-gray-ghost')
+      let el = findOne(
+        metricJumpers,
+        jumper => header.id === jumper.getAttribute('data-jumper')
+      );
+      activeButtonClass(metricJumpers, el, 'btn-link', 'btn-gray-ghost');
     }
-  })
-})
+  });
+});

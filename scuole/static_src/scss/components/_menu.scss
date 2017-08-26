@@ -3,16 +3,26 @@
 }
 
 .menu-bar {
-  @include create-row();
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .menu-bar__item {
-  @include create-column(12);
+  flex: 0 0 100%;
+  max-width: 100%;
   margin-bottom: $gutter-half;
   text-align: center;
 
   @include mq($from: menu-stack-break) {
-    @include create-column(4);
+    flex: 0 0 percentage(1/3);
+    max-width: percentage(1/3);
+  }
+}
+
+.menu-bar__item + .menu-bar__item {
+  @include mq($from: menu-stack-break) {
+    padding-left: $gutter;
   }
 }
 

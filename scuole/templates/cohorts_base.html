@@ -1,0 +1,117 @@
+<!doctype html>{% load i18n %}{% load static from staticfiles %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% block meta %}{% endblock meta %}
+  <title>{% block title %}{% trans "Home" %}{% endblock title %} | {% trans "Higher Ed Outcomes" %} | {% trans "The Texas Tribune" %}</title>
+  <link rel="canonical" href="https://schools.texastribune.org{{ request.path }}" />
+  <script src="https://use.typekit.net/gbr6cnk.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
+  <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+  <script>var googletag = googletag || {};googletag.cmd = googletag.cmd || [];var BLANK_STORY_IMAGE = '{% static "images/trib-bug.png" %}';</script>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "{% block schema_type %}NewsArticle{% endblock schema_type %}",
+      "headline": "{% block parsely_title %}Home{% endblock parsely_title %} (Higher Ed Outcomes)",
+      "url": "https://schools.texastribune.org{{ request.path }}",
+      "thumbnailUrl": "http://schools.texastribune.org{% static 'images/cohorts-facebook-share.jpg' %}",
+      "dateCreated": "2017-08-25T06:00:00-12:00",
+      "articleSection": "Public Education",
+      "creator": ["Ryan Murphy", "Annie Daniel"],
+      "keywords": ["education", "public schools", "public education", "higher education"]
+    }
+  </script>
+</head>
+<body class="{% block body_class %}{% endblock body_class %}">
+
+<header class="{% block header_class %}{% endblock header_class %}" role="banner">
+{% block header %}{% endblock header %}
+</header>
+
+{% block search %}{% endblock search %}
+
+{% block extra_content %}{% endblock %}
+
+<main class="{% block main_class %}{% endblock main_class %}" id="main" role="main">
+{% block breadcrumbs %}{% endblock breadcrumbs %}
+{% block content %}{% endblock content %}
+</main>
+
+{% block footer_ad %}
+{% include "includes/ad_slot_footer.html" %}
+{% endblock footer_ad %}
+
+<footer class="footer" role="contentinfo">
+{% block footer %}
+  <div class="container">
+    <nav>
+      <ul>
+        <li class="copywrite">&copy; 2017 <a href="http://www.texastribune.org/">The Texas Tribune</a></li>
+      </ul>
+    </nav>
+    <nav class="last-nav">
+      <ul>
+        <li><a href="http://www.texastribune.org/about/">About Us</a></li>
+        <li><a href="http://www.texastribune.org/contact/">Contact Us</a></li>
+        <li><a href="http://www.texastribune.org/support-us/donors-and-members/">Who Funds Us?</a></li>
+        <li><a href="http://www.texastribune.org/terms-of-service/">Terms of Service</a></li>
+        <li><a href="http://www.texastribune.org/ethics/">Code of Ethics</a></li>
+        <li><a href="http://www.texastribune.org/privacy/">Privacy Policy</a></li>
+        <li class="donate"><a href="https://www.texastribune.org/join/">Donate</a></li>
+      </ul>
+    </nav>
+  </div>
+{% endblock footer %}
+</footer>
+
+{% block data_script %}{% endblock data_script %}
+
+{% block extra_script %}
+<script src="{% static 'scripts/commons.js' %}"></script>
+{% endblock extra_script %}
+
+<!-- Google Analytics -->
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', 'UA-9827490-1', 'auto');ga('send', 'pageview');</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NSCKTR');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSCKTR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- START Parse.ly Include: Standard -->
+<div id="parsely-root" style="display: none">
+  <span id="parsely-cfg" data-parsely-site="texastribune.org"></span>
+</div>
+<script>
+(function(s, p, d) {
+  var h = d.location.protocol,
+    i = p + '-' + s,
+    e = d.getElementById(i),
+    r = d.getElementById(p + '-root'),
+    u =
+      h === 'https:' ? 'd1z2jf7jlzjs58.cloudfront.net' : 'static.' + p + '.com';
+  if (e) return;
+  e = d.createElement(s);
+  e.id = i;
+  e.async = true;
+  e.src = h + '//' + u + '/p.js';
+  r.appendChild(e);
+})('script', 'parsely', document);
+</script>
+<!-- END Parse.ly Include: Standard -->
+
+</body>
+</html>

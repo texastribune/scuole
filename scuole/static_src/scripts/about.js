@@ -1,14 +1,14 @@
-import scrollMonitor from 'scrollmonitor'
+import scrollMonitor from 'scrollmonitor';
 
-const aboutMenu = document.querySelector('#about-menu')
-const aboutMenuMonitor = scrollMonitor.create(aboutMenu)
+const aboutMenu = document.querySelector('#about-menu');
+const aboutMenuMonitor = scrollMonitor.create(aboutMenu);
 
-aboutMenuMonitor.lock()
+aboutMenuMonitor.lock();
 
-aboutMenuMonitor.exitViewport(function () {
-  aboutMenu.classList.remove('attach-to-top')
-})
+aboutMenuMonitor.exitViewport(function() {
+  aboutMenu.classList.remove('attach-to-top');
+});
 
-aboutMenuMonitor.enterViewport(function () {
-  aboutMenu.classList.add('attach-to-top')
-})
+aboutMenuMonitor.enterViewport(function() {
+  aboutMenu.classList.add('attach-to-top');
+});

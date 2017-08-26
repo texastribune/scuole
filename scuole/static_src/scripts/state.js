@@ -1,24 +1,24 @@
 /* global SHAPE */
 
-import google from 'google'
-import zoomMap from './utils/zoomMap'
+import google from 'google';
+import zoomMap from './utils/zoomMap';
 
-import './utils/metricNavs'
-import './utils/reminderBar'
+import './utils/metricNavs';
+import './utils/reminderBar';
 
-function initialize () {
-  let mapCanvas = document.getElementById('map-state')
+function initialize() {
+  let mapCanvas = document.getElementById('map-state');
 
   let mapOptions = {
     zoom: 6,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     draggable: false,
-    scrollwheel: false
-  }
+    scrollwheel: false,
+  };
 
-  let map = new google.maps.Map(mapCanvas, mapOptions)
+  let map = new google.maps.Map(mapCanvas, mapOptions);
   if (SHAPE.geometry) {
-    map.data.addGeoJson(SHAPE)
+    map.data.addGeoJson(SHAPE);
   }
 
   map.data.setStyle({
@@ -30,18 +30,18 @@ function initialize () {
       scale: 3,
       fillColor: '#09B6AE',
       fillOpacity: 0.8,
-      strokeWeight: 1
-    }
-  })
+      strokeWeight: 1,
+    },
+  });
 
-  zoomMap(map)
+  zoomMap(map);
 
   mapCanvas.addEventListener('click', () => {
     map.setOptions({
       draggable: true,
-      scrollwheel: true
-    })
-  })
+      scrollwheel: true,
+    });
+  });
 }
 
-google.maps.event.addDomListener(window, 'load', initialize)
+google.maps.event.addDomListener(window, 'load', initialize);

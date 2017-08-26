@@ -1,0 +1,38 @@
+{% extends 'cohorts_base.html' %}{% load i18n %}{% load static from staticfiles %}
+
+{% block header_class %}header header-standard{% endblock header_class %}
+
+{% block header %}
+<div class="container">
+  <div class="header-logo">
+    <a href="http://www.texastribune.org/">
+      <img class="tribune-logo tribune-logo-desktop" src="{% static 'images/logos/tribune-white.svg' %}" alt="{% trans "The Texas Tribune" %}">
+      <img class="tribune-logo tribune-logo-mobile" src="{% static 'images/logos/tribune-white-small.svg' %}" alt="{% trans "The Texas Tribune" %}">
+    </a>
+  </div>
+
+  <a class="header-title" href="{% url 'cohorts:landing' %}">{% trans "Higher Ed Outcomes" %}</a>
+</div>
+{% endblock header %}
+
+{% block main_class %}container{% endblock main_class %}
+
+{% block search %}
+{% include "includes/cohorts/menu.html" %}
+
+{% include "includes/schools_announcement.html" %}
+{% endblock search %}
+
+{% block content %}{% endblock content %}
+
+{% block data_script %}
+<script>
+window.data = {{ js_data|safe }};
+</script>
+{% endblock data_script %}
+
+{% block extra_script %}
+{{ block.super }}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrkB4T_tbnnFklJsJ_1jk8JwEpzhOYyKc"></script>
+<script src="{% static 'scripts/cohorts.js' %}"></script>
+{% endblock extra_script %}

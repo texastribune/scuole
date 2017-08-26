@@ -3,6 +3,7 @@ $color-primary: hsl(0, 0%, 13%);
 $color-secondary: lighten($color-primary, 20%);
 
 $color-gray: hsl(0, 0%, 76%);
+$color-offgrey: hsl(0, 0%, 76%);
 $color-gray-light: hsl(0, 0%, 96%);
 $color-white: hsl(0, 0%, 100%);
 
@@ -11,6 +12,13 @@ $color-text-accent: $color-secondary;
 $color-text-inverse: $color-white;
 $color-link: hsl(194, 90%, 35%);
 $color-button: hsl(177, 91%, 37%);
+$color-button-dark: darken($color-button, 15%);
+$color-button-darker: darken($color-button, 30%);
+
+$color-purple: hsl(267, 42%, 51%);
+$color-chart-purple-1: lighten($color-purple, 15%);
+$color-chart-purple-2: $color-purple;
+$color-chart-purple-3: darken($color-purple, 15%);
 
 // Spacing
 $gutter: 1.25rem;
@@ -33,8 +41,19 @@ $font-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-serif: Georgia, 'Times New Roman', Times, serif;
 $font-livory: 'livory', $font-serif;
 $font-soleil: 'soleil', $font-sans-serif;
-$font-metric: 'soleil', $font-sans-serif;;
+$font-metric: 'soleil', $font-sans-serif;
 $font-soleil: $font-sans-serif;
+
+// Animation curves
+
+// best for elements moving on screen
+$curve-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+// best for elements leaving the screen
+$curve-accelarate: cubic-bezier(0.4, 0.0, 1, 1);
+// best for elements entering the screen
+$curve-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+// best for elements that may enter at any time (menus, etc.)
+$curve-sharp: cubic-bezier(0.4, 0.0, 0.6, 1);
 
 // sass-mq
 $mq-responsive: true;
@@ -42,12 +61,11 @@ $mq-responsive: true;
 $mq-breakpoints: (
   mobile: 520px,
   tablet: 760px,
-
   metrics-flip: 900px,
   ad-switch: 760px,
   footer-break: 900px,
   menu-label-break: 450px,
-  menu-stack-break: 375px
+  menu-stack-break: 600px
 );
 
 $mq-media-type: screen;

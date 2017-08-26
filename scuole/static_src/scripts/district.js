@@ -1,29 +1,29 @@
 /* global document,window,COORDS,SHAPE */
 
-import google from 'google'
-import zoomMap from './utils/zoomMap'
+import google from 'google';
+import zoomMap from './utils/zoomMap';
 
-import './utils/campusList'
-import './utils/metricNavs'
-import './utils/reminderBar'
+import './utils/campusList';
+import './utils/metricNavs';
+import './utils/reminderBar';
 
-var map
+var map;
 
-function initialize () {
-  var mapCanvas = document.getElementById('map-district')
+function initialize() {
+  var mapCanvas = document.getElementById('map-district');
 
   var mapOptions = {
     zoom: 14,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     draggable: false,
-    scrollwheel: false
-  }
+    scrollwheel: false,
+  };
 
-  map = new google.maps.Map(mapCanvas, mapOptions)
+  map = new google.maps.Map(mapCanvas, mapOptions);
   if (SHAPE.geometry) {
-    map.data.addGeoJson(SHAPE)
+    map.data.addGeoJson(SHAPE);
   }
-  map.data.addGeoJson(COORDS)
+  map.data.addGeoJson(COORDS);
 
   map.data.setStyle({
     fillColor: '#C2C2C2',
@@ -34,18 +34,18 @@ function initialize () {
       scale: 3,
       fillColor: '#09B6AE',
       fillOpacity: 0.8,
-      strokeWeight: 1
-    }
-  })
+      strokeWeight: 1,
+    },
+  });
 
-  zoomMap(map)
+  zoomMap(map);
 
   mapCanvas.addEventListener('click', () => {
     map.setOptions({
       draggable: true,
-      scrollwheel: true
-    })
-  })
+      scrollwheel: true,
+    });
+  });
 }
 
-google.maps.event.addDomListener(window, 'load', initialize)
+google.maps.event.addDomListener(window, 'load', initialize);

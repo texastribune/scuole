@@ -21,11 +21,65 @@
 }
 
 .table-striped {
-  tbody tr:nth-of-type(2n+1) {
+  tbody tr:nth-of-type(2n + 1) {
     background-color: $color-gray-light;
   }
 }
 
 .table__cell--numeric.table__cell--numeric {
   text-align: right;
+}
+
+.dv-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: .875rem;
+  max-width: 100%;
+  width: 100%;
+
+  @include mq($from: mobile) {
+    font-size: 1rem;
+  }
+}
+
+.dv-table caption {
+  font-weight: 700;
+  font-size: 1em;
+  line-height: 1.2;
+  margin-bottom: $gutter-quarter;
+  text-align: left;
+}
+
+.dv-table th,
+.dv-table td {
+  border-top: .0625rem solid $color-offgrey;
+  font-size: .875em;
+  line-height: 1.3;
+  padding: .375em .5em;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.dv-table thead th {
+  border-bottom: .125rem solid $color-offgrey;
+  border-top: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.dv-table tr.highlight-row {
+  background-color: $color-gray-light;
+  font-weight: 700;
+}
+
+.dv-table th.numeric-cell,
+.dv-table td.numeric-cell {
+  text-align: right;
+}
+
+.dv-table th.nowrap-cell,
+.dv-table td.nowrap-cell {
+  white-space: nowrap;
 }

@@ -1,14 +1,14 @@
-import google from 'google'
-import processPoints from './processPoints'
+import google from 'google';
+import processPoints from './processPoints';
 
-module.exports = (map) => {
-  let bounds = new google.maps.LatLngBounds()
+export default map => {
+  let bounds = new google.maps.LatLngBounds();
 
-  map.data.forEach(function (feature) {
+  map.data.forEach(function(feature) {
     if (feature.getGeometry()) {
-      processPoints(feature.getGeometry(), bounds.extend, bounds)
+      processPoints(feature.getGeometry(), bounds.extend, bounds);
     }
-  })
+  });
 
-  map.fitBounds(bounds)
-}
+  map.fitBounds(bounds);
+};

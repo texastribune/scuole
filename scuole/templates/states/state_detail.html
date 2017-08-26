@@ -1,4 +1,4 @@
-{% extends 'standard.html' %}{% load humanize i18n %}{% load static from staticfiles %}
+{% extends 'standard.html' %}{% load humanize i18n journalize %}{% load static from staticfiles %}
 
 {% block meta %}{% include "includes/meta.html" with title=state.get_name_display %}{% endblock meta %}
 
@@ -34,7 +34,7 @@
 </section>
 </div>
 <div class="contact-block">
-<div class="map map-state" id="map-state"></div>
+<div class="map map--state" id="map-state"></div>
 
 <section class="card">
   <h2 class="card-header">Contact information</h2>
@@ -57,6 +57,12 @@
       </ul>
     </div>
     {% endif %}
+  </div>
+  <h2 class="card-header outcomes-header"><a href="{% url 'cohorts:landing' %}">Higher Ed Outcomes</a></h2>
+  <div class="row">
+    <div class="col-12">
+      <p class="outcomes-description"><strong><a href="{% url 'cohorts:states' state.slug %}">Statewide data</a></strong> is included in The Tribune's <a href="{% url 'cohorts:landing' %}">Higher Ed Outcomes</a> app. Students who started eighth grade in <strong>{{ latest_state_cohort.year.start_year }}</strong> had a college graduation rate of <strong>{{ latest_state_cohort.percent_completed_higher_education|percentify }}%</strong>. <a href="{% url 'cohorts:states' state.slug %}">View a more comprehensive breakdown</a> of higher education outcomes in <strong>Texas</strong>.</p>
+    </div>
   </div>
 </section>
 
