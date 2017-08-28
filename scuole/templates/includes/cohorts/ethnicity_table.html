@@ -1,4 +1,4 @@
-{% load humanize %}
+{% load humanize cohorts_tags %}
 <table class="dv-table">
   <h3 class="page-section-subheader">Outcome of 8th grade class by ethnicity, {{ latest_cohort.year.start_year }}</h3>
   <thead>
@@ -13,46 +13,46 @@
   <tbody>
     <tr>{% with cohort=data.black %}
       <th scope="row">Black</th>
-      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.enrolled_8th|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.graduated|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_enrolled|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_degrees|maskNA|intcomma|default:"N/A" }}</td>
     {% endwith %}</tr>
     <tr>{% with cohort=data.hispanic %}
       <th scope="row">Hispanic</th>
-      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.enrolled_8th|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.graduated|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_enrolled|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_degrees|maskNA|intcomma|default:"N/A" }}</td>
     {% endwith %}</tr>
     <tr>{% with cohort=data.white %}
       <th scope="row">White</th>
-      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.enrolled_8th|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.graduated|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_enrolled|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_degrees|maskNA|intcomma|default:"N/A" }}</td>
     {% endwith %}</tr>
     <tr>{% with cohort=data.other %}
       <th scope="row">Other</th>
-      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.enrolled_8th|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.graduated|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_enrolled|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_degrees|maskNA|intcomma|default:"N/A" }}</td>
     {% endwith %}</tr>
     {% if data.unknown %}
     <tr>{% with cohort=data.unknown %}
       <th scope="row">Unknown</th>
-      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.enrolled_8th|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.graduated|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_enrolled|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_degrees|maskNA|intcomma|default:"N/A" }}</td>
     {% endwith %}</tr>{% endif %}
     <tr class="highlight-row">{% with cohort=latest_cohort %}
       <th scope="row">Total</th>
-      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.enrolled_8th|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.graduated|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_enrolled|maskNA|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{{ cohort.total_degrees|maskNA|intcomma|default:"N/A" }}</td>
     {% endwith %}</tr>
   </tbody>
 </table>
