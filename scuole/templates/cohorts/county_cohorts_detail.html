@@ -1,4 +1,4 @@
-{% extends 'cohorts_standard.html' %}{% load humanize i18n journalize cohorts_tags %}
+{% extends 'cohorts_standard.html' %}{% load humanize i18n journalize %}
 
 {% block meta %}{% include "includes/cohorts_meta.html" with title=county.name_full_cohorts %}{% endblock meta %}
 
@@ -22,10 +22,10 @@
       <h1 class="page-headline">{{ county.name_full_cohorts }}</h1>
     </header>
     <section class="row metrics">
-      {% include 'includes/cohorts/metric.html' with title="Began 8th grade in " year=latest_cohort.year.start_year field=latest_cohort.enrolled_8th|maskNA|intcomma field_label="students" %}
-      {% include 'includes/cohorts/metric.html' with title="Graduated from high school" field=latest_cohort.graduated|maskNA|intcomma extra_field=latest_cohort.percent_graduated|percentify subtext_field=latest_state_cohort.percent_graduated|percentify subtext_label="Statewide" %}
-      {% include 'includes/cohorts/metric.html' with title="Enrolled in college" field=latest_cohort.total_enrolled|maskNA|intcomma extra_field=latest_cohort.percent_enrolled_higher_education|percentify subtext_field=latest_state_cohort.percent_enrolled_higher_education|percentify subtext_label="Statewide" %}
-      {% include 'includes/cohorts/metric.html' with title="Graduated from college" field=latest_cohort.total_degrees|maskNA|intcomma extra_field=latest_cohort.percent_completed_higher_education|percentify subtext_field=latest_state_cohort.percent_completed_higher_education|percentify subtext_label="Statewide" %}
+      {% include 'includes/cohorts/metric.html' with title="Began 8th grade in " year=latest_cohort.year.start_year field=latest_cohort.enrolled_8th|default_if_none:"N/A"|intcomma field_label="students" %}
+      {% include 'includes/cohorts/metric.html' with title="Graduated from high school" field=latest_cohort.graduated|default_if_none:"N/A"|intcomma extra_field=latest_cohort.percent_graduated|percentify subtext_field=latest_state_cohort.percent_graduated|percentify subtext_label="Statewide" %}
+      {% include 'includes/cohorts/metric.html' with title="Enrolled in college" field=latest_cohort.total_enrolled|default_if_none:"N/A"|intcomma extra_field=latest_cohort.percent_enrolled_higher_education|percentify subtext_field=latest_state_cohort.percent_enrolled_higher_education|percentify subtext_label="Statewide" %}
+      {% include 'includes/cohorts/metric.html' with title="Graduated from college" field=latest_cohort.total_degrees|default_if_none:"N/A"|intcomma extra_field=latest_cohort.percent_completed_higher_education|percentify subtext_field=latest_state_cohort.percent_completed_higher_education|percentify subtext_label="Statewide" %}
     </section>
     <section class="page-prose">
       {% include 'includes/cohorts/standard_prose.html' %}
