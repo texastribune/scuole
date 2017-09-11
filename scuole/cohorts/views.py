@@ -5,7 +5,8 @@ from json import dumps, loads
 
 from django.contrib.gis.db.models.functions import AsGeoJSON
 from django.core.serializers import serialize
-from django.views.generic import TemplateView, DetailView
+from django.shortcuts import redirect
+from django.views.generic import TemplateView, DetailView, View
 
 from scuole.core.utils import build_geojson
 from scuole.counties.models import County, CountyCohorts
@@ -118,3 +119,38 @@ class CohortsLandingView(TemplateView):
         context['regions_geojson'] = build_geojson(Region, 'shape', ['region_name_with_city'])
 
         return context
+
+class AcceptCohortRedirectView(View):
+    """
+    The `AcceptCohortRedirectView` is intended to be the recipient of redirected
+    visitors from the previous version of cohorts in the texastribune app. It
+    attempts to parse the URL of the page sent its way and guide the user to
+    the region or county they wanted, if possible. Otherwise, they go to the
+    home page.
+    """
+
+    def get(self, request, *args, **kwargs):
+        request_params = request.GET
+
+        region_slug = request_params.get('region_slug')
+        county_slug = request_params.get('county_slug')
+
+        if region_slug:
+            region_name = region_slug.replace('-', ' ').title()
+
+            try:
+                return redirect('cohorts:regions', slug=
+                    Region.objects.get(name=region_name).slug)
+            except Region.DoesNotExist:
+                pass
+
+        if county_slug:
+            county_slug = ('el-paso' if county_slug == 'el-pasohudspeth'
+                           else county_slug)
+            try:
+                return redirect('cohorts:counties', slug=
+                    County.objects.get(slug=county_slug).slug)
+            except County.DoesNotExist:
+                pass
+
+        return redirect('cohorts:landing')
