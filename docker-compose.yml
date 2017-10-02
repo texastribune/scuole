@@ -1,17 +1,21 @@
-web:
-  build: .
-  env_file: env-docker
+version: "3"
+services:
+  web:
+    build: .
+    env_file: env-docker
+    volumes:
+      - assets:/usr/src/app/scuole/assets
 
-nginx:
-  build: .
-  dockerfile: Dockerfile.nginx
-  links:
-    - web
-  ports:
-    "80:80"
-  volumes_from:
-    - assets
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "8000:80"
+    links:
+      - web
+    volumes:
+      - assets:/usr/src/app/scuole/assets
 
-assets:
-  build: .
-  dockerfile: Dockerfile.assets
+volumes:
+  assets:
