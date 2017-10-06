@@ -47,15 +47,4 @@ class CampusDetailView(DetailView):
                 DistrictStats, year=latest_year, district=self.object.district)
             context['state'] = get_object_or_404(
                 StateStats, year=latest_year, state__name='TX')
-
-        # context['county'] = get_object_or_404(
-        #     County, name=self.object.county)
-
-        # context['region'] = get_object_or_404(
-        #     District, name=self.object.district)
-
-        # context['latest_county_cohort'] = county_cohorts.latest_cohort(
-        #     county=self.object.county)
-        # context['latest_region_cohort'] = region_cohorts.latest_cohort(
-        #     region=self.object.district.region)
         return context
