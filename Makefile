@@ -3,6 +3,11 @@ APP := scuole
 local/db-fetch:
 	aws --profile newsapps s3 cp s3://backups.texastribune.org/schools/schools-pg.dump backups/pg.dump
 
+local/db-restore:
+	dropdb ${APP} --if-exists
+	createdb ${APP}
+	pg_restore --dbname ${APP} --no-privileges --no-owner backups/pg.dump
+
 local/reset-db:
 	dropdb ${APP} --if-exists
 	createdb ${APP}
