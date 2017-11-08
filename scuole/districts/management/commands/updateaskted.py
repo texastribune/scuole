@@ -11,17 +11,8 @@ import string
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
-# from django.db.models import Count
-# from django.contrib.gis.geos import GEOSGeometry, MultiPolygon
-
-# from scuole.core.utils import remove_charter_c
-# from scuole.counties.models import County
-# from scuole.regions.models import Region
 
 from ...models import District, Superintendent
-
-# from scuole.core.replacements import ISD_REPLACEMENT
-# from scuole.core.utils import massage_name
 
 
 class Command(BaseCommand):
@@ -37,8 +28,8 @@ class Command(BaseCommand):
             settings.DATA_FOLDER,
             'askted', 'district', 'superintendents.csv')
 
-        # self.superintendent_data = self.load_superintendent_file(
-        #     superintendent_csv)
+        self.superintendent_data = self.load_superintendent_file(
+            superintendent_csv)
 
         with open(askted_csv) as f:
             reader = csv.DictReader(f)
@@ -46,17 +37,17 @@ class Command(BaseCommand):
             for row in reader:
                 self.update_district(row)
 
-    # def load_askted_file(self, file):
-    #     payload = {}
+    def load_superintendent_file(self, file):
+        payload = {}
 
-    #     with open(file, 'rU') as f:
-    #         reader = csv.DictReader(f)
+        with open(file, 'r') as f:
+            reader = csv.DictReader(f)
 
-    #         for row in reader:
-    #             tea_id = row['District Number'].replace("'", "")
-    #             payload[tea_id] = row
+            for row in reader:
+                tea_id = row['District Number'].replace("'", "")
+                payload[tea_id] = row
 
-    #     return payload
+        return payload
 
     def update_district(self, district):
         district_id = str(district['District Number']).replace("'", "")
@@ -91,50 +82,55 @@ class Command(BaseCommand):
             district_match.website = district['District Web Page Address']
             district_match.save()
 
-            print(district_match.name)
+            print(district_name)
+
+            if district['District Number'] in self.superintendent_data:
+                superintendent = self.superintendent_data[
+                    district['District Number']]
+                self.load_superintendent(district_match, superintendent)
+            else:
+                self.stderr.write('No superintendent data for {}'.format(district_name))
+
         except ObjectDoesNotExist:
             self.stderr.write('No askted data for {}'.format(district_name))
 
-    # def update_superintendent(self, superintendent):
-    #     district_id = str(superintendent['District Number']).replace("'", "")
-    #     district_name = str(superintendent['District Name'])
-    #     try:
-    #         # district_tea = District.objects.get(tea_id=district_id)
-    #         Superintendent.objects.filter(district__tea_id=district_id).update(name=superintendent['Full Name'])
+    def create_superintendent(self, district, superintendent):
+        district_id = str(superintendent['District Number']).replace("'", "")
+        district_name = str(superintendent['District Name'])
+        # district_tea = District.objects.get(tea_id=district_id)
 
-    #         name = '{} {}'.format(
-    #             superintendent['First Name'], superintendent['Last Name'])
-    #         name = string.capwords(name)
-    #         phone_number = superintendent['Phone']
-    #         fax_number = superintendent['Fax']
+        name = '{} {}'.format(
+            superintendent['First Name'], superintendent['Last Name'])
+        name = string.capwords(name)
+        phone_number = superintendent['Phone']
+        fax_number = superintendent['Fax']
 
-    #         if 'ext' in phone_number:
-    #             phone_number, phone_number_extension = phone_number.split(' ext:')
-    #             phone_number_extension = str(phone_number_extension)
-    #         else:
-    #             phone_number_extension = ''
+        if 'ext' in phone_number:
+            phone_number, phone_number_extension = phone_number.split(' ext:')
+            phone_number_extension = str(phone_number_extension)
+        else:
+            phone_number_extension = ''
 
-    #         if 'ext' in fax_number:
-    #             fax_number, fax_number_extension = fax_number.split(' ext:')
-    #             fax_number_extension = str(phone_number_extension)
-    #         else:
-    #             fax_number_extension = ''
+        if 'ext' in fax_number:
+            fax_number, fax_number_extension = fax_number.split(' ext:')
+            fax_number_extension = str(phone_number_extension)
+        else:
+            fax_number_extension = ''
 
-    #         instance, _ = Superintendent.objects.upate_or_create(
-    #             name=name,
-    #             district=district,
-    #             defaults={
-    #                 'role': string.capwords(superintendent['Role']),
-    #                 'email': superintendent['Email Address'],
-    #                 'phone_number': phone_number,
-    #                 'phone_number_extension': phone_number_extension,
-    #                 'fax_number': fax_number,
-    #                 'fax_number_extension': fax_number_extension,
-    #             })
 
-    #     except ObjectDoesNotExist:
-    #         self.stderr.write('No askted data for {}'.format(district_name))
+        s = Superintendent.objects.get(district__tea_id=district_id)
+        print(s)
 
-    #     print(district_name)
+        # Superintendent.district = district
+        # Superintendent.role = superintendent['Role']
+        # Superintendent.email = superintendent['Email Address']
+        # Superintendent.phone_number = phone_number
+        # Superintendent.phone_number_extension = phone_number_extension
+        # Superintendent.fax_number = fax_number
+        # Superintendent.fax_number_extension = fax_number_extension
+        # Superintendent.save()
+
+        print(district_name)
+
 
 
