@@ -83,21 +83,15 @@ class Command(BaseCommand):
             district_match.save()
 
             print(district_name)
-
-            if district['District Number'] in self.superintendent_data:
-                superintendent = self.superintendent_data[
-                    district['District Number']]
-                self.load_superintendent(district_match, superintendent)
-            else:
-                self.stderr.write('No superintendent data for {}'.format(district_name))
+            superintendent_district_id = str(district['District Number']).replace("'", "")
+            superintendent = self.superintendent_data[
+                superintendent_district_id]
+            self.create_superintendent(district_match, superintendent)
 
         except ObjectDoesNotExist:
             self.stderr.write('No askted data for {}'.format(district_name))
 
     def create_superintendent(self, district, superintendent):
-        district_id = str(superintendent['District Number']).replace("'", "")
-        district_name = str(superintendent['District Name'])
-        # district_tea = District.objects.get(tea_id=district_id)
 
         name = '{} {}'.format(
             superintendent['First Name'], superintendent['Last Name'])
@@ -117,20 +111,15 @@ class Command(BaseCommand):
         else:
             fax_number_extension = ''
 
-
-        s = Superintendent.objects.get(district__tea_id=district_id)
-        print(s)
-
-        # Superintendent.district = district
-        # Superintendent.role = superintendent['Role']
-        # Superintendent.email = superintendent['Email Address']
-        # Superintendent.phone_number = phone_number
-        # Superintendent.phone_number_extension = phone_number_extension
-        # Superintendent.fax_number = fax_number
-        # Superintendent.fax_number_extension = fax_number_extension
-        # Superintendent.save()
-
-        print(district_name)
-
-
-
+        instance, _ = Superintendent.objects.update_or_create(
+            name=name,
+            district=district,
+            defaults={
+                'role': superintendent['Role'],
+                'email': superintendent['Email Address'],
+                'phone_number': phone_number,
+                'phone_number_extension': phone_number_extension,
+                'fax_number': fax_number,
+                'fax_number_extension': fax_number_extension,
+            }
+        )

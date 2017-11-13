@@ -17,7 +17,7 @@ from scuole.core.utils import remove_charter_c
 from scuole.counties.models import County
 from scuole.regions.models import Region
 
-from ...models import District, Superintendent
+from ...models import District
 
 from scuole.core.replacements import ISD_REPLACEMENT
 from scuole.core.utils import massage_name
@@ -32,11 +32,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if options['year'] is None:
             raise CommandError('A year is required.')
-
-        askted_file_location = os.path.join(
-            settings.DATA_FOLDER, 'askted', 'directory.csv')
-
-        self.askted_data = self.load_askted_file(askted_file_location)
 
         fast_file_location = os.path.join(
             settings.DATA_FOLDER, 'fast', 'fast-district.csv')
@@ -84,18 +79,6 @@ class Command(BaseCommand):
                 self.create_district(row)
 
         self.make_slugs_unique()
-
-    def load_askted_file(self, file):
-        payload = {}
-
-        with open(file, 'rU') as f:
-            reader = csv.DictReader(f)
-
-            for row in reader:
-                tea_id = row['District Number'].replace("'", "")
-                payload[tea_id] = row
-
-        return payload
 
     def load_fast_file(self, file):
         payload = {}
@@ -203,55 +186,17 @@ class Command(BaseCommand):
             self.stderr.write('No shape data for {}'.format(name))
             geometry = None
 
-        if district['DISTRICT'] in self.askted_data:
-            askted_match = self.askted_data[district['DISTRICT']]
-            phone_number = askted_match['District Phone']
-            if 'ext' in phone_number:
-                phone_number, phone_number_extension = phone_number.split(
-                    ' ext:')
-                phone_number_extension = str(phone_number_extension)
-            else:
-                phone_number_extension = ''
-            street = askted_match['District Street Address']
-            city = askted_match['District City']
-            state = askted_match['District State']
-            zip_code = askted_match['District Zip']
-            website = askted_match['District Web Page Address']
-        else:
-            self.stderr.write('No askted data for {}'.format(name))
-            phone_number = ''
-            phone_number_extension = ''
-            street = ''
-            city = ''
-            state = ''
-            zip_code = ''
-            website = ''
-
         instance, _ = District.objects.update_or_create(
             tea_id=district['DISTRICT'],
             defaults={
                 'name': name,
                 'slug': slugify(name),
-                'phone_number': phone_number,
-                'phone_number_extension': phone_number_extension,
-                'website': website,
                 'charter': charter,
-                'street': street,
-                'city': city,
-                'state': state,
-                'zip_code': zip_code,
                 'region': region,
                 'county': county,
                 'shape': geometry,
             }
         )
-
-        if district['DISTRICT'] in self.superintendent_data:
-            superintendent = self.superintendent_data[
-                district['DISTRICT']]
-            self.load_superintendent(instance, superintendent)
-        else:
-            self.stderr.write('No superintendent data for {}'.format(name))
 
     def make_slugs_unique(self):
         models = District.objects.values('slug').annotate(
@@ -264,35 +209,3 @@ class Command(BaseCommand):
             district.slug = '{0}-{1}'.format(
                 district.slug, district.county.slug)
             district.save()
-
-    def load_superintendent(self, district, superintendent):
-        name = '{} {}'.format(
-            superintendent['First Name'], superintendent['Last Name'])
-        name = string.capwords(name)
-        phone_number = superintendent['Phone']
-        fax_number = superintendent['Fax']
-
-        if 'ext' in phone_number:
-            phone_number, phone_number_extension = phone_number.split(' ext:')
-            phone_number_extension = str(phone_number_extension)
-        else:
-            phone_number_extension = ''
-
-        if 'ext' in fax_number:
-            fax_number, fax_number_extension = fax_number.split(' ext:')
-            fax_number_extension = str(phone_number_extension)
-        else:
-            fax_number_extension = ''
-
-        Superintendent.objects.update_or_create(
-            name=name,
-            district=district,
-            defaults={
-                'role': string.capwords(superintendent['Role']),
-                'email': superintendent['Email Address'],
-                'phone_number': phone_number,
-                'phone_number_extension': phone_number_extension,
-                'fax_number': fax_number,
-                'fax_number_extension': fax_number_extension,
-            }
-        )
