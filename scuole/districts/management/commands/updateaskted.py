@@ -82,12 +82,12 @@ class Command(BaseCommand):
             district_match.website = district['District Web Page Address']
             district_match.save()
 
-            print(district_name)
             superintendent_district_id = str(district['District Number']).replace("'", "")
             superintendent = self.superintendent_data[
                 superintendent_district_id]
             self.create_superintendent(district_match, superintendent)
 
+            self.stdout.write('Creating {}...'.format(district_name))
         except ObjectDoesNotExist:
             self.stderr.write('No askted data for {}'.format(district_name))
 
