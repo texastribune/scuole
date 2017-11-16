@@ -11,7 +11,9 @@ data/bootstrap:
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
 	python manage.py bootstrapdistricts 2015-2016
+	python manage.py updatedistrictaskted
 	python manage.py bootstrapcampuses 2015-2016
+	python manage.py updatecampusaskted
 
 data/base: data/bootstrap
 	python manage.py loadtaprdata 2015-2016 --bulk

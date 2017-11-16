@@ -2,41 +2,41 @@
 from __future__ import absolute_import, unicode_literals
 
 import csv
-# import json
 import os
 import string
-
-# from slugify import slugify
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
 
-from ...models import District, Campus, Principal
+from ...models import Campus, Principal
 
 
 class Command(BaseCommand):
     help = 'Update AskTED data.'
 
     def handle(self, *args, **options):
+        # path to askted master directory file
         askted_csv = os.path.join(
             settings.DATA_FOLDER, 'askted', 'directory.csv')
 
-        # self.askted_data = self.load_askted_file(askted_file_location)
-
+        # path to principal askted personell file
         principal_file = os.path.join(
             settings.DATA_FOLDER,
             'askted', 'campus', 'principals.csv')
 
+        # calls function that loads principal file on principal data
         self.principals_data = self.load_principal_file(
             principal_file)
 
+        # loops through each row in directory to update campus model
         with open(askted_csv) as f:
             reader = csv.DictReader(f)
 
             for row in reader:
                 self.update_campus(row)
 
+    # loops through each row in principal file to create principal file
     def load_principal_file(self, file):
         payload = {}
 
@@ -54,15 +54,18 @@ class Command(BaseCommand):
         return payload
 
     def update_campus(self, campus):
+        # askted IDs have apostrophes in them
         campus_id = str(campus['School Number']).replace("'", "")
         campus_name = campus['School Name']
-
+        # if the campus exists in TAPR data, proceed updating its askTed fields
+        # otherwise skip it
         try:
             campus_match = Campus.objects.get(tea_id=campus_id)
 
             phone_number = campus['School Phone']
             fax_number = campus['School Fax']
-
+            # sometimes phone and fax numbers have extensions at the end
+            # this splits out the extension into its own field
             if 'ext' in phone_number:
                 phone_number, phone_number_extension = phone_number.split(' ext:')
                 phone_number_extension = str(phone_number_extension)
@@ -75,6 +78,7 @@ class Command(BaseCommand):
             else:
                 fax_number_extension = ''
 
+            # update all of the askTed campus fields and save it to the model
             campus_match.phone_number = phone_number
             campus_match.phone_number_extension = phone_number_extension
             campus_match.fax_number = fax_number
@@ -95,6 +99,8 @@ class Command(BaseCommand):
         except ObjectDoesNotExist:
             self.stderr.write('No askted data for {}'.format(campus_name))
 
+    # unlike the campus model we're updating above, the principal model doesn't
+    # exist yet- so we're creating it here
     def create_principals(self, campus, principals):
         for principal in principals:
             name = '{} {}'.format(
