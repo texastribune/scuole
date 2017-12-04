@@ -18,13 +18,14 @@ data/bootstrap:
 	python manage.py bootstrapstates
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
-	python manage.py bootstrapdistricts 2015-2016
-	python manage.py bootstrapcampuses 2015-2016
+	python manage.py bootstrapdistricts 2016-2017
+	python manage.py bootstrapcampuses 2016-2017
 
 data/base: data/bootstrap
-	python manage.py loadtaprdata 2015-2016 --bulk
+	python manage.py loadtaprdata 2016-2017 --bulk
 
 data/schools-all: data/bootstrap
+	python manage.py loadtaprdata 2016-2017 --bulk
 	python manage.py loadtaprdata 2015-2016 --bulk
 	python manage.py loadtaprdata 2014-2015 --bulk
 	python manage.py loadtaprdata 2013-2014 --bulk
@@ -65,9 +66,9 @@ local/all: local/reset-db
 	python manage.py bootstrapstates
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
-	python manage.py bootstrapdistricts 2015-2016
-	python manage.py bootstrapcampuses 2015-2016
-	python manage.py loadtaprdata 2015-2016 --bulk
+	python manage.py bootstrapdistricts 2016-2017
+	python manage.py bootstrapcampuses 2016-2017
+	python manage.py loadtaprdata 2016-2017 --bulk
 	python manage.py loadallcohorts 1998
 	python manage.py loadallcohorts 1999
 	python manage.py loadallcohorts 2000
