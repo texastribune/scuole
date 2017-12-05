@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.6
 
 # Install the geo libs needed to interact with GeoDjango
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -8,13 +8,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
+# Install pipenv
+RUN pip install --no-cache-dir pipenv
+
 # Create the folder to work in
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-# Grab the requirements folder, then install production
-COPY requirements /usr/src/app/requirements
-RUN pip install --no-cache-dir -r requirements/production.txt
+# Grab requirements and install
+COPY Pipfile Pipfile.lock /usr/src/app/
+RUN pipenv install --system --deploy
 
 # Bring over the rest of the app
 COPY . /usr/src/app

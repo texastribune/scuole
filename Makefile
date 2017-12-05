@@ -186,4 +186,4 @@ docker/nginx: docker/nginx-build
 		--publish 80:80 \
 		${APP}-nginx
 
-docker/kickstart: docker/pull docker/build docker/static-compile docker/run docker/nginx
+docker/kickstart: docker/build docker/static-compile docker/run docker/nginx
