@@ -30,7 +30,7 @@
 
   <p>An average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>. On average, teachers had <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience on the job.</p>
 
-  <p>The average SAT score in {{ state.get_name_display }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>, and the average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>. In the {{ stat.year.name }} class, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diploma on time or earlier. The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
+  <p>The average SAT score in {{ state.get_name_display }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>, and the average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>. In the class of {{ stat.year.start_year }}, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diploma on time or earlier. The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
 </section>
 </div>
 <div class="contact-block">
