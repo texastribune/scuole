@@ -120,3 +120,6 @@ geoip
 
 # Ignore data folder
 data
+
+# Ignore the backups folder
+backups

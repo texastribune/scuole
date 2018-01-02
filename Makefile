@@ -1,5 +1,13 @@
 APP := scuole
 
+local/db-fetch:
+	aws --profile newsapps s3 cp s3://backups.texastribune.org/schools/schools-pg.dump backups/pg.dump
+
+local/db-restore:
+	dropdb ${APP} --if-exists
+	createdb ${APP}
+	pg_restore --dbname ${APP} --no-privileges --no-owner backups/pg.dump
+
 local/reset-db:
 	dropdb ${APP} --if-exists
 	createdb ${APP}
@@ -180,4 +188,4 @@ docker/nginx: docker/nginx-build
 		--publish 80:80 \
 		${APP}-nginx
 
-docker/kickstart: docker/pull docker/build docker/static-compile docker/run docker/nginx
+docker/kickstart: docker/build docker/static-compile docker/run docker/nginx

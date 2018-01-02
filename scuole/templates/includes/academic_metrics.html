@@ -7,7 +7,7 @@
 
   <div class="page-prose">
     <p>Texas assigns ratings to districts and campuses that designate their performance in relation to the state’s academic accountability system. Possible ratings are as follows:  Met standard, Met alternative standard, Improvement required, Not rated and Not rated: Data integrity issues.</p>
-    <p>For a detailed explanation of this year’s accountability system, see the <a href="http://tea.texas.gov/2016accountabilitymanual.aspx">2016 Accountability Manual</a>.</p>
+    <p>For a detailed explanation of this year’s accountability system, see the <a href="https://tea.texas.gov/2017accountabilitymanual.aspx">2017 Accountability Manual</a>.</p>
   </div>
 
   <section class="row metrics">
@@ -18,7 +18,7 @@
   <h3 class="page-section-subheader">Four-year graduation rates</h3>
 
   <div class="page-prose">
-    <p>The percentage of students who started ninth grade in {{ stat.year.ninth_grade_year }} who received a high school diploma on time &mdash; by Aug. 31, {{ stat.year.end_year }}. (<a href="{% url 'about' %}#four-year-grad">Learn more about how four-year graduation rates are defined</a>.)</p>
+    <p>The percentage of students who started ninth grade in {{ stat.year.ninth_grade_year }} who received a high school diploma on time &mdash; by Aug. 31, {{ stat.year.start_year }}. (<a href="{% url 'about' %}#four-year-grad">Learn more about how four-year graduation rates are defined</a>.)</p>
   </div>
 
   <section class="row metrics">
@@ -39,7 +39,8 @@
   <h3 class="page-section-subheader">Dropout rates</h3>
 
   <div class="page-prose">
-    <p>The dropout rate for students in grades 9-12 for the {{ stat.year.name }} school year. It is calculated by dividing the number of dropouts by the number of students who were in attendance at any time during the school year.</p>
+    <p>The dropout rate for students in grades 9-12 for the 2015-2016 school year. It is calculated by dividing the number of dropouts by the number of students who were in attendance at any time during the school year.</p>
+    <!-- These rates are a year behind so the school year must be hard-coded -->
   </div>
 
   <section class="row metrics">

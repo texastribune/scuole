@@ -45,7 +45,7 @@
   {% endif %}
 
   {% if stat.four_year_graduate_all_students_percent and stat.four_year_graduate_all_students_percent >= 0 %}
-  In the {{ stat.year.name }} class, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diplomas on time or earlier.
+  In the Class of {{ stat.year.start_year }} , <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diplomas on time or earlier.
   {% endif %}
 
   {% if stat.dropout_all_students_percent and stat.dropout_all_students_percent >= 0 %}
