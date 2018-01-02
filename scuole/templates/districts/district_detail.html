@@ -68,7 +68,7 @@
     {% endif %}
     {% if district.superintendent_of %}
     <div class="col-6">
-      <h3 class="card-title">{{ district.superintendent_of.role }}</h3>
+      <h3 class="card-title">{{ district.superintendent_of.role|title }}</h3>
       <ul class="card-list">
         <li class="card-list-item">{{ district.superintendent_of.name }}</li>
         {% if district.superintendent_of.email %}
