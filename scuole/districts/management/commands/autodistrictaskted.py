@@ -68,7 +68,8 @@ class Command(BaseCommand):
             'District Fax',
             'School Phone',
             'District Enrollment as of Oct 2016',
-            'Grade Range,School Status',
+            'Grade Range',
+            'School Status',
             'District Name',
             'School Web Page Address',
             'School Street Address',
@@ -79,7 +80,7 @@ class Command(BaseCommand):
             'District Phone',
             'School City',
         ]
-        reader = csv.DictWriter(req.text.splitlines(), fieldnames=fieldnames)
+        # reader = csv.DictWriter(req.text.splitlines(), fieldnames=fieldnames)
 
         date = str(datetime.datetime.now().date())
         directoryFilename = directory + '/' + date + '_askTedDirectory.csv'
@@ -89,7 +90,8 @@ class Command(BaseCommand):
 
         if not isDirectoryFile:
             with open(directoryFilename, 'w+') as csv_file:
-                writer = csv.writer(csv_file, delimiter=',')
+                writer = csv.DictWriter(csv_file, delimiter=',', fieldnames=fieldnames)
+                reader = csv.DictReader(req.text.splitlines())
                 for row in reader:
                     print(row)
                     writer.writerow(row)
