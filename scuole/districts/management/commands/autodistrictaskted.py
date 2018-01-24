@@ -24,8 +24,10 @@ class Command(BaseCommand):
         district_folder = os.path.join(
             settings.DATA_FOLDER, 'askted', 'district')
 
+        self.superintendent_data = self.load_superintendent_directory_csv(
+            district_folder)
+
         self.load_askted_directory_csv(askted_folder)
-        # self.load_superintendent_directory_csv(district_folder)
 
     def create_csv(self, filename, reader):
         with open(filename, 'w+') as csv_file:
@@ -44,6 +46,7 @@ class Command(BaseCommand):
         }
 
         req = requests.post(url, data=data)
+        reader = csv.DictReader(req.text.splitlines())
         fieldnames = [
             'School Name',
             'Instruction Type',
@@ -80,7 +83,6 @@ class Command(BaseCommand):
             'District Phone',
             'School City',
         ]
-        # reader = csv.DictWriter(req.text.splitlines(), fieldnames=fieldnames)
 
         date = str(datetime.datetime.now().date())
         directoryFilename = directory + '/' + date + '_askTedDirectory.csv'
@@ -91,29 +93,21 @@ class Command(BaseCommand):
         if not isDirectoryFile:
             with open(directoryFilename, 'w+') as csv_file:
                 writer = csv.DictWriter(csv_file, delimiter=',', fieldnames=fieldnames)
-                reader = csv.DictReader(req.text.splitlines())
+                writer.writeheader()
                 for row in reader:
-                    print(row)
                     writer.writerow(row)
         else:
-            print("We already have today's data! Moving on...")
-
-        payload = {}
+            print("We already have today's district data! Moving on...")
 
         with open(directoryFile, 'r') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                tea_id = row['District Number'].replace("'", "")
-                payload[tea_id] = row
-
-        return payload
+                self.update_district(row)
 
     def update_district(self, district):
-        print(district)
         # askTed districts have apostrophes in them
         district_id = str(district['District Number']).replace("'", "")
         district_name = district['District Name']
-
         # if there's a district already in the databasa, match this askTed data
         # to that TAPR data. Otherwise, move on
         try:
@@ -154,69 +148,99 @@ class Command(BaseCommand):
         except ObjectDoesNotExist:
             self.stderr.write('No askted data for {}'.format(district_name))
 
-    # def load_superintendent_directory_csv(self, file):
-    #     # url where general directory lives
-    #     url = 'http://tea4avholly.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx'
-    #     # request params
-    #     data = {
-    #         '__VIEWSTATE': '',
-    #         '__VIEWSTATEGENERATOR': '3B1DF71D',
-    #         'chkSuper': 'on',
-    #         'lstDistrictStaff': '0',
-    #         'lstESCStaff': '0',
-    #         'ddlSortOrder': 'Organization+Name',
-    #         'btnDownloadFile': 'Download+File',
-    #     }
+    def load_superintendent_directory_csv(self, file):
+        # url where general directory lives
+        url = 'http://tea4avholly.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx'
+        # request params
+        data = {
+            '__VIEWSTATE': '',
+            '__VIEWSTATEGENERATOR': '3B1DF71D',
+            'chkSuper': 'on',
+            'lstDistrictStaff': '0',
+            'lstESCStaff': '0',
+            'ddlSortOrder': 'Organization+Name',
+            'btnDownloadFile': 'Download+File',
+        }
+        fieldnames = [
+            'Charter Type',
+            'Email Address',
+            'Organization Name',
+            'Full Name',
+            'Role',
+            'Fax',
+            'State',
+            'District Name',
+            'Organization Number',
+            'First Name',
+            'Last Name',
+            'Organization SubType',
+            'County Number',
+            'Street Address',
+            'Zip',
+            'Region Number',
+            'Salutation Title',
+            'Phone',
+            'Organization Type',
+            'County Name',
+            'City',
+            'District Number',
+        ]
+        req = requests.post(url, data=data)
+        reader = csv.DictReader(req.text.splitlines())
+        date = str(datetime.datetime.now().date())
+        superintendentFilename = file + '/' + date + '_askTedSuperindendent.csv'
+        isSuperintendentFile = os.path.isfile(superintendentFilename)
 
-    #     req = requests.post(url, data=data)
-    #     reader = csv.DictReader(req.text.splitlines())
-    #     date = str(datetime.datetime.now().date())
-    #     superintendentFilename = file + '/' + date + '_askTedSuperindendent.csv'
-    #     isSuperintendentFile = os.path.isfile(superintendentFilename)
+        if not isSuperintendentFile:
+            with open(superintendentFilename, 'w+') as csv_file:
+                writer = csv.DictWriter(csv_file, delimiter=',', fieldnames=fieldnames)
+                writer.writeheader()
+                for row in reader:
+                    writer.writerow(row)
 
-    #     def createNewSuptFile():
-    #         with open(superintendentFilename, 'w+') as csv_file:
-    #             writer = csv.writer(csv_file, delimiter=',')
-    #             print(writer)
-    #             for row in reader:
-    #                 writer.writerow(row)
-    #                 # print(row['District Name'])
+        superintendent_csv = os.path.join(settings.DATA_FOLDER, 'askted', 'district', date + '_askTedSuperindendent.csv')
 
-    #     if not isSuperintendentFile:
-    #         createNewSuptFile()
-    #     else:
-    #         print("there's already a file here!")
+        payload = {}
 
-    # def create_superintendent(self, district, superintendent):
+        with open(superintendent_csv, 'r') as f:
+            reader = csv.DictReader(f)
 
-    #     name = '{} {}'.format(
-    #         superintendent['First Name'], superintendent['Last Name'])
-    #     name = string.capwords(name)
-    #     phone_number = superintendent['Phone']
-    #     fax_number = superintendent['Fax']
+            for row in reader:
+                tea_id = row['District Number'].replace("'", "")
+                payload[tea_id] = row
 
-    #     if 'ext' in phone_number:
-    #         phone_number, phone_number_extension = phone_number.split(' ext:')
-    #         phone_number_extension = str(phone_number_extension)
-    #     else:
-    #         phone_number_extension = ''
+        return payload
 
-    #     if 'ext' in fax_number:
-    #         fax_number, fax_number_extension = fax_number.split(' ext:')
-    #         fax_number_extension = str(phone_number_extension)
-    #     else:
-    #         fax_number_extension = ''
-    #     # unlike the district model we're updating above, the superintendent
-    #     # model doesn't exist yet- so we're creating it here
-    #     instance, _ = Superintendent.objects.update_or_create(
-    #         name=name,
-    #         district=district,
-    #         defaults={
-    #             'role': superintendent['Role'],
-    #             'email': superintendent['Email Address'],
-    #             'phone_number': phone_number,
-    #             'phone_number_extension': phone_number_extension,
-    #             'fax_number': fax_number,
-    #             'fax_number_extension': fax_number_extension,
-    #         }
-    #     )
+    def create_superintendent(self, district, superintendent):
+
+        name = '{} {}'.format(
+            superintendent['First Name'], superintendent['Last Name'])
+        name = string.capwords(name)
+        phone_number = superintendent['Phone']
+        fax_number = superintendent['Fax']
+
+        if 'ext' in phone_number:
+            phone_number, phone_number_extension = phone_number.split(' ext:')
+            phone_number_extension = str(phone_number_extension)
+        else:
+            phone_number_extension = ''
+
+        if 'ext' in fax_number:
+            fax_number, fax_number_extension = fax_number.split(' ext:')
+            fax_number_extension = str(phone_number_extension)
+        else:
+            fax_number_extension = ''
+        # unlike the district model we're updating above, the superintendent
+        # model doesn't exist yet- so we're creating it here
+        instance, _ = Superintendent.objects.update_or_create(
+            name=name,
+            district=district,
+            defaults={
+                'role': superintendent['Role'],
+                'email': superintendent['Email Address'],
+                'phone_number': phone_number,
+                'phone_number_extension': phone_number_extension,
+                'fax_number': fax_number,
+                'fax_number_extension': fax_number_extension,
+            }
+        )
