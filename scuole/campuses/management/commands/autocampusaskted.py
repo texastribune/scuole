@@ -1,0 +1,152 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, unicode_literals
+
+import csv
+import requests
+import string
+
+from django.conf import settings
+from django.core.management.base import BaseCommand
+from django.core.exceptions import ObjectDoesNotExist
+
+from ...models import Campus, Principal
+
+
+class Command(BaseCommand):
+    help = 'Update AskTED data every day!'
+
+    def handle(self, *args, **options):
+        self.principal_data = self.load_principal_directory_csv()
+
+        self.load_askted_directory_csv()
+
+    def load_askted_directory_csv(self):
+        url = 'http://tea4avholly.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile.aspx'
+        data = {
+            '__VIEWSTATE': '/wEPDwULLTE3NDczMDI1MTIPZBYCAgEPZBYEAgMPFCsABWRkZBQrAAcQFg4eBkl0ZW1JRAURX2N0bDAtbWVudUl0ZW0wMDAeCEl0ZW1UZXh0BVI8YSBpZD0iaHlwZXJsaW5rMSIgaHJlZj0iL1RFQS5Bc2tURUQuV2ViL0Zvcm1zL0hvbWUuYXNweCIgY2xhc3M9Im1lbnVOYXYiPkhvbWU8L2E+HgdJdGVtVVJMBRF+L0Zvcm1zL0hvbWUuYXNweB4PTWVudUl0ZW1Ub29sVGlwBQRIb21lHhBNZW51SXRlbUNzc0NsYXNzBRJob3Jpem9udGFsTWVudUl0ZW0eFUl0ZW1Nb3VzZU92ZXJDc3NDbGFzcwUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB4LSXRlbVNlY3VyZWRoZGQQFgwfAAURX2N0bDAtbWVudUl0ZW0wMDEfAQVNPGEgaHJlZj0iL1RFQS5Bc2tURUQuV2ViL0Zvcm1zL1NlYXJjaE1haW4uYXNweCIgY2xhc3M9Im1lbnVOYXYiPlNlYXJjaCBieTwvYT4fAwU+U2VhcmNoIFNjcmVlbnMgZm9yIFNjaG9vbCwgRGlzdHJpY3QsIENvdW50eSwgUmVnaW9uLCBhbmQgVGV4YXMfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmgUKwAFEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDAfAQUGU2Nob29sHwIFKH4vRm9ybXMvU2VhcmNoU2NyZWVuLmFzcHg/b3JnVHlwZT1TY2hvb2wfAwUQU2VhcmNoIGJ5IFNjaG9vbB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDEfAQUIRGlzdHJpY3QfAgUqfi9Gb3Jtcy9TZWFyY2hTY3JlZW4uYXNweD9vcmdUeXBlPURpc3RyaWN0HwMFElNlYXJjaCBieSBEaXN0cmljdB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDIfAQUGQ291bnR5HwIFKH4vRm9ybXMvU2VhcmNoU2NyZWVuLmFzcHg/b3JnVHlwZT1Db3VudHkfAwUQU2VhcmNoIGJ5IENvdW50eR8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDMfAQUGUmVnaW9uHwIFKH4vRm9ybXMvU2VhcmNoU2NyZWVuLmFzcHg/b3JnVHlwZT1SZWdpb24fAwUQU2VhcmNoIGJ5IFJlZ2lvbh8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDQfAQUFVGV4YXMfAgUnfi9Gb3Jtcy9TZWFyY2hTY3JlZW4uYXNweD9vcmdUeXBlPVN0YXRlHwMFE1NlYXJjaCBFbnRpcmUgU3RhdGUfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZGQQFg4fAAURX2N0bDAtbWVudUl0ZW0wMDIfAQVaPGEgaHJlZj0iL1RFQS5Bc2tURUQuV2ViL0Zvcm1zL1F1aWNrU2VhcmNoLmFzcHgiIGNsYXNzPSJtZW51TmF2Ij5RdWljayBEaXN0cmljdCBMb29rdXA8L2E+HwIFGH4vRm9ybXMvUXVpY2tTZWFyY2guYXNweB8DBRVRdWljayBEaXN0cmljdCBMb29rdXAfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDB8ABRFfY3RsMC1tZW51SXRlbTAwMx8BBVs8YSBocmVmPSIvVEVBLkFza1RFRC5XZWIvRm9ybXMvUmVwb3J0TWFpbi5hc3B4IiBjbGFzcz0ibWVudU5hdiI+UmVwb3J0cyBhbmQgRGlyZWN0b3JpZXM8L2E+HwMFU1JlcG9ydHMgYW5kIERpcmVjdG9yaWVzIC0gUmVwb3J0cywgRG93bmxvYWQgRGF0YSBGaWxlcyBhbmQgVGV4YXMgU2Nob29sIERpcmVjdG9yaWVzHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoFCsABBAWDh8ABSVfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAwHwEFB1JlcG9ydHMfAgUcfi9Gb3Jtcy9SZXBvcnRTZWxlY3Rpb24uYXNweB8DBRJQcmVkZWZpbmVkIFJlcG9ydHMfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABSVfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAxHwEFJkRvd25sb2FkIFNjaG9vbCBhbmQgRGlzdHJpY3QgRGF0YSBGaWxlHwIFGX4vRm9ybXMvRG93bmxvYWRGaWxlLmFzcHgfAwUmRG93bmxvYWQgU2Nob29sIGFuZCBEaXN0cmljdCBEYXRhIEZpbGUfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABSVfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAyHwEFNURvd25sb2FkIFNjaG9vbCwgRGlzdHJpY3QgYW5kIEVTQyBQZXJzb25uZWwgRGF0YSBGaWxlHwIFGn4vRm9ybXMvRG93bmxvYWRGaWxlMi5hc3B4HwMFSURvd25sb2FkIFByaW5jaXBhbHMsIFN1cGVyaW50ZW5kZW50cywgRGlzdHJpY3QgYW5kL29yIEVTQyBTdGFmZiBEYXRhIEZpbGUfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDB8ABSVfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzHwEFGFRleGFzIFNjaG9vbCBEaXJlY3Rvcmllcx8DBTZQdWJsaXNoZWQgSGlzdG9yaWNhbCBUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IC5wZGYgZmlsZXMfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmgUKwAdEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMB8BBQsyMDE2IC0gMjAxNx8CBRl+L0Zvcm1zL3RzZGluZGV4MjAxNy5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxNiAtIDIwMTcfBAUSaG9yaXpvbnRhbG1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDEfAQUhMjAxNiAtIDIwMTcgc2NyZWVuIHJlYWRlciBlbmFibGVkHwIFH34vRm9ybXMvdHNkaW5kZXgyMDE3dGFnZ2VkLmFzcHgfAwU4VGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDE2IC0gMjAxNyBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDIfAQULMjAxNSAtIDIwMTYfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMTYuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTUgLSAyMDE2HwQFEmhvcml6b250YWxtZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzHwEFITIwMTUgLSAyMDE2IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8CBR9+L0Zvcm1zL3RzZGluZGV4MjAxNnRhZ2dlZC5hc3B4HwMFOFRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxNSAtIDIwMTYgc2NyZWVuIHJlYWRlciBlbmFibGVkHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDA0HwEFCzIwMTQgLSAyMDE1HwIFGX4vRm9ybXMvdHNkaW5kZXgyMDE1LmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDE0IC0gMjAxNR8EBRJob3Jpem9udGFsbWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwNR8BBSEyMDE0IC0gMjAxNSBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfAgUffi9Gb3Jtcy90c2RpbmRleDIwMTV0YWdnZWQuYXNweB8DBThUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTQgLSAyMDE1IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwNh8BBQsyMDEzIC0gMjAxNB8CBRl+L0Zvcm1zL3RzZGluZGV4MjAxNC5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxMyAtIDIwMTQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDcfAQUhMjAxMyAtIDIwMTQgc2NyZWVuIHJlYWRlciBlbmFibGVkHwIFH34vRm9ybXMvdHNkaW5kZXgyMDE0dGFnZ2VkLmFzcHgfAwU4VGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDEzIC0gMjAxNCBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDgfAQULMjAxMiAtIDIwMTMfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMTMuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTIgLSAyMDEzHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDA5HwEFITIwMTIgLSAyMDEzIHNjcmVlbiByZWFkZXIgZW5hYmxlZB8CBR9+L0Zvcm1zL3RzZGluZGV4MjAxM3RhZ2dlZC5hc3B4HwMFOFRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxMiAtIDIwMTMgc2NyZWVuIHJlYWRlciBlbmFibGVkHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDEwHwEFCzIwMTEgLSAyMDEyHwIFGX4vRm9ybXMvdHNkaW5kZXgyMDEyLmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDExIC0gMjAxMh8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAxMR8BBSEyMDExIC0gMjAxMiBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfAgUffi9Gb3Jtcy90c2RpbmRleDIwMTJ0YWdnZWQuYXNweB8DBThUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTEgLSAyMDEyIHNjcmVlbiByZWFkZXIgZW5hYmxlZB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAxMh8BBQsyMDEwIC0gMjAxMR8CBRl+L0Zvcm1zL3RzZGluZGV4MjAxMS5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxMCAtIDIwMTEfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMTMfAQUhMjAxMCAtIDIwMTEgc2NyZWVuIHJlYWRlciBlbmFibGVkHwIFH34vRm9ybXMvdHNkaW5kZXgyMDExdGFnZ2VkLmFzcHgfAwU4VGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDEwIC0gMjAxMSBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMTQfAQULMjAwOSAtIDIwMTAfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMTAuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDkgLSAyMDEwHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDE1HwEFITIwMDkgLSAyMDEwIHNjcmVlbiByZWFkZXIgZW5hYmxlZB8CBR9+L0Zvcm1zL3RzZGluZGV4MjAxMHRhZ2dlZC5hc3B4HwMFOFRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwOSAtIDIwMTAgc2NyZWVuIHJlYWRlciBlbmFibGVkHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDE2HwEFCzIwMDggLSAyMDA5HwIFGX4vRm9ybXMvdHNkaW5kZXgyMDA5LmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDA4IC0gMjAwOR8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAxNx8BBSEyMDA4IC0gMjAwOSBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfAgUffi9Gb3Jtcy90c2RpbmRleDIwMDl0YWdnZWQuYXNweB8DBThUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDggLSAyMDA5IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAxOB8BBQsyMDA3IC0gMjAwOB8CBRl+L0Zvcm1zL3RzZGluZGV4MjAwOC5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwNyAtIDIwMDgfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMTkfAQUhMjAwNyAtIDIwMDggc2NyZWVuIHJlYWRlciBlbmFibGVkHwIFH34vRm9ybXMvdHNkaW5kZXgyMDA4dGFnZ2VkLmFzcHgfAwU4VGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDA3IC0gMjAwOCBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMjAfAQULMjAwNiAtIDIwMDcfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMDcuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDYgLSAyMDA3HwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDIxHwEFITIwMDYgLSAyMDA3IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8CBR9+L0Zvcm1zL3RzZGluZGV4MjAwN3RhZ2dlZC5hc3B4HwMFOFRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwNiAtIDIwMDcgc2NyZWVuIHJlYWRlciBlbmFibGVkHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDIyHwEFCzIwMDUgLSAyMDA2HwIFGX4vRm9ybXMvdHNkaW5kZXgyMDA2LmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDA1IC0gMjAwNh8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAyMx8BBQsyMDA0IC0gMjAwNR8CBRl+L0Zvcm1zL3RzZGluZGV4MjAwNS5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwNCAtIDIwMDUfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMjQfAQULMjAwMyAtIDIwMDQfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMDQuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDMgLSAyMDA0HwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDI1HwEFCzIwMDIgLSAyMDAzHwIFGX4vRm9ybXMvdHNkaW5kZXgyMDAzLmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDAyIC0gMjAwMx8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAyNh8BBQsyMDAxIC0gMjAwMh8CBRl+L0Zvcm1zL3RzZGluZGV4MjAwMi5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwMSAtIDIwMDIfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMjcfAQULMjAwMCAtIDIwMDEfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMDEuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDAgLSAyMDAxHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDI4HwEFCzE5OTkgLSAyMDAwHwIFGX4vRm9ybXMvdHNkaW5kZXgyMDAwLmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAxOTk5IC0gMjAwMB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkZGQQFg4fAAURX2N0bDAtbWVudUl0ZW0wMDQfAQVVPGEgaHJlZj0iL1RFQS5Bc2tURUQuV2ViL0Zvcm1zL0VTQ1NlYXJjaFNjcmVlbi5hc3B4IiBjbGFzcz0ibWVudU5hdiI+U2VhcmNoIFJFU0NzPC9hPh8CBRx+L0Zvcm1zL0VTQ1NlYXJjaFNjcmVlbi5hc3B4HwMFKVNlYXJjaCBSZWdpb25hbCBFZHVjYXRpb24gU2VydmljZSBDZW50ZXJzHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFhAfAAURX2N0bDAtbWVudUl0ZW0wMDUfAQUyPGEgaHJlZj0jIGNsYXNzPSJtZW51TmF2Ij5BZG1pbmlzdHJhdGl2ZSBMb2dvbjwvYT4fAgUtaHR0cHM6Ly9zZWd1aW4udGVhLnN0YXRlLnR4LnVzL2FwcHMvbG9nb24uYXNwHgpJdGVtVGFyZ2V0BQZfYmxhbmsfAwUaQWRtaW5pc3RyYXRpdmUgUGFnZSBBY2Nlc3MfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWEB8ABRFfY3RsMC1tZW51SXRlbTAwNh8BBSI8YSBocmVmPSMgY2xhc3M9Im1lbnVOYXYiPkhlbHA8L2E+HwIFFX4vaGVscC9hc2t0ZWRfbmV3Lmh0bR8HBQZfYmxhbmsfAwURQXNrVEVEIFF1aWNrIEhlbHAfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBQrAAEFB3RlYXRlbXBkAg0PEGQPFglmAgECAgIDAgQCBQIGAgcCCBYJEAUNU2Nob29sIE51bWJlcgUNU2Nob29sIE51bWJlcmcQBQtTY2hvb2wgTmFtZQULU2Nob29sIE5hbWVnEAUNRGlzdHJpY3QgTmFtZQUNRGlzdHJpY3QgTmFtZWcQBQtDb3VudHkgTmFtZQULQ291bnR5IE5hbWVnEAUGUmVnaW9uBQZSZWdpb25nEAULU2Nob29sIENpdHkFC1NjaG9vbCBDaXR5ZxAFD1NjaG9vbCBaaXAgQ29kZQUPU2Nob29sIFppcCBDb2RlZxAFDURpc3RyaWN0IENpdHkFDURpc3RyaWN0IENpdHlnEAURRGlzdHJpY3QgWmlwIENvZGUFEURpc3RyaWN0IFppcCBDb2RlZ2RkZAwB4wuMbc+K5oXsH9/Cx3qA59mu',
+            '__VIEWSTATEGENERATOR': '44F2C40C',
+            'ddlSortOrder': 'School+Number',
+            'btnDownloadFile': 'Download+File',
+        }
+
+        req = requests.post(url, data=data)
+        reader = csv.DictReader(req.text.splitlines())
+
+        # this might be bad...
+        # Because the AskTed directory has a row for every campus, some
+        # campuss are in the spreadsheet a bunch of times. This creates
+        # a list of campuss to check as it updates so it only updates any
+        # given campus once.
+        campusList = {}
+
+        for row in reader:
+            campus_id = row['School Number'].replace("'", "")
+            # If the campus hasn't been updated already, update it and
+            # add it to the campusList
+            if campus_id not in campusList:
+                campusList[campus_id] = row
+                self.update_campus(row)
+
+    def update_campus(self, campus):
+        # askTed campuss have apostrophes in them
+        campus_id = str(campus['School Number']).replace("'", "")
+        campus_name = campus['School Name']
+
+        try:
+            campus_match = Campus.objects.get(tea_id=campus_id)
+
+            phone_number = campus['School Phone']
+            fax_number = campus['School Fax']
+            # sometimes phone and fax numbers have extensions at the end
+            # this splits out the extension into its own field
+            if 'ext' in phone_number:
+                phone_number, phone_number_extension = phone_number.split(' ext:')
+                phone_number_extension = str(phone_number_extension)
+            else:
+                phone_number_extension = ''
+
+            if 'ext' in fax_number:
+                fax_number, fax_number_extension = fax_number.split(' ext:')
+                fax_number_extension = str(phone_number_extension)
+            else:
+                fax_number_extension = ''
+
+            # update all of the askTed campus fields and save it to the model
+            campus_match.phone_number = phone_number
+            campus_match.phone_number_extension = phone_number_extension
+            campus_match.fax_number = fax_number
+            campus_match.fax_number_extension = fax_number_extension
+            campus_match.street = campus['School Street Address']
+            campus_match.city = campus['School City']
+            campus_match.state = campus['School State']
+            campus_match.zip_code = campus['School Zip']
+            campus_match.website = campus['School Web Page Address']
+            campus_match.save()
+
+            principal = self.principal_data[campus_id]
+            self.create_principal(campus_match, principal)
+
+            self.stdout.write('Updating {}...'.format(campus_name))
+        except ObjectDoesNotExist:
+            self.stderr.write('No askted data for {}'.format(campus_name))
+
+    def load_principal_directory_csv(self):
+        # url where personnel info lives
+        url = 'http://tea4avholly.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx'
+        # request params
+        data = {
+            '__VIEWSTATE': '',
+            '__VIEWSTATEGENERATOR': '3B1DF71D',
+            'chkPrin': 'on',
+            'lstDistrictStaff': '0',
+            'lstESCStaff': '0',
+            'ddlSortOrder': 'Organization+Name',
+            'btnDownloadFile': 'Download+File',
+        }
+
+        req = requests.post(url, data=data)
+        reader = csv.DictReader(req.text.splitlines())
+
+        payload = {}
+
+        for row in reader:
+            tea_id = row['Organization Number'].replace("'", "")
+            payload[tea_id] = row
+
+        return payload
+
+    def create_principal(self, campus, principal):
+
+        name = '{} {}'.format(
+            principal['First Name'], principal['Last Name'])
+        name = string.capwords(name)
+        phone_number = principal['Phone']
+        fax_number = principal['Fax']
+
+        if 'ext' in phone_number:
+            phone_number, phone_number_extension = phone_number.split(' ext:')
+            phone_number_extension = str(phone_number_extension)
+        else:
+            phone_number_extension = ''
+
+        if 'ext' in fax_number:
+            fax_number, fax_number_extension = fax_number.split(' ext:')
+            fax_number_extension = str(phone_number_extension)
+        else:
+            fax_number_extension = ''
+        # unlike the campus model we're updating above, the principal
+        # model doesn't exist yet- so we're creating it here
+        instance, _ = Principal.objects.update_or_create(
+            name=name,
+            campus=campus,
+            defaults={
+                'role': principal['Role'],
+                'email': principal['Email Address'],
+                'phone_number': phone_number,
+                'phone_number_extension': phone_number_extension,
+                'fax_number': fax_number,
+                'fax_number_extension': fax_number_extension,
+            }
+        )
+
+        self.stdout.write('Creating Principal {} from {}...'.format(name, campus))
