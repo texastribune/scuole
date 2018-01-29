@@ -2,8 +2,6 @@
 from __future__ import absolute_import, unicode_literals
 
 import csv
-import datetime
-import os
 import requests
 import string
 
@@ -34,10 +32,17 @@ class Command(BaseCommand):
         req = requests.post(url, data=data)
         reader = csv.DictReader(req.text.splitlines())
 
+        # this might be bad...
+        # Because the AskTed directory has a row for every campus, some
+        # districts are in the spreadsheet a bunch of times. This creates
+        # a list of districts to check as it updates so it only updates any
+        # given district once.
         districtList = {}
 
         for row in reader:
             district_id = row['District Number'].replace("'", "")
+            # If the district hasn't been updated already, update it and
+            # add it to the districtList
             if district_id not in districtList:
                 districtList[district_id] = row
                 self.update_district(row)
@@ -46,8 +51,7 @@ class Command(BaseCommand):
         # askTed districts have apostrophes in them
         district_id = str(district['District Number']).replace("'", "")
         district_name = district['District Name']
-        # if there's a district already in the databasa, match this askTed data
-        # to that TAPR data. Otherwise, move on
+
         try:
             district_match = District.objects.get(tea_id=district_id)
 
@@ -87,7 +91,7 @@ class Command(BaseCommand):
             self.stderr.write('No askted data for {}'.format(district_name))
 
     def load_superintendent_directory_csv(self):
-        # url where general directory lives
+        # url where personnel info lives
         url = 'http://tea4avholly.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx'
         # request params
         data = {
