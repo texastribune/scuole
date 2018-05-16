@@ -29,7 +29,7 @@ class CountyCohortsDetailView(DetailView):
             CountyCohortsDetailView, self).get_context_data(**kwargs)
 
         cohorts = self.cohorts_model.objects.filter(county=self.object)
-        latest_cohort_year = SchoolYear.objects.get(name='2005-2006')
+        latest_cohort_year = SchoolYear.objects.get(name='2006-2007')
 
         context['latest_cohort'] = cohorts.latest_cohort(
             county=self.object)
@@ -58,7 +58,7 @@ class RegionCohortsDetailView(DetailView):
             RegionCohortsDetailView, self).get_context_data(**kwargs)
 
         cohorts = self.cohorts_model.objects.filter(region=self.object)
-        latest_cohort_year = SchoolYear.objects.get(name='2005-2006')
+        latest_cohort_year = SchoolYear.objects.get(name='2006-2007')
 
         context['latest_cohort'] = cohorts.latest_cohort(
             region=self.object)
@@ -87,7 +87,7 @@ class StateCohortsDetailView(DetailView):
             StateCohortsDetailView, self).get_context_data(**kwargs)
 
         cohorts = self.cohorts_model.objects.filter(state=self.object)
-        latest_cohort_year = SchoolYear.objects.get(name='2005-2006')
+        latest_cohort_year = SchoolYear.objects.get(name='2006-2007')
 
         context['latest_cohort'] = cohorts.latest_cohort(
             state=self.object)
