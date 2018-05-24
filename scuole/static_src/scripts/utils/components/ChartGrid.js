@@ -16,7 +16,7 @@ function BlankChart({ width }) {
 
 export default class ChartGrid extends Component {
   render({ title, chartData = [] }) {
-    const year = 2005;
+    const year = 2006;
 
     const legendShouldRender = chartData.some((c, i) => {
       if (c.data.some(d => d.percent_graduated) && c.data.length > 3) {
