@@ -14,45 +14,29 @@ local/reset-db:
 	psql -d ${APP} -c 'CREATE EXTENSION postgis;'
 	python manage.py migrate
 
-data/bootstrap:
+data/create-superuser:
+	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | python manage.py shell --plain
+
+data/bootstrap-areas:
 	python manage.py bootstrapstates
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
-	python manage.py bootstrapdistricts 2016-2017
-	python manage.py updatedistrictaskted
-	python manage.py bootstrapcampuses 2016-2017
-	python manage.py updatecampusaskted
 
-data/base: data/bootstrap
+data/bootstrap-edu:
+	python manage.py bootstrapdistricts 2016-2017
+	python manage.py bootstrapcampuses 2016-2017
+
+data/latest-school:
 	python manage.py loadtaprdata 2016-2017 --bulk
 
-data/schools-all: data/bootstrap
+data/all-schools:
 	python manage.py loadtaprdata 2016-2017 --bulk
 	python manage.py loadtaprdata 2015-2016 --bulk
 	python manage.py loadtaprdata 2014-2015 --bulk
 	python manage.py loadtaprdata 2013-2014 --bulk
 	python manage.py loadtaprdata 2012-2013 --bulk
 
-data/cohorts-all:
-	python manage.py loadallcohorts 1998
-	python manage.py loadallcohorts 1999
-	python manage.py loadallcohorts 2000
-	python manage.py loadallcohorts 2001
-	python manage.py loadallcohorts 2002
-	python manage.py loadallcohorts 2003
-	python manage.py loadallcohorts 2004
-	python manage.py loadallcohorts 2005
-	python manage.py loadallcohorts 2006
-
-local/reset-db-and-bootstrap: local/reset-db data/base
-
-local/reset-db-and-bootstrap-over-time: local/reset-db data/schools-all data/cohorts-all
-
-local/cohorts: local/reset-db
-	python manage.py bootstrapstates
-	python manage.py bootstrapregions
-	python manage.py bootstrapcounties
-	python manage.py loadallcohorts 1997
+data/all-cohorts:
 	python manage.py loadallcohorts 1998
 	python manage.py loadallcohorts 1999
 	python manage.py loadallcohorts 2000
@@ -63,24 +47,14 @@ local/cohorts: local/reset-db
 	python manage.py loadallcohorts 2005
 	python manage.py loadallcohorts 2006
 	python manage.py loadallcohorts 2007
-	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | python manage.py shell --plain
 
-local/all: local/reset-db
-	python manage.py bootstrapstates
-	python manage.py bootstrapregions
-	python manage.py bootstrapcounties
-	python manage.py bootstrapdistricts 2016-2017
-	python manage.py bootstrapcampuses 2016-2017
-	python manage.py loadtaprdata 2016-2017 --bulk
-	python manage.py loadallcohorts 1998
-	python manage.py loadallcohorts 1999
-	python manage.py loadallcohorts 2000
-	python manage.py loadallcohorts 2001
-	python manage.py loadallcohorts 2002
-	python manage.py loadallcohorts 2003
-	python manage.py loadallcohorts 2004
-	python manage.py loadallcohorts 2005
-	python manage.py loadallcohorts 2006
+local/reset-db-and-bootstrap: local/reset-db data/base
+
+local/reset-db-and-bootstrap-over-time: local/reset-db data/all-schools data/all-cohorts
+
+local/cohorts: local/reset-db data/bootstrap-areas data/all-cohorts
+
+local/all: local/reset-db data/bootstrap-areas data/bootstrap-edu data/all-schools data/all-cohorts
 
 docker/pull:
 	@echo "Getting a fresh copy of master..."
