@@ -106,6 +106,7 @@ docker/interactive:
 		--interactive \
 		--tty \
 		--rm \
+		--volume=`pwd`/data:/usr/src/app/data \
 		--entrypoint=/bin/bash \
 		--env-file=env-docker \
 		${APP}
