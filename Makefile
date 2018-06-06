@@ -43,6 +43,7 @@ data/cohorts-all:
 	python manage.py loadallcohorts 2004
 	python manage.py loadallcohorts 2005
 	python manage.py loadallcohorts 2006
+	python manage.py loadallcohorts 2007
 
 local/reset-db-and-bootstrap: local/reset-db data/base
 
@@ -81,6 +82,7 @@ local/all: local/reset-db
 	python manage.py loadallcohorts 2004
 	python manage.py loadallcohorts 2005
 	python manage.py loadallcohorts 2006
+	python manage.py loadallcohorts 2007
 
 docker/pull:
 	@echo "Getting a fresh copy of master..."
