@@ -54,27 +54,7 @@ local/reset-db-and-bootstrap-over-time: local/reset-db data/all-schools data/all
 
 local/cohorts: local/reset-db data/bootstrap-areas data/all-cohorts
 
-<<<<<<< HEAD
-local/all: local/reset-db
-	python manage.py bootstrapstates
-	python manage.py bootstrapregions
-	python manage.py bootstrapcounties
-	python manage.py bootstrapdistricts 2016-2017
-	python manage.py bootstrapcampuses 2016-2017
-	python manage.py loadtaprdata 2016-2017 --bulk
-	python manage.py loadallcohorts 1998
-	python manage.py loadallcohorts 1999
-	python manage.py loadallcohorts 2000
-	python manage.py loadallcohorts 2001
-	python manage.py loadallcohorts 2002
-	python manage.py loadallcohorts 2003
-	python manage.py loadallcohorts 2004
-	python manage.py loadallcohorts 2005
-	python manage.py loadallcohorts 2006
-	python manage.py loadallcohorts 2007
-=======
 local/all: local/reset-db data/bootstrap-areas data/bootstrap-edu data/all-schools data/all-cohorts
->>>>>>> 061effbe6966993fa7311348eabc49f4a526ef1e
 
 docker/pull:
 	@echo "Getting a fresh copy of master..."
