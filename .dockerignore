@@ -5,3 +5,4 @@ scuole/static
 env-docker
 .git
 Makefile
+data
