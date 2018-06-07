@@ -18,10 +18,10 @@ from slugify import slugify
 
 class Command(BaseCommand):
     help = 'Loads a school year worth of cohorts data.'
-
+    # only loads data for the year you give it
     def add_arguments(self, parser):
         parser.add_argument('year', nargs='?', type=str, default=None)
-
+    # if there's no year, it yells at you
     def handle(self, *args, **options):
         if options['year'] is None:
             raise CommandError('A year is required.')
@@ -40,7 +40,7 @@ class Command(BaseCommand):
         year = int(options['year'])
         firstYear = year - 1
         secondYear = year
-
+        # creates the school year based on the given year
         schoolYear = '{0}-{1}'.format(firstYear, secondYear)
 
         # if it is there, we get or create our SchoolYear model
@@ -48,13 +48,14 @@ class Command(BaseCommand):
             name=schoolYear)
 
         self.year = year
-
+        # loads the region/state combo file and all county data
         self.load_regions_state()
         self.load_counties()
 
     def get_state_model_instance(self):
         return State.objects.get(name='TX')
 
+    # gets the region model that corresponds to the data we're handling
     def get_region_model_instance(self, identifier, instance):
         return instance.objects.get(region_id=identifier)
 
@@ -66,6 +67,7 @@ class Command(BaseCommand):
 
         return model
 
+    # gets the county model that corresponds to the data we're handling
     def get_county_model_instance(self, identifier, instance):
         return instance.objects.get(fips=identifier)
 
@@ -77,6 +79,7 @@ class Command(BaseCommand):
 
         return model
 
+    # preps the data to load into the model
     def prep_payload(self, payload, row):
         payload['defaults'].update(self.prepare_row(row))
 
@@ -84,11 +87,13 @@ class Command(BaseCommand):
         payload['gender'] = payload['defaults']['gender']
         payload['economic_status'] = payload['defaults']['economic_status']
 
+    # loads the region/state combo file
     def load_regions_state(self):
         data = []
 
         data_file = os.path.join(self.year_folder, 'regionState.csv')
 
+        # opens the data file and adds the data from each row to the data list
         with open(data_file) as f:
             reader = csv.DictReader(f)
             data.append([i for i in reader])
@@ -96,58 +101,70 @@ class Command(BaseCommand):
         id_match = 'Region Code'
 
         for row in sum(data, []):
+            # if it's a row where 'Region Code' is blank, it's state data
             if row[id_match] is '' or None:
-
+                # sets up the payload
                 payload = {
                     'year': self.year,
                     'defaults': {}
                 }
+                # grabs the state model (we only have one state, TX)
                 model = self.get_state_model_instance()
                 payload['state'] = model
-
+                # preps the data and updates or creates a state cohort model
                 self.prep_payload(payload, row)
                 StateCohorts.objects.sum_update_or_create(**payload)
 
                 self.stdout.write(model.name)
             else:
+                # tells us which region we're talking about. TEA's regions
+                # are zero indexed, THECB's are not
                 identifier = row[id_match].zfill(2)
                 payload = {
                     'year': self.year,
                     'defaults': {}
                 }
+                # gets the model based on whatever the region number is
                 model = self.get_region_model_instance(identifier, Region)
                 payload['region'] = model
 
                 self.stdout.write(model.name)
 
                 self.prep_payload(payload, row)
+                # creates a cohort model for each region
                 RegionCohorts.objects.update_or_create(**payload)
-
+        # for both region and state, sort and load the data
         self.create_regions_gender_overall()
         self.create_regions_ethnicity_overall()
         self.create_state_ethnicity_overall()
 
+    # because the counties have 3 different files and not all-in-one, we do
+    # them separately
     def load_counties(self):
+        # grabs geo data for the counties
         counties_fips_id_file = os.path.join(
             settings.DATA_FOLDER, 'cohorts', 'reference',
             'county-fips-id-map.csv')
-
+        # grabs cohort data for the counties
         county_files = [
             os.path.join(self.year_folder, 'countyEcon.csv'),
             os.path.join(self.year_folder, 'countyGender.csv'),
             os.path.join(self.year_folder, 'countyEthnicity.csv')]
 
         counties = []
+        # grab the data in each row in the fips file
         with open(counties_fips_id_file) as f:
             reader = csv.DictReader(f)
             counties.append([i for i in reader])
 
         data = []
+        # grab the data in all of the county files
         for file_name in county_files:
             with open(file_name) as f:
                 reader = csv.DictReader(f)
                 data.append([i for i in reader])
 
+        # Skip over the problem children
         for row in sum(data, []):
             if row['County Name'] in ['', 'BRISCOE'] or ('ethnicity' in row and row['ethnicity'] == 'All ethnicities'):
                 continue
@@ -164,7 +181,7 @@ class Command(BaseCommand):
                 'year': self.year,
                 'defaults': {}
             }
-
+            # gets the county based on the identifier
             model = self.get_county_model_instance(identifier, County)
             payload['county'] = model
 
@@ -181,12 +198,13 @@ class Command(BaseCommand):
 
     def create_counties_overall(self):
         # get the male/female overall cohorts we just created
+        # We sum male/female cohorts as a proxy for total numbers
         new_cohorts = CountyCohorts.objects.filter(
             economic_status='', ethnicity='', year=self.year)
 
         # get only the counties those cohorts interacted with
         counties = County.objects.filter(cohorts__in=new_cohorts).distinct()
-
+        # grabs the data fields (those for numbers)
         default_fields = [i.name for i in CountyCohorts._meta.get_fields() if isinstance(i, (
                 DecimalField, FloatField, IntegerField,))]
 
@@ -195,9 +213,10 @@ class Command(BaseCommand):
             # filter new_cohorts for just the two we need
             cohorts_to_combine = new_cohorts.filter(county=county)
 
-            # let's be sure we only have two to work with
+            # let's be sure we only have two to work with (male/female)
             assert len(cohorts_to_combine) == 2, 'There should be only two cohorts'
-
+            # creates the data for the model, all pivots are blank because
+            # these are totals
             for cohort in cohorts_to_combine:
                 payload = {
                     'year': self.year,
@@ -207,10 +226,12 @@ class Command(BaseCommand):
                     'gender': '',
                     'defaults': dict((name, getattr(cohort, name)) for name in default_fields),
                 }
-
+                # loads the data to the model
                 CountyCohorts.objects.sum_update_or_create(**payload)
 
     def create_regions_gender_overall(self):
+        # THECB doesn't give us just region genders like counties, so we
+        # have to extrapolate gender totals from gender/ethnicity combo rows
         # get the ethnicity cohorts we just created
         new_cohorts = RegionCohorts.objects.exclude(ethnicity='').filter(
             economic_status='', year=self.year)
@@ -242,6 +263,8 @@ class Command(BaseCommand):
                 RegionCohorts.objects.sum_update_or_create(**payload)
 
     def create_regions_ethnicity_overall(self):
+        # THECB also doesn't give us just ethnicity data, so we extrapolate
+        # from gender/ethnicity combo rows
         # get the gender cohorts we just created
         new_cohorts = RegionCohorts.objects.exclude(ethnicity='').filter(
             economic_status='', year=self.year)

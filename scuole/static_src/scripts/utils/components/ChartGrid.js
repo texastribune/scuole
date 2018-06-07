@@ -3,6 +3,11 @@ import { Component, h } from 'preact';
 import Chart from './Chart';
 import ResponsiveContainer from './ResponsiveContainer';
 
+function last(array) {
+  const length = array == null ? 0 : array.length;
+  return length ? array[length - 1] : undefined;
+}
+
 function BlankChart({ width }) {
   width -= 20;
   const height = width * 0.625;
@@ -16,21 +21,33 @@ function BlankChart({ width }) {
 
 export default class ChartGrid extends Component {
   render({ title, chartData = [] }) {
-    const year = 2005;
-
     const legendShouldRender = chartData.some((c, i) => {
-      if (c.data.some(d => d.percent_graduated) && c.data.length > 3) {
+      if (
+        c.data &&
+        c.data.some(d => d.percent_graduated) &&
+        c.data.length > 3
+      ) {
         return true;
       } else {
         return false;
       }
     });
 
+    if (!legendShouldRender) {
+      return (
+        <div class="chart-block">
+          <div class="chart-grid" />
+        </div>
+      );
+    }
+
     const yMax = Math.max(
       ...[].concat(
         ...chartData.map(({ data }) => data.map(d => d.percent_graduated))
       )
     );
+
+    const year = last(chartData[0].data).year;
 
     return (
       <div class="chart-block">
