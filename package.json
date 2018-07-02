@@ -14,7 +14,7 @@
     "gulp-imagemin": "^2.4.0",
     "gulp-load-plugins": "^1.1.0",
     "gulp-postcss": "^6.0.0",
-    "gulp-sass": "^2.0.4",
+    "gulp-sass": "^4.0.1",
     "gulp-size": "^2.0.0",
     "gulp-sourcemaps": "^1.5.2",
     "husky": "^0.14.3",
