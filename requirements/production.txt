@@ -1,5 +1,0 @@
--r base.txt
-
-gunicorn==19.6.0
-whitenoise==3.2.2
-raven==5.32.0
