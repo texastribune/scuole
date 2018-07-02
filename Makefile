@@ -85,6 +85,7 @@ docker/run:
 	@docker run \
 		--name ${APP} \
 		--detach \
+		--volume /usr/src/app/scuole/assets \
 		--env-file=env-docker \
 		${APP}
 
