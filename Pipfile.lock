@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5c30f295a002c9cdadcac96d7838f783e729d3efba14363cb4a10c4b785cb578"
+            "sha256": "c87d1e724baae58d9b76c9dcf021e99170149e343d01bca6562b85ed0552a7ef"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -14,13 +14,6 @@
         ]
     },
     "default": {
-        "contextlib2": {
-            "hashes": [
-                "sha256:509f9419ee91cdd00ba34443217d5ca51f5a364a404e1dce9e8979cea969ca48",
-                "sha256:f5260a6e679d2ff42ec91ec5252f4eeffdcf21053db9113bd0a8e4d953769c00"
-            ],
-            "version": "==0.5.5"
-        },
         "dj-database-url": {
             "hashes": [
                 "sha256:7f4c78d2a090df8dfaf56d5d3ff7bbee17360436e4879558317e2314424864cd"
@@ -93,11 +86,11 @@
         },
         "raven": {
             "hashes": [
-                "sha256:13e68bbf21d4d6f0cae4458da5be2d0d538733beabc5f93cb185048b28a77457",
-                "sha256:a06517e9b7858ac41963f9741cc8358005d37511475aaa4c8b692d29ae0a7d94"
+                "sha256:3fd787d19ebb49919268f06f19310e8112d619ef364f7989246fc8753d469888",
+                "sha256:95f44f3ea2c1b176d5450df4becdb96c15bf2632888f9ab193e9dd22300ce46a"
             ],
             "index": "pypi",
-            "version": "==5.32.0"
+            "version": "==6.9.0"
         },
         "six": {
             "hashes": [
@@ -140,11 +133,11 @@
         },
         "awscli": {
             "hashes": [
-                "sha256:0d9a94dc2028f7085a7750e7bab15964ec25f6d37d1f8e89232f3bbd76ded78d",
-                "sha256:11a55c35d9c211d0bc861dc777c57c86e3b77ce10672cd46c25fbc4d8e68c1e6"
+                "sha256:a6ea5610b865660b4e6e024c0481b52af8c880a4e438decf7a77d84b7cad6f91",
+                "sha256:f87636efdec00b5dcd2107f8bc92bf87ddc9a09f83d3d13f5dc8e114532c6906"
             ],
             "index": "pypi",
-            "version": "==1.15.49"
+            "version": "==1.15.50"
         },
         "backcall": {
             "hashes": [
@@ -155,10 +148,10 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:1218517172be766acb9f5de7f4044f9f0f9d9589614e7e6fe6562072586e6290",
-                "sha256:541e08b6eedb3156a6bec66092b76729704310c61bccf3ad5867ca774f4fa87a"
+                "sha256:23ffa326a8cff8a098dedc574dd7c0e8913a6ef2e499b99459b43c8cba0d57e8",
+                "sha256:88ae098a7bc1abba936d2d879db970159fee1b633061dfeb58c16a0bea1a9ea6"
             ],
-            "version": "==1.10.48"
+            "version": "==1.10.49"
         },
         "colorama": {
             "hashes": [
