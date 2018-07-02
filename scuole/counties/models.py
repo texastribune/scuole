@@ -2,7 +2,6 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.contrib.gis.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 
 from scuole.stats.models import SchoolYear
@@ -11,13 +10,16 @@ from scuole.cohorts.models import CohortsBase
 from django.utils.translation import ugettext_lazy as _
 
 
-@python_2_unicode_compatible
 class County(models.Model):
     name = models.CharField(_('County name'), max_length=100)
     slug = models.SlugField()
     fips = models.CharField(_('County FIPS place code'), max_length=3)
     shape = models.MultiPolygonField(_('Region shape'), srid=4326, null=True)
-    state = models.ForeignKey(State, related_name=_('counties'))
+    state = models.ForeignKey(
+        State,
+        on_delete=models.CASCADE,
+        related_name=_('counties'),
+    )
 
     class Meta:
         verbose_name_plural = _('counties')
@@ -48,10 +50,17 @@ class County(models.Model):
         return self.shape.simplify(0.01)
 
 
-@python_2_unicode_compatible
 class CountyCohorts(CohortsBase):
-    county = models.ForeignKey(County, related_name='cohorts')
-    year = models.ForeignKey(SchoolYear, related_name='county_cohorts')
+    county = models.ForeignKey(
+        County,
+        on_delete=models.CASCADE,
+        related_name='cohorts',
+    )
+    year = models.ForeignKey(
+        SchoolYear,
+        on_delete=models.CASCADE,
+        related_name='county_cohorts',
+    )
 
     class Meta:
         unique_together = (

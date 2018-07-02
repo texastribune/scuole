@@ -4,19 +4,17 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-
 django = "*"
 "dj-database-url" = "==0.4.1"
 "django-localflavor" = "==1.3"
-"psycopg2" = "==2.6.2"
-pytz = "==2016.7"
+"psycopg2" = "*"
 "unicode-slugify" = "==0.1.3"
 gunicorn = "==19.6.0"
 whitenoise = "==3.2.2"
 raven = "==5.32.0"
 
-
 [dev-packages]
-
 "django-debug-toolbar" = "*"
 "django-extensions" = "*"
+awscli = "*"
+ipython = "*"

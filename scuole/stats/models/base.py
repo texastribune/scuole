@@ -2,13 +2,11 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 
 from .staff_student import StaffStudentBase
 from .postsecondary_readiness import PostSecondaryReadinessBase
 
 
-@python_2_unicode_compatible
 class SchoolYear(models.Model):
     name = models.CharField(max_length=9)
 

@@ -8,7 +8,6 @@ from localflavor.us.models import (PhoneNumberField, USStateField,
 
 from django.contrib.gis.db import models
 from django.core.serializers import serialize
-from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.core.models import PersonnelBase
 from scuole.counties.models import County
@@ -17,7 +16,6 @@ from scuole.stats.models import ReferenceBase, SchoolYear, StatsBase
 from django.utils.translation import ugettext_lazy as _
 
 
-@python_2_unicode_compatible
 class District(models.Model):
     name = models.CharField(_('District name'), max_length=200)
     slug = models.SlugField(max_length=75)
@@ -36,12 +34,20 @@ class District(models.Model):
         _('District office abbreviated state location'), max_length=2)
     zip_code = USZipCodeField(_('District ZIP Code'))
     region = models.ForeignKey(
-        Region, related_name='districts', null=True, blank=True)
+        Region,
+        on_delete=models.CASCADE,
+        related_name='districts',
+        null=True,
+        blank=True,
+    )
     county = models.ForeignKey(
-        County, related_name='districts', null=True, blank=True)
+        County,
+        on_delete=models.CASCADE,
+        related_name='districts',
+        null=True,
+        blank=True,
+    )
     shape = models.MultiPolygonField(_('District shape'), srid=4326, null=True)
-
-    objects = models.GeoManager()
 
     class Meta:
         ordering = ['name']
@@ -50,7 +56,7 @@ class District(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        from django.core.urlresolvers import reverse
+        from django.urls import reverse
         return reverse('districts:detail', kwargs={
             'district_slug': self.slug, })
 
@@ -92,10 +98,17 @@ class District(models.Model):
         return None
 
 
-@python_2_unicode_compatible
 class DistrictStats(StatsBase, ReferenceBase):
-    district = models.ForeignKey(District, related_name='stats')
-    year = models.ForeignKey(SchoolYear, related_name='district_stats')
+    district = models.ForeignKey(
+        District,
+        on_delete=models.CASCADE,
+        related_name='stats',
+    )
+    year = models.ForeignKey(
+        SchoolYear,
+        on_delete=models.CASCADE,
+        related_name='district_stats',
+    )
 
     class Meta:
         unique_together = ('district', 'year',)
@@ -105,9 +118,12 @@ class DistrictStats(StatsBase, ReferenceBase):
         return '{0} {1}'.format(self.year.name, self.district.name)
 
 
-@python_2_unicode_compatible
 class Superintendent(PersonnelBase):
-    district = models.OneToOneField(District, related_name='superintendent_of')
+    district = models.OneToOneField(
+        District,
+        on_delete=models.CASCADE,
+        related_name='superintendent_of',
+    )
 
     def __str__(self):
         return '{} at {}'.format(self.name, self.district.name)

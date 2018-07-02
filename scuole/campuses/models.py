@@ -7,7 +7,6 @@ from localflavor.us.models import (
     PhoneNumberField, USStateField, USZipCodeField)
 
 from django.contrib.gis.db import models
-from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.core.models import PersonnelBase
 from scuole.counties.models import County
@@ -16,7 +15,6 @@ from scuole.stats.models import ReferenceBase, SchoolYear, StatsBase
 from django.utils.translation import ugettext_lazy as _
 
 
-@python_2_unicode_compatible
 class Campus(models.Model):
     EARLY_EDUCATION = 'EE'
     PRE_KINDERGARTEN = 'PK'
@@ -90,9 +88,16 @@ class Campus(models.Model):
     school_type = models.CharField(
         _('School type'), max_length=1, choices=SCHOOL_TYPE_CHOICES)
 
-    district = models.ForeignKey(District, related_name='campuses')
-    county = models.ForeignKey(County, related_name='campuses')
-    objects = models.GeoManager()
+    district = models.ForeignKey(
+        District,
+        on_delete=models.CASCADE,
+        related_name='campuses',
+    )
+    county = models.ForeignKey(
+        County,
+        on_delete=models.CASCADE,
+        related_name='campuses',
+    )
 
     class Meta:
         ordering = ['name']
@@ -102,7 +107,7 @@ class Campus(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        from django.core.urlresolvers import reverse
+        from django.urls import reverse
         return reverse('districts:campus', kwargs={
             'slug': self.slug,
             'district_slug': self.district.slug,
@@ -138,10 +143,17 @@ class Campus(models.Model):
         return (self.school_type == 'S' or self.school_type == 'B')
 
 
-@python_2_unicode_compatible
 class CampusStats(StatsBase, ReferenceBase):
-    campus = models.ForeignKey(Campus, related_name='stats')
-    year = models.ForeignKey(SchoolYear, related_name='campus_stats')
+    campus = models.ForeignKey(
+        Campus,
+        on_delete=models.CASCADE,
+        related_name='stats',
+    )
+    year = models.ForeignKey(
+        SchoolYear,
+        on_delete=models.CASCADE,
+        related_name='campus_stats',
+    )
 
     class Meta:
         unique_together = ('campus', 'year',)
@@ -151,9 +163,12 @@ class CampusStats(StatsBase, ReferenceBase):
         return '{0} {1}'.format(self.year.name, self.campus.name)
 
 
-@python_2_unicode_compatible
 class Principal(PersonnelBase):
-    campus = models.ForeignKey(Campus, related_name='principals')
+    campus = models.ForeignKey(
+        Campus,
+        on_delete=models.CASCADE,
+        related_name='principals',
+    )
 
     def __str__(self):
         return '{} at {}'.format(self.name, self.campus.name)

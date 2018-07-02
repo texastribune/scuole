@@ -5,6 +5,8 @@ from django.conf.urls import url
 
 from . import views
 
+app_name = 'states'
+
 urlpatterns = [
     url(r'^(?P<slug>[\w-]+)/(?:(?P<state_year>[0-9]{4}-[0-9]{4})/)?$',
         views.StateDetailView.as_view(),
