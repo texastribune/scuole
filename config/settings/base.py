@@ -41,6 +41,8 @@ def env(setting, default=None):
         else:
             return variable
     except KeyError:
+        if default is 'None':
+            return None
         if default is not None:
             return default
         else:

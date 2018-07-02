@@ -6,3 +6,4 @@ env-docker
 .git
 Makefile
 data
+backups
