@@ -4,7 +4,6 @@ from __future__ import absolute_import, unicode_literals
 from localflavor.us.models import USStateField
 
 from django.contrib.gis.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 
 from scuole.core.models import PersonnelBase
@@ -13,7 +12,6 @@ from scuole.cohorts.models import CohortsBase
 from django.utils.translation import ugettext_lazy as _
 
 
-@python_2_unicode_compatible
 class State(models.Model):
     name = USStateField(_('State name'))
     slug = models.SlugField()
@@ -33,7 +31,6 @@ class State(models.Model):
         return self.shape.simplify(0.01)
 
 
-@python_2_unicode_compatible
 class StateStats(StatsBase):
     state = models.ForeignKey(
         State,
@@ -54,7 +51,6 @@ class StateStats(StatsBase):
         return '{0} {1}'.format(self.year.name, self.state.name)
 
 
-@python_2_unicode_compatible
 class Commissioner(PersonnelBase):
     state = models.OneToOneField(
         State,
@@ -66,7 +62,6 @@ class Commissioner(PersonnelBase):
         return 'Texas Education Commissioner'
 
 
-@python_2_unicode_compatible
 class StateCohorts(CohortsBase):
     state = models.ForeignKey(
         State,

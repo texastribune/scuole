@@ -2,7 +2,6 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.contrib.gis.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 
 from scuole.stats.models import SchoolYear
@@ -11,7 +10,6 @@ from scuole.cohorts.models import CohortsBase
 from django.utils.translation import ugettext_lazy as _
 
 
-@python_2_unicode_compatible
 class County(models.Model):
     name = models.CharField(_('County name'), max_length=100)
     slug = models.SlugField()
@@ -52,7 +50,6 @@ class County(models.Model):
         return self.shape.simplify(0.01)
 
 
-@python_2_unicode_compatible
 class CountyCohorts(CohortsBase):
     county = models.ForeignKey(
         County,

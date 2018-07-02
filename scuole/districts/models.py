@@ -8,7 +8,6 @@ from localflavor.us.models import (PhoneNumberField, USStateField,
 
 from django.contrib.gis.db import models
 from django.core.serializers import serialize
-from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.core.models import PersonnelBase
 from scuole.counties.models import County
@@ -17,7 +16,6 @@ from scuole.stats.models import ReferenceBase, SchoolYear, StatsBase
 from django.utils.translation import ugettext_lazy as _
 
 
-@python_2_unicode_compatible
 class District(models.Model):
     name = models.CharField(_('District name'), max_length=200)
     slug = models.SlugField(max_length=75)
@@ -100,7 +98,6 @@ class District(models.Model):
         return None
 
 
-@python_2_unicode_compatible
 class DistrictStats(StatsBase, ReferenceBase):
     district = models.ForeignKey(
         District,
@@ -121,7 +118,6 @@ class DistrictStats(StatsBase, ReferenceBase):
         return '{0} {1}'.format(self.year.name, self.district.name)
 
 
-@python_2_unicode_compatible
 class Superintendent(PersonnelBase):
     district = models.OneToOneField(
         District,

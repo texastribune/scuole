@@ -7,7 +7,6 @@ from localflavor.us.models import (
     PhoneNumberField, USStateField, USZipCodeField)
 
 from django.contrib.gis.db import models
-from django.utils.encoding import python_2_unicode_compatible
 
 from scuole.core.models import PersonnelBase
 from scuole.counties.models import County
@@ -16,7 +15,6 @@ from scuole.stats.models import ReferenceBase, SchoolYear, StatsBase
 from django.utils.translation import ugettext_lazy as _
 
 
-@python_2_unicode_compatible
 class Campus(models.Model):
     EARLY_EDUCATION = 'EE'
     PRE_KINDERGARTEN = 'PK'
@@ -145,7 +143,6 @@ class Campus(models.Model):
         return (self.school_type == 'S' or self.school_type == 'B')
 
 
-@python_2_unicode_compatible
 class CampusStats(StatsBase, ReferenceBase):
     campus = models.ForeignKey(
         Campus,
@@ -166,7 +163,6 @@ class CampusStats(StatsBase, ReferenceBase):
         return '{0} {1}'.format(self.year.name, self.campus.name)
 
 
-@python_2_unicode_compatible
 class Principal(PersonnelBase):
     campus = models.ForeignKey(
         Campus,
