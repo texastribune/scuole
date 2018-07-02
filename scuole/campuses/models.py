@@ -90,9 +90,16 @@ class Campus(models.Model):
     school_type = models.CharField(
         _('School type'), max_length=1, choices=SCHOOL_TYPE_CHOICES)
 
-    district = models.ForeignKey(District, related_name='campuses')
-    county = models.ForeignKey(County, related_name='campuses')
-    objects = models.GeoManager()
+    district = models.ForeignKey(
+        District,
+        on_delete=models.CASCADE,
+        related_name='campuses',
+    )
+    county = models.ForeignKey(
+        County,
+        on_delete=models.CASCADE,
+        related_name='campuses',
+    )
 
     class Meta:
         ordering = ['name']
@@ -140,8 +147,16 @@ class Campus(models.Model):
 
 @python_2_unicode_compatible
 class CampusStats(StatsBase, ReferenceBase):
-    campus = models.ForeignKey(Campus, related_name='stats')
-    year = models.ForeignKey(SchoolYear, related_name='campus_stats')
+    campus = models.ForeignKey(
+        Campus,
+        on_delete=models.CASCADE,
+        related_name='stats',
+    )
+    year = models.ForeignKey(
+        SchoolYear,
+        on_delete=models.CASCADE,
+        related_name='campus_stats',
+    )
 
     class Meta:
         unique_together = ('campus', 'year',)
@@ -153,7 +168,11 @@ class CampusStats(StatsBase, ReferenceBase):
 
 @python_2_unicode_compatible
 class Principal(PersonnelBase):
-    campus = models.ForeignKey(Campus, related_name='principals')
+    campus = models.ForeignKey(
+        Campus,
+        on_delete=models.CASCADE,
+        related_name='principals',
+    )
 
     def __str__(self):
         return '{} at {}'.format(self.name, self.campus.name)

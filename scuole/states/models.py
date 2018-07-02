@@ -18,7 +18,6 @@ class State(models.Model):
     name = USStateField(_('State name'))
     slug = models.SlugField()
     shape = models.MultiPolygonField(_('State shape'), srid=4326, null=True)
-    objects = models.GeoManager()
 
     def __str__(self):
         return self.name
@@ -36,8 +35,16 @@ class State(models.Model):
 
 @python_2_unicode_compatible
 class StateStats(StatsBase):
-    state = models.ForeignKey(State, related_name='stats')
-    year = models.ForeignKey(SchoolYear, related_name='state_stats')
+    state = models.ForeignKey(
+        State,
+        on_delete=models.CASCADE,
+        related_name='stats',
+    )
+    year = models.ForeignKey(
+        SchoolYear,
+        on_delete=models.CASCADE,
+        related_name='state_stats',
+    )
 
     class Meta:
         unique_together = ('state', 'year',)
@@ -49,7 +56,11 @@ class StateStats(StatsBase):
 
 @python_2_unicode_compatible
 class Commissioner(PersonnelBase):
-    state = models.OneToOneField(State, related_name='commissioner_of')
+    state = models.OneToOneField(
+        State,
+        on_delete=models.CASCADE,
+        related_name='commissioner_of',
+    )
 
     def __str__(self):
         return 'Texas Education Commissioner'
@@ -57,8 +68,16 @@ class Commissioner(PersonnelBase):
 
 @python_2_unicode_compatible
 class StateCohorts(CohortsBase):
-    state = models.ForeignKey(State, related_name='cohorts')
-    year = models.ForeignKey(SchoolYear, related_name='state_cohorts')
+    state = models.ForeignKey(
+        State,
+        on_delete=models.CASCADE,
+        related_name='cohorts',
+    )
+    year = models.ForeignKey(
+        SchoolYear,
+        on_delete=models.CASCADE,
+        related_name='state_cohorts',
+    )
 
     class Meta:
         unique_together = (

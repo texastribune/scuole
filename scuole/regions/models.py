@@ -17,7 +17,11 @@ class Region(models.Model):
     region_id = models.CharField(_('Region identifier'), max_length=2)
     slug = models.SlugField()
     shape = models.MultiPolygonField(_('Region shape'), srid=4326, null=True)
-    state = models.ForeignKey(State, related_name='regions')
+    state = models.ForeignKey(
+        State,
+        on_delete=models.CASCADE,
+        related_name='regions',
+    )
 
     def __str__(self):
         return '{} - {}'.format(self.name, self.region_id)
@@ -37,8 +41,16 @@ class Region(models.Model):
 
 @python_2_unicode_compatible
 class RegionStats(StatsBase):
-    region = models.ForeignKey(Region, related_name='stats')
-    year = models.ForeignKey(SchoolYear, related_name='region_stats')
+    region = models.ForeignKey(
+        Region,
+        on_delete=models.CASCADE,
+        related_name='stats',
+    )
+    year = models.ForeignKey(
+        SchoolYear,
+        on_delete=models.CASCADE,
+        related_name='region_stats',
+    )
 
     class Meta:
         unique_together = ('region', 'year',)
@@ -50,8 +62,16 @@ class RegionStats(StatsBase):
 
 @python_2_unicode_compatible
 class RegionCohorts(CohortsBase):
-    region = models.ForeignKey(Region, related_name='cohorts')
-    year = models.ForeignKey(SchoolYear, related_name='region_cohorts')
+    region = models.ForeignKey(
+        Region,
+        on_delete=models.CASCADE,
+        related_name='cohorts',
+    )
+    year = models.ForeignKey(
+        SchoolYear,
+        on_delete=models.CASCADE,
+        related_name='region_cohorts',
+    )
 
     class Meta:
         unique_together = (

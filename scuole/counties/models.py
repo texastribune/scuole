@@ -17,7 +17,11 @@ class County(models.Model):
     slug = models.SlugField()
     fips = models.CharField(_('County FIPS place code'), max_length=3)
     shape = models.MultiPolygonField(_('Region shape'), srid=4326, null=True)
-    state = models.ForeignKey(State, related_name=_('counties'))
+    state = models.ForeignKey(
+        State,
+        on_delete=models.CASCADE,
+        related_name=_('counties'),
+    )
 
     class Meta:
         verbose_name_plural = _('counties')
@@ -50,8 +54,16 @@ class County(models.Model):
 
 @python_2_unicode_compatible
 class CountyCohorts(CohortsBase):
-    county = models.ForeignKey(County, related_name='cohorts')
-    year = models.ForeignKey(SchoolYear, related_name='county_cohorts')
+    county = models.ForeignKey(
+        County,
+        on_delete=models.CASCADE,
+        related_name='cohorts',
+    )
+    year = models.ForeignKey(
+        SchoolYear,
+        on_delete=models.CASCADE,
+        related_name='county_cohorts',
+    )
 
     class Meta:
         unique_together = (
