@@ -11,6 +11,8 @@ from .views import (
     StateCohortsDetailView,
 )
 
+app_name = 'cohorts'
+
 urlpatterns = [
     url(r'^$',
         CohortsLandingView.as_view(), name='landing'),
