@@ -30,7 +30,7 @@ FROM python:3.6-alpine
 
 # Install the geo libs needed to interact with GeoDjango
 RUN apk update && \
-  apk upgrade && \
+    apk upgrade && \
     apk add --no-cache \
       --repository http://dl-3.alpinelinux.org/alpine/edge/main/ \
       --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
