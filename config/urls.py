@@ -46,7 +46,7 @@ urlpatterns = [
     url(r'^lookup/', LookupView.as_view(), name='lookup'),
     url(r'^about/', AboutView.as_view(), name='about'),
     url(r'^redirect/', AcceptRedirectView.as_view(), name='redirect'),
-    url(r'^admin/', include(admin.site.urls)),
+    url('admin/', admin.site.urls),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap')
 ]
