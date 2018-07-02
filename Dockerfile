@@ -1,3 +1,23 @@
+FROM node:10.5 as assets
+
+# Create the folder to work in
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Copy over package.json and gang
+COPY package.json /usr/src/app
+COPY package-lock.json /usr/src/app
+
+# Install dependencies
+RUN npm ci
+
+# Bring over the rest of the app
+COPY webpack.config.js gulpfile.js /usr/src/app/
+COPY scuole/static_src /usr/src/app/scuole/static_src
+
+# Run build command
+RUN ["npm", "run", "build"]
+
 FROM python:3.6
 
 # Install the geo libs needed to interact with GeoDjango
@@ -21,6 +41,9 @@ RUN pipenv install --system --deploy
 
 # Bring over the rest of the app
 COPY . /usr/src/app
+
+# Bring over the assets
+COPY --from=assets /usr/src/app/scuole/static /usr/src/app/scuole/static
 
 # Let Django know we're using production settings
 ENV DJANGO_SETTINGS_MODULE config.settings.production
