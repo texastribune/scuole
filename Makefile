@@ -67,13 +67,6 @@ docker/build:
 		--tag ${APP} \
 		.
 
-docker/build-static:
-	@echo "Building static assets compiler..."
-	@docker build \
-		--tag ${APP}-assets \
-		--file Dockerfile.assets \
-		.
-
 docker/interactive:
 	@echo "Running interactive mode..."
 	@docker run \
@@ -92,8 +85,6 @@ docker/run:
 	@docker run \
 		--name ${APP} \
 		--detach \
-		--volume /usr/src/app/scuole/assets \
-		--volumes-from ${APP}-assets \
 		--env-file=env-docker \
 		${APP}
 
@@ -104,20 +95,9 @@ docker/run-debug:
 		--name ${APP} \
 		--detach \
 		--link ${APP}-db:db \
-		--volume /usr/src/app/scuole/assets \
-		--volumes-from ${APP}-assets \
 		--env DJANGO_DEBUG="True" \
 		--env DATABASE_URL="postgis://docker:docker@db/docker" \
 		${APP}
-
-docker/static-compile: docker/build-static
-	@echo "Compiling static assets..."
-	-@docker stop ${APP}-assets && docker rm -v ${APP}-assets
-	@docker run \
-		--name ${APP}-assets \
-		--tty \
-		--volume /usr/src/app/scuole/static \
-		${APP}-assets
 
 docker/db-data:
 	@echo "Attempting to create data volume (if needed)..."
@@ -164,4 +144,4 @@ docker/nginx: docker/nginx-build
 		--publish 80:80 \
 		${APP}-nginx
 
-docker/kickstart: docker/build docker/static-compile docker/run docker/nginx
+docker/kickstart: docker/build docker/run docker/nginx
