@@ -53,14 +53,28 @@ urlpatterns = [
 
 # Test pages normally not reachable when DEBUG = True
 if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
-
     urlpatterns += [
-        url(r'^400/$', default_views.bad_request, {'exception': None}),
-        url(r'^403/$', default_views.permission_denied, {'exception': None}),
-        url(r'^404/$', default_views.page_not_found, {'exception': None}),
+        url(
+            r'^400/$',
+            default_views.bad_request,
+            {'exception': Exception('Bad request')},
+        ),
+        url(
+            r'^403/$',
+            default_views.permission_denied,
+            {'exception': Exception('Permission denied')},
+        ),
+        url(
+            r'^404/$',
+            default_views.page_not_found,
+            {'exception': Exception('Page not found')},
+        ),
         url(r'^500/$', default_views.server_error),
     ]
+
+    if 'debug_toolbar' in settings.INSTALLED_APPS:
+        import debug_toolbar
+
+        urlpatterns = [
+            url(r'^__debug__/', include(debug_toolbar.urls)),
+        ] + urlpatterns
