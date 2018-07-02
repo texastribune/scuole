@@ -69,7 +69,7 @@ TEMPLATES = [
 #############################
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#staticfiles-storage
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ######################
 # HOST CONFIGURATION #
@@ -162,10 +162,16 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # https://getsentry.com/for/django/
 RAVEN_CONFIG = {
-    'dsn': env('SENTRY_DSN'),
+    'dsn': env('SENTRY_DSN', 'None'),
     'site': env('SENTRY_SITE', 'Public Schools')
 }
 
 INSTALLED_APPS = INSTALLED_APPS + (
     'raven.contrib.django.raven_compat',
 )
+
+############################
+# MIDDLEWARE CONFIGURATION #
+############################
+
+MIDDLEWARE += ('whitenoise.middleware.WhiteNoiseMiddleware',)
