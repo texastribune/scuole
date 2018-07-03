@@ -6,7 +6,7 @@ from json import dumps, loads
 from django.contrib.gis.db.models.functions import AsGeoJSON
 from django.core.serializers import serialize
 from django.shortcuts import redirect
-from django.views.generic import TemplateView, DetailView, View
+from django.views.generic import DetailView, TemplateView, View
 
 from scuole.core.utils import build_geojson
 from scuole.counties.models import County, CountyCohorts

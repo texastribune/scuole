@@ -4,11 +4,8 @@ from __future__ import absolute_import, unicode_literals
 from django.conf.urls import include, url
 
 from .views import (
-    AcceptCohortRedirectView,
-    CohortsLandingView,
-    CountyCohortsDetailView,
-    RegionCohortsDetailView,
-    StateCohortsDetailView,
+    AcceptCohortRedirectView, CohortsLandingView, CountyCohortsDetailView,
+    RegionCohortsDetailView, StateCohortsDetailView,
 )
 
 app_name = 'cohorts'

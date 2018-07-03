@@ -3,7 +3,6 @@ from scuole.districts.models import District, DistrictStats
 from scuole.regions.models import Region, RegionStats
 from scuole.states.models import State, StateStats
 
-
 MAPPING = [
     {
         'folder': 'state',

@@ -4,16 +4,16 @@ from __future__ import absolute_import, unicode_literals
 import csv
 import os
 
-from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
+from django.core.management.base import BaseCommand, CommandError
 from django.db.models import DecimalField, FloatField, IntegerField
+
+from slugify import slugify
 
 from scuole.counties.models import County, CountyCohorts
 from scuole.regions.models import Region, RegionCohorts
 from scuole.states.models import State, StateCohorts
 from scuole.stats.models import SchoolYear
-
-from slugify import slugify
 
 
 class Command(BaseCommand):

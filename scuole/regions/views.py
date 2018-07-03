@@ -4,9 +4,10 @@ from __future__ import absolute_import, unicode_literals
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView
 
-from .models import County, CountyCohorts
-from scuole.states.models import StateStats
 from scuole.cohort.models import CohortYear
+from scuole.states.models import StateStats
+
+from .models import County, CountyCohorts
 
 
 class CountyListView(ListView):

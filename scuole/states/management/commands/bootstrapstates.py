@@ -6,10 +6,10 @@ import json
 import os
 
 from django.conf import settings
-from django.core.management.base import BaseCommand
 from django.contrib.gis.geos import GEOSGeometry, MultiPolygon
+from django.core.management.base import BaseCommand
 
-from scuole.states.models import State, Commissioner
+from scuole.states.models import Commissioner, State
 
 
 class Command(BaseCommand):

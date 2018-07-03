@@ -6,21 +6,19 @@ import json
 import os
 import string
 
-from slugify import slugify
-
 from django.conf import settings
+from django.contrib.gis.geos import GEOSGeometry
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Count
-from django.contrib.gis.geos import GEOSGeometry
 
-from scuole.core.utils import remove_charter_c
+from slugify import slugify
+
+from scuole.core.replacements import ISD_REPLACEMENT
+from scuole.core.utils import massage_name, remove_charter_c
 from scuole.counties.models import County
 from scuole.districts.models import District
 
 from ...models import Campus, Principal
-
-from scuole.core.replacements import ISD_REPLACEMENT
-from scuole.core.utils import massage_name
 
 LOCALE_MAP = {
     '11': 'LARGE_CITY',

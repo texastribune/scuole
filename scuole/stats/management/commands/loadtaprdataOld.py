@@ -4,12 +4,12 @@ from __future__ import absolute_import, unicode_literals
 import csv
 import os
 
-from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
+from django.core.management.base import BaseCommand, CommandError
 
 from scuole.states.models import State
-from ...models import SchoolYear
 
+from ...models import SchoolYear
 from ...schemas.tapr.mapping import MAPPING
 from ...schemas.tapr.pre2014schema import SCHEMA
 

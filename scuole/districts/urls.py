@@ -3,8 +3,9 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import include, url
 
-from . import views
 from scuole.campuses.views import CampusDetailView
+
+from . import views
 
 app_name = 'districts'
 

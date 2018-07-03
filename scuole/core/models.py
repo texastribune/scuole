@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from localflavor.us.models import PhoneNumberField
-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
+from localflavor.us.models import PhoneNumberField
 
 
 class PersonnelBase(models.Model):

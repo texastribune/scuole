@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from localflavor.us.models import USStateField
-
 from django.contrib.gis.db import models
 from django.utils.functional import cached_property
+from django.utils.translation import ugettext_lazy as _
 
+from localflavor.us.models import USStateField
+
+from scuole.cohorts.models import CohortsBase
 from scuole.core.models import PersonnelBase
 from scuole.stats.models import SchoolYear, StatsBase
-from scuole.cohorts.models import CohortsBase
-from django.utils.translation import ugettext_lazy as _
 
 
 class State(models.Model):

@@ -4,8 +4,9 @@ from __future__ import absolute_import, unicode_literals
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView
 
-from .models import State, StateStats, StateCohorts
 from scuole.stats.models import SchoolYear
+
+from .models import State, StateCohorts, StateStats
 
 
 class StateDetailView(DetailView):

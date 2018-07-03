@@ -3,8 +3,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 
-from .staff_student import StaffStudentBase
 from .postsecondary_readiness import PostSecondaryReadinessBase
+from .staff_student import StaffStudentBase
 
 
 class SchoolYear(models.Model):

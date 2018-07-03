@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from .base import * # noqa
-
 import dj_database_url
+
+from .base import *  # noqa
 
 #######################
 # DEBUG CONFIGURATION #

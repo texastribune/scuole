@@ -10,10 +10,11 @@ from django.conf import settings
 from django.contrib.gis.geos import GEOSGeometry, MultiPolygon
 from django.core.management.base import BaseCommand
 
-from ...models import Region
+from slugify import slugify
+
 from scuole.states.models import State
 
-from slugify import slugify
+from ...models import Region
 
 
 class Command(BaseCommand):

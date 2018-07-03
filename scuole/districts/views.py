@@ -4,11 +4,12 @@ from __future__ import absolute_import, unicode_literals
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView
 
-from .models import District, DistrictStats
+from scuole.counties.models import County, CountyCohorts
+from scuole.regions.models import Region, RegionCohorts
 from scuole.states.models import StateStats
 from scuole.stats.models import SchoolYear
-from scuole.regions.models import Region, RegionCohorts
-from scuole.counties.models import County, CountyCohorts
+
+from .models import District, DistrictStats
 
 
 class DistrictListView(ListView):

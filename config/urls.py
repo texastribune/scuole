@@ -19,12 +19,13 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
-from scuole.core.views import (AboutView, AcceptRedirectView, LandingView,
-                               LookupView, SearchView)
 from django.views import defaults as default_views
 
 from scuole.campuses.sitemaps import CampusSitemap
 from scuole.core.sitemaps import StaticSitemap
+from scuole.core.views import (
+    AboutView, AcceptRedirectView, LandingView, LookupView, SearchView,
+)
 from scuole.districts.sitemaps import DistrictSitemap
 from scuole.states.sitemaps import StateSitemap
 

@@ -4,12 +4,13 @@ from __future__ import absolute_import, unicode_literals
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView
 
-from .models import Campus, CampusStats
+from scuole.counties.models import County, CountyCohorts
 from scuole.districts.models import District, DistrictStats
+from scuole.regions.models import RegionCohorts
 from scuole.states.models import StateStats
 from scuole.stats.models import SchoolYear
-from scuole.counties.models import County, CountyCohorts
-from scuole.regions.models import RegionCohorts
+
+from .models import Campus, CampusStats
 
 
 class CampusDetailView(DetailView):

@@ -3,16 +3,17 @@ from __future__ import absolute_import, unicode_literals
 
 import string
 
-from localflavor.us.models import (
-    PhoneNumberField, USStateField, USZipCodeField)
-
 from django.contrib.gis.db import models
+from django.utils.translation import ugettext_lazy as _
+
+from localflavor.us.models import (
+    PhoneNumberField, USStateField, USZipCodeField,
+)
 
 from scuole.core.models import PersonnelBase
 from scuole.counties.models import County
 from scuole.districts.models import District
 from scuole.stats.models import ReferenceBase, SchoolYear, StatsBase
-from django.utils.translation import ugettext_lazy as _
 
 
 class Campus(models.Model):

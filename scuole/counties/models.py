@@ -3,11 +3,11 @@ from __future__ import absolute_import, unicode_literals
 
 from django.contrib.gis.db import models
 from django.utils.functional import cached_property
-
-from scuole.stats.models import SchoolYear
-from scuole.states.models import State
-from scuole.cohorts.models import CohortsBase
 from django.utils.translation import ugettext_lazy as _
+
+from scuole.cohorts.models import CohortsBase
+from scuole.states.models import State
+from scuole.stats.models import SchoolYear
 
 
 class County(models.Model):
