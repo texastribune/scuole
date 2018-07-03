@@ -123,3 +123,6 @@ data
 
 # Ignore the backups folder
 backups
+
+# vscode
+.vscode
