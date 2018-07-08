@@ -19,6 +19,14 @@ DEBUG = env('DJANGO_DEBUG', True)
 # This key should only be used for development and testing!
 SECRET_KEY = env('SECRET_KEY', 'this_is_my_development_key')
 
+######################
+# HOST CONFIGURATION #
+######################
+
+# https://docs.djangoproject.com/en/1.8/ref/settings/#allowed-hosts
+# https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
+ALLOWED_HOSTS = ['*']
+
 ##########################
 # DATABASE CONFIGURATION #
 ##########################
