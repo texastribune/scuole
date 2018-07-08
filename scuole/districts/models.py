@@ -87,6 +87,17 @@ class District(models.Model):
             return ''
 
     @property
+    def simple_shape(self):
+        """
+        Returns the district's shape with a bit of simplification so it's
+        smaller.
+        """
+        if not self.shape:
+            return None
+
+        return self.shape.simplify(0.0001, preserve_topology=True)
+
+    @property
     def campus_geojson(self):
         return serialize(
             'geojson', self.campuses.all(), fields=('name', 'coordinates'))
