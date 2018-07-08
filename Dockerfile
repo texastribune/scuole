@@ -21,14 +21,6 @@ RUN ["npm", "run", "build"]
 FROM python:3.6-alpine
 
 # Install the geo libs needed to interact with GeoDjango
-# RUN apt-get update && apt-get install -y --no-install-recommends \
-#   binutils \
-#   libproj-dev \
-#   gdal-bin \
-# && apt-get clean \
-# && rm -rf /var/lib/apt/lists/*
-
-# Install the geo libs needed to interact with GeoDjango
 RUN apk update && \
     apk upgrade && \
     apk add --no-cache \
