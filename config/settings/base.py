@@ -157,6 +157,12 @@ MIGRATION_MODULES = {
     'sites': 'scuole.core.sites_migrations',
 }
 
+############################
+# WHITENOISE CONFIGURATION #
+############################
+
+WHITENOISE_ROOT = path.join(APPS_DIR, 'assets', 'root')
+
 #########################
 # GENERAL CONFIGURATION #
 #########################
