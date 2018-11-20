@@ -1,4 +1,4 @@
-APP := scuole
+APP := scuole-two
 
 local/db-fetch:
 	aws --profile newsapps s3 cp s3://backups.texastribune.org/schools/schools-pg.dump backups/pg.dump
@@ -12,7 +12,7 @@ local/reset-db:
 	dropdb ${APP} --if-exists
 	createdb ${APP}
 	psql -d ${APP} -c 'CREATE EXTENSION postgis;'
-	python manage.py migrate
+	pipenv run python manage.py migrate
 
 data/create-superuser:
 	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | python manage.py shell --plain
