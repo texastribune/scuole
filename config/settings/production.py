@@ -16,9 +16,7 @@ DEBUG = env('DJANGO_DEBUG', False)
 ##########################
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-DATABASES = {
-    'default': dj_database_url.config()
-}
+DATABASES = {'default': dj_database_url.config()}
 
 # https://docs.djangoproject.com/en/1.8/topics/db/transactions/#tying-transactions-to-http-requests
 DATABASES['default']['ATOMIC_REQUESTS'] = True
@@ -32,11 +30,7 @@ DATABASES['default']['CONN_MAX_AGE'] = 60
 #######################
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#caches
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-    }
-}
+CACHES = {'default': {'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'}}
 
 ##########################
 # TEMPLATE CONFIGURATION #
@@ -49,10 +43,13 @@ TEMPLATES = [
         'DIRS': [path.join(APPS_DIR, 'templates')],
         'OPTIONS': {
             'loaders': [
-                ('django.template.loaders.cached.Loader', [
-                    'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                ])
+                (
+                    'django.template.loaders.cached.Loader',
+                    [
+                        'django.template.loaders.filesystem.Loader',
+                        'django.template.loaders.app_directories.Loader',
+                    ],
+                )
             ],
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -61,7 +58,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
-    },
+    }
 ]
 
 #############################
@@ -86,25 +83,17 @@ ALLOWED_HOSTS = ['.texastribune.org']
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
-    'root': {
-        'level': 'WARNING',
-        'handlers': ['sentry'],
-    },
     'formatters': {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(module)s '
-                      '%(process)d %(thread)d %(message)s'
-        },
+            '%(process)d %(thread)d %(message)s'
+        }
     },
     'handlers': {
-        'sentry': {
-            'level': 'ERROR',
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler'
-        },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
+            'formatter': 'verbose',
         }
     },
     'loggers': {
@@ -112,17 +101,7 @@ LOGGING = {
             'level': 'ERROR',
             'handlers': ['console'],
             'propagate': False,
-        },
-        'raven': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-        'sentry.errors': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-            'propagate': False,
-        },
+        }
     },
 }
 
@@ -160,15 +139,11 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SENTRY CONFIGURATION #
 ########################
 
-# https://getsentry.com/for/django/
-RAVEN_CONFIG = {
-    'dsn': env('SENTRY_DSN', 'None'),
-    'site': env('SENTRY_SITE', 'Public Schools')
-}
+# https://docs.sentry.io/platforms/python/django/
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
-INSTALLED_APPS = INSTALLED_APPS + (
-    'raven.contrib.django.raven_compat',
-)
+sentry_sdk.init(dsn=env('SENTRY_DSN', 'None'), integrations=[DjangoIntegration()])
 
 ############################
 # MIDDLEWARE CONFIGURATION #
