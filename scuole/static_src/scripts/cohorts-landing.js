@@ -1,59 +1,95 @@
 import './utils/cohortsNav';
-import zoomMap from './utils/zoomMap';
 
-import google from 'google';
+let map, nav, hoveredStateId;
+mapboxgl.accessToken =
+  'pk.eyJ1IjoidGV4YXN0cmlidW5lIiwiYSI6ImNqb3lxOXg4cTJsdm8zdHBpbTUyaG9sYXcifQ.HM6pBNV6vnvQBg7v4X5nFw';
 
 function initialize() {
   const tooltip = document.getElementById('map-tooltip');
-  const mapCanvas = document.getElementById('map-regions');
-
-  const mapOptions = {
-    zoom: 14,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    draggable: false,
-    scrollwheel: false,
-    fullscreenControl: false,
-  };
-
-  const map = new google.maps.Map(mapCanvas, mapOptions);
-  if (SHAPE) {
-    map.data.addGeoJson(SHAPE);
-  }
-
-  map.data.setStyle({
-    fillColor: '#C2C2C2',
-    fillOpacity: 0.3,
-    strokeWeight: 1,
+  SHAPE.features = SHAPE.features.map(d => {
+    d.id = d.properties['region_name_with_city'].split(' ')[1];
+    return d;
+  });
+  map = new mapboxgl.Map({
+    container: 'map-regions',
+    //style: 'mapbox://styles/texastribune/cj73zub8131we2so5cd7hxhci'
+    style: 'mapbox://styles/mapbox/light-v9',
+    //maxBounds: texasBounds,
+    center: [-99.1707, 31.3915],
+    zoom: 4,
   });
 
-  map.data.addListener('mouseover', event => {
-    const feature = event.feature;
+  map.setMaxBounds(map.getBounds());
 
-    tooltip.classList.add('map-tooltip--visible');
-    tooltip.textContent = feature.getProperty('region_name_with_city');
-    map.data.revertStyle();
-    map.data.overrideStyle(feature, { fillColor: '#9b9b9b', strokeWeight: 2 });
+  map.on('load', () => {
+    map.addSource('regions', {
+      type: 'geojson',
+      data: SHAPE,
+    });
+
+    map.addLayer({
+      id: 'region',
+      type: 'fill',
+      source: 'regions',
+      paint: {
+        'fill-color': '#C2C2C2',
+        'fill-opacity': [
+          'case',
+          ['boolean', ['feature-state', 'hover'], false],
+          1,
+          0.3,
+        ],
+        'fill-outline-color': '#000',
+      },
+    });
+
+    map.addLayer({
+      id: 'regionOutline',
+      type: 'line',
+      source: {
+        type: 'geojson',
+        data: SHAPE,
+      },
+      paint: {},
+    });
   });
 
-  map.data.addListener('mouseout', event => {
+  map.on('mousemove', 'region', function(e) {
+    if (e.features.length > 0) {
+      if (hoveredStateId) {
+        map.setFeatureState(
+          { source: 'regions', id: hoveredStateId },
+          { hover: false }
+        );
+      }
+      hoveredStateId = e.features[0].properties['region_name_with_city'].split(
+        ' '
+      )[1];
+      map.setFeatureState(
+        { source: 'regions', id: hoveredStateId },
+        { hover: true }
+      );
+
+      tooltip.classList.add('map-tooltip--visible');
+      tooltip.textContent = e.features[0].properties['region_name_with_city'];
+    }
+  });
+
+  map.on('mouseout', 'region', function(e) {
     tooltip.classList.remove('map-tooltip--visible');
     tooltip.textContent = '';
-    map.data.revertStyle();
+    map.setFeatureState(
+      { source: 'regions', id: hoveredStateId },
+      { hover: false }
+    );
   });
 
-  map.data.addListener('click', event => {
-    const feature = event.feature;
-    window.location.href = feature.getProperty('url');
-  });
-
-  zoomMap(map);
-
-  mapCanvas.addEventListener('click', () => {
-    map.setOptions({
-      draggable: true,
-      scrollwheel: true,
-    });
+  map.on('click', 'region', function(e) {
+    if (e.features.length > 0) {
+      console.log(e.features[0].properties.url);
+      window.location.href = e.features[0].properties.url;
+    }
   });
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+initialize();
