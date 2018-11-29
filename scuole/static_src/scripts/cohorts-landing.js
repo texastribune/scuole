@@ -86,7 +86,6 @@ function initialize() {
 
   map.on('click', 'region', function(e) {
     if (e.features.length > 0) {
-      console.log(e.features[0].properties.url);
       window.location.href = e.features[0].properties.url;
     }
   });

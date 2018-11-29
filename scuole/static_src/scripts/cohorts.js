@@ -71,9 +71,7 @@ const texasBounds = [[-106.645645, 25.837059], [-93.50782, 36.500454]];
 
 function initialize() {
   if (!SHAPE) return;
-  console.log(SHAPE);
   let coordinates = SHAPE.geometry.coordinates[0];
-  console.log(coordinates);
   const bounds = coordinates.reduce(function(bounds, coord) {
     return bounds.extend(coord);
   }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));

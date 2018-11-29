@@ -18,10 +18,7 @@ function initialize() {
     d.id = i;
     return d;
   });
-  console.log(COORDS);
   let coordinates = SHAPE.geometry.coordinates[0][0];
-  console.log(coordinates);
-  let i = 0;
   const bounds = coordinates.reduce(function(bounds, coord) {
     return bounds.extend(coord);
   }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
@@ -88,7 +85,6 @@ function initialize() {
 
     map.on('mousemove', 'school', function(e) {
       if (e.features.length > 0) {
-        //console.log(e.features[0].properties['name'].replace(/\s+/g, '-'))
         if (hoveredStateId) {
           map.setFeatureState(
             { source: 'schools', id: hoveredStateId },
@@ -96,7 +92,6 @@ function initialize() {
           );
         }
         hoveredStateId = e.features[0].id;
-        console.log(hoveredStateId);
         map.setFeatureState(
           { source: 'schools', id: hoveredStateId },
           { hover: true }
@@ -117,11 +112,7 @@ function initialize() {
     });
 
     map.on('click', 'school', function(e) {
-      console.log('click!!!');
       if (e.features.length > 0) {
-        console.log(
-          e.features[0].properties.name.toLowerCase().replace(/\s+/g, '-')
-        );
         window.location.href = e.features[0].properties.name
           .toLowerCase()
           .replace(/\s+/g, '-');

@@ -19,35 +19,6 @@ function initialize() {
     zoom: 13,
   });
   marker = new mapboxgl.Marker().setLngLat(COORDS.coordinates).addTo(map);
-  // var mapCanvas = document.getElementById('map-campus');
-  // var latlng = new google.maps.LatLng(
-  //   COORDS.coordinates[1],
-  //   COORDS.coordinates[0]
-  // );
-
-  // console.log(COORDS)
-  // var mapOptions = {
-  //   center: latlng,
-  //   zoom: 14,
-  //   mapTypeId: google.maps.MapTypeId.ROADMAP,
-  //   draggable: false,
-  //   scrollwheel: false,
-  // };
-
-  // var map = new google.maps.Map(mapCanvas, mapOptions);
-
-  // new google.maps.Marker({
-  //   map: map,
-  //   animation: google.maps.Animation.DROP,
-  //   position: latlng,
-  // });
-
-  // mapCanvas.addEventListener('click', () => {
-  //   map.setOptions({
-  //     draggable: true,
-  //     scrollwheel: true,
-  //   });
-  // });
 }
 
 initialize();
