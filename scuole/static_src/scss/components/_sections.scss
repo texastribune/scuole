@@ -11,6 +11,7 @@
 }
 
 .contact-block {
+	position: relative;
   @include create-column(12);
 
   @include mq($from: tablet) {

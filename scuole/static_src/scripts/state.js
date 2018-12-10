@@ -8,7 +8,7 @@ import './utils/reminderBar';
 let map, nav;
 mapboxgl.accessToken =
   'pk.eyJ1IjoidGV4YXN0cmlidW5lIiwiYSI6ImNqb3lxOXg4cTJsdm8zdHBpbTUyaG9sYXcifQ.HM6pBNV6vnvQBg7v4X5nFw';
-const usBounds = [[-171.791110603, 18.91619], [-66.96466, 71.3577635769]];
+//const usBounds = [[-171.791110603, 18.91619], [-66.96466, 71.3577635769]];
 
 function initialize() {
   const features = SHAPE.geometry.coordinates.map(d => d[0]);
@@ -26,7 +26,6 @@ function initialize() {
     style: 'mapbox://styles/mapbox/light-v9',
     // center: [-99.9018, 31.9686],
     // zoom: 3.7
-    maxBounds: usBounds,
   });
 
   map.fitBounds(bounds, {

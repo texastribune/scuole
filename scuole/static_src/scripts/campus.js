@@ -13,7 +13,7 @@ function initialize() {
   map = new mapboxgl.Map({
     container: 'map-campus',
     //style: 'mapbox://styles/texastribune/cj73zub8131we2so5cd7hxhci'
-    style: 'mapbox://styles/mapbox/streets-v9',
+    style: 'mapbox://styles/mapbox/light-v9',
     maxBounds: texasBounds,
     center: COORDS.coordinates,
     zoom: 13,

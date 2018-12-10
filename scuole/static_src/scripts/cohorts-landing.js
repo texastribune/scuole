@@ -55,7 +55,14 @@ function initialize() {
   });
 
   map.on('mousemove', 'region', function(e) {
+    map.getCanvas().style.cursor = 'pointer';
     if (e.features.length > 0) {
+      const { clientX, clientY } = e.originalEvent;
+      const { left, top } = document
+        .getElementById('map-regions')
+        .getBoundingClientRect();
+      const leftOffset = clientX - left;
+      const topOffset = clientY - top;
       if (hoveredStateId) {
         map.setFeatureState(
           { source: 'regions', id: hoveredStateId },
@@ -72,6 +79,10 @@ function initialize() {
 
       tooltip.classList.add('map-tooltip--visible');
       tooltip.textContent = e.features[0].properties['region_name_with_city'];
+      const { width } = tooltip.getBoundingClientRect();
+      console.log(width);
+      tooltip.style.left = `${leftOffset - width / 2}px`;
+      tooltip.style.top = `${topOffset + 20}px`;
     }
   });
 
@@ -82,6 +93,7 @@ function initialize() {
       { source: 'regions', id: hoveredStateId },
       { hover: false }
     );
+    map.getCanvas().style.cursor = '';
   });
 
   map.on('click', 'region', function(e) {

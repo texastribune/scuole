@@ -1,14 +1,17 @@
 .map {
   background-color: $color-gray;
-  height: 100px;
   margin-bottom: $gutter;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
 
   @include mq($from: tablet) {
-    height: 200px;
+    //height: 200px;
   }
+}
+
+#map-campus {
+  height: 250px;
 }
 
 .map--district {
@@ -16,7 +19,7 @@
 }
 
 .map--state {
-  height: 300px;
+  height: 250px;
 }
 
 .map--full-region {
