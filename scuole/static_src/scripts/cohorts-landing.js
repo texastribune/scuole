@@ -63,7 +63,7 @@ function initialize() {
         .getBoundingClientRect();
       const leftOffset = clientX - left;
       const topOffset = clientY - top;
-      if (hoveredStateId) {
+      if (hoveredStateId != null) {
         map.setFeatureState(
           { source: 'regions', id: hoveredStateId },
           { hover: false }

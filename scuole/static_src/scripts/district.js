@@ -105,7 +105,7 @@ function initialize() {
         const leftOffset = clientX - left;
         const topOffset = clientY - top;
 
-        if (hoveredStateId) {
+        if (hoveredStateId != null) {
           map.setFeatureState(
             { source: 'schools', id: hoveredStateId },
             { hover: false }
@@ -136,11 +136,10 @@ function initialize() {
     });
 
     map.on('click', 'school', function(e) {
+      console.log(e.features[0].properties);
       console.log(e.features[0].properties.name);
       if (e.features.length > 0) {
-        window.location.href = e.features[0].properties.name
-          .toLowerCase()
-          .replace(/\s+/g, '-');
+        window.location.href = e.features[0].properties.slug;
       }
     });
   });
