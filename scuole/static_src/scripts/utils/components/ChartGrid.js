@@ -21,7 +21,7 @@ function BlankChart({ width }) {
 
 export default class ChartGrid extends Component {
   render({ title, chartData = [] }) {
-    let legendShouldRender = chartData.some((c, i) => {
+    const legendShouldRender = chartData.some((c, i) => {
       if (
         c.data &&
         c.data.some(d => d.percent_graduated) &&
@@ -78,7 +78,6 @@ export default class ChartGrid extends Component {
         <div class="chart-grid">
           {legendShouldRender &&
             chartData.map((c, i) => {
-              console.log(c);
               return (
                 c.data.length > 3 && (
                   <div class="chart-container">
