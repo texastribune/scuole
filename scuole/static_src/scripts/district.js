@@ -136,6 +136,7 @@ function initialize() {
     });
 
     map.on('click', 'school', function(e) {
+      console.log(e.features[0].properties.name);
       if (e.features.length > 0) {
         window.location.href = e.features[0].properties.name
           .toLowerCase()
