@@ -67,7 +67,6 @@ render(
 let map, nav;
 mapboxgl.accessToken =
   'pk.eyJ1IjoidGV4YXN0cmlidW5lIiwiYSI6ImNqb3lxOXg4cTJsdm8zdHBpbTUyaG9sYXcifQ.HM6pBNV6vnvQBg7v4X5nFw';
-const texasBounds = [[-106.645645, 25.837059], [-93.50782, 36.500454]];
 
 function initialize() {
   if (!SHAPE) return;
@@ -77,12 +76,14 @@ function initialize() {
   }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
   map = new mapboxgl.Map({
     container: 'map-container',
-    //style: 'mapbox://styles/texastribune/cj73zub8131we2so5cd7hxhci'
     style: 'mapbox://styles/mapbox/light-v9',
-    maxBounds: texasBounds,
   });
+
+  nav = new mapboxgl.NavigationControl({ showCompass: false });
+  map.addControl(nav, 'top-right');
+
   map.fitBounds(bounds, {
-    padding: 40,
+    padding: 20,
   });
 
   map.on('load', () => {

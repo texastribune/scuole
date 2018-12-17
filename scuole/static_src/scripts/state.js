@@ -28,6 +28,9 @@ function initialize() {
     // zoom: 3.7
   });
 
+  nav = new mapboxgl.NavigationControl({ showCompass: false });
+  map.addControl(nav, 'top-right');
+
   map.fitBounds(bounds, {
     padding: 40,
   });

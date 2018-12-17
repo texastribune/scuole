@@ -9,15 +9,17 @@ mapboxgl.accessToken =
 const texasBounds = [[-106.645645, 25.837059], [-93.50782, 36.500454]];
 
 function initialize() {
-  console.log(COORDS);
   map = new mapboxgl.Map({
     container: 'map-campus',
-    //style: 'mapbox://styles/texastribune/cj73zub8131we2so5cd7hxhci'
     style: 'mapbox://styles/mapbox/light-v9',
     maxBounds: texasBounds,
     center: COORDS.coordinates,
-    zoom: 13,
+    zoom: 12,
   });
+
+  nav = new mapboxgl.NavigationControl({ showCompass: false });
+  map.addControl(nav, 'top-right');
+
   marker = new mapboxgl.Marker().setLngLat(COORDS.coordinates).addTo(map);
 }
 

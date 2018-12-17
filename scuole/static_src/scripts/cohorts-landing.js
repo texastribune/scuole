@@ -12,12 +12,12 @@ function initialize() {
   });
   map = new mapboxgl.Map({
     container: 'map-regions',
-    //style: 'mapbox://styles/texastribune/cj73zub8131we2so5cd7hxhci'
     style: 'mapbox://styles/mapbox/light-v9',
-    //maxBounds: texasBounds,
-    center: [-99.1707, 31.3915],
-    zoom: 4,
+    center: [-99.9018, 31.3915],
+    zoom: 4.25,
   });
+  nav = new mapboxgl.NavigationControl({ showCompass: false });
+  map.addControl(nav, 'top-right');
 
   map.setMaxBounds(map.getBounds());
 
@@ -80,7 +80,6 @@ function initialize() {
       tooltip.classList.add('map-tooltip--visible');
       tooltip.textContent = e.features[0].properties['region_name_with_city'];
       const { width } = tooltip.getBoundingClientRect();
-      console.log(width);
       tooltip.style.left = `${leftOffset - width / 2}px`;
       tooltip.style.top = `${topOffset + 20}px`;
     }
