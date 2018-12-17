@@ -29,8 +29,6 @@
     "desandro-classie": "^1.0.1",
     "fs": "0.0.1-security",
     "lodash": "^3.10.1",
-    "mapbox": "^1.0.0-beta10",
-    "mapbox-gl": "^0.51.0",
     "preact": "^8.2.1",
     "reqwest": "^2.0.5",
     "sass-mq": "^3.2.4",
