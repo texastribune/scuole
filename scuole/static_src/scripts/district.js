@@ -139,7 +139,9 @@ function initialize() {
       console.log(e.features[0].properties);
       console.log(e.features[0].properties.name);
       if (e.features.length > 0) {
-        window.location.href = e.features[0].properties.slug;
+        window.location.href = `${window.location.href}${
+          e.features[0].properties.slug
+        }`;
       }
     });
   });

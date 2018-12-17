@@ -21,7 +21,7 @@ function BlankChart({ width }) {
 
 export default class ChartGrid extends Component {
   render({ title, chartData = [] }) {
-    const legendShouldRender = chartData.some((c, i) => {
+    let legendShouldRender = chartData.some((c, i) => {
       if (
         c.data &&
         c.data.some(d => d.percent_graduated) &&
@@ -46,12 +46,15 @@ export default class ChartGrid extends Component {
         ...chartData.map(({ data }) => data.map(d => d.percent_graduated))
       )
     );
-
-    const year = last(chartData[0].data).year;
-
+    let year;
+    if (chartData[0].data.length == 0) {
+      year = last(chartData[1].data).year;
+    } else {
+      year = last(chartData[0].data).year;
+    }
     return (
       <div class="chart-block">
-        {legendShouldRender &&
+        {legendShouldRender && (
           <div class="legend-block">
             <h3 class="page-section-subheader">
               Class outcomes by {title} over time, 1997-{year}
@@ -69,29 +72,30 @@ export default class ChartGrid extends Component {
                 completed college
               </div>
             </div>
-          </div>}
+          </div>
+        )}
 
         <div class="chart-grid">
           {legendShouldRender &&
             chartData.map((c, i) => {
+              console.log(c);
               return (
-                c.data.length > 3 &&
-                <div class="chart-container">
-                  <h3 class="page-section-subheader-cohort">
-                    {c.title}
-                  </h3>
-                  <ResponsiveContainer>
-                    <Chart
-                      data={c.data}
-                      xField="year"
-                      yField="percent_graduated"
-                      yField2="percent_enrolled_higher_education"
-                      yField3="percent_completed_higher_education"
-                      yMax={yMax}
-                      margins={{ left: 40 }}
-                    />
-                  </ResponsiveContainer>
-                </div>
+                c.data.length > 3 && (
+                  <div class="chart-container">
+                    <h3 class="page-section-subheader-cohort">{c.title}</h3>
+                    <ResponsiveContainer>
+                      <Chart
+                        data={c.data}
+                        xField="year"
+                        yField="percent_graduated"
+                        yField2="percent_enrolled_higher_education"
+                        yField3="percent_completed_higher_education"
+                        yMax={yMax}
+                        margins={{ left: 40 }}
+                      />
+                    </ResponsiveContainer>
+                  </div>
+                )
               );
             })}
         </div>

@@ -71,7 +71,9 @@ mapboxgl.accessToken =
 function initialize() {
   if (!SHAPE) return;
   let coordinates = SHAPE.geometry.coordinates[0];
-  if (coordinates.length == 1) {
+  console.log(coordinates);
+  if (coordinates.length == 1 || coordinates.length == 3) {
+    //BEAUMOUNT OR TEXAS
     coordinates = coordinates[0];
   }
   const bounds = coordinates.reduce(function(bounds, coord) {
