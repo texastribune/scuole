@@ -5,6 +5,10 @@
 {% block title %}{{ county.name_full_cohorts }}{% endblock title %}
 {% block parsely_title %}{{ county.name_full_cohorts }}{% endblock parsely_title %}
 
+{% block extra_head %}
+{% include "includes/mapbox.html" %}
+{% endblock extra_head %}
+
 {% block extra_content %}
 {% include "includes/reminder_bar.html" with title=county.name_full_cohorts %}
 {% endblock extra_content %}
