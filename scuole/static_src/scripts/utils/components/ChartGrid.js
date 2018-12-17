@@ -46,12 +46,13 @@ export default class ChartGrid extends Component {
         ...chartData.map(({ data }) => data.map(d => d.percent_graduated))
       )
     );
-    let year;
-    if (chartData[0].data.length == 0) {
-      year = last(chartData[1].data).year;
-    } else {
-      year = last(chartData[0].data).year;
-    }
+
+    let year = Math.max(
+      ...chartData
+        .map(d => d.data.length != 0 && last(d.data).year)
+        .filter(d => d != false)
+    );
+
     return (
       <div class="chart-block">
         {legendShouldRender && (
