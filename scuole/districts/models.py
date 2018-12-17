@@ -7,9 +7,7 @@ from django.contrib.gis.db import models
 from django.core.serializers import serialize
 from django.utils.translation import ugettext_lazy as _
 
-from localflavor.us.models import (
-    PhoneNumberField, USStateField, USZipCodeField,
-)
+from localflavor.us.models import PhoneNumberField, USStateField, USZipCodeField
 
 from scuole.core.models import PersonnelBase
 from scuole.counties.models import County
@@ -23,16 +21,16 @@ class District(models.Model):
     # TEA - STID
     tea_id = models.CharField(_('TEA district identifier'), max_length=6)
     phone_number = PhoneNumberField(
-        _('District phone number'), max_length=20, null=True)
+        _('District phone number'), max_length=20, null=True
+    )
     phone_number_extension = models.CharField(
-        _('Phone number extension'), max_length=4, blank=True, default='')
-    website = models.URLField(
-        _('District website'), blank=True, default='')
+        _('Phone number extension'), max_length=4, blank=True, default=''
+    )
+    website = models.URLField(_('District website'), blank=True, default='')
     charter = models.BooleanField(_('Charter status'), default=False)
     street = models.CharField(_('District street'), max_length=200)
     city = models.CharField(_('District office city'), max_length=100)
-    state = USStateField(
-        _('District office abbreviated state location'), max_length=2)
+    state = USStateField(_('District office abbreviated state location'), max_length=2)
     zip_code = USZipCodeField(_('District ZIP Code'))
     region = models.ForeignKey(
         Region,
@@ -58,8 +56,8 @@ class District(models.Model):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('districts:detail', kwargs={
-            'district_slug': self.slug, })
+
+        return reverse('districts:detail', kwargs={'district_slug': self.slug})
 
     @property
     def city_display(self):
@@ -72,8 +70,8 @@ class District(models.Model):
     def location(self):
         if self.city and self.state:
             return '{city}, {state}'.format(
-                city=string.capwords(self.city),
-                state=self.state)
+                city=string.capwords(self.city), state=self.state
+            )
         else:
             return ''
 
@@ -81,8 +79,8 @@ class District(models.Model):
     def location_full(self):
         if self.city and self.state:
             return '{city}, {state}'.format(
-                city=string.capwords(self.city),
-                state=self.get_state_display())
+                city=string.capwords(self.city), state=self.get_state_display()
+            )
         else:
             return ''
 
@@ -100,7 +98,8 @@ class District(models.Model):
     @property
     def campus_geojson(self):
         return serialize(
-            'geojson', self.campuses.all(), fields=('name', 'coordinates'))
+            'geojson', self.campuses.all(), fields=('name', 'coordinates', 'slug')
+        )
 
     @property
     def nearby_districts(self):
@@ -112,18 +111,14 @@ class District(models.Model):
 
 class DistrictStats(StatsBase, ReferenceBase):
     district = models.ForeignKey(
-        District,
-        on_delete=models.CASCADE,
-        related_name='stats',
+        District, on_delete=models.CASCADE, related_name='stats'
     )
     year = models.ForeignKey(
-        SchoolYear,
-        on_delete=models.CASCADE,
-        related_name='district_stats',
+        SchoolYear, on_delete=models.CASCADE, related_name='district_stats'
     )
 
     class Meta:
-        unique_together = ('district', 'year',)
+        unique_together = ('district', 'year')
         verbose_name_plural = _('District stats')
 
     def __str__(self):
@@ -132,9 +127,7 @@ class DistrictStats(StatsBase, ReferenceBase):
 
 class Superintendent(PersonnelBase):
     district = models.OneToOneField(
-        District,
-        on_delete=models.CASCADE,
-        related_name='superintendent_of',
+        District, on_delete=models.CASCADE, related_name='superintendent_of'
     )
 
     def __str__(self):
