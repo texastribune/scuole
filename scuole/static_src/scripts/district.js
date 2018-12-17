@@ -27,6 +27,8 @@ function initialize() {
     map = new mapboxgl.Map({
       container: 'map-district',
       style: 'mapbox://styles/mapbox/light-v9',
+      center: [-99.9018, 31.3915],
+      zoom: 4.25,
     });
 
     map.fitBounds(bounds, {

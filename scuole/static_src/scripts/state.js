@@ -24,16 +24,16 @@ function initialize() {
     container: 'map-state',
     //style: 'mapbox://styles/texastribune/cj73zub8131we2so5cd7hxhci'
     style: 'mapbox://styles/mapbox/light-v9',
-    // center: [-99.9018, 31.9686],
-    // zoom: 3.7
+    center: [-99.9018, 31.3915],
+    zoom: 3.5,
   });
 
   nav = new mapboxgl.NavigationControl({ showCompass: false });
   map.addControl(nav, 'top-right');
 
-  map.fitBounds(bounds, {
-    padding: 40,
-  });
+  // map.fitBounds(bounds, {
+  //   padding: 40,
+  // });
   map.on('load', () => {
     map.addLayer({
       id: 'state',

@@ -71,12 +71,17 @@ mapboxgl.accessToken =
 function initialize() {
   if (!SHAPE) return;
   let coordinates = SHAPE.geometry.coordinates[0];
+  if (coordinates.length == 1) {
+    coordinates = coordinates[0];
+  }
   const bounds = coordinates.reduce(function(bounds, coord) {
     return bounds.extend(coord);
   }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
   map = new mapboxgl.Map({
     container: 'map-container',
     style: 'mapbox://styles/mapbox/light-v9',
+    center: [-99.9018, 31.3915],
+    zoom: 4.25,
   });
 
   nav = new mapboxgl.NavigationControl({ showCompass: false });

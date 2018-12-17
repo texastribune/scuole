@@ -19,7 +19,7 @@ function initialize() {
   nav = new mapboxgl.NavigationControl({ showCompass: false });
   map.addControl(nav, 'top-right');
 
-  map.setMaxBounds(map.getBounds());
+  // map.setMaxBounds(map.getBounds());
 
   map.on('load', () => {
     map.addSource('regions', {
