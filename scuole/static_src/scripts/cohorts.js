@@ -6,6 +6,7 @@ import './utils/reminderBar';
 
 import { h, render } from 'preact';
 import ChartGrid from './utils/components/ChartGrid';
+import bbox from '@turf/bbox';
 
 const data = window.data;
 
@@ -69,16 +70,19 @@ mapboxgl.accessToken =
   'pk.eyJ1IjoidGV4YXN0cmlidW5lIiwiYSI6ImNqb3lxOXg4cTJsdm8zdHBpbTUyaG9sYXcifQ.HM6pBNV6vnvQBg7v4X5nFw';
 
 function initialize() {
+  console.log(SHAPE);
   if (!SHAPE) return;
-  let coordinates = SHAPE.geometry.coordinates[0];
-  console.log(coordinates);
-  if (coordinates.length == 1 || coordinates.length == 3) {
-    //BEAUMOUNT OR TEXAS
-    coordinates = coordinates[0];
-  }
-  const bounds = coordinates.reduce(function(bounds, coord) {
-    return bounds.extend(coord);
-  }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+  // let coordinates = SHAPE.geometry.coordinates[0];
+  // console.log(coordinates);
+  // if (coordinates.length == 1 || coordinates.length == 3) {
+  //   //BEAUMOUNT OR TEXAS
+  //   coordinates = coordinates[0];
+  // }
+  // const bounds = coordinates.reduce(function(bounds, coord) {
+  //   return bounds.extend(coord);
+  // }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+  const bounds = bbox(SHAPE);
+
   map = new mapboxgl.Map({
     container: 'map-container',
     style: 'mapbox://styles/mapbox/light-v9',

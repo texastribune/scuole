@@ -6,6 +6,7 @@
 import './utils/campusList';
 import './utils/metricNavs';
 import './utils/reminderBar';
+import bbox from '@turf/bbox';
 
 let map, nav, hoveredStateId;
 mapboxgl.accessToken =
@@ -20,10 +21,11 @@ function initialize() {
 
   let geometry = SHAPE.geometry;
   if (geometry) {
-    const coordinates = geometry.coordinates[0][0];
-    const bounds = coordinates.reduce(function(bounds, coord) {
-      return bounds.extend(coord);
-    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+    const bounds = bbox(SHAPE);
+    //const coordinates = geometry.coordinates[0][0];
+    // const bounds = coordinates.reduce(function(bounds, coord) {
+    //   return bounds.extend(coord);
+    // }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
     map = new mapboxgl.Map({
       container: 'map-district',
       style: 'mapbox://styles/mapbox/light-v9',
