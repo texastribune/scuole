@@ -28,7 +28,6 @@
     "d3-scale": "^1.0.6",
     "d3-shape": "^1.2.0",
     "desandro-classie": "^1.0.1",
-    "fs": "0.0.1-security",
     "lodash": "^3.10.1",
     "preact": "^8.2.1",
     "reqwest": "^2.0.5",
