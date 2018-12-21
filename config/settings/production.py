@@ -9,28 +9,28 @@ from .base import *
 #######################
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DEBUG
-DEBUG = env('DJANGO_DEBUG', False)
+DEBUG = env("DJANGO_DEBUG", False)
 
 ##########################
 # DATABASE CONFIGURATION #
 ##########################
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-DATABASES = {'default': dj_database_url.config()}
+DATABASES = {"default": dj_database_url.config()}
 
 # https://docs.djangoproject.com/en/1.8/topics/db/transactions/#tying-transactions-to-http-requests
-DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # https://docs.djangoproject.com/en/1.9/ref/databases/#persistent-connections
 # https://docs.djangoproject.com/en/1.9/ref/settings/#std:setting-CONN_MAX_AGE
-DATABASES['default']['CONN_MAX_AGE'] = 60
+DATABASES["default"]["CONN_MAX_AGE"] = 60
 
 #######################
 # CACHE CONFIGURATION #
 #######################
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#caches
-CACHES = {'default': {'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'}}
+CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
 
 ##########################
 # TEMPLATE CONFIGURATION #
@@ -39,23 +39,23 @@ CACHES = {'default': {'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-TEMPLATES
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [path.join(APPS_DIR, 'templates')],
-        'OPTIONS': {
-            'loaders': [
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [path.join(APPS_DIR, "templates")],
+        "OPTIONS": {
+            "loaders": [
                 (
-                    'django.template.loaders.cached.Loader',
+                    "django.template.loaders.cached.Loader",
                     [
-                        'django.template.loaders.filesystem.Loader',
-                        'django.template.loaders.app_directories.Loader',
+                        "django.template.loaders.filesystem.Loader",
+                        "django.template.loaders.app_directories.Loader",
                     ],
                 )
             ],
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     }
@@ -66,7 +66,7 @@ TEMPLATES = [
 #############################
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#staticfiles-storage
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 ######################
 # HOST CONFIGURATION #
@@ -74,33 +74,33 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#allowed-hosts
 # https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
-ALLOWED_HOSTS = ['.texastribune.org']
+ALLOWED_HOSTS = [".texastribune.org"]
 
 #########################
 # LOGGING CONFIGURATION #
 #########################
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s '
-            '%(process)d %(thread)d %(message)s'
+    "version": 1,
+    "disable_existing_loggers": True,
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(asctime)s %(module)s "
+            "%(process)d %(thread)d %(message)s"
         }
     },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose',
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
         }
     },
-    'loggers': {
-        'django.db.backends': {
-            'level': 'ERROR',
-            'handlers': ['console'],
-            'propagate': False,
+    "loggers": {
+        "django.db.backends": {
+            "level": "ERROR",
+            "handlers": ["console"],
+            "propagate": False,
         }
     },
 }
@@ -111,7 +111,7 @@ LOGGING = {
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#secret-key
 # This key should only be used for development and testing!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env("SECRET_KEY")
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#secure-content-type-nosniff
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -129,10 +129,10 @@ CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#x-frame-options
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = "DENY"
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#secure-proxy-ssl-header
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
 ########################
@@ -143,10 +143,10 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-sentry_sdk.init(dsn=env('SENTRY_DSN', 'None'), integrations=[DjangoIntegration()])
+sentry_sdk.init(dsn=env("SENTRY_DSN", "None"), integrations=[DjangoIntegration()])
 
 ############################
 # MIDDLEWARE CONFIGURATION #
 ############################
 
-MIDDLEWARE += ('whitenoise.middleware.WhiteNoiseMiddleware',)
+MIDDLEWARE += ("whitenoise.middleware.WhiteNoiseMiddleware",)
