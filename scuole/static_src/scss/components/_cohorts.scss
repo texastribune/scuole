@@ -146,18 +146,23 @@
 }
 
 .map-tooltip {
-  background-color: transparentize($color-white, 0.1);
+  text-align: left;
   display: none;
   font-family: $font-sans-serif;
   font-size: .875rem;
   padding: $gutter-quarter $gutter-half;
+  border: 1px solid rgba(193, 193, 193, 0.8);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+  background: rgba(255,255,255,0.9);
   position: absolute;
-  right: $gutter-half;
-  top: $gutter-half;
+  // right: $gutter-half;
+  // top: $gutter-half;
+  z-index: 10000000;
+  pointer-events: none;
 }
 
 .map-tooltip--visible {
-  display: block;
+  display: inline-block;
 }
 
 .blank-chart {

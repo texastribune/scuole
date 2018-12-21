@@ -5,6 +5,10 @@
 {% block title %}Texas{% endblock title %}
 {% block parsely_title %}Texas{% endblock parsely_title %}
 
+{% block extra_head %}
+{% include "includes/mapbox.html" %}
+{% endblock extra_head %}
+
 {% block extra_content %}
 {% include "includes/reminder_bar.html" with title=state.get_name_display %}
 {% endblock extra_content %}
@@ -127,6 +131,5 @@
 
 {% block data_script %}
 {{ block.super }}
-<script>window.SHAPE = {"type": "Feature", "geometry": {{ state.shape_simple.geojson|safe|default:'null' }}};</script>
-</script>
+{{ state.as_geojson|json_script:"shape" }}
 {% endblock data_script %}

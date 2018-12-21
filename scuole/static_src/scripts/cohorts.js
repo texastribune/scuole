@@ -3,9 +3,7 @@
 import './utils/cohortsNav';
 import './utils/metricNavs';
 import './utils/reminderBar';
-
-import google from 'google';
-import zoomMap from './utils/zoomMap';
+import loadJsonScript from './utils/loadJsonScript';
 
 import { h, render } from 'preact';
 import ChartGrid from './utils/components/ChartGrid';
@@ -67,49 +65,48 @@ render(
   <ChartGrid title="economic status" chartData={economicData} />,
   document.getElementById('economic-status-charts')
 );
+let map, nav;
+mapboxgl.accessToken =
+  'pk.eyJ1IjoidGV4YXN0cmlidW5lIiwiYSI6ImNqb3lxOXg4cTJsdm8zdHBpbTUyaG9sYXcifQ.HM6pBNV6vnvQBg7v4X5nFw';
 
 function initialize() {
-  if (!SHAPE) return;
+  const SHAPE = loadJsonScript('shape');
 
-  const mapCanvas = document.getElementById('map-container');
-
-  const mapOptions = {
-    zoom: 6,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    draggable: false,
-    scrollwheel: false,
-  };
-
-  const map = new google.maps.Map(mapCanvas, mapOptions);
-  if (SHAPE.geometry) {
-    map.data.addGeoJson(SHAPE);
-  }
-
-  map.data.setStyle({
-    fillColor: '#C2C2C2',
-    fillOpacity: 0.3,
-    strokeWeight: 1,
-    icon: {
-      path: google.maps.SymbolPath.CIRCLE,
-      scale: 3,
-      fillColor: '#09B6AE',
-      fillOpacity: 0.8,
-      strokeWeight: 1,
-    },
+  map = new mapboxgl.Map({
+    container: 'map-container',
+    style: 'mapbox://styles/mapbox/light-v9',
   });
 
-  zoomMap(map);
+  map.fitBounds(SHAPE.bbox, { duration: 0, padding: 30 });
 
-  const mapClicker = () => {
-    map.setOptions({
-      draggable: true,
-      scrollwheel: true,
+  nav = new mapboxgl.NavigationControl({ showCompass: false });
+  map.addControl(nav, 'top-right');
+
+  map.on('load', () => {
+    map.addLayer({
+      id: 'region',
+      type: 'fill',
+      source: {
+        type: 'geojson',
+        data: SHAPE,
+      },
+      paint: {
+        'fill-color': '#C2C2C2',
+        'fill-opacity': 0.3,
+        'fill-outline-color': '#000',
+      },
     });
 
-    mapCanvas.removeEventListener('click', mapClicker, false);
-  };
-
-  mapCanvas.addEventListener('click', mapClicker, false);
+    map.addLayer({
+      id: 'regionOutline',
+      type: 'line',
+      source: {
+        type: 'geojson',
+        data: SHAPE,
+      },
+      paint: {},
+    });
+  });
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+initialize();

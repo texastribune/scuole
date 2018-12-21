@@ -5,6 +5,10 @@
 {% block title %}{{ state.get_name_display }}{% endblock title %}
 {% block parsely_title %}{{ state.get_name_display }}{% endblock parsely_title %}
 
+{% block extra_head %}
+{% include "includes/mapbox.html" %}
+{% endblock extra_head %}
+
 {% block extra_content %}
 {% include "includes/reminder_bar.html" with title=state.get_name_display year=stat.year.name %}
 {% endblock extra_content %}
@@ -79,6 +83,6 @@
 
 {% block extra_script %}
 {{ block.super }}
-<script>SHAPE = {"type": "Feature", "geometry": {{ state.shape.geojson|safe|default:'null' }}};</script>
+{{ state.as_geojson|json_script:"shape" }}
 <script src="{% static 'scripts/state.js' %}"></script>
 {% endblock extra_script %}

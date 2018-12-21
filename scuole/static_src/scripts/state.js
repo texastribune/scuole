@@ -1,47 +1,49 @@
-/* global SHAPE */
-
-import google from 'google';
-import zoomMap from './utils/zoomMap';
-
 import './utils/metricNavs';
 import './utils/reminderBar';
+import loadJsonScript from './utils/loadJsonScript';
+
+let map, nav;
+mapboxgl.accessToken =
+  'pk.eyJ1IjoidGV4YXN0cmlidW5lIiwiYSI6ImNqb3lxOXg4cTJsdm8zdHBpbTUyaG9sYXcifQ.HM6pBNV6vnvQBg7v4X5nFw';
 
 function initialize() {
-  let mapCanvas = document.getElementById('map-state');
+  const SHAPE = loadJsonScript('shape');
 
-  let mapOptions = {
-    zoom: 6,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    draggable: false,
-    scrollwheel: false,
-  };
-
-  let map = new google.maps.Map(mapCanvas, mapOptions);
-  if (SHAPE.geometry) {
-    map.data.addGeoJson(SHAPE);
-  }
-
-  map.data.setStyle({
-    fillColor: '#C2C2C2',
-    fillOpacity: 0.3,
-    strokeWeight: 1,
-    icon: {
-      path: google.maps.SymbolPath.CIRCLE,
-      scale: 3,
-      fillColor: '#09B6AE',
-      fillOpacity: 0.8,
-      strokeWeight: 1,
-    },
+  map = new mapboxgl.Map({
+    container: 'map-state',
+    style: 'mapbox://styles/mapbox/light-v9',
   });
 
-  zoomMap(map);
+  map.fitBounds(SHAPE.bbox, { duration: 0, padding: 30 });
 
-  mapCanvas.addEventListener('click', () => {
-    map.setOptions({
-      draggable: true,
-      scrollwheel: true,
+  nav = new mapboxgl.NavigationControl({ showCompass: false });
+  map.addControl(nav, 'top-right');
+
+  map.on('load', () => {
+    map.addLayer({
+      id: 'state',
+      type: 'fill',
+      source: {
+        type: 'geojson',
+        data: SHAPE,
+      },
+      paint: {
+        'fill-color': '#C2C2C2',
+        'fill-opacity': 0.3,
+        'fill-outline-color': '#000',
+      },
+    });
+
+    map.addLayer({
+      id: 'stateOutline',
+      type: 'line',
+      source: {
+        type: 'geojson',
+        data: SHAPE,
+      },
+      paint: {},
     });
   });
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+initialize();

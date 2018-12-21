@@ -1,7 +1,7 @@
-APP := scuole-two
+APP := scuole
 
 local/db-fetch:
-	aws --profile newsapps s3 cp s3://backups.texastribune.org/schools/schools-pg.dump backups/pg.dump
+	aws s3 cp s3://backups.texastribune.org/schools/schools-pg.dump backups/pg.dump
 
 local/db-restore:
 	dropdb ${APP} --if-exists

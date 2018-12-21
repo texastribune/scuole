@@ -47,11 +47,15 @@ export default class ChartGrid extends Component {
       )
     );
 
-    const year = last(chartData[0].data).year;
+    let year = Math.max(
+      ...chartData
+        .map(d => d.data.length != 0 && last(d.data).year)
+        .filter(d => d != false)
+    );
 
     return (
       <div class="chart-block">
-        {legendShouldRender &&
+        {legendShouldRender && (
           <div class="legend-block">
             <h3 class="page-section-subheader">
               Class outcomes by {title} over time, 1997-{year}
@@ -69,29 +73,29 @@ export default class ChartGrid extends Component {
                 completed college
               </div>
             </div>
-          </div>}
+          </div>
+        )}
 
         <div class="chart-grid">
           {legendShouldRender &&
             chartData.map((c, i) => {
               return (
-                c.data.length > 3 &&
-                <div class="chart-container">
-                  <h3 class="page-section-subheader-cohort">
-                    {c.title}
-                  </h3>
-                  <ResponsiveContainer>
-                    <Chart
-                      data={c.data}
-                      xField="year"
-                      yField="percent_graduated"
-                      yField2="percent_enrolled_higher_education"
-                      yField3="percent_completed_higher_education"
-                      yMax={yMax}
-                      margins={{ left: 40 }}
-                    />
-                  </ResponsiveContainer>
-                </div>
+                c.data.length > 3 && (
+                  <div class="chart-container">
+                    <h3 class="page-section-subheader-cohort">{c.title}</h3>
+                    <ResponsiveContainer>
+                      <Chart
+                        data={c.data}
+                        xField="year"
+                        yField="percent_graduated"
+                        yField2="percent_enrolled_higher_education"
+                        yField3="percent_completed_higher_education"
+                        yMax={yMax}
+                        margins={{ left: 40 }}
+                      />
+                    </ResponsiveContainer>
+                  </div>
+                )
               );
             })}
         </div>
