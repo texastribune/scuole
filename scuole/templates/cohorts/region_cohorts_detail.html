@@ -133,6 +133,5 @@
 
 {% block data_script %}
 {{ block.super }}
-<script>window.SHAPE = {"type": "Feature", "geometry": {{ region.shape_simple.geojson|safe|default:'null' }}};</script>
-</script>
+{{ region.as_geojson|json_script:"shape" }}
 {% endblock data_script %}

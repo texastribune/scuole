@@ -124,7 +124,7 @@
 
 {% block extra_script %}
 {{ block.super }}
-<script>COORDS = {{ district.campus_geojson|safe }};</script>
-<script>SHAPE = {"type": "Feature", "geometry": {{ district.shape.geojson|safe|default:'null' }}};</script>
+{{ district.as_geojson|json_script:"shape" }}
+{{ district.campus_geojson|json_script:"coords" }}
 <script src="{% static 'scripts/district.js' %}"></script>
 {% endblock extra_script %}

@@ -113,7 +113,7 @@ class CohortsLandingView(TemplateView):
         context["region_list"] = self.region_model.objects.all().defer("shape")
 
         context["regions_geojson"] = build_geojson(
-            Region, "shape", ["region_name_with_city"]
+            Region.objects.all(), "shape", ["region_name_with_city"]
         )
 
         return context

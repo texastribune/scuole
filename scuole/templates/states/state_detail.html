@@ -83,6 +83,6 @@
 
 {% block extra_script %}
 {{ block.super }}
-<script>SHAPE = {"type": "Feature", "geometry": {{ state.shape.geojson|safe|default:'null' }}};</script>
+{{ state.as_geojson|json_script:"shape" }}
 <script src="{% static 'scripts/state.js' %}"></script>
 {% endblock extra_script %}

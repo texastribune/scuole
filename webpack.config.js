@@ -50,9 +50,6 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.json', '.jsx'],
   },
-  externals: {
-    google: 'google',
-  },
   plugins: [
     new CaseSensitivePathsPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),

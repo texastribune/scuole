@@ -1,22 +1,20 @@
-/* global SHAPE */
-
-// import google from 'google';
-// import zoomMap from './utils/zoomMap';
 import './utils/metricNavs';
 import './utils/reminderBar';
+import loadJsonScript from './utils/loadJsonScript';
 
 let map, nav;
 mapboxgl.accessToken =
   'pk.eyJ1IjoidGV4YXN0cmlidW5lIiwiYSI6ImNqb3lxOXg4cTJsdm8zdHBpbTUyaG9sYXcifQ.HM6pBNV6vnvQBg7v4X5nFw';
-//const usBounds = [[-171.791110603, 18.91619], [-66.96466, 71.3577635769]];
 
 function initialize() {
+  const SHAPE = loadJsonScript('shape');
+
   map = new mapboxgl.Map({
     container: 'map-state',
     style: 'mapbox://styles/mapbox/light-v9',
-    center: [-99.9018, 31.3915],
-    zoom: 3.5,
   });
+
+  map.fitBounds(SHAPE.bbox, { duration: 0, padding: 20 });
 
   nav = new mapboxgl.NavigationControl({ showCompass: false });
   map.addControl(nav, 'top-right');

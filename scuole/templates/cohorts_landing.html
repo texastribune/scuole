@@ -89,10 +89,7 @@
 
 {% block data_script %}
 {{ block.super }}
-<script>
-  window.SHAPE = {{ regions_geojson|safe|default:'null' }};
-</script>
-</script>
+{{ regions_geojson|json_script:"shape" }}
 {% endblock data_script %}
 
 {% block extra_script %}

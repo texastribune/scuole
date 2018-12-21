@@ -1,11 +1,7 @@
-/* global document,window,COORDS,SHAPE */
-
-// import google from 'google';
-// import zoomMap from './utils/zoomMap';
-
 import './utils/campusList';
 import './utils/metricNavs';
 import './utils/reminderBar';
+import loadJsonScript from './utils/loadJsonScript';
 import bbox from '@turf/bbox';
 
 let map, nav, hoveredStateId;
@@ -13,19 +9,17 @@ mapboxgl.accessToken =
   'pk.eyJ1IjoidGV4YXN0cmlidW5lIiwiYSI6ImNqb3lxOXg4cTJsdm8zdHBpbTUyaG9sYXcifQ.HM6pBNV6vnvQBg7v4X5nFw';
 
 function initialize() {
+  const SHAPE = loadJsonScript('shape');
+  const COORDS = loadJsonScript('coords');
+  const bounds = bbox(COORDS);
+
   const tooltip = document.getElementById('map-tooltip');
   COORDS.features = COORDS.features.map((d, i) => {
     d.id = i;
     return d;
   });
 
-  let geometry = SHAPE.geometry;
-  if (geometry) {
-    const bounds = bbox(SHAPE);
-    //const coordinates = geometry.coordinates[0][0];
-    // const bounds = coordinates.reduce(function(bounds, coord) {
-    //   return bounds.extend(coord);
-    // }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+  if (SHAPE.geometry) {
     map = new mapboxgl.Map({
       container: 'map-district',
       style: 'mapbox://styles/mapbox/light-v9',
@@ -33,17 +27,15 @@ function initialize() {
       zoom: 4.25,
     });
 
-    map.fitBounds(bounds, {
-      padding: 20,
-    });
+    map.fitBounds(SHAPE.bbox, { duration: 0, padding: 20 });
   } else {
     //district is only a school
     map = new mapboxgl.Map({
       container: 'map-district',
       style: 'mapbox://styles/mapbox/light-v9',
-      center: COORDS.features[0].geometry.coordinates,
-      zoom: 12,
     });
+
+    map.fitBounds(bounds, { duration: 0, padding: 20, maxZoom: 13 });
   }
 
   nav = new mapboxgl.NavigationControl({ showCompass: false });
@@ -55,7 +47,7 @@ function initialize() {
       data: COORDS,
     });
 
-    if (geometry) {
+    if (SHAPE.geometry) {
       map.addLayer({
         id: 'district',
         type: 'fill',

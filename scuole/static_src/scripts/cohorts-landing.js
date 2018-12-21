@@ -1,11 +1,14 @@
 import './utils/cohortsNav';
+import loadJsonScript from './utils/loadJsonScript';
 
 let map, nav, hoveredStateId;
 mapboxgl.accessToken =
   'pk.eyJ1IjoidGV4YXN0cmlidW5lIiwiYSI6ImNqb3lxOXg4cTJsdm8zdHBpbTUyaG9sYXcifQ.HM6pBNV6vnvQBg7v4X5nFw';
 
 function initialize() {
+  const SHAPE = loadJsonScript('shape');
   const tooltip = document.getElementById('map-tooltip');
+
   SHAPE.features = SHAPE.features.map(d => {
     d.id = d.properties['region_name_with_city'].split(' ')[1];
     return d;
