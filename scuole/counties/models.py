@@ -50,7 +50,7 @@ class County(models.Model):
 
     @cached_property
     def as_geojson(self):
-        return to_geojson_feature(self, "shape", ["name", "fips"])
+        return to_geojson_feature(self, "shape", ["name", "fips"], simplify=0.0001)
 
 
 class CountyCohorts(CohortsBase):

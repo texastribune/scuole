@@ -27,7 +27,7 @@ function initialize() {
       zoom: 4.25,
     });
 
-    map.fitBounds(SHAPE.bbox, { duration: 0, padding: 20 });
+    map.fitBounds(SHAPE.bbox, { duration: 0, padding: 30 });
   } else {
     //district is only a school
     map = new mapboxgl.Map({
@@ -35,7 +35,7 @@ function initialize() {
       style: 'mapbox://styles/mapbox/light-v9',
     });
 
-    map.fitBounds(bounds, { duration: 0, padding: 20, maxZoom: 13 });
+    map.fitBounds(bounds, { duration: 0, padding: 30, maxZoom: 13 });
   }
 
   nav = new mapboxgl.NavigationControl({ showCompass: false });

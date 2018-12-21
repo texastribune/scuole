@@ -13,7 +13,7 @@ function initialize() {
     container: 'map-campus',
     style: 'mapbox://styles/mapbox/light-v9',
     center: COORDS.geometry.coordinates,
-    zoom: 12,
+    zoom: 13,
   });
 
   nav = new mapboxgl.NavigationControl({ showCompass: false });

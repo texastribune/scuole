@@ -14,7 +14,7 @@ function initialize() {
     style: 'mapbox://styles/mapbox/light-v9',
   });
 
-  map.fitBounds(SHAPE.bbox, { duration: 0, padding: 20 });
+  map.fitBounds(SHAPE.bbox, { duration: 0, padding: 30 });
 
   nav = new mapboxgl.NavigationControl({ showCompass: false });
   map.addControl(nav, 'top-right');
