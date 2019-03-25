@@ -82,7 +82,7 @@
         <li class="card-list-item card-website">{{ district.superintendent_of.email|urlize }}</li>
         {% endif %}
         {% if district.superintendent_of.phone_number %}
-        <li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ district.superintendent_of.phone_number }}">{{ district.superintendent_of.phone_number }}</a></li>
+        <li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ district.superintendent_of.phone_number }}">{{ district.superintendent_of.phone_number.as_national }}</a></li>
         {% endif %}
       </ul>
     </div>

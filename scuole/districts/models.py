@@ -9,7 +9,8 @@ from django.core.serializers import serialize
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
-from localflavor.us.models import PhoneNumberField, USStateField, USZipCodeField
+from localflavor.us.models import USStateField, USZipCodeField
+from phonenumber_field.modelfields import PhoneNumberField
 
 from scuole.core.models import PersonnelBase
 from scuole.core.utils import to_geojson_feature

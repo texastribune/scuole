@@ -54,6 +54,7 @@ def env(setting, default=None):
 # APP CONFIGURATION #
 #####################
 
+
 DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -69,6 +70,7 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'localflavor',
+    'phonenumber_field',
 )
 
 LOCAL_APPS = (
@@ -171,3 +173,6 @@ DATA_FOLDER = env('DATA_FOLDER', path.join(ROOT_DIR, 'data'))
 
 # GDAL_LIBRARY_PATH = env('DJANGO_GDAL_LIBRARY_PATH')
 # GEOS_LIBRARY_PATH = env('DJANGO_GEOS_LIBRARY_PATH')
+
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'US'

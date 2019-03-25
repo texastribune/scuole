@@ -4,14 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = ">=2.0.8"
-"dj-database-url" = "==0.4.1"
-"django-localflavor" = "==1.3"
+django = "*"
+"dj-database-url" = "*"
+"django-localflavor" = "*"
 "psycopg2" = "*"
-"unicode-slugify" = "==0.1.3"
-gunicorn = "==19.6.0"
-whitenoise = "==3.2.2"
+"unicode-slugify" = "*"
+gunicorn = "*"
+whitenoise = "*"
 sentry-sdk = "*"
+django-phonenumber-field = "*"
+phonenumberslite = "*"
 
 [dev-packages]
 "django-debug-toolbar" = "*"

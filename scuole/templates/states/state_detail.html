@@ -56,7 +56,7 @@
         <li class="card-list-item card-website">{{ state.commissioner_of.email|urlize }}</li>
         {% endif %}
         {% if state.commissioner_of.phone_number %}
-        <li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ state.commissioner_of.phone_number }}">{{ state.commissioner_of.phone_number }}</a></li>
+        <li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ state.commissioner_of.phone_number }}">{{ state.commissioner_of.phone_number.as_national }}</a></li>
         {% endif %}
       </ul>
     </div>

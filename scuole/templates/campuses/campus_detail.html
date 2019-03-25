@@ -79,7 +79,7 @@
   {% endif %}
   {% if campus.phone_number %}
   <h3 class="card-title">{% trans "Office phone number" %}</h3>
-  <p class="card-text"><span class="icon-phone"></span> <a href="tel://{{ campus.phone_number }}">{{ campus.phone_number }}</a></p>
+  <p class="card-text"><span class="icon-phone"></span> <a href="tel://{{ campus.phone_number }}">{{ campus.phone_number.as_national }}</a></p>
   {% endif %}
   </div>
   <div class="col-6">
@@ -95,7 +95,7 @@
   {% for principal in campus.principals.all %}
     <li class="card-list-item">{{ principal.name }}</li>
     {% if principal.email %}<li class="card-list-item card-website">{{ principal.email|urlize }}</li>{% endif %}
-    {% if principal.phone_number %}<li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ principal.phone_number }}">{{ principal.phone_number }}</a></li>{% endif %}
+    {% if principal.phone_number %}<li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ principal.phone_number }}">{{ principal.phone_number.as_national }}</a></li>{% endif %}
   {% endfor %}
   </ul>
   {% endif %}

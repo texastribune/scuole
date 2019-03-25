@@ -6,6 +6,7 @@ import django.contrib.gis.db.models.fields
 from django.db import migrations, models
 import django.db.models.deletion
 import localflavor.us.models
+import phonenumber_field.modelfields
 
 
 class Migration(migrations.Migration):
@@ -24,7 +25,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=200, verbose_name='Campus name')),
                 ('slug', models.SlugField(max_length=150)),
                 ('tea_id', models.CharField(max_length=10, verbose_name='TEA campus identifier')),
-                ('phone_number', localflavor.us.models.PhoneNumberField(max_length=20, null=True, verbose_name='Campus phone number')),
+                ('phone_number', phonenumber_field.modelfields.PhoneNumberField(max_length=20, null=True, verbose_name='Campus phone number')),
                 ('phone_number_extension', models.CharField(blank=True, default='', max_length=4, verbose_name='Phone number extension')),
                 ('website', models.URLField(blank=True, default='', verbose_name='Campus website')),
                 ('charter', models.BooleanField(default=False, verbose_name='Charter status')),
@@ -299,9 +300,9 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=254, verbose_name='Name of personnel')),
                 ('role', models.CharField(max_length=100, verbose_name='Role of personnel')),
                 ('email', models.EmailField(max_length=254, verbose_name='Email of personnel')),
-                ('phone_number', localflavor.us.models.PhoneNumberField(max_length=20, verbose_name='Phone number of personnel')),
+                ('phone_number', phonenumber_field.modelfields.PhoneNumberField(max_length=20, verbose_name='Phone number of personnel')),
                 ('phone_number_extension', models.CharField(blank=True, default='', max_length=4, verbose_name='Phone number extension')),
-                ('fax_number', localflavor.us.models.PhoneNumberField(max_length=20, verbose_name='Fax number of personnel')),
+                ('fax_number', phonenumber_field.modelfields.PhoneNumberField(max_length=20, verbose_name='Fax number of personnel')),
                 ('fax_number_extension', models.CharField(blank=True, default='', max_length=4, verbose_name='Fax number extension')),
                 ('campus', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='principals', to='campuses.Campus')),
             ],
