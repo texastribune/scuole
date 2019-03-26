@@ -1,4 +1,4 @@
-{% extends 'standard.html' %}{% load humanize i18n stats_tags journalize %}{% load static from staticfiles %}
+{% extends 'standard.html' %}{% load humanize i18n stats_tags journalize webpacker %}{% load static from staticfiles %}
 
 {% block meta %}{% include "includes/meta.html" with title=campus.name %}{% endblock meta %}
 
@@ -120,7 +120,6 @@
 {% endblock content %}
 
 {% block extra_script %}
-{{ block.super }}
 {{ campus.as_geojson|json_script:"coords" }}
-<script src="{% static 'scripts/campus.js' %}"></script>
+{% javascript_pack 'campus' %}
 {% endblock extra_script %}

@@ -34,7 +34,10 @@ export default class Chart extends Component {
 
     const xExtent = extent(data, d => d[xField]);
 
-    const x = scaleLinear().rangeRound([0, innerWidth]).domain(xExtent).nice();
+    const x = scaleLinear()
+      .rangeRound([0, innerWidth])
+      .domain(xExtent)
+      .nice();
 
     const y = scaleLinear()
       .rangeRound([innerHeight, 0])

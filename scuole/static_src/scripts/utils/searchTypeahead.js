@@ -1,6 +1,6 @@
 import classie from 'desandro-classie';
-import debounce from 'lodash/function/debounce';
-import forEach from 'lodash/collection/each';
+import debounce from 'lodash.debounce';
+import forEach from 'lodash.foreach';
 import reqwest from 'reqwest';
 
 const DEBOUNCE_FOR = 350; // in milliseconds

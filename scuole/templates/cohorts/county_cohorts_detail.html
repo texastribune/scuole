@@ -131,6 +131,6 @@
 {% endblock content %}
 
 {% block data_script %}
-{{ block.super }}
 {{ county.as_geojson|json_script:"shape" }}
+{{ block.super }}
 {% endblock data_script %}

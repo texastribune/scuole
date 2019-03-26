@@ -1,4 +1,4 @@
-{% extends 'standard.html' %}{% load humanize i18n journalize %}{% load static from staticfiles %}
+{% extends 'standard.html' %}{% load humanize i18n journalize webpacker %}{% load static from staticfiles %}
 
 {% block meta %}{% include "includes/meta.html" with title=state.get_name_display %}{% endblock meta %}
 
@@ -82,7 +82,6 @@
 {% endblock content %}
 
 {% block extra_script %}
-{{ block.super }}
 {{ state.as_geojson|json_script:"shape" }}
-<script src="{% static 'scripts/state.js' %}"></script>
+{% javascript_pack 'state' %}
 {% endblock extra_script %}

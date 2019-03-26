@@ -1,5 +1,5 @@
-import './utils/cohortsNav';
-import loadJsonScript from './utils/loadJsonScript';
+import '../utils/cohortsNav';
+import loadJsonScript from '../utils/loadJsonScript';
 
 let map, nav, hoveredStateId;
 mapboxgl.accessToken =

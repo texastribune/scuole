@@ -1,4 +1,4 @@
-FROM node:10.5 as assets
+FROM node:10 as assets
 
 # Create the folder to work in
 RUN mkdir -p /usr/src/app
@@ -12,7 +12,7 @@ COPY package-lock.json /usr/src/app
 RUN npm ci
 
 # Bring over the rest of the app
-COPY webpack.config.js gulpfile.js /usr/src/app/
+COPY tasks /usr/src/app/tasks
 COPY scuole/static_src /usr/src/app/scuole/static_src
 
 # Run build command

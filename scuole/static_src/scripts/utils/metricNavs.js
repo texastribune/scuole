@@ -1,5 +1,5 @@
-import forEach from 'lodash/collection/each';
-import findOne from 'lodash/collection/find';
+import forEach from 'lodash.foreach';
+import findOne from 'lodash.find';
 import scrollMonitor from 'scrollmonitor';
 
 import activeButtonClass from './activeButtonClass';

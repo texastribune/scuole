@@ -1,4 +1,4 @@
-{% extends 'cohorts_base.html' %}{% load i18n humanize %}{% load static from staticfiles %}
+{% extends 'cohorts_base.html' %}{% load i18n humanize webpacker %}{% load static from staticfiles %}
 
 {% block meta %}{% include "includes/cohorts_meta.html" %}{% endblock meta %}
 
@@ -93,6 +93,5 @@
 {% endblock data_script %}
 
 {% block extra_script %}
-{{ block.super }}
-<script src="{% static 'scripts/cohortsLanding.js' %}"></script>
+{% javascript_pack 'cohorts-landing' %}
 {% endblock extra_script %}

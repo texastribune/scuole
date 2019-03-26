@@ -1,3 +1,7 @@
+import '../utils/loadStoryGrid';
+import '../utils/adLoader';
+import '../utils/searchTypeahead';
+
 import scrollMonitor from 'scrollmonitor';
 
 const aboutMenu = document.querySelector('#about-menu');

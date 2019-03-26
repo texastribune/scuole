@@ -1,12 +1,15 @@
 /* global SHAPE */
 
-import './utils/cohortsNav';
-import './utils/metricNavs';
-import './utils/reminderBar';
-import loadJsonScript from './utils/loadJsonScript';
+import '../utils/cohortsNav';
+import '../utils/metricNavs';
+import '../utils/reminderBar';
+import '../utils/loadStoryGrid';
+import '../utils/adLoader';
+
+import loadJsonScript from '../utils/loadJsonScript';
 
 import { h, render } from 'preact';
-import ChartGrid from './utils/components/ChartGrid';
+import ChartGrid from '../utils/components/ChartGrid';
 
 const data = window.data;
 

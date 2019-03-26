@@ -1,4 +1,4 @@
-{% extends 'standard.html' %}{% load humanize i18n stats_tags journalize %}{% load static from staticfiles %}
+{% extends 'standard.html' %}{% load humanize i18n stats_tags journalize webpacker %}{% load static from staticfiles %}
 
 {% block meta %}{% include "includes/meta.html" with title=district.name %}{% endblock meta %}
 
@@ -123,8 +123,7 @@
 {% endblock content %}
 
 {% block extra_script %}
-{{ block.super }}
 {{ district.as_geojson|json_script:"shape" }}
 {{ district.campus_geojson|json_script:"coords" }}
-<script src="{% static 'scripts/district.js' %}"></script>
+{% javascript_pack 'district' %}
 {% endblock extra_script %}

@@ -176,3 +176,5 @@ DATA_FOLDER = env('DATA_FOLDER', path.join(ROOT_DIR, 'data'))
 
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'US'
+
+WEBPACKER_MANIFEST_FILE = path.join(APPS_DIR, 'static/scripts/manifest.json')

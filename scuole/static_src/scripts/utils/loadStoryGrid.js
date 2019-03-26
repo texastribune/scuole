@@ -1,6 +1,6 @@
 /* global BLANK_STORY_IMAGE */
 
-import map from 'lodash/collection/map';
+import map from 'lodash.map';
 import reqwest from 'reqwest';
 
 const FEED_URL =
@@ -13,7 +13,7 @@ function htmlify(data) {
                 <a class="story-box" href="${data.url}">
                   <div class="story-box__media">
                     <img class="story-box__image" src="${data.lead_art.url ||
-                      BLANK_STORY_IMAGE}" alt="Placeholder image">
+                      window.BLANK_STORY_IMAGE}" alt="Placeholder image">
                   </div>
                   <div class="story-box__body">
                     <h3 class="story-box__header">${data.headline}</h3>

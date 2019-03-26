@@ -1,5 +1,5 @@
 import classie from 'desandro-classie';
-import forEach from 'lodash/collection/each';
+import forEach from 'lodash.foreach';
 
 export default (elementList, activeElement, activeClass, inactiveClass) => {
   forEach(elementList, function(el) {

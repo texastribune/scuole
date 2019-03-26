@@ -1,5 +1,5 @@
 import classie from 'desandro-classie';
-import forEach from 'lodash/collection/each';
+import forEach from 'lodash.foreach';
 
 let campusGroups = document.querySelectorAll('.js-campus-list-group');
 

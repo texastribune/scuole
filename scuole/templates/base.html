@@ -1,4 +1,4 @@
-<!doctype html>{% load i18n %}{% load static from staticfiles %}
+<!doctype html>{% load i18n webpacker %}{% load static from staticfiles %}
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -76,7 +76,7 @@
 {% block data_script %}{% endblock data_script %}
 
 {% block extra_script %}
-<script src="{% static 'scripts/commons.js' %}"></script>
+{% javascript_pack 'generic' %}
 {% endblock extra_script %}
 
 <!-- Google Tag Manager -->
