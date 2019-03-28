@@ -587,12 +587,12 @@ class PostSecondaryReadinessBase(models.Model):
     @property
     def college_readiness_percents(self):
         return [{
-            'name': 'English',
+            'name': 'Reading',
             'value': self.college_ready_graduates_english_all_students_percent
         }, {
             'name': 'Math',
             'value': self.college_ready_graduates_math_all_students_percent
         }, {
-            'name': 'English + Math',
+            'name': 'Reading + Math',
             'value': self.college_ready_graduates_both_all_students_percent
         }]

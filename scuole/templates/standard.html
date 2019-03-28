@@ -16,6 +16,7 @@
 {% endblock header %}
 
 {% block search %}
+
 <section class="search-bar">
   <div class="container">
     <form class="search-form" action="{% url 'search' %}" method="GET">
@@ -29,6 +30,8 @@
     </form>
   </div>
 </section>
+
+{% include "includes/ad_slot_leader.html" %}
 
 {% include "includes/menu.html" %}
 

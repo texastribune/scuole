@@ -3,6 +3,15 @@
   margin-bottom: $gutter-double;
 }
 
+.ad-slot--hidden-on-mobile {
+  display: none;
+  margin-top: $gutter;
+
+  @include mq($from: m) {
+    display: block;
+  }
+}
+
 .ad-slot--small-margin {
   margin-bottom: $gutter;
 }

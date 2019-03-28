@@ -21,13 +21,10 @@
 
 {% include "includes/demographic_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
 
-{% include "includes/ad_slot_metrics_1.html" %}
-
 {% include "includes/academic_metrics.html" with stat=stat state=state district=district district_name=district_name %}
 
 {% if campus.is_secondary_school or include_postsecondary %}
   {% include "includes/postsecondary_readiness_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
-  {% include "includes/ad_slot_metrics_2.html" %}
 {% endif %}
 
 {% include "includes/staff_metrics.html" with stat=stat state=state district=district district_name=district_name only %}

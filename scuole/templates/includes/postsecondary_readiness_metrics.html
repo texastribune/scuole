@@ -24,7 +24,7 @@
   <h3 class="page-section-subheader">AP/IB performance</h3>
 
   <section class="page-prose">
-    <p>The percentage of test-taking students who passed at least one AP or IB exam in the 2015-2016 school year. A passing score on the AP exam is a 3, 4 or 5. On an IB exam, it is a 4, 5, 6 or 7.</p>
+    <p>The percentage of test-taking students who passed at least one AP or IB exam in the {{ stat.year.previous_year }} school year. A passing score on the AP exam is a 3, 4 or 5. On an IB exam, it is a 4, 5, 6 or 7.</p>
     <!-- These scores are a year behind so the school year must be hard-coded -->
   </section>
 
@@ -62,13 +62,13 @@
   <h3 class="page-section-subheader">College-ready graduates</h3>
 
   <section class="page-prose">
-    <p>A graduate is <a href="{% url 'about' %}#college-ready">considered college ready in English or Math</a> if he or she has met or exceeded the college-ready criteria on the TAKS exit-level test, the SAT or the ACT test. These figures are for the Class of {{ stat.year.start_year }}.</p>
+    <p>A graduate is <a href="{% url 'about' %}#college-ready">considered college ready in Reading or Math</a> if he or she has met or exceeded the college-ready criteria on the Texas Success Initiative Assessment (TSIA) test, the SAT or the ACT test. These figures are for the Class of {{ stat.year.start_year }}.</p>
   </section>
 
   <section class="row metrics">
-    {% include 'includes/metric.html' with title="English" field="college_ready_graduates_english_all_students_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Reading" field="college_ready_graduates_english_all_students_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="Math" field="college_ready_graduates_math_all_students_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="English + Math" field="college_ready_graduates_both_all_students_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Reading + Math" field="college_ready_graduates_both_all_students_percent" field_type="percent" %}
   </section>
 
   {% include "includes/bar_chart.html" with rows=stat.college_readiness_percents %}
