@@ -1,23 +1,22 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from django.conf.urls import include, url
+from django.urls import path
 
 from .views import (
-    AcceptCohortRedirectView, CohortsLandingView, CountyCohortsDetailView,
-    RegionCohortsDetailView, StateCohortsDetailView,
+    AcceptCohortRedirectView,
+    CohortsLandingView,
+    CountyCohortsDetailView,
+    RegionCohortsDetailView,
+    StateCohortsDetailView,
 )
 
-app_name = 'cohorts'
+app_name = "cohorts"
 
 urlpatterns = [
-    url(r'^$',
-        CohortsLandingView.as_view(), name='landing'),
-    url(r'^states/(?P<slug>[\w-]+)/$',
-        StateCohortsDetailView.as_view(), name='states'),
-    url(r'^regions/(?P<slug>[\w-]+)/$',
-        RegionCohortsDetailView.as_view(), name='regions'),
-    url(r'^counties/(?P<slug>[\w-]+)/$',
-        CountyCohortsDetailView.as_view(), name='counties'),
-    url(r'^redirect/', AcceptCohortRedirectView.as_view(), name='redirect'),
+    path("", CohortsLandingView.as_view(), name="landing"),
+    path("states/<slug:slug>/", StateCohortsDetailView.as_view(), name="states"),
+    path("regions/<slug:slug>/", RegionCohortsDetailView.as_view(), name="regions"),
+    path("counties/<slug:slug>/", CountyCohortsDetailView.as_view(), name="counties"),
+    path("redirect/", AcceptCohortRedirectView.as_view(), name="redirect"),
 ]

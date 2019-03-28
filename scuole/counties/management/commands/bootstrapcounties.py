@@ -18,20 +18,20 @@ from ...models import County
 
 
 class Command(BaseCommand):
-    help = 'Bootstraps County models using DSHS county list.'
+    help = "Bootstraps County models using DSHS county list."
 
     def handle(self, *args, **options):
-        self.texas = State.objects.get(name='TX')
+        self.texas = State.objects.get(name="TX")
 
-        counties_file = os.path.join(
-            settings.DATA_FOLDER, 'counties', 'counties.csv')
+        counties_file = os.path.join(settings.DATA_FOLDER, "counties", "counties.csv")
 
         county_json = os.path.join(
-            settings.DATA_FOLDER, 'counties', 'shapes', 'counties.geojson')
+            settings.DATA_FOLDER, "counties", "shapes", "counties.geojson"
+        )
 
         self.shape_data = self.load_geojson_file(county_json)
 
-        with open(counties_file, 'rU') as f:
+        with open(counties_file, "rU") as f:
             reader = csv.DictReader(f)
 
             for row in reader:
@@ -40,19 +40,20 @@ class Command(BaseCommand):
     def load_geojson_file(self, file):
         payload = {}
 
-        with open(file, 'r') as f:
+        with open(file, "r") as f:
             data = json.load(f)
 
-            for feature in data['features']:
-                tea_id = str(feature['properties']['FIPS']).zfill(3)
-                payload[tea_id] = feature['geometry']
+            for feature in data["features"]:
+                tea_id = str(feature["properties"]["FIPS"]).zfill(3)
+                payload[tea_id] = feature["geometry"]
 
         return payload
 
     def create_county(self, county):
-        fips = county['FIPS #'].zfill(3)
-        self.stdout.write(
-            'Creating {} County...'.format(county['County Name']))
+        county_name = county["county"]
+        fips = county["fips_key"].zfill(3)
+        state_code = county["sos_key"].zfill(3)
+        self.stdout.write("Creating {} County...".format(county_name))
 
         geometry = GEOSGeometry(json.dumps(self.shape_data[fips]))
 
@@ -63,9 +64,10 @@ class Command(BaseCommand):
         county, _ = County.objects.update_or_create(
             fips=fips,
             defaults={
-                'name': county['County Name'],
-                'slug': slugify(county['County Name']),
-                'shape': geometry,
-                'state': self.texas,
-            }
+                "state_code": state_code,
+                "name": county_name,
+                "slug": slugify(county_name),
+                "shape": geometry,
+                "state": self.texas,
+            },
         )

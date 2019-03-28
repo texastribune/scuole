@@ -165,10 +165,18 @@ class CampusStats(StatsBase, ReferenceBase):
         return "{0} {1}".format(self.year.name, self.campus.name)
 
 
+class PersonQuerySet(models.QuerySet):
+    def active(self):
+        return self.filter(is_active=True)
+
+
 class Principal(PersonnelBase):
     campus = models.ForeignKey(
         Campus, on_delete=models.CASCADE, related_name="principals"
     )
+    is_active = models.BooleanField(default=True)
+
+    objects = PersonQuerySet.as_manager()
 
     def __str__(self):
         return "{} at {}".format(self.name, self.campus.name)

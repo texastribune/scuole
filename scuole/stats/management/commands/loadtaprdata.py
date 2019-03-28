@@ -146,7 +146,7 @@ class Command(BaseCommand):
 
         for field, code in schema.items():
             if schema_type == (
-                "postsecondary-readiness-and-non-staar-" "performance-indicators"
+                "postsecondary-readiness-and-non-staar-performance-indicators"
             ) or schema_type == ("longitudinal-rate"):
                 if "count" in field:
                     suffix = "D"

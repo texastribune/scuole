@@ -19,38 +19,48 @@ class CampusDetailView(DetailView):
 
     def get_object(self):
         return get_object_or_404(
-            Campus.objects.prefetch_related('principals'),
-            slug=self.kwargs['slug'],
-            district__slug=self.kwargs['district_slug'])
+            Campus.objects.prefetch_related("principals"),
+            slug=self.kwargs["slug"],
+            district__slug=self.kwargs["district_slug"],
+        )
 
     def get_context_data(self, **kwargs):
         context = super(CampusDetailView, self).get_context_data(**kwargs)
         county_cohorts = self.county_cohorts_model.objects.filter(
-            county=self.object.county)
+            county=self.object.county
+        )
         region_cohorts = self.region_cohorts_model.objects.filter(
-            region=self.object.district.region)
-        year = self.kwargs['campus_year']
+            region=self.object.district.region
+        )
+        year = self.kwargs["campus_year"]
 
         if year:
-            context['stat'] = get_object_or_404(
-                CampusStats, year__name=year, campus=self.object)
-            context['district'] = get_object_or_404(
-                DistrictStats, year__name=year, district=self.object.district)
-            context['state'] = get_object_or_404(
-                StateStats, year__name=year, state__name='TX')
+            context["stat"] = get_object_or_404(
+                CampusStats, year__name=year, campus=self.object
+            )
+            context["district"] = get_object_or_404(
+                DistrictStats, year__name=year, district=self.object.district
+            )
+            context["state"] = get_object_or_404(
+                StateStats, year__name=year, state__name="TX"
+            )
         else:
             latest_year = SchoolYear.objects.first()
 
-            context['stat'] = get_object_or_404(
-                CampusStats, year=latest_year,
-                campus=self.object)
-            context['district'] = get_object_or_404(
-                DistrictStats, year=latest_year, district=self.object.district)
-            context['state'] = get_object_or_404(
-                StateStats, year=latest_year, state__name='TX')
+            context["stat"] = get_object_or_404(
+                CampusStats, year=latest_year, campus=self.object
+            )
+            context["district"] = get_object_or_404(
+                DistrictStats, year=latest_year, district=self.object.district
+            )
+            context["state"] = get_object_or_404(
+                StateStats, year=latest_year, state__name="TX"
+            )
 
-        context['latest_county_cohort'] = county_cohorts.latest_cohort(
-            county=self.object.county)
-        context['latest_region_cohort'] = region_cohorts.latest_cohort(
-            region=self.object.district.region)
+        context["latest_county_cohort"] = county_cohorts.latest_cohort(
+            county=self.object.county
+        )
+        context["latest_region_cohort"] = region_cohorts.latest_cohort(
+            region=self.object.district.region
+        )
         return context

@@ -15,6 +15,7 @@ class County(models.Model):
     name = models.CharField(_("County name"), max_length=100)
     slug = models.SlugField()
     fips = models.CharField(_("County FIPS place code"), max_length=3)
+    state_code = models.CharField(_("County State ID code"), max_length=3, blank=True)
     shape = models.MultiPolygonField(_("Region shape"), srid=4326, null=True)
     state = models.ForeignKey(
         State, on_delete=models.CASCADE, related_name=_("counties")

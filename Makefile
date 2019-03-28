@@ -22,12 +22,18 @@ data/bootstrap-areas:
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
 
-data/bootstrap-edu:
-	python manage.py bootstrapdistricts 2016-2017
-	python manage.py bootstrapcampuses 2016-2017
+data/bootstrap-entities:
+	python manage.py bootstrapdistricts_v2 2017-2018
+	python manage.py bootstrapcampuses_v2 2017-2018
+
+data/update-directories:
+	python manage.py updatedistrictdirectory
+	python manage.py updatedistrictsuperintendents
+	python manage.py updatecampusdirectory
+	python manage.py updatecampusprincipals
 
 data/latest-school:
-	python manage.py loadtaprdata 2016-2017 --bulk
+	python manage.py loadtaprdata_v2 2017-2018 --bulk
 
 data/all-schools:
 	python manage.py loadtaprdata 2016-2017 --bulk
@@ -48,13 +54,19 @@ data/all-cohorts:
 	python manage.py loadallcohorts 2006
 	python manage.py loadallcohorts 2007
 
-local/reset-db-and-bootstrap: local/reset-db data/base
+local/reset-db-bootstrap-areas: local/reset-db data/bootstrap-areas
+
+local/reset-db-bootstrap-areas-entities: local/reset-db-bootstrap-areas data/bootstrap-entities
+
+local/reset-db-bootstrap-areas-entities-directories: local/reset-db-bootstrap-areas-entities data/update-directories
+
+local/reset-db-bootstrap-latest: local/reset-db-bootstrap-areas-entities data/latest-school
 
 local/reset-db-and-bootstrap-over-time: local/reset-db data/all-schools data/all-cohorts
 
-local/cohorts: local/reset-db data/bootstrap-areas data/all-cohorts
+local/cohorts: local/reset-db-and-bootstrap-areas data/all-cohorts
 
-local/all: local/reset-db data/bootstrap-areas data/bootstrap-edu data/all-schools data/all-cohorts
+local/all: local/reset-db-and-bootstrap-areas data/bootstrap-edu data/all-schools data/all-cohorts
 
 docker/pull:
 	@echo "Getting a fresh copy of master..."

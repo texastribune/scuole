@@ -83,7 +83,8 @@
   {% endif %}
   </div>
   <div class="col-6">
-  {% if campus.principals.all %}
+  {% with principals=campus.principals.active %}
+  {% if principals %}
   <h3 class="card-title">
   {% blocktrans count numberOfPrincipals=campus.principals.count %}
     Principal
@@ -92,13 +93,14 @@
   {% endblocktrans %}
   </h3>
   <ul class="card-list">
-  {% for principal in campus.principals.all %}
+  {% for principal in principals %}
     <li class="card-list-item">{{ principal.name }}</li>
     {% if principal.email %}<li class="card-list-item card-website">{{ principal.email|urlize }}</li>{% endif %}
     {% if principal.phone_number %}<li class="card-list-item"><span class="icon-phone"></span> <a href="tel://{{ principal.phone_number }}">{{ principal.phone_number.as_national }}</a></li>{% endif %}
   {% endfor %}
   </ul>
   {% endif %}
+  {% endwith %}
   </div>
   </div>
   <h2 class="card-header outcomes-header"><a href="{% url 'cohorts:landing' %}">Higher Ed Outcomes</a></h2>

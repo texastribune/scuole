@@ -7,12 +7,23 @@
 
   <div class="page-prose">
     <p>Texas assigns ratings to districts and campuses that designate their performance in relation to the state’s academic accountability system. Possible ratings are as follows:  Met standard, Met alternative standard, Improvement required, Not rated and Not rated: Data integrity issues.</p>
-    <p>For a detailed explanation of this year’s accountability system, see the <a href="https://tea.texas.gov/2017accountabilitymanual.aspx">2017 Accountability Manual</a>.</p>
+    <p>For a detailed explanation of this year’s accountability system, see the <a href="https://tea.texas.gov/2018accountabilitymanual.aspx">2018 Accountability Manual</a>.</p>
   </div>
 
   <section class="row metrics">
+    {% if stat.has_legecy_ratings %}
     {% include 'includes/metric.html' with title="Accountability rating" field="get_accountability_rating_display" field_type="" skip_state=True %}
+    {% else %}
+    {% include 'includes/metric.html' with title="Overall" field="get_accountability_rating_display" field_type="" skip_state=True %}
+    {% include 'includes/metric.html' with title="Student achievement" field="get_student_achievement_rating_display" field_type="" skip_state=True %}
+    {% include 'includes/metric.html' with title="School progress" field="get_school_progress_rating_display" field_type="" skip_state=True %}
+    {% include 'includes/metric.html' with title="Closing the gaps" field="get_closing_the_gaps_rating_display" field_type="" skip_state=True %}
+    {% endif %}
   </section>
+
+  <div class="page-prose">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lacinia lacus et tortor consectetur tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean a tortor eget erat aliquam ultrices quis eget ante. Aenean tempus sem ut nunc tristique, at pharetra urna congue. Nunc hendrerit ipsum et nisi iaculis pulvinar. Etiam sit amet magna id nisl suscipit placerat.</p>
+    </div>
   {% endif %}
   {% if campus.is_secondary_school or include_postsecondary %}
   <h3 class="page-section-subheader">Four-year graduation rates</h3>

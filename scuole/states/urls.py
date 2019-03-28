@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from django.conf.urls import url
+from django.urls import re_path
 
 from . import views
 
-app_name = 'states'
+app_name = "states"
 
 urlpatterns = [
-    url(r'^(?P<slug>[\w-]+)/(?:(?P<state_year>[0-9]{4}-[0-9]{4})/)?$',
+    re_path(
+        r"^(?P<slug>[\w-]+)/(?:(?P<state_year>[0-9]{4}-[0-9]{4})/)?$",
         views.StateDetailView.as_view(),
-        name='detail'),
+        name="detail",
+    )
 ]
