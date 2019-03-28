@@ -28,9 +28,10 @@ class ReferenceBase(models.Model):
         (IMPROVEMENT_REQUIRED, "Improvement required"),
         (NOT_RATED_X, "Not rated"),
         (NOT_RATED_Z, "Not rated"),
-        (NOT_RATED_DATA_INTEGRITY_ISSUE, "Not rated due to data integrity issue"),
-        (NOT_RATED_ANNEXATION, "Not rated due to annexation"),
-        (NOT_RATED_HARVEY, "Not rated due to Harvey provision"),
+        (NOT_RATED_DATA_INTEGRITY_ISSUE, "Not rated (data integrity issue)"),
+        (NOT_RATED_ANNEXATION, "Not rated (Annexed)"),
+        (NOT_RATED_HARVEY, "Not rated (Harvey provision)"),
+        ("", None),
     )
 
     RATING_MATCH_17_18 = {
