@@ -1,17 +1,28 @@
-web:
-  build: .
-  env_file: env-docker
+version: '3'
 
-nginx:
-  build: .
-  dockerfile: Dockerfile.nginx
-  links:
-    - web
-  ports:
-    "80:80"
-  volumes_from:
-    - assets
+services:
+  web:
+    build: .
+    environment:
+      - DATABASE_URL=postgis://postgres:postgres@db/postgres
+    depends_on:
+      - db
+    volumes:
+      - '${DATA_FOLDER}:/usr/src/app/data'
 
-assets:
-  build: .
-  dockerfile: Dockerfile.assets
+  db:
+    image: mdillon/postgis:9.6-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - '80:80'
+    depends_on:
+      - web
+
+volumes:
+  db-data: {}

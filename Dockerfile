@@ -22,21 +22,22 @@ FROM python:3.6-alpine
 
 # Install the geo libs needed to interact with GeoDjango
 RUN apk update && \
-    apk upgrade && \
-    apk add --no-cache \
-      --repository http://dl-3.alpinelinux.org/alpine/edge/main/ \
-      --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
-      gcc \
-      gdal \
-      geos \
-      musl-dev \
-      proj4 \
-      postgresql-dev \
-      && rm -rf /var/cache/apk/*
+  apk upgrade && \
+  apk add --no-cache \
+  --repository http://dl-3.alpinelinux.org/alpine/edge/main/ \
+  --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
+  gcc \
+  gdal \
+  geos \
+  make \
+  musl-dev \
+  proj4 \
+  postgresql-dev \
+  && rm -rf /var/cache/apk/*
 
 # Symlink for the geo libraries
 RUN ln -s /usr/lib/libgeos_c.so.1 /usr/local/lib/libgeos_c.so \
-    && ln -s /usr/lib/libgdal.so.20 /usr/lib/libgdal.so
+  && ln -s /usr/lib/libgdal.so.20 /usr/lib/libgdal.so
 
 # Install pipenv
 RUN pip install --no-cache-dir pipenv

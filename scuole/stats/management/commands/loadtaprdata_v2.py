@@ -1,4 +1,5 @@
 from csv import DictReader
+from collections import defaultdict
 from os import path
 
 from django.conf import settings
@@ -59,13 +60,27 @@ class Command(BaseCommand):
             short_code = mapping.get("short_code")
             stats_model = mapping.get("stats_model")
 
-            raw_data = []
+            prepared_schema = {}
+
+            for field_name, template in SCHEMA.items():
+                if "four_year_graduate" in field_name and short_code in ("C", "D"):
+                    suffix = "X"
+                else:
+                    suffix = ""
+
+                column = template.format(
+                    short_code=short_code, year=short_year, suffix=suffix
+                )
+
+                prepared_schema[field_name] = column
 
             try:
                 stats_model._meta.get_field("accountability_rating")
                 include_accountability_rating = True
             except FieldDoesNotExist:
                 include_accountability_rating = False
+
+            self.matched_data = defaultdict(dict)
 
             for file_name in DATA_FILES:
                 if file_name == "reference.csv" and not include_accountability_rating:
@@ -79,9 +94,9 @@ class Command(BaseCommand):
 
                 with open(data_file_path) as f:
                     reader = DictReader(f)
-                    raw_data.append([i for i in reader])
+                    self.data_list_joiner(id_column, reader, prepared_schema.values())
 
-            data = self.data_list_joiner(id_column, raw_data)
+            data = self.matched_data.values()
 
             bulk_list = []
 
@@ -159,24 +174,19 @@ class Command(BaseCommand):
             if use_bulk:
                 stats_model.objects.bulk_create(bulk_list)
 
-    def data_list_joiner(self, key, data):
-        output = {}
+    def data_list_joiner(self, id_column, data, valid_keys):
+        for item in data:
+            # get the unique ID
+            uid = item.get(id_column, "STATE")
 
-        if key:
-            all_data = sum(data, [])
+            # filter out non-matching keys
+            clean_item = {key: item[key] for key in valid_keys if key in item}
 
-            for item in all_data:
-                if item[key] in output:
-                    output[item[key]].update(item)
-                else:
-                    output[item[key]] = item
-        else:
-            output["STATE"] = {}
+            # include the unique ID
+            clean_item[id_column] = uid
 
-            for d in data:
-                output["STATE"].update(d[0])
-
-        return [i for (_, i) in output.items()]
+            # update the matcher
+            self.matched_data[uid].update(clean_item)
 
     def get_model_instance(self, name, identifier, id_field, Model):
         if name == "state":

@@ -33,7 +33,7 @@ data/update-directories:
 	python manage.py updatecampusprincipals
 
 data/latest-school:
-	python manage.py loadtaprdata_v2 2017-2018 --bulk
+	python manage.py loadtaprdata_v2 2017-2018
 
 data/all-schools:
 	python manage.py loadtaprdata 2016-2017 --bulk

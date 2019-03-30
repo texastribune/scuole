@@ -1,5 +1,7 @@
 /* global googletag */
 
+const SLOT_PREFIX = '${SLOT_PREFIX}';
+
 (function() {
   var gads = document.createElement('script');
   gads.async = true;
@@ -22,7 +24,7 @@ googletag.cmd.push(function() {
 
   googletag
     .defineSlot(
-      '/5805113/TexasTribune_Data_DataPage_ATF_Header_Leaderboard_728x90',
+      `${SLOT_PREFIX}TexasTribune_Site_Roofline1_ATF_Leaderboard_728x90`,
       [728, 90],
       'ad-banner-leader'
     )
@@ -30,34 +32,22 @@ googletag.cmd.push(function() {
     .addService(googletag.pubads());
 
   googletag
-    .defineSlot(
-      '/5805113/TexasTribune_Data_DataPage_Basic',
-      [728, 90],
-      'ad-banner-middle-1'
-    )
+    .defineSlot(`${SLOT_PREFIX}basic`, [728, 90], 'ad-banner-middle-1')
     .defineSizeMapping(bannerMapping)
     .addService(googletag.pubads());
 
   googletag
-    .defineSlot(
-      '/5805113/TexasTribune_Data_DataPage_Basic',
-      [728, 90],
-      'ad-banner-middle-2'
-    )
+    .defineSlot(`${SLOT_PREFIX}basic`, [728, 90], 'ad-banner-middle-2')
     .defineSizeMapping(bannerMapping)
     .addService(googletag.pubads());
 
   googletag
-    .defineSlot(
-      '/5805113/TexasTribune_Data_DataPage_ATF_RightRail1_MediumRectangle_300x250',
-      [300, 250],
-      'ad-sidebar'
-    )
+    .defineSlot(`${SLOT_PREFIX}basic`, [300, 250], 'ad-sidebar')
     .addService(googletag.pubads());
 
   googletag
     .defineSlot(
-      '/5805113/TexasTribune_Data_DataPage_BTF_Footer_Leaderboard_728x90',
+      `${SLOT_PREFIX}TexasTribune_Content_StoryLanding_BTF_Footer_Leaderboard_728x90`,
       [728, 90],
       'ad-banner-footer'
     )
