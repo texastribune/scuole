@@ -15,6 +15,7 @@ class ReferenceBase(models.Model):
 
     MET_STANDARD = "M"
     MET_ALTERNATIVE_STANDARD = "A"
+    MET_ALTERNATIVE_STANDARD_AF = "T"
     IMPROVEMENT_REQUIRED = "I"
     NOT_RATED_X = "X"
     NOT_RATED_Z = "Z"
@@ -25,6 +26,7 @@ class ReferenceBase(models.Model):
     RATING_CHOICES = (
         (MET_STANDARD, "Met standard"),
         (MET_ALTERNATIVE_STANDARD, "Met alternative standard"),
+        (MET_ALTERNATIVE_STANDARD_AF, "Met alternative standard"),
         (IMPROVEMENT_REQUIRED, "Improvement required"),
         (NOT_RATED_X, "Not rated"),
         (NOT_RATED_Z, "Not rated"),
@@ -36,7 +38,7 @@ class ReferenceBase(models.Model):
 
     RATING_MATCH_17_18 = {
         "Met Standard": MET_STANDARD,
-        "Met Alternative Standard": MET_ALTERNATIVE_STANDARD,
+        "Met Alternative Standard": MET_ALTERNATIVE_STANDARD_AF,
         "Improvement Required": IMPROVEMENT_REQUIRED,
         "Not Rated": NOT_RATED_X,
         "Not Rated: Annexation": NOT_RATED_ANNEXATION,
@@ -82,3 +84,32 @@ class ReferenceBase(models.Model):
 
     class Meta:
         abstract = True
+
+    def get_smart_rating_display(self, field_name):
+        display_fn = getattr(self, f"get_{field_name}_display")
+
+        if self.uses_legacy_ratings:
+            return display_fn()
+        else:
+            value = getattr(self, field_name)
+
+            if value == self.MET_ALTERNATIVE_STANDARD:
+                return value
+
+            return display_fn()
+
+    @property
+    def smart_accountability_rating_display(self):
+        return self.get_smart_rating_display("accountability_rating")
+
+    @property
+    def smart_student_achievement_rating_display(self):
+        return self.get_smart_rating_display("student_achievement_rating")
+
+    @property
+    def smart_school_progress_rating_display(self):
+        return self.get_smart_rating_display("school_progress_rating")
+
+    @property
+    def smart_closing_the_gaps_rating_display(self):
+        return self.get_smart_rating_display("closing_the_gaps_rating")

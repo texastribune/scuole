@@ -11,12 +11,12 @@
 
   <section class="row metrics">
     {% if stat.has_legecy_ratings %}
-    {% include 'includes/metric.html' with title="Accountability rating" field="get_accountability_rating_display" field_type="" skip_state=True %}
+    {% include 'includes/metric.html' with title="Accountability rating" field="smart_accountability_rating_display" field_type="" skip_state=True %}
     {% else %}
-    {% include 'includes/metric.html' with title="Overall" field="get_accountability_rating_display" field_type="" skip_state=True %}
-    {% include 'includes/metric.html' with title="Student achievement" field="get_student_achievement_rating_display" field_type="" skip_state=True %}
-    {% include 'includes/metric.html' with title="School progress" field="get_school_progress_rating_display" field_type="" skip_state=True %}
-    {% include 'includes/metric.html' with title="Closing the gaps" field="get_closing_the_gaps_rating_display" field_type="" skip_state=True %}
+    {% include 'includes/metric.html' with title="Overall" field="smart_accountability_rating_display" field_type="" skip_state=True %}
+    {% include 'includes/metric.html' with title="Student achievement" field="smart_student_achievement_rating_display" field_type="" skip_state=True %}
+    {% include 'includes/metric.html' with title="School progress" field="smart_school_progress_rating_display" field_type="" skip_state=True %}
+    {% include 'includes/metric.html' with title="Closing the gaps" field="smart_closing_the_gaps_rating_display" field_type="" skip_state=True %}
     {% endif %}
   </section>
 
