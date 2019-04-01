@@ -3,17 +3,6 @@ version: '3'
 services:
   web:
     build: .
-    environment:
-      - DATABASE_URL=postgis://postgres:postgres@db/postgres
-    depends_on:
-      - db
-    volumes:
-      - '${DATA_FOLDER}:/usr/src/app/data'
-
-  db:
-    image: mdillon/postgis:9.6-alpine
-    volumes:
-      - db-data:/var/lib/postgresql/data
 
   proxy:
     build:
@@ -23,6 +12,3 @@ services:
       - '80:80'
     depends_on:
       - web
-
-volumes:
-  db-data: {}
