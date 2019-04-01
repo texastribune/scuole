@@ -3,6 +3,7 @@ version: '3'
 services:
   web:
     build: .
+    image: schools/web:latest
 
   proxy:
     build:

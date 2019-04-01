@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  asktedupdate:
+    image: schools/web:latest
+    entrypoint: 'make data/update-directories'
+    environment:
+      - DATABASE_URL
+    depends_on:
+      - web

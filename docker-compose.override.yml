@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     environment:
-      - DATABASE_URL=postgis://postgres:postgres@db/postgres
+      - DATABASE_URL
     depends_on:
       - db
 

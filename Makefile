@@ -158,3 +158,10 @@ docker/nginx: docker/nginx-build
 		${APP}-nginx
 
 docker/kickstart: docker/build docker/run docker/nginx
+
+compose/production-deploy:
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build web
+	docker-compose  -f docker-compose.yml -f docker-compose.prod.yml up --no-deps -d web
+
+compose/admin-update-askted:
+	docker-compose -f docker-compose.yml -f docker-compose.admin.yml run --rm asktedupdate
