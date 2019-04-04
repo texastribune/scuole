@@ -160,8 +160,8 @@ docker/nginx: docker/nginx-build
 docker/kickstart: docker/build docker/run docker/nginx
 
 compose/production-deploy:
-	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build web
-	docker-compose  -f docker-compose.yml -f docker-compose.prod.yml up --no-deps -d web
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build web proxy
+	docker-compose  -f docker-compose.yml -f docker-compose.prod.yml up -d
 
 compose/admin-update-askted:
 	docker-compose -f docker-compose.yml -f docker-compose.admin.yml run --rm asktedupdate
