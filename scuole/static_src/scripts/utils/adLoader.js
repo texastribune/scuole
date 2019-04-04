@@ -1,6 +1,6 @@
 /* global googletag */
 
-const SLOT_PREFIX = '${SLOT_PREFIX}';
+const SLOT_PREFIX = '/5805113/';
 
 (function() {
   var gads = document.createElement('script');
