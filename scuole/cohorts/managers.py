@@ -97,13 +97,13 @@ class CohortQuerySet(models.QuerySet):
         specifying whether an object was created.
         """
         defaults = defaults or {}
-        lookup, params = self._extract_model_params(defaults, **kwargs)
+        params = self._extract_model_params(defaults, **kwargs)
         self._for_write = True
         with transaction.atomic(using=self.db):
             try:
-                obj = self.select_for_update().get(**lookup)
+                obj = self.select_for_update().get(**kwargs)
             except self.model.DoesNotExist:
-                obj, created = self._create_object_from_params(lookup, params)
+                obj, created = self._create_object_from_params(kwargs, params)
                 if created:
                     return obj, created
             for k, v in defaults.items():
