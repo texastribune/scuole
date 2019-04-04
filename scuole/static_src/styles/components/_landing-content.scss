@@ -30,7 +30,7 @@
 
   .landing-paragraph {
     @include font-size(16);
-    letter-spacing: .03em;
+    letter-spacing: 0.03em;
     line-height: 1.5;
     margin-bottom: $gutter;
 
@@ -41,6 +41,11 @@
     &--credit {
       @include font-size(16);
       color: $color-text-accent;
+    }
+
+    &--dateline {
+      @include font-size(14);
+      font-weight: bold;
     }
   }
 }
