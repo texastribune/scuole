@@ -4,6 +4,8 @@ from __future__ import absolute_import, unicode_literals
 import json
 import string
 
+from postgres_copy import CopyManager
+
 from django.contrib.gis.db import models
 from django.core.serializers import serialize
 from django.utils.functional import cached_property
@@ -51,6 +53,8 @@ class District(models.Model):
         blank=True,
     )
     shape = models.MultiPolygonField(_("District shape"), srid=4326, null=True)
+
+    objects = CopyManager()
 
     class Meta:
         ordering = ["name"]

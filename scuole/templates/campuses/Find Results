@@ -1,0 +1,944 @@
+
+
+Searching 348 files for "H S"
+
+/Users/chrisessig/Documents/tribune/github/scuole/analysis/analysis.ipynb:
+   55      "# To the AF ratings data we get from TEA\n",
+   56      "\n",
+   57:     "# First step is to create the csv files with slugs\n",
+   58      "# That's done in the Django app\n",
+   59      "# For districts, run:\n",
+   ..
+   80      "    if col == 'campus':\n",
+   81      "        return val \\\n",
+   82:     "            .str.replace(r' H S$', ' High School') \\\n",
+   83      "            .str.replace(r' J H$', 'Junior High') \\\n",
+   84      "            .str.replace(r' EL$', ' Elementary') \\\n",
+   ..
+  165      "        df_ratings[final_cols[2]] = df_ratings[final_cols[4]]\n",
+  166      "        \n",
+  167:     "    # Join them with slug file\n",
+  168      "    c_df_ratings_slugs = df_ratings.merge(df_slugs, left_on=final_cols[1], right_on='tea_id')\n",
+  169      "    \n",
+
+/Users/chrisessig/Documents/tribune/github/scuole/analysis/.ipynb_checkpoints/analysis-checkpoint.ipynb:
+   55      "# To the AF ratings data we get from TEA\n",
+   56      "\n",
+   57:     "# First step is to create the csv files with slugs\n",
+   58      "# That's done in the Django app\n",
+   59      "# For districts, run:\n",
+   ..
+   80      "    if col == 'campus':\n",
+   81      "        return val \\\n",
+   82:     "            .str.replace(r' H S$', ' High School') \\\n",
+   83      "            .str.replace(r' J H$', 'Junior High') \\\n",
+   84      "            .str.replace(r' EL$', ' Elementary') \\\n",
+   ..
+  165      "        df_ratings[final_cols[2]] = df_ratings[final_cols[4]]\n",
+  166      "        \n",
+  167:     "    # Join them with slug file\n",
+  168      "    c_df_ratings_slugs = df_ratings.merge(df_slugs, left_on=final_cols[1], right_on='tea_id')\n",
+  169      "    \n",
+
+/Users/chrisessig/Documents/tribune/github/scuole/backups/pg.dump:
+    <binary>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/assets/admin/fonts/LICENSE.txt:
+   80        by such Contributor that are necessarily infringed by their
+   81        Contribution(s) alone or by combination of their Contribution(s)
+   82:       with the Work to which such Contribution(s) was submitted. If You
+   83        institute patent litigation against any entity (including a
+   84        cross-claim or counterclaim in a lawsuit) alleging that the Work
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/assets/admin/img/gis/move_vertex_off.svg:
+    1: <svg width="24" height="22" viewBox="0 0 847 779" xmlns="http://www.w3.org/2000/svg"><g><path fill="#EBECE6" d="M120 1h607c66 0 120 54 120 120v536c0 66-54 120-120 120h-607c-66 0-120-54-120-120v-536c0-66 54-120 120-120z"/><path fill="#9E9E93" d="M120 1h607c66 0 120 54 120 120v536c0 66-54 120-120 120h-607c-66 0-120-54-120-120v-536c0-66 54-120 120-120zm607 25h-607c-26 0-50 11-67 28-17 18-28 41-28 67v536c0 27 11 50 28 68 17 17 41 27 67 27h607c26 0 49-10 67-27 17-18 28-41 28-68v-536c0-26-11-49-28-67-18-17-41-28-67-28z"/><path stroke="#A9A8A4" stroke-width="20" d="M706 295l-68 281"/><path stroke="#E47474" stroke-width="20" d="M316 648l390-353M141 435l175 213"/><path stroke="#C9C9C9" stroke-width="20" d="M319 151l-178 284M706 295l-387-144"/><g fill="#040405"><path d="M319 111c22 0 40 18 40 40s-18 40-40 40-40-18-40-40 18-40 40-40zM141 395c22 0 40 18 40 40s-18 40-40 40c-23 0-41-18-41-40s18-40 41-40zM316 608c22 0 40 18 40 40 0 23-18 41-40 41s-40-18-40-41c0-22 18-40 40-40zM706 254c22 0 40 18 40 41 0 22-18 40-40 40s-40-18-40-40c0-23 18-41 40-41zM638 536c22 0 40 18 40 40s-18 40-40 40-40-18-40-40 18-40 40-40z"/></g></g></svg>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/assets/admin/img/gis/move_vertex_on.svg:
+    1: <svg width="24" height="22" viewBox="0 0 847 779" xmlns="http://www.w3.org/2000/svg"><g><path fill="#F1C02A" d="M120 1h607c66 0 120 54 120 120v536c0 66-54 120-120 120h-607c-66 0-120-54-120-120v-536c0-66 54-120 120-120z"/><path fill="#9E9E93" d="M120 1h607c66 0 120 54 120 120v536c0 66-54 120-120 120h-607c-66 0-120-54-120-120v-536c0-66 54-120 120-120zm607 25h-607c-26 0-50 11-67 28-17 18-28 41-28 67v536c0 27 11 50 28 68 17 17 41 27 67 27h607c26 0 49-10 67-27 17-18 28-41 28-68v-536c0-26-11-49-28-67-18-17-41-28-67-28z"/><path stroke="#A9A8A4" stroke-width="20" d="M706 295l-68 281"/><path stroke="#E47474" stroke-width="20" d="M316 648l390-353M141 435l175 213"/><path stroke="#C9A741" stroke-width="20" d="M319 151l-178 284M706 295l-387-144"/><g fill="#040405"><path d="M319 111c22 0 40 18 40 40s-18 40-40 40-40-18-40-40 18-40 40-40zM141 395c22 0 40 18 40 40s-18 40-40 40c-23 0-41-18-41-40s18-40 41-40zM316 608c22 0 40 18 40 40 0 23-18 41-40 41s-40-18-40-41c0-22 18-40 40-40zM706 254c22 0 40 18 40 41 0 22-18 40-40 40s-40-18-40-40c0-23 18-41 40-41zM638 536c22 0 40 18 40 40s-18 40-40 40-40-18-40-40 18-40 40-40z"/></g></g></svg>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/campuses/models.py:
+   60      SCHOOL_TYPE_CHOICES = (
+   61          (ELEMENTARY_SCHOOL, _("Elementary school")),
+   62:         (MIDDLE_SCHOOL, _("Middle school or junior high school")),
+   63:         (HIGH_SCHOOL, _("High school")),
+   64          (ELEMENTARY_SECONDARY_SCHOOL, _("Elementary/secondary school")),
+   65      )
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/campuses/migrations/0001_initial.py:
+   38                  ('low_grade', models.CharField(choices=[('EE', 'Early education'), ('PK', 'Pre-kindergarten'), ('KG', 'Kindergarten'), ('01', '1st grade'), ('02', '2nd grade'), ('03', '3rd grade'), ('04', '4th grade'), ('05', '5th grade'), ('06', '6th grade'), ('07', '7th grade'), ('08', '8th grade'), ('09', '9th grade'), ('10', '10th grade'), ('11', '11th grade'), ('12', '12th grade')], max_length=2, verbose_name='Lowest grade offered')),
+   39                  ('high_grade', models.CharField(choices=[('EE', 'Early education'), ('PK', 'Pre-kindergarten'), ('KG', 'Kindergarten'), ('01', '1st grade'), ('02', '2nd grade'), ('03', '3rd grade'), ('04', '4th grade'), ('05', '5th grade'), ('06', '6th grade'), ('07', '7th grade'), ('08', '8th grade'), ('09', '9th grade'), ('10', '10th grade'), ('11', '11th grade'), ('12', '12th grade')], max_length=2, verbose_name='Highest grade offered')),
+   40:                 ('school_type', models.CharField(choices=[('E', 'Elementary school'), ('M', 'Middle school or junior high school'), ('S', 'High school'), ('B', 'Elementary/secondary school')], max_length=1, verbose_name='School type')),
+   41              ],
+   42              options={
+   ..
+  152                  ('college_ready_graduates_math_limited_english_proficient_count', models.IntegerField(blank=True, db_column='college_ready_graduates_math_lep_count', null=True, verbose_name='Number of college ready limited english proficient graduates in math')),
+  153                  ('college_ready_graduates_math_at_risk_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready at risk graduates in math')),
+  154:                 ('college_ready_graduates_both_all_students_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready graduates in both subjects')),
+  155:                 ('college_ready_graduates_both_african_american_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready african american graduates in both subjects')),
+  156:                 ('college_ready_graduates_both_asian_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready Asian graduates in both subjects')),
+  157:                 ('college_ready_graduates_both_hispanic_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready Hispanic graduates in both subjects')),
+  158:                 ('college_ready_graduates_both_american_indian_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready American Indian graduates in both subjects')),
+  159:                 ('college_ready_graduates_both_pacific_islander_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready Pacific Islander graduates in both subjects')),
+  160:                 ('college_ready_graduates_both_two_or_more_races_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready graduates of two or more races in both subjects')),
+  161:                 ('college_ready_graduates_both_white_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready white graduates in both subjects')),
+  162:                 ('college_ready_graduates_both_economically_disadvantaged_count', models.IntegerField(blank=True, db_column='college_ready_graduates_both_econ_disadv_count', null=True, verbose_name='Number of college ready economically disadvantaged graduates in both subjects')),
+  163:                 ('college_ready_graduates_both_limited_english_proficient_count', models.IntegerField(blank=True, db_column='college_ready_graduates_both_lep_count', null=True, verbose_name='Number of college ready limited english proficient graduates in both subjects')),
+  164                  ('college_ready_graduates_both_at_risk_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready at risk graduates in both')),
+  165                  ('college_ready_graduates_english_all_students_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready graduates in English')),
+  ...
+  185                  ('college_ready_graduates_math_limited_english_proficient_percent', models.FloatField(blank=True, db_column='college_ready_graduates_math_lep_percent', null=True, verbose_name='Percent of college ready limited english proficient graduates in math')),
+  186                  ('college_ready_graduates_math_at_risk_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready at risk graduates in math')),
+  187:                 ('college_ready_graduates_both_all_students_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready students in both subjects')),
+  188:                 ('college_ready_graduates_both_african_american_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready african american graduates in both subjects')),
+  189:                 ('college_ready_graduates_both_asian_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready Asian graduates in both subjects')),
+  190:                 ('college_ready_graduates_both_hispanic_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready Hispanic graduates in both subjects')),
+  191:                 ('college_ready_graduates_both_american_indian_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready American Indian graduates in both subjects')),
+  192:                 ('college_ready_graduates_both_pacific_islander_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready Pacific Islander graduates in both subjects')),
+  193:                 ('college_ready_graduates_both_two_or_more_races_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready graduates of two or more races in both subjects')),
+  194:                 ('college_ready_graduates_both_white_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready white graduates in both subjects')),
+  195:                 ('college_ready_graduates_both_economically_disadvantaged_percent', models.FloatField(blank=True, db_column='college_ready_graduates_both_econ_disadv_percent', null=True, verbose_name='Percent of college ready economically disadvantaged graduates in both subjects')),
+  196:                 ('college_ready_graduates_both_limited_english_proficient_percent', models.FloatField(blank=True, db_column='college_ready_graduates_both_lep_percent', null=True, verbose_name='Percent of college ready limited english proficient graduates in both subjects')),
+  197:                 ('college_ready_graduates_both_at_risk_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready at risk graduates in both subjects')),
+  198                  ('avg_sat_score_all_students', models.IntegerField(blank=True, null=True, verbose_name='Average SAT score for all students')),
+  199                  ('avg_sat_score_african_american', models.IntegerField(blank=True, null=True, verbose_name='Average SAT score for African American students')),
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/cohorts/schemas/cohorts/schema.py:
+   11          'lessthan_10th_enrolled': 'Enrolled in <10th Grade (FY 2008)',
+   12          'lessthan_10th_enrolled_percent': '% Enrolled in <10th Grade (FY 2008)',
+   13:         'graduated': 'High School Graduate FY 2009-2011',
+   14:         'graduated_percent': '% High School Graduate FY 2009-2011',
+   15          'enrolled_4yr': 'Enrolled TX 4-year',
+   16          'enrolled_4yr_percent': '% Enrolled TX 4-year',
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/districts/management/commands/exportslugs.py:
+   24              shapes = Campus.objects.all()
+   25  
+   26:         print('Creating csv with slugs')
+   27  
+   28          with open(output_dir + shape + '_slugs.csv', 'w+') as csv_file:
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/districts/migrations/0001_initial.py:
+  149                  ('college_ready_graduates_math_limited_english_proficient_count', models.IntegerField(blank=True, db_column='college_ready_graduates_math_lep_count', null=True, verbose_name='Number of college ready limited english proficient graduates in math')),
+  150                  ('college_ready_graduates_math_at_risk_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready at risk graduates in math')),
+  151:                 ('college_ready_graduates_both_all_students_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready graduates in both subjects')),
+  152:                 ('college_ready_graduates_both_african_american_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready african american graduates in both subjects')),
+  153:                 ('college_ready_graduates_both_asian_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready Asian graduates in both subjects')),
+  154:                 ('college_ready_graduates_both_hispanic_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready Hispanic graduates in both subjects')),
+  155:                 ('college_ready_graduates_both_american_indian_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready American Indian graduates in both subjects')),
+  156:                 ('college_ready_graduates_both_pacific_islander_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready Pacific Islander graduates in both subjects')),
+  157:                 ('college_ready_graduates_both_two_or_more_races_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready graduates of two or more races in both subjects')),
+  158:                 ('college_ready_graduates_both_white_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready white graduates in both subjects')),
+  159:                 ('college_ready_graduates_both_economically_disadvantaged_count', models.IntegerField(blank=True, db_column='college_ready_graduates_both_econ_disadv_count', null=True, verbose_name='Number of college ready economically disadvantaged graduates in both subjects')),
+  160:                 ('college_ready_graduates_both_limited_english_proficient_count', models.IntegerField(blank=True, db_column='college_ready_graduates_both_lep_count', null=True, verbose_name='Number of college ready limited english proficient graduates in both subjects')),
+  161                  ('college_ready_graduates_both_at_risk_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready at risk graduates in both')),
+  162                  ('college_ready_graduates_english_all_students_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready graduates in English')),
+  ...
+  182                  ('college_ready_graduates_math_limited_english_proficient_percent', models.FloatField(blank=True, db_column='college_ready_graduates_math_lep_percent', null=True, verbose_name='Percent of college ready limited english proficient graduates in math')),
+  183                  ('college_ready_graduates_math_at_risk_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready at risk graduates in math')),
+  184:                 ('college_ready_graduates_both_all_students_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready students in both subjects')),
+  185:                 ('college_ready_graduates_both_african_american_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready african american graduates in both subjects')),
+  186:                 ('college_ready_graduates_both_asian_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready Asian graduates in both subjects')),
+  187:                 ('college_ready_graduates_both_hispanic_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready Hispanic graduates in both subjects')),
+  188:                 ('college_ready_graduates_both_american_indian_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready American Indian graduates in both subjects')),
+  189:                 ('college_ready_graduates_both_pacific_islander_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready Pacific Islander graduates in both subjects')),
+  190:                 ('college_ready_graduates_both_two_or_more_races_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready graduates of two or more races in both subjects')),
+  191:                 ('college_ready_graduates_both_white_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready white graduates in both subjects')),
+  192:                 ('college_ready_graduates_both_economically_disadvantaged_percent', models.FloatField(blank=True, db_column='college_ready_graduates_both_econ_disadv_percent', null=True, verbose_name='Percent of college ready economically disadvantaged graduates in both subjects')),
+  193:                 ('college_ready_graduates_both_limited_english_proficient_percent', models.FloatField(blank=True, db_column='college_ready_graduates_both_lep_percent', null=True, verbose_name='Percent of college ready limited english proficient graduates in both subjects')),
+  194:                 ('college_ready_graduates_both_at_risk_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready at risk graduates in both subjects')),
+  195                  ('avg_sat_score_all_students', models.IntegerField(blank=True, null=True, verbose_name='Average SAT score for all students')),
+  196                  ('avg_sat_score_african_american', models.IntegerField(blank=True, null=True, verbose_name='Average SAT score for African American students')),
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/regions/migrations/0001_initial.py:
+  132                  ('college_ready_graduates_math_limited_english_proficient_count', models.IntegerField(blank=True, db_column='college_ready_graduates_math_lep_count', null=True, verbose_name='Number of college ready limited english proficient graduates in math')),
+  133                  ('college_ready_graduates_math_at_risk_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready at risk graduates in math')),
+  134:                 ('college_ready_graduates_both_all_students_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready graduates in both subjects')),
+  135:                 ('college_ready_graduates_both_african_american_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready african american graduates in both subjects')),
+  136:                 ('college_ready_graduates_both_asian_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready Asian graduates in both subjects')),
+  137:                 ('college_ready_graduates_both_hispanic_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready Hispanic graduates in both subjects')),
+  138:                 ('college_ready_graduates_both_american_indian_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready American Indian graduates in both subjects')),
+  139:                 ('college_ready_graduates_both_pacific_islander_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready Pacific Islander graduates in both subjects')),
+  140:                 ('college_ready_graduates_both_two_or_more_races_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready graduates of two or more races in both subjects')),
+  141:                 ('college_ready_graduates_both_white_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready white graduates in both subjects')),
+  142:                 ('college_ready_graduates_both_economically_disadvantaged_count', models.IntegerField(blank=True, db_column='college_ready_graduates_both_econ_disadv_count', null=True, verbose_name='Number of college ready economically disadvantaged graduates in both subjects')),
+  143:                 ('college_ready_graduates_both_limited_english_proficient_count', models.IntegerField(blank=True, db_column='college_ready_graduates_both_lep_count', null=True, verbose_name='Number of college ready limited english proficient graduates in both subjects')),
+  144                  ('college_ready_graduates_both_at_risk_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready at risk graduates in both')),
+  145                  ('college_ready_graduates_english_all_students_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready graduates in English')),
+  ...
+  165                  ('college_ready_graduates_math_limited_english_proficient_percent', models.FloatField(blank=True, db_column='college_ready_graduates_math_lep_percent', null=True, verbose_name='Percent of college ready limited english proficient graduates in math')),
+  166                  ('college_ready_graduates_math_at_risk_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready at risk graduates in math')),
+  167:                 ('college_ready_graduates_both_all_students_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready students in both subjects')),
+  168:                 ('college_ready_graduates_both_african_american_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready african american graduates in both subjects')),
+  169:                 ('college_ready_graduates_both_asian_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready Asian graduates in both subjects')),
+  170:                 ('college_ready_graduates_both_hispanic_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready Hispanic graduates in both subjects')),
+  171:                 ('college_ready_graduates_both_american_indian_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready American Indian graduates in both subjects')),
+  172:                 ('college_ready_graduates_both_pacific_islander_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready Pacific Islander graduates in both subjects')),
+  173:                 ('college_ready_graduates_both_two_or_more_races_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready graduates of two or more races in both subjects')),
+  174:                 ('college_ready_graduates_both_white_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready white graduates in both subjects')),
+  175:                 ('college_ready_graduates_both_economically_disadvantaged_percent', models.FloatField(blank=True, db_column='college_ready_graduates_both_econ_disadv_percent', null=True, verbose_name='Percent of college ready economically disadvantaged graduates in both subjects')),
+  176:                 ('college_ready_graduates_both_limited_english_proficient_percent', models.FloatField(blank=True, db_column='college_ready_graduates_both_lep_percent', null=True, verbose_name='Percent of college ready limited english proficient graduates in both subjects')),
+  177:                 ('college_ready_graduates_both_at_risk_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready at risk graduates in both subjects')),
+  178                  ('avg_sat_score_all_students', models.IntegerField(blank=True, null=True, verbose_name='Average SAT score for all students')),
+  179                  ('avg_sat_score_african_american', models.IntegerField(blank=True, null=True, verbose_name='Average SAT score for African American students')),
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/states/migrations/0001_initial.py:
+  151                  ('college_ready_graduates_math_limited_english_proficient_count', models.IntegerField(blank=True, db_column='college_ready_graduates_math_lep_count', null=True, verbose_name='Number of college ready limited english proficient graduates in math')),
+  152                  ('college_ready_graduates_math_at_risk_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready at risk graduates in math')),
+  153:                 ('college_ready_graduates_both_all_students_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready graduates in both subjects')),
+  154:                 ('college_ready_graduates_both_african_american_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready african american graduates in both subjects')),
+  155:                 ('college_ready_graduates_both_asian_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready Asian graduates in both subjects')),
+  156:                 ('college_ready_graduates_both_hispanic_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready Hispanic graduates in both subjects')),
+  157:                 ('college_ready_graduates_both_american_indian_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready American Indian graduates in both subjects')),
+  158:                 ('college_ready_graduates_both_pacific_islander_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready Pacific Islander graduates in both subjects')),
+  159:                 ('college_ready_graduates_both_two_or_more_races_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready graduates of two or more races in both subjects')),
+  160:                 ('college_ready_graduates_both_white_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready white graduates in both subjects')),
+  161:                 ('college_ready_graduates_both_economically_disadvantaged_count', models.IntegerField(blank=True, db_column='college_ready_graduates_both_econ_disadv_count', null=True, verbose_name='Number of college ready economically disadvantaged graduates in both subjects')),
+  162:                 ('college_ready_graduates_both_limited_english_proficient_count', models.IntegerField(blank=True, db_column='college_ready_graduates_both_lep_count', null=True, verbose_name='Number of college ready limited english proficient graduates in both subjects')),
+  163                  ('college_ready_graduates_both_at_risk_count', models.IntegerField(blank=True, null=True, verbose_name='Number of college ready at risk graduates in both')),
+  164                  ('college_ready_graduates_english_all_students_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready graduates in English')),
+  ...
+  184                  ('college_ready_graduates_math_limited_english_proficient_percent', models.FloatField(blank=True, db_column='college_ready_graduates_math_lep_percent', null=True, verbose_name='Percent of college ready limited english proficient graduates in math')),
+  185                  ('college_ready_graduates_math_at_risk_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready at risk graduates in math')),
+  186:                 ('college_ready_graduates_both_all_students_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready students in both subjects')),
+  187:                 ('college_ready_graduates_both_african_american_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready african american graduates in both subjects')),
+  188:                 ('college_ready_graduates_both_asian_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready Asian graduates in both subjects')),
+  189:                 ('college_ready_graduates_both_hispanic_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready Hispanic graduates in both subjects')),
+  190:                 ('college_ready_graduates_both_american_indian_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready American Indian graduates in both subjects')),
+  191:                 ('college_ready_graduates_both_pacific_islander_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready Pacific Islander graduates in both subjects')),
+  192:                 ('college_ready_graduates_both_two_or_more_races_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready graduates of two or more races in both subjects')),
+  193:                 ('college_ready_graduates_both_white_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready white graduates in both subjects')),
+  194:                 ('college_ready_graduates_both_economically_disadvantaged_percent', models.FloatField(blank=True, db_column='college_ready_graduates_both_econ_disadv_percent', null=True, verbose_name='Percent of college ready economically disadvantaged graduates in both subjects')),
+  195:                 ('college_ready_graduates_both_limited_english_proficient_percent', models.FloatField(blank=True, db_column='college_ready_graduates_both_lep_percent', null=True, verbose_name='Percent of college ready limited english proficient graduates in both subjects')),
+  196:                 ('college_ready_graduates_both_at_risk_percent', models.FloatField(blank=True, null=True, verbose_name='Percent of college ready at risk graduates in both subjects')),
+  197                  ('avg_sat_score_all_students', models.IntegerField(blank=True, null=True, verbose_name='Average SAT score for all students')),
+  198                  ('avg_sat_score_african_american', models.IntegerField(blank=True, null=True, verbose_name='Average SAT score for African American students')),
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/stats/models/postsecondary_readiness.py:
+    9      """
+   10      An abstract model representing postsecondary readiness data commonly
+   11:     tracked across all entities in TEA data. Meant to be used with StatsBase
+   12      by other apps for establishing their stats models.
+   13  
+   ..
+  100      # College ready counts for combined english and math
+  101      college_ready_graduates_both_all_students_count = models.IntegerField(
+  102:         _('Number of college ready graduates in both subjects'),
+  103          null=True, blank=True)
+  104      college_ready_graduates_both_african_american_count = models.IntegerField(
+  105:         _('Number of college ready african american graduates in both subjects'),
+  106          null=True, blank=True)
+  107      college_ready_graduates_both_asian_count = models.IntegerField(
+  108:         _('Number of college ready Asian graduates in both subjects'),
+  109          null=True, blank=True)
+  110      college_ready_graduates_both_hispanic_count = models.IntegerField(
+  111:         _('Number of college ready Hispanic graduates in both subjects'),
+  112          null=True, blank=True)
+  113      college_ready_graduates_both_american_indian_count = models.IntegerField(
+  114:         _('Number of college ready American Indian graduates in both subjects'),
+  115          null=True, blank=True)
+  116      college_ready_graduates_both_pacific_islander_count = models.IntegerField(
+  117:         _('Number of college ready Pacific Islander graduates in both subjects'),
+  118          null=True, blank=True)
+  119      college_ready_graduates_both_two_or_more_races_count = models.IntegerField(
+  120          _('Number of college ready graduates '
+  121:          'of two or more races in both subjects'),
+  122          null=True, blank=True)
+  123      college_ready_graduates_both_white_count = models.IntegerField(
+  124:         _('Number of college ready white graduates in both subjects'),
+  125          null=True, blank=True)
+  126      college_ready_graduates_both_economically_disadvantaged_count = (
+  127          models.IntegerField(
+  128              _('Number of college ready economically '
+  129:               'disadvantaged graduates in both subjects'),
+  130              null=True, blank=True,
+  131              db_column='college_ready_graduates_both_econ_disadv_count'))
+  ...
+  133          models.IntegerField(
+  134              _('Number of college ready limited english '
+  135:               'proficient graduates in both subjects'),
+  136              null=True, blank=True,
+  137              db_column='college_ready_graduates_both_lep_count'))
+  ...
+  227      # college ready percents for english and math
+  228      college_ready_graduates_both_all_students_percent = models.FloatField(
+  229:         _('Percent of college ready students in both subjects'),
+  230          null=True, blank=True)
+  231      college_ready_graduates_both_african_american_percent = models.FloatField(
+  232:         _('Percent of college ready african american graduates in both subjects'),
+  233          null=True, blank=True)
+  234      college_ready_graduates_both_asian_percent = models.FloatField(
+  235:         _('Percent of college ready Asian graduates in both subjects'),
+  236          null=True, blank=True)
+  237      college_ready_graduates_both_hispanic_percent = models.FloatField(
+  238:         _('Percent of college ready Hispanic graduates in both subjects'),
+  239          null=True, blank=True)
+  240      college_ready_graduates_both_american_indian_percent = models.FloatField(
+  241:         _('Percent of college ready American Indian graduates in both subjects'),
+  242          null=True, blank=True)
+  243      college_ready_graduates_both_pacific_islander_percent = models.FloatField(
+  244:         _('Percent of college ready Pacific Islander graduates in both subjects'),
+  245          null=True, blank=True)
+  246      college_ready_graduates_both_two_or_more_races_percent = models.FloatField(
+  247          _('Percent of college ready graduates '
+  248:           'of two or more races in both subjects'),
+  249          null=True, blank=True)
+  250      college_ready_graduates_both_white_percent = models.FloatField(
+  251:         _('Percent of college ready white graduates in both subjects'),
+  252          null=True, blank=True)
+  253      college_ready_graduates_both_economically_disadvantaged_percent = (
+  254          models.FloatField(
+  255              _('Percent of college ready economically '
+  256:               'disadvantaged graduates in both subjects'),
+  257              null=True, blank=True,
+  258              db_column='college_ready_graduates_both_econ_disadv_percent'))
+  ...
+  260          models.FloatField(
+  261              _('Percent of college ready limited english '
+  262:               'proficient graduates in both subjects'),
+  263              null=True, blank=True,
+  264              db_column='college_ready_graduates_both_lep_percent'))
+  265      college_ready_graduates_both_at_risk_percent = models.FloatField(
+  266:         _('Percent of college ready at risk graduates in both subjects'),
+  267          null=True, blank=True)
+  268  
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/stats/models/staff_student.py:
+    8      """
+    9      An abstract model representing staff and student data commonly tracked
+   10:     across all entities in TEA data. Meant to be used with StatsBase by other
+   11      apps for establishing their stats models.
+   12  
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/about.html:
+   45        <li>If the student is in prekindergarten, kindergarten, or grade 1, 2, or 3, did not perform satisfactorily on a readiness test or assessment instrument administered during the current school year;</li>
+   46        <li>Is pregnant or is a parent;</li>
+   47:       <li>Has been placed in an alternative education program in accordance with Section 37.006 during the preceding or current school year;</li>
+   48:       <li>Has been expelled in accordance with Section 37.007 during the preceding or current school year;</li>
+   49        <li>Is currently on parole, probation, deferred prosecution, or other conditional release;</li>
+   50        <li>Was previously reported through the Public Education Information Management System (PEIMS) to have dropped out of school;</li>
+   ..
+   80  
+   81  <div class="page-prose">
+   82:   <p>TEA refers to a four-year graduation rate as a four-year longitudinal rate. This measures the  status of a group of students, or cohort, after four years in high school. For this rate, the cohort consists of students who first attended ninth grade in 2013–14. They are followed through their expected graduation with the Class of 2017.</p>
+   83  
+   84:   <p>The four-year-graduation rate as reported in the Texas Public Schools Explorer is the percentage of students who received their high school diploma on time (in four years) or earlier — by Aug. 31, 2017, for the 2013–14 cohort.</p>
+   85  </div>
+   86  
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/cohorts_landing.html:
+   30  
+   31  <section class="landing-prose">
+   32:   <p class="landing-paragraph">Each year, approximately 300,000 students begin eighth grade in a Texas public school. National employment and earnings statistics suggest that these students will have materially better prospects as adults if they finish high school and enroll in and complete a post-secondary certificate or degree program.</p>
+   33  
+   34:   <p class="landing-paragraph">With support from the Greater Texas Foundation and the <a href="http://houstonendowment.org/">Houston Endowment</a>, two institutional philanthropies, The Texas Tribune has used data from the <a href="http://www.thecb.state.tx.us/">Texas Higher Education Coordinating Board</a> and the <a href="http://www.tea.state.tx.us/">Texas Education Agency</a> to document the education outcomes of every student who started eighth grade in a Texas public school during eight academic years (1997 through 2006). Each student was anonymously tracked over 11 years to determine the percentage of Texas eighth-graders who achieved a post-secondary certificate or degree from a Texas college or university within six years of their expected high school graduation date.</p>
+   35  
+   36    <p class="landing-paragraph">Use this explorer to review and compare student outcomes by region or by county. Or, <a href="{% url 'cohorts:states' 'tx' %}">view outcomes at the statewide level</a>. You can also <a href="http://www.txhighereddata.org/index.cfm?objectId=F2CBE4A0-C90B-11E5-8D610050560100A9">download the data</a>.</p>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/landing.html:
+   23          <label class="search-form-label" for="search">Search by district or campus</label>
+   24          <div class="search-input-group">
+   25:         <input class="search-form-input" id="search" type="search" name="q" placeholder="{% trans "E.g. Austin ISD, Travis High School" %}" autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false">
+   26          <span class="search-form-submit">
+   27            <button class="btn btn-link" type="submit">{% trans "Search" %}</button>
+   ..
+   38  
+   39  <section class="landing-prose">
+   40:   <p class="landing-paragraph">Use our Texas public schools database to learn more about the state’s {{ district_count|intcomma }} districts and {{ campus_count|intcomma }} public schools, including hundreds of charter schools and alternative campuses. You can easily navigate through information on demographics, academic performance, college readiness and average teacher salaries for each school or&nbsp;district.</p>
+   41    <p class="landing-paragraph landing-paragraph--dateline">Last updated April 2019.</p>
+   42    <p class="landing-paragraph landing-paragraph--credit">By <a href="http://www.texastribune.org/about/staff/ryan-murphy/">Ryan Murphy</a> and <a href="http://www.texastribune.org/about/staff/annie-daniel/">Annie Daniel</a></p>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/standard.html:
+   23        <label class="search-form-label" for="search">Search by district or campus</label>
+   24        <div class="search-input-group">
+   25:       <input class="search-form-input" id="search" type="search" name="q" placeholder="{% trans "E.g. Austin ISD, Travis High School" %}" autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false">
+   26        <span class="search-form-submit">
+   27          <button class="btn btn-link" type="submit">{% trans "Search" %}</button>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/campuses/campus_detail.html:
+   34  </header>
+   35  
+   36: {% include "includes/intro_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
+   37  
+   38  <section class="page-prose">
+   ..
+   53  
+   54    {% if stat.four_year_graduate_all_students_percent and stat.four_year_graduate_all_students_percent >= 0 %}
+   55:   In the Class of {{ stat.year.start_year }}, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diplomas on time or earlier.
+   56    {% endif %}
+   57    {% if stat.dropout_all_students_percent and stat.dropout_all_students_percent >= 0 %}
+   ..
+  117  {% include "includes/ad_slot_middle_1.html" %}
+  118  
+  119: {% include "includes/metrics_block.html" with stat=stat state=state district=district district_name=campus.district.name campus=campus only %}
+  120  
+  121  {% include "includes/ad_slot_middle_2.html" %}
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/campuses/Login Shell:
+   74  SyntaxError: invalid syntax
+   75  (scuole) bash-3.2$ python manage.py exportslugs --shape=district
+   76: Creating csv with slugs
+   77  Traceback (most recent call last):
+   78    File "manage.py", line 10, in <module>
+   ..
+   96  (scuole) bash-3.2$ python manage.py exportslugs --shape=district
+   97  district
+   98: Creating csv with slugs
+   99  Traceback (most recent call last):
+  100    File "manage.py", line 10, in <module>
+  ...
+  201  (scuole) bash-3.2$ python manage.py exportslugs --shape=district
+  202  made it
+  203: Creating csv with slugs
+  204  ---
+  205  done
+  ...
+  225  NameError: name 'Campus' is not defined
+  226  (scuole) bash-3.2$ python manage.py exportslugs --shape=campus
+  227: Creating csv with slugs
+  228  ---
+  229  done
+  ...
+  233  (scuole) bash-3.2$ python manage.py exportslugs --shape=district                                                 
+  234  made it
+  235: Creating csv with slugs
+  236  ---
+  237  done
+  238  (scuole) bash-3.2$ python manage.py exportslugs --shape=campus                                                   
+  239: Creating csv with slugs
+  240  ---
+  241  done
+  242  (scuole) bash-3.2$ python manage.py exportslugs --shape=campus
+  243: Creating csv with slugs
+  244  ---
+  245  done
+  246  (scuole) bash-3.2$ python manage.py exportslugs --shape=district                                                 
+  247: Creating csv with slugs
+  248  ---
+  249  done
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/cohorts/county_cohorts_detail.html:
+   29      <section class="row metrics">
+   30        {% include 'includes/cohorts/metric.html' with title="Began 8th grade in " year=latest_cohort.year.start_year field=latest_cohort.enrolled_8th|intcomma field_label="students" %}
+   31:       {% include 'includes/cohorts/metric.html' with title="Graduated from high school" field=latest_cohort.graduated|intcomma extra_field=latest_cohort.percent_graduated|percentify subtext_field=latest_state_cohort.percent_graduated|percentify subtext_label="Statewide" %}
+   32        {% include 'includes/cohorts/metric.html' with title="Enrolled in college" field=latest_cohort.total_enrolled|intcomma extra_field=latest_cohort.percent_enrolled_higher_education|percentify subtext_field=latest_state_cohort.percent_enrolled_higher_education|percentify subtext_label="Statewide" %}
+   33        {% include 'includes/cohorts/metric.html' with title="Graduated from college" field=latest_cohort.total_degrees|intcomma extra_field=latest_cohort.percent_completed_higher_education|percentify subtext_field=latest_state_cohort.percent_completed_higher_education|percentify subtext_label="Statewide" %}
+   ..
+   36        {% include 'includes/cohorts/standard_prose.html' %}
+   37  
+   38:       <p>Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>{{ county.name_full_cohorts }}</strong> who began 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong> received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date. For context, a 13-year-old student who started 8th grade in <strong>1996</strong> is about <strong>35</strong> years old; one who started 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong> is now about <strong>25</strong>.</p>
+   39  
+   40        {% include 'includes/cohorts/prose_closer.html' %}
+   ..
+   69        <h2 class="page-section-header js-metrics-header">Ethnicity</h2>
+   70        <section class="page-prose">
+   71:         <p>A breakdown, by ethnicity, of outcomes for cohorts of students who attended eighth grade in a Texas public school. You can see who graduated from high school, who enrolled in higher education and who completed a certificate or degree.</p>
+   72        </section>
+   73        <section class="cohort-section-table">
+   ..
+   81        <h2 class="page-section-header js-metrics-header">Gender</h2>
+   82        <section class="page-prose">
+   83:         <p>A breakdown, by gender, of outcomes for cohorts of students who attended eighth grade in a Texas public school. You can see who graduated from high school, who enrolled in higher education and who completed a certificate or degree.</p>
+   84        </section>
+   85        <section class="cohort-section-table">
+   ..
+   93        <h2 class="page-section-header js-metrics-header">Economic status</h2>
+   94        <section class="page-prose">
+   95:         <p>A breakdown, by economic status, of outcomes for cohorts of students who attended eighth grade in a Texas public school. You can see who graduated from high school, who enrolled in higher education and who completed a certificate or degree.</p>
+   96        </section>
+   97        <section class="cohort-section-table">
+   ..
+  112      <thead>
+  113        <tr>
+  114:         <th scope="col">Year</th>
+  115:         <th scope="col">Enrolled</th>
+  116:         <th scope="col">Completed</th>
+  117        </tr>
+  118      </thead>
+  ...
+  120        {% for cohort in cohorts_overall %}
+  121        <tr>
+  122:         <th scope="row">{{ cohort.year.start_year }}</th>
+  123          <td>{{ cohort.total_enrolled|intcomma }} ({{ cohort.percent_enrolled_higher_education|percentify }}%)</td>
+  124          <td>{{ cohort.total_degrees|intcomma }} ({{ cohort.percent_completed_higher_education|percentify }}%)</td>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/cohorts/region_cohorts_detail.html:
+   30      <section class="row metrics">
+   31        {% include 'includes/cohorts/metric.html' with title="Began 8th grade in " year=latest_cohort.year.start_year field=latest_cohort.enrolled_8th|intcomma field_label="students" %}
+   32:       {% include 'includes/cohorts/metric.html' with title="Graduated from high school" field=latest_cohort.graduated|intcomma extra_field=latest_cohort.percent_graduated|percentify subtext_field=latest_state_cohort.percent_graduated|percentify subtext_label="Statewide" %}
+   33        {% include 'includes/cohorts/metric.html' with title="Enrolled in college" field=latest_cohort.total_enrolled|intcomma extra_field=latest_cohort.percent_enrolled_higher_education|percentify subtext_field=latest_state_cohort.percent_enrolled_higher_education|percentify subtext_label="Statewide" %}
+   34        {% include 'includes/cohorts/metric.html' with title="Graduated from college" field=latest_cohort.total_degrees|intcomma extra_field=latest_cohort.percent_completed_higher_education|percentify subtext_field=latest_state_cohort.percent_completed_higher_education|percentify subtext_label="Statewide" %}
+   ..
+   37        {% include 'includes/cohorts/standard_prose.html' %}
+   38  
+   39:       <p>Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>Region {{ region.region_id }}</strong> who began eighth grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong> received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date. For context, a 13-year-old student who started 8th grade in <strong>1996</strong> is about <strong>35</strong> years old; one who started 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong> is now about <strong>25</strong>.</p>
+   40  
+   41        {% include 'includes/cohorts/prose_closer.html' %}
+   ..
+   70        <h2 class="page-section-header js-metrics-header">Ethnicity</h2>
+   71        <section class="page-prose">
+   72:         <p>A breakdown, by ethnicity, of outcomes for cohorts of students who attended eighth grade in a Texas public school. You can see who graduated from high school, who enrolled in higher education and who completed a certificate or degree.</p>
+   73        </section>
+   74        <section class="cohort-section-table">
+   ..
+   82        <h2 class="page-section-header js-metrics-header">Gender</h2>
+   83        <section class="page-prose">
+   84:         <p>A breakdown, by gender, of outcomes for cohorts of students who attended eighth grade in a Texas public school. You can see who graduated from high school, who enrolled in higher education and who completed a certificate or degree.</p>
+   85        </section>
+   86        <section class="cohort-section-table">
+   ..
+   94        <h2 class="page-section-header js-metrics-header">Economic status</h2>
+   95        <section class="page-prose">
+   96:         <p>A breakdown, by economic status, of outcomes for cohorts of students who attended eighth grade in a Texas public school. You can see who graduated from high school, who enrolled in higher education and who completed a certificate or degree.</p>
+   97        </section>
+   98        <section class="cohort-section-table">
+   ..
+  113      <thead>
+  114        <tr>
+  115:         <th scope="col">Year</th>
+  116:         <th scope="col">Enrolled</th>
+  117:         <th scope="col">Completed</th>
+  118        </tr>
+  119      </thead>
+  ...
+  121        {% for cohort in cohorts_overall %}
+  122        <tr>
+  123:         <th scope="row">{{ cohort.year.start_year }}</th>
+  124          <td>{{ cohort.total_enrolled|intcomma }} ({{ cohort.percent_enrolled_higher_education|percentify }}%)</td>
+  125          <td>{{ cohort.total_degrees|intcomma }} ({{ cohort.percent_completed_higher_education|percentify }}%)</td>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/cohorts/state_cohorts_detail.html:
+   28      <section class="row metrics">
+   29        {% include 'includes/cohorts/metric.html' with title="Began 8th grade in " year=latest_cohort.year.start_year field=latest_cohort.enrolled_8th|intcomma field_label="students" %}
+   30:       {% include 'includes/cohorts/metric.html' with title="Graduated from high school" field=latest_cohort.graduated|intcomma extra_field=latest_cohort.percent_graduated|percentify %}
+   31        {% include 'includes/cohorts/metric.html' with title="Enrolled in college" field=latest_cohort.total_enrolled|intcomma extra_field=latest_cohort.percent_enrolled_higher_education|percentify %}
+   32        {% include 'includes/cohorts/metric.html' with title="Graduated from college" field=latest_cohort.total_degrees|intcomma extra_field=latest_cohort.percent_completed_higher_education|percentify %}
+   ..
+   35        {% include 'includes/cohorts/standard_prose.html' %}
+   36  
+   37:       <p>Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>{{ state.get_name_display }}</strong> who began 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong> received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date. For context, a 13-year-old student who started 8th grade in <strong>1996</strong> is about <strong>35</strong> years old; one who started 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong> is now about <strong>25</strong>.</p>
+   38  
+   39        {% include 'includes/cohorts/prose_closer.html' %}
+   ..
+   66        <h2 class="page-section-header js-metrics-header">Ethnicity</h2>
+   67        <section class="page-prose">
+   68:         <p>Students in 8th grade cohorts who graduated from high school, enrolled in higher education and completed a certificate or degree, broken down by ethnicity.</p>
+   69        </section>
+   70        <section class="cohort-section-table">
+   ..
+  109      <thead>
+  110        <tr>
+  111:         <th scope="col">Year</th>
+  112:         <th scope="col">Enrolled</th>
+  113:         <th scope="col">Completed</th>
+  114        </tr>
+  115      </thead>
+  ...
+  117        {% for cohort in cohorts_overall %}
+  118        <tr>
+  119:         <th scope="row">{{ cohort.year.start_year }}</th>
+  120          <td>{{ cohort.total_enrolled|intcomma }} ({{ cohort.percent_enrolled_higher_education|percentify }}%)</td>
+  121          <td>{{ cohort.total_degrees|intcomma }} ({{ cohort.percent_completed_higher_education|percentify }}%)</td>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/districts/district_detail.html:
+   30  </header>
+   31  
+   32: {% include "includes/intro_metrics.html" with stat=stat state=state only %}
+   33  
+   34  <section class="page-prose">
+   ..
+   51  
+   52    {% if stat.four_year_graduate_all_students_percent and stat.four_year_graduate_all_students_percent >= 0 %}
+   53:   In the Class of {{ stat.year.start_year }}, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diplomas on time or earlier.
+   54    {% endif %}
+   55  
+   ..
+  102  {% include "includes/ad_slot_middle_1.html" %}
+  103  
+  104: {% include "includes/metrics_block.html" with stat=stat state=state include_postsecondary=True only %}
+  105  
+  106  <h2 class="page-section-header">All campuses<span class="anchor" id="campuses"></span></h2>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/includes/academic_metrics.html:
+   22  
+   23    <div class="page-prose">
+   24:     <p>The overall grades are based on three categories: student achievement (how well students perform academically), school progress (how well students perform over time and compared to students in similar schools) and closing the gaps (how well schools are boosting performance for subgroups such as students with special needs).</p>
+   25      <p>For a detailed explanation of this year’s accountability system, see the <a href="https://tea.texas.gov/2018accountabilitymanual.aspx">2018 Accountability Manual</a>.</p>
+   26      </div>
+   ..
+   30  
+   31    <div class="page-prose">
+   32:     <p>The percentage of students who started ninth grade in {{ stat.year.ninth_grade_year }} who received a high school diploma on time &mdash; by Aug. 31, {{ stat.year.start_year }}. (<a href="{% url 'about' %}#four-year-grad">Learn more about how four-year graduation rates are defined</a>.)</p>
+   33    </div>
+   34  
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/includes/cohorts_meta.html:
+    7    <meta property="article:publisher" content="https://www.facebook.com/texastribune">
+    8    <meta property="article:published_time" content="2017-08-25">
+    9:   <meta property="og:description" content="{% if description %}{% else %}Each year, approximately 300,000 students begin eighth grade in a Texas public school. National employment and earnings statistics suggest that these students will have materially better prospects as adults if they finish high school and enroll in and complete a post-secondary certificate or degree program. Use our database to look into the outcomes of students who started eighth grade in a Texas public school over the past nine years.{% endif %}">
+   10    <meta property="og:site_name" content="Texas Public Schools: Higher Ed Outcomes">
+   11    <meta property="og:image" content="https://schools.texastribune.org{% static 'images/cohorts-facebook-share.jpg' %}">
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/includes/meta.html:
+    8    <meta property="article:published_time" content="2015-12-08">
+    9    <meta property="article:modified_time" content="2019-04-05">
+   10:   <meta property="og:description" content="{% if description %}{% else %}Texas Public Schools: Use our database to learn more about the state’s 1,200 districts and 8,700 public schools, including hundreds of charter schools and alternative campuses. You can easily navigate through information on demographics, academic performance, college readiness and average teacher salaries for each school or district.{% endif %}">
+   11    <meta property="og:site_name" content="Texas Public Schools">
+   12    <meta property="og:image" content="http://schools.texastribune.org{% static 'images/facebook-share.jpg' %}">
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/includes/metrics_block.html:
+   20  <div class="metrics-section" id="metrics-section">
+   21  
+   22: {% include "includes/demographic_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
+   23  
+   24: {% include "includes/academic_metrics.html" with stat=stat state=state district=district district_name=district_name %}
+   25  
+   26  {% if campus.is_secondary_school or include_postsecondary %}
+   27:   {% include "includes/postsecondary_readiness_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
+   28  {% endif %}
+   29  
+   30: {% include "includes/staff_metrics.html" with stat=stat state=state district=district district_name=district_name only %}
+   31  
+   32  </div>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/includes/cohorts/economic_table.html:
+    4    <thead>
+    5      <tr>
+    6:       <th scope="column">Economic status</th>
+    7:       <th scope="column" class="numeric-cell">Class size</th>
+    8:       <th scope="column" class="numeric-cell">Graduated high school</th>
+    9:       <th scope="column" class="numeric-cell">Enrolled in college</th>
+   10:       <th scope="column" class="numeric-cell">Graduated from college</th>
+   11      </tr>
+   12    </thead>
+   ..
+   27      {% endwith %}</tr>
+   28      <tr class="highlight-row">{% with cohort=latest_cohort %}
+   29:       <th scope="row">Total</th>
+   30        <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
+   31        <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/includes/cohorts/ethnicity_table.html:
+    4    <thead>
+    5      <tr>
+    6:       <th scope="column">Ethnicity</th>
+    7:       <th scope="column" class="numeric-cell">Class size</th>
+    8:       <th scope="column" class="numeric-cell">Graduated high school</th>
+    9:       <th scope="column" class="numeric-cell">Enrolled in college</th>
+   10:       <th scope="column" class="numeric-cell">Graduated from college</th>
+   11      </tr>
+   12    </thead>
+   13    <tbody>
+   14      <tr>{% with cohort=data.black %}
+   15:       <th scope="row">Black</th>
+   16        <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
+   17        <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
+   ..
+   20      {% endwith %}</tr>
+   21      <tr>{% with cohort=data.hispanic %}
+   22:       <th scope="row">Hispanic</th>
+   23        <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
+   24        <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
+   ..
+   27      {% endwith %}</tr>
+   28      <tr>{% with cohort=data.white %}
+   29:       <th scope="row">White</th>
+   30        <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
+   31        <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
+   ..
+   34      {% endwith %}</tr>
+   35      <tr>{% with cohort=data.other %}
+   36:       <th scope="row">Other</th>
+   37        <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
+   38        <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
+   ..
+   42      {% if data.unknown %}
+   43      <tr>{% with cohort=data.unknown %}
+   44:       <th scope="row">Unknown</th>
+   45        <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
+   46        <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
+   ..
+   49      {% endwith %}</tr>{% endif %}
+   50      <tr class="highlight-row">{% with cohort=latest_cohort %}
+   51:       <th scope="row">Total</th>
+   52        <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
+   53        <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/includes/cohorts/gender_table.html:
+    4    <thead>
+    5      <tr>
+    6:       <th scope="column">Gender</th>
+    7:       <th scope="column" class="numeric-cell">Class size</th>
+    8:       <th scope="column" class="numeric-cell">Graduated high school</th>
+    9:       <th scope="column" class="numeric-cell">Enrolled in college</th>
+   10:       <th scope="column" class="numeric-cell">Graduated from college</th>
+   11      </tr>
+   12    </thead>
+   13    <tbody>
+   14      <tr>{% with cohort=data.female %}
+   15:       <th scope="row">Female</th>
+   16        <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
+   17        <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
+   ..
+   20      {% endwith %}</tr>
+   21      <tr>{% with cohort=data.male %}
+   22:       <th scope="row">Male</th>
+   23        <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
+   24        <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
+   ..
+   27      {% endwith %}</tr>
+   28      <tr class="highlight-row">{% with cohort=latest_cohort %}
+   29:       <th scope="row">Total</th>
+   30        <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
+   31        <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/includes/cohorts/standard_prose.html:
+    1: <p>Each year, approximately 300,000 students begin eighth grade in a Texas public school. National employment and earnings statistics suggest that these students will have materially better prospects as adults if they finish high school and enroll in and complete a post-secondary certificate or degree program. Using data from the <a href="http://www.thecb.state.tx.us/">Texas Higher Education Coordinating Board</a> and the <a href="http://www.tea.state.tx.us/">Texas Education Agency</a>, the Tribune is providing a look into the outcomes of students who started eighth grade in a Texas public school over the past nine years.</p>
+    2  
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/states/state_detail.html:
+   29  </header>
+   30  
+   31: {% include "includes/intro_metrics.html" with stat=stat only %}
+   32  
+   33  <section class="page-prose">
+   ..
+   36    <p>An average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>. On average, teachers had <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience on the job.</p>
+   37  
+   38:   <p>The average SAT score in {{ state.get_name_display }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>, and the average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>. In the Class of {{ stat.year.start_year }}, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diploma on time or earlier. The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
+   39  </section>
+   40  </div>
+   ..
+   77  {% include "includes/ad_slot_leader.html" %}
+   78  
+   79: {% include "includes/metrics_block.html" with stat=stat include_postsecondary=True is_state=True only %}
+   80  
+   81  {% include "includes/story_grid_insert.html" %}
+
+<untitled 510>:
+   40  In [3]: Campus.objects.all()                                                                                     
+   41  Out[3]: <QuerySet [<Campus: 21St Century Early Learning Foundations Academy>, <Campus: 3D Academy>, <Campus: A Le​‌​
+   42: al Jr Middle School>, <Campus: A Maceo Smith High School>, <Campus: A&M Consolidated High School>, <Campus: A&M C​‌​
+   43  onsolidated Middle School>, <Campus: A+ Academy>, <Campus: A+ Unlimited Potential>, <Campus: A+up University>, <C​‌​
+   44  ampus: AA Milne Elementary School>, <Campus: AB Duncan Elementary School>, <Campus: AB Harrison Intermediate Scho​‌​
+   45: ol>, <Campus: AB McBay Elementary School>, <Campus: AC Blunt Middle School>, <Campus: AC Jones High School>, <Cam​‌​
+   46  pus: ACES Campus>, <Campus: AD Wheat Middle School>, <Campus: AE Butler Intermediate School>, <Campus: AG Elder E​‌​
+   47  lementary School>, <Campus: AM Ochoa Elementary>, '...(remaining elements truncated)...']>
+
+233 matches across 35 files
+
+
+Searching 348 files for "H S" (case sensitive)
+
+/Users/chrisessig/Documents/tribune/github/scuole/analysis/analysis.ipynb:
+   80      "    if col == 'campus':\n",
+   81      "        return val \\\n",
+   82:     "            .str.replace(r' H S$', ' High School') \\\n",
+   83      "            .str.replace(r' J H$', 'Junior High') \\\n",
+   84      "            .str.replace(r' EL$', ' Elementary') \\\n",
+
+/Users/chrisessig/Documents/tribune/github/scuole/analysis/.ipynb_checkpoints/analysis-checkpoint.ipynb:
+   80      "    if col == 'campus':\n",
+   81      "        return val \\\n",
+   82:     "            .str.replace(r' H S$', ' High School') \\\n",
+   83      "            .str.replace(r' J H$', 'Junior High') \\\n",
+   84      "            .str.replace(r' EL$', ' Elementary') \\\n",
+
+/Users/chrisessig/Documents/tribune/github/scuole/backups/pg.dump:
+    <binary>
+
+7 matches across 3 files
+
+
+Searching 347 files for "H S" (case sensitive)
+
+/Users/chrisessig/Documents/tribune/github/scuole/analysis/analysis.ipynb:
+   80      "    if col == 'campus':\n",
+   81      "        return val \\\n",
+   82:     "            .str.replace(r' H S$', ' High School') \\\n",
+   83      "            .str.replace(r' J H$', 'Junior High') \\\n",
+   84      "            .str.replace(r' EL$', ' Elementary') \\\n",
+
+/Users/chrisessig/Documents/tribune/github/scuole/analysis/.ipynb_checkpoints/analysis-checkpoint.ipynb:
+   80      "    if col == 'campus':\n",
+   81      "        return val \\\n",
+   82:     "            .str.replace(r' H S$', ' High School') \\\n",
+   83      "            .str.replace(r' J H$', 'Junior High') \\\n",
+   84      "            .str.replace(r' EL$', ' Elementary') \\\n",
+
+2 matches across 2 files
+
+
+Searching 347 files for "El" (case sensitive)
+
+/Users/chrisessig/Documents/tribune/github/scuole/package-lock.json:
+  530        "version": "7.2.0",
+  531        "resolved": "https://registry.npmjs.org/@babel/plugin-transform-exponentiation-operator/-/plugin-transform-exponentiation-operator-7.2.0.tgz",
+  532:       "integrity": "sha512-umh4hR6N7mu4Elq9GG8TOu9M0bakvlsREEC+ialrQN6ABS4oDQ69qJv1VtR3uxlKMCQMCvzk7vr17RHKcjx68A==",
+  533        "dev": true,
+  534        "requires": {
+  ...
+  589        "version": "7.4.0",
+  590        "resolved": "https://registry.npmjs.org/@babel/plugin-transform-modules-systemjs/-/plugin-transform-modules-systemjs-7.4.0.tgz",
+  591:       "integrity": "sha512-gjPdHmqiNhVoBqus5qK60mWPp1CmYWp/tkh11mvb0rrys01HycEGD7NvvSoKXlWEfSM9TcL36CpsK8ElsADptQ==",
+  592        "dev": true,
+  593        "requires": {
+  ...
+ 1963        "version": "2.2.0",
+ 1964        "resolved": "https://registry.npmjs.org/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.2.0.tgz",
+ 1965:       "integrity": "sha512-u5ElzokS8A1pm9vM3/iDgTcI3xqHxuCao94Oz8etI3cf0Tio0p8izkDYbTIn09uP3yUUr6+veaE6IkjnTYS46g==",
+ 1966        "dev": true
+ 1967      },
+ ....
+ 2488        "version": "2.6.9",
+ 2489        "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
+ 2490:       "integrity": "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==",
+ 2491        "dev": true,
+ 2492        "requires": {
+ ....
+ 3014        "version": "2.1.4",
+ 3015        "resolved": "https://registry.npmjs.org/expand-brackets/-/expand-brackets-2.1.4.tgz",
+ 3016:       "integrity": "sha1-t3c14xXOMPa27/D4OwQVGiJEliI=",
+ 3017        "dev": true,
+ 3018        "requires": {
+ ....
+ 4830        "version": "2.1.0",
+ 4831        "resolved": "https://registry.npmjs.org/logalot/-/logalot-2.1.0.tgz",
+ 4832:       "integrity": "sha1-X46MkNME7fElMJUaVVSruMXj9VI=",
+ 4833        "dev": true,
+ 4834        "requires": {
+ ....
+ 6484        "version": "2.2.0",
+ 6485        "resolved": "https://registry.npmjs.org/spdx-exceptions/-/spdx-exceptions-2.2.0.tgz",
+ 6486:       "integrity": "sha512-2XQACfElKi9SlVb1CYadKDXvoajPgBVPn/gOQLrTvHdElaVhr7ZEbqJaRnJLVNeaI4cMEAgVCeBMKF6MWRDCRA==",
+ 6487        "dev": true
+ 6488      },
+
+/Users/chrisessig/Documents/tribune/github/scuole/analysis/analysis.ipynb:
+   82      "            .str.replace(r' H S$', ' High School') \\\n",
+   83      "            .str.replace(r' J H$', 'Junior High') \\\n",
+   84:     "            .str.replace(r' EL$', ' Elementary') \\\n",
+   85      "            .str.replace(r' PRI$', ' Primary') \\\n",
+   86      "            .str.replace(r' INT$', ' Intermediate') \\\n",
+
+/Users/chrisessig/Documents/tribune/github/scuole/analysis/.ipynb_checkpoints/analysis-checkpoint.ipynb:
+   82      "            .str.replace(r' H S$', ' High School') \\\n",
+   83      "            .str.replace(r' J H$', 'Junior High') \\\n",
+   84:     "            .str.replace(r' EL$', ' Elementary') \\\n",
+   85      "            .str.replace(r' PRI$', ' Primary') \\\n",
+   86      "            .str.replace(r' INT$', ' Intermediate') \\\n",
+
+/Users/chrisessig/Documents/tribune/github/scuole/analysis/raw_data/CAMPRATE.xlsx:
+    <binary>
+
+/Users/chrisessig/Documents/tribune/github/scuole/analysis/raw_data/DISTRATE.xlsx:
+    <binary>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/assets/admin/fonts/Roboto-Bold-webfont.woff:
+    <binary>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/assets/admin/fonts/Roboto-Light-webfont.woff:
+    <binary>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/assets/admin/fonts/Roboto-Regular-webfont.woff:
+    <binary>
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/campuses/models.py:
+   59  
+   60      SCHOOL_TYPE_CHOICES = (
+   61:         (ELEMENTARY_SCHOOL, _("Elementary school")),
+   62          (MIDDLE_SCHOOL, _("Middle school or junior high school")),
+   63          (HIGH_SCHOOL, _("High school")),
+   64:         (ELEMENTARY_SECONDARY_SCHOOL, _("Elementary/secondary school")),
+   65      )
+   66  
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/campuses/migrations/0001_initial.py:
+   38                  ('low_grade', models.CharField(choices=[('EE', 'Early education'), ('PK', 'Pre-kindergarten'), ('KG', 'Kindergarten'), ('01', '1st grade'), ('02', '2nd grade'), ('03', '3rd grade'), ('04', '4th grade'), ('05', '5th grade'), ('06', '6th grade'), ('07', '7th grade'), ('08', '8th grade'), ('09', '9th grade'), ('10', '10th grade'), ('11', '11th grade'), ('12', '12th grade')], max_length=2, verbose_name='Lowest grade offered')),
+   39                  ('high_grade', models.CharField(choices=[('EE', 'Early education'), ('PK', 'Pre-kindergarten'), ('KG', 'Kindergarten'), ('01', '1st grade'), ('02', '2nd grade'), ('03', '3rd grade'), ('04', '4th grade'), ('05', '5th grade'), ('06', '6th grade'), ('07', '7th grade'), ('08', '8th grade'), ('09', '9th grade'), ('10', '10th grade'), ('11', '11th grade'), ('12', '12th grade')], max_length=2, verbose_name='Highest grade offered')),
+   40:                 ('school_type', models.CharField(choices=[('E', 'Elementary school'), ('M', 'Middle school or junior high school'), ('S', 'High school'), ('B', 'Elementary/secondary school')], max_length=1, verbose_name='School type')),
+   41              ],
+   42              options={
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/core/constants.py:
+    3  )
+    4  
+    5: ASKTED_DIRECTORY_VIEWSTATE = "/wEPDwULLTE3NDczMDI1MTIPZBYCAgEPZBYEAgMPFCsABWRkZBQrAAcQFg4eBkl0ZW1JRAURX2N0bDAtbWVudUl0ZW0wMDAeCEl0ZW1UZXh0BVI8YSBpZD0iaHlwZXJsaW5rMSIgaHJlZj0iL1RFQS5Bc2tURUQuV2ViL0Zvcm1zL0hvbWUuYXNweCIgY2xhc3M9Im1lbnVOYXYiPkhvbWU8L2E+HgdJdGVtVVJMBRF+L0Zvcm1zL0hvbWUuYXNweB4PTWVudUl0ZW1Ub29sVGlwBQRIb21lHhBNZW51SXRlbUNzc0NsYXNzBRJob3Jpem9udGFsTWVudUl0ZW0eFUl0ZW1Nb3VzZU92ZXJDc3NDbGFzcwUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB4LSXRlbVNlY3VyZWRoZGQQFgwfAAURX2N0bDAtbWVudUl0ZW0wMDEfAQVNPGEgaHJlZj0iL1RFQS5Bc2tURUQuV2ViL0Zvcm1zL1NlYXJjaE1haW4uYXNweCIgY2xhc3M9Im1lbnVOYXYiPlNlYXJjaCBieTwvYT4fAwU+U2VhcmNoIFNjcmVlbnMgZm9yIFNjaG9vbCwgRGlzdHJpY3QsIENvdW50eSwgUmVnaW9uLCBhbmQgVGV4YXMfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmgUKwAFEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDAfAQUGU2Nob29sHwIFKH4vRm9ybXMvU2VhcmNoU2NyZWVuLmFzcHg/b3JnVHlwZT1TY2hvb2wfAwUQU2VhcmNoIGJ5IFNjaG9vbB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDEfAQUIRGlzdHJpY3QfAgUqfi9Gb3Jtcy9TZWFyY2hTY3JlZW4uYXNweD9vcmdUeXBlPURpc3RyaWN0HwMFElNlYXJjaCBieSBEaXN0cmljdB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDIfAQUGQ291bnR5HwIFKH4vRm9ybXMvU2VhcmNoU2NyZWVuLmFzcHg/b3JnVHlwZT1Db3VudHkfAwUQU2VhcmNoIGJ5IENvdW50eR8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDMfAQUGUmVnaW9uHwIFKH4vRm9ybXMvU2VhcmNoU2NyZWVuLmFzcHg/b3JnVHlwZT1SZWdpb24fAwUQU2VhcmNoIGJ5IFJlZ2lvbh8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDQfAQUFVGV4YXMfAgUnfi9Gb3Jtcy9TZWFyY2hTY3JlZW4uYXNweD9vcmdUeXBlPVN0YXRlHwMFE1NlYXJjaCBFbnRpcmUgU3RhdGUfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZGQQFg4fAAURX2N0bDAtbWVudUl0ZW0wMDIfAQVaPGEgaHJlZj0iL1RFQS5Bc2tURUQuV2ViL0Zvcm1zL1F1aWNrU2VhcmNoLmFzcHgiIGNsYXNzPSJtZW51TmF2Ij5RdWljayBEaXN0cmljdCBMb29rdXA8L2E+HwIFGH4vRm9ybXMvUXVpY2tTZWFyY2guYXNweB8DBRVRdWljayBEaXN0cmljdCBMb29rdXAfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDB8ABRFfY3RsMC1tZW51SXRlbTAwMx8BBVs8YSBocmVmPSIvVEVBLkFza1RFRC5XZWIvRm9ybXMvUmVwb3J0TWFpbi5hc3B4IiBjbGFzcz0ibWVudU5hdiI+UmVwb3J0cyBhbmQgRGlyZWN0b3JpZXM8L2E+HwMFU1JlcG9ydHMgYW5kIERpcmVjdG9yaWVzIC0gUmVwb3J0cywgRG93bmxvYWQgRGF0YSBGaWxlcyBhbmQgVGV4YXMgU2Nob29sIERpcmVjdG9yaWVzHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoFCsABBAWDh8ABSVfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAwHwEFB1JlcG9ydHMfAgUcfi9Gb3Jtcy9SZXBvcnRTZWxlY3Rpb24uYXNweB8DBRJQcmVkZWZpbmVkIFJlcG9ydHMfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABSVfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAxHwEFJkRvd25sb2FkIFNjaG9vbCBhbmQgRGlzdHJpY3QgRGF0YSBGaWxlHwIFGX4vRm9ybXMvRG93bmxvYWRGaWxlLmFzcHgfAwUmRG93bmxvYWQgU2Nob29sIGFuZCBEaXN0cmljdCBEYXRhIEZpbGUfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABSVfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAyHwEFNURvd25sb2FkIFNjaG9vbCwgRGlzdHJpY3QgYW5kIEVTQyBQZXJzb25uZWwgRGF0YSBGaWxlHwIFGn4vRm9ybXMvRG93bmxvYWRGaWxlMi5hc3B4HwMFSURvd25sb2FkIFByaW5jaXBhbHMsIFN1cGVyaW50ZW5kZW50cywgRGlzdHJpY3QgYW5kL29yIEVTQyBTdGFmZiBEYXRhIEZpbGUfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDB8ABSVfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzHwEFGFRleGFzIFNjaG9vbCBEaXJlY3Rvcmllcx8DBTZQdWJsaXNoZWQgSGlzdG9yaWNhbCBUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IC5wZGYgZmlsZXMfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmgUKwAfEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMB8BBQsyMDE3IC0gMjAxOB8CBRl+L0Zvcm1zL3RzZGluZGV4MjAxOC5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxNyAtIDIwMTgfBAUSaG9yaXpvbnRhbG1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDEfAQUhMjAxNyAtIDIwMTggc2NyZWVuIHJlYWRlciBlbmFibGVkHwIFH34vRm9ybXMvdHNkaW5kZXgyMDE4dGFnZ2VkLmFzcHgfAwU4VGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDE3IC0gMjAxOCBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDIfAQULMjAxNiAtIDIwMTcfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMTcuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTYgLSAyMDE3HwQFEmhvcml6b250YWxtZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzHwEFITIwMTYgLSAyMDE3IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8CBR9+L0Zvcm1zL3RzZGluZGV4MjAxN3RhZ2dlZC5hc3B4HwMFOFRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxNiAtIDIwMTcgc2NyZWVuIHJlYWRlciBlbmFibGVkHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDA0HwEFCzIwMTUgLSAyMDE2HwIFGX4vRm9ybXMvdHNkaW5kZXgyMDE2LmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDE1IC0gMjAxNh8EBRJob3Jpem9udGFsbWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwNR8BBSEyMDE1IC0gMjAxNiBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfAgUffi9Gb3Jtcy90c2RpbmRleDIwMTZ0YWdnZWQuYXNweB8DBThUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTUgLSAyMDE2IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwNh8BBQsyMDE0IC0gMjAxNR8CBRl+L0Zvcm1zL3RzZGluZGV4MjAxNS5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxNCAtIDIwMTUfBAUSaG9yaXpvbnRhbG1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDcfAQUhMjAxNCAtIDIwMTUgc2NyZWVuIHJlYWRlciBlbmFibGVkHwIFH34vRm9ybXMvdHNkaW5kZXgyMDE1dGFnZ2VkLmFzcHgfAwU4VGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDE0IC0gMjAxNSBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDgfAQULMjAxMyAtIDIwMTQfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMTQuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTMgLSAyMDE0HwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDA5HwEFITIwMTMgLSAyMDE0IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8CBR9+L0Zvcm1zL3RzZGluZGV4MjAxNHRhZ2dlZC5hc3B4HwMFOFRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxMyAtIDIwMTQgc2NyZWVuIHJlYWRlciBlbmFibGVkHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDEwHwEFCzIwMTIgLSAyMDEzHwIFGX4vRm9ybXMvdHNkaW5kZXgyMDEzLmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDEyIC0gMjAxMx8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAxMR8BBSEyMDEyIC0gMjAxMyBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfAgUffi9Gb3Jtcy90c2RpbmRleDIwMTN0YWdnZWQuYXNweB8DBThUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTIgLSAyMDEzIHNjcmVlbiByZWFkZXIgZW5hYmxlZB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAxMh8BBQsyMDExIC0gMjAxMh8CBRl+L0Zvcm1zL3RzZGluZGV4MjAxMi5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxMSAtIDIwMTIfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMTMfAQUhMjAxMSAtIDIwMTIgc2NyZWVuIHJlYWRlciBlbmFibGVkHwIFH34vRm9ybXMvdHNkaW5kZXgyMDEydGFnZ2VkLmFzcHgfAwU4VGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDExIC0gMjAxMiBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMTQfAQULMjAxMCAtIDIwMTEfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMTEuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTAgLSAyMDExHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDE1HwEFITIwMTAgLSAyMDExIHNjcmVlbiByZWFkZXIgZW5hYmxlZB8CBR9+L0Zvcm1zL3RzZGluZGV4MjAxMXRhZ2dlZC5hc3B4HwMFOFRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxMCAtIDIwMTEgc2NyZWVuIHJlYWRlciBlbmFibGVkHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDE2HwEFCzIwMDkgLSAyMDEwHwIFGX4vRm9ybXMvdHNkaW5kZXgyMDEwLmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDA5IC0gMjAxMB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAxNx8BBSEyMDA5IC0gMjAxMCBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfAgUffi9Gb3Jtcy90c2RpbmRleDIwMTB0YWdnZWQuYXNweB8DBThUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDkgLSAyMDEwIHNjcmVlbiByZWFkZXIgZW5hYmxlZB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAxOB8BBQsyMDA4IC0gMjAwOR8CBRl+L0Zvcm1zL3RzZGluZGV4MjAwOS5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwOCAtIDIwMDkfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMTkfAQUhMjAwOCAtIDIwMDkgc2NyZWVuIHJlYWRlciBlbmFibGVkHwIFH34vRm9ybXMvdHNkaW5kZXgyMDA5dGFnZ2VkLmFzcHgfAwU4VGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDA4IC0gMjAwOSBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMjAfAQULMjAwNyAtIDIwMDgfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMDguYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDcgLSAyMDA4HwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDIxHwEFITIwMDcgLSAyMDA4IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8CBR9+L0Zvcm1zL3RzZGluZGV4MjAwOHRhZ2dlZC5hc3B4HwMFOFRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwNyAtIDIwMDggc2NyZWVuIHJlYWRlciBlbmFibGVkHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDIyHwEFCzIwMDYgLSAyMDA3HwIFGX4vRm9ybXMvdHNkaW5kZXgyMDA3LmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDA2IC0gMjAwNx8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAyMx8BBSEyMDA2IC0gMjAwNyBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfAgUffi9Gb3Jtcy90c2RpbmRleDIwMDd0YWdnZWQuYXNweB8DBThUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDYgLSAyMDA3IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAyNB8BBQsyMDA1IC0gMjAwNh8CBRl+L0Zvcm1zL3RzZGluZGV4MjAwNi5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwNSAtIDIwMDYfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMjUfAQULMjAwNCAtIDIwMDUfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMDUuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDQgLSAyMDA1HwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDI2HwEFCzIwMDMgLSAyMDA0HwIFGX4vRm9ybXMvdHNkaW5kZXgyMDA0LmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDAzIC0gMjAwNB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAyNx8BBQsyMDAyIC0gMjAwMx8CBRl+L0Zvcm1zL3RzZGluZGV4MjAwMy5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwMiAtIDIwMDMfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMjgfAQULMjAwMSAtIDIwMDIfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMDIuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDEgLSAyMDAyHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDI5HwEFCzIwMDAgLSAyMDAxHwIFGX4vRm9ybXMvdHNkaW5kZXgyMDAxLmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDAwIC0gMjAwMR8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAzMB8BBQsxOTk5IC0gMjAwMB8CBRl+L0Zvcm1zL3RzZGluZGV4MjAwMC5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMTk5OSAtIDIwMDAfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZGRkEBYOHwAFEV9jdGwwLW1lbnVJdGVtMDA0HwEFVTxhIGhyZWY9Ii9URUEuQXNrVEVELldlYi9Gb3Jtcy9FU0NTZWFyY2hTY3JlZW4uYXNweCIgY2xhc3M9Im1lbnVOYXYiPlNlYXJjaCBSRVNDczwvYT4fAgUcfi9Gb3Jtcy9FU0NTZWFyY2hTY3JlZW4uYXNweB8DBSlTZWFyY2ggUmVnaW9uYWwgRWR1Y2F0aW9uIFNlcnZpY2UgQ2VudGVycx8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYQHwAFEV9jdGwwLW1lbnVJdGVtMDA1HwEFMjxhIGhyZWY9IyBjbGFzcz0ibWVudU5hdiI+QWRtaW5pc3RyYXRpdmUgTG9nb248L2E+HwIFEH4vVGVhbExvZ2luLmFzcHgeCkl0ZW1UYXJnZXQFBl9ibGFuax8DBRpBZG1pbmlzdHJhdGl2ZSBQYWdlIEFjY2Vzcx8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYQHwAFEV9jdGwwLW1lbnVJdGVtMDA2HwEFIjxhIGhyZWY9IyBjbGFzcz0ibWVudU5hdiI+SGVscDwvYT4fAgUVfi9oZWxwL2Fza3RlZF9uZXcuaHRtHwcFBl9ibGFuax8DBRFBc2tURUQgUXVpY2sgSGVscB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkFCsAAQUHdGVhdGVtcGQCDQ8QZA8WCWYCAQICAgMCBAIFAgYCBwIIFgkQBQ1TY2hvb2wgTnVtYmVyBQ1TY2hvb2wgTnVtYmVyZxAFC1NjaG9vbCBOYW1lBQtTY2hvb2wgTmFtZWcQBQ1EaXN0cmljdCBOYW1lBQ1EaXN0cmljdCBOYW1lZxAFC0NvdW50eSBOYW1lBQtDb3VudHkgTmFtZWcQBQZSZWdpb24FBlJlZ2lvbmcQBQtTY2hvb2wgQ2l0eQULU2Nob29sIENpdHlnEAUPU2Nob29sIFppcCBDb2RlBQ9TY2hvb2wgWmlwIENvZGVnEAUNRGlzdHJpY3QgQ2l0eQUNRGlzdHJpY3QgQ2l0eWcQBRFEaXN0cmljdCBaaXAgQ29kZQURRGlzdHJpY3QgWmlwIENvZGVnZGRke3qSSaoJbwyFyN/A1p+yD+sPADY="  # noqa
+    6  
+    7  ASKTED_PERSONNEL_URL = (
+    .
+    9  )
+   10  
+   11: ASKTED_PERSONNEL_VIEWSTATE = "/wEPDwUINzUyNzUyODgPZBYCAgEPZBYIAgMPFCsABWRkZBQrAAcQFg4eBkl0ZW1JRAURX2N0bDAtbWVudUl0ZW0wMDAeCEl0ZW1UZXh0BVI8YSBpZD0iaHlwZXJsaW5rMSIgaHJlZj0iL1RFQS5Bc2tURUQuV2ViL0Zvcm1zL0hvbWUuYXNweCIgY2xhc3M9Im1lbnVOYXYiPkhvbWU8L2E+HgdJdGVtVVJMBRF+L0Zvcm1zL0hvbWUuYXNweB4PTWVudUl0ZW1Ub29sVGlwBQRIb21lHhBNZW51SXRlbUNzc0NsYXNzBRJob3Jpem9udGFsTWVudUl0ZW0eFUl0ZW1Nb3VzZU92ZXJDc3NDbGFzcwUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB4LSXRlbVNlY3VyZWRoZGQQFgwfAAURX2N0bDAtbWVudUl0ZW0wMDEfAQVNPGEgaHJlZj0iL1RFQS5Bc2tURUQuV2ViL0Zvcm1zL1NlYXJjaE1haW4uYXNweCIgY2xhc3M9Im1lbnVOYXYiPlNlYXJjaCBieTwvYT4fAwU+U2VhcmNoIFNjcmVlbnMgZm9yIFNjaG9vbCwgRGlzdHJpY3QsIENvdW50eSwgUmVnaW9uLCBhbmQgVGV4YXMfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmgUKwAFEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDAfAQUGU2Nob29sHwIFKH4vRm9ybXMvU2VhcmNoU2NyZWVuLmFzcHg/b3JnVHlwZT1TY2hvb2wfAwUQU2VhcmNoIGJ5IFNjaG9vbB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDEfAQUIRGlzdHJpY3QfAgUqfi9Gb3Jtcy9TZWFyY2hTY3JlZW4uYXNweD9vcmdUeXBlPURpc3RyaWN0HwMFElNlYXJjaCBieSBEaXN0cmljdB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDIfAQUGQ291bnR5HwIFKH4vRm9ybXMvU2VhcmNoU2NyZWVuLmFzcHg/b3JnVHlwZT1Db3VudHkfAwUQU2VhcmNoIGJ5IENvdW50eR8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDMfAQUGUmVnaW9uHwIFKH4vRm9ybXMvU2VhcmNoU2NyZWVuLmFzcHg/b3JnVHlwZT1SZWdpb24fAwUQU2VhcmNoIGJ5IFJlZ2lvbh8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFJV9jdGwwLW1lbnVJdGVtMDAxLXN1Yk1lbnUtbWVudUl0ZW0wMDQfAQUFVGV4YXMfAgUnfi9Gb3Jtcy9TZWFyY2hTY3JlZW4uYXNweD9vcmdUeXBlPVN0YXRlHwMFE1NlYXJjaCBFbnRpcmUgU3RhdGUfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZGQQFg4fAAURX2N0bDAtbWVudUl0ZW0wMDIfAQVaPGEgaHJlZj0iL1RFQS5Bc2tURUQuV2ViL0Zvcm1zL1F1aWNrU2VhcmNoLmFzcHgiIGNsYXNzPSJtZW51TmF2Ij5RdWljayBEaXN0cmljdCBMb29rdXA8L2E+HwIFGH4vRm9ybXMvUXVpY2tTZWFyY2guYXNweB8DBRVRdWljayBEaXN0cmljdCBMb29rdXAfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDB8ABRFfY3RsMC1tZW51SXRlbTAwMx8BBVs8YSBocmVmPSIvVEVBLkFza1RFRC5XZWIvRm9ybXMvUmVwb3J0TWFpbi5hc3B4IiBjbGFzcz0ibWVudU5hdiI+UmVwb3J0cyBhbmQgRGlyZWN0b3JpZXM8L2E+HwMFU1JlcG9ydHMgYW5kIERpcmVjdG9yaWVzIC0gUmVwb3J0cywgRG93bmxvYWQgRGF0YSBGaWxlcyBhbmQgVGV4YXMgU2Nob29sIERpcmVjdG9yaWVzHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoFCsABBAWDh8ABSVfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAwHwEFB1JlcG9ydHMfAgUcfi9Gb3Jtcy9SZXBvcnRTZWxlY3Rpb24uYXNweB8DBRJQcmVkZWZpbmVkIFJlcG9ydHMfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABSVfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAxHwEFJkRvd25sb2FkIFNjaG9vbCBhbmQgRGlzdHJpY3QgRGF0YSBGaWxlHwIFGX4vRm9ybXMvRG93bmxvYWRGaWxlLmFzcHgfAwUmRG93bmxvYWQgU2Nob29sIGFuZCBEaXN0cmljdCBEYXRhIEZpbGUfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABSVfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAyHwEFNURvd25sb2FkIFNjaG9vbCwgRGlzdHJpY3QgYW5kIEVTQyBQZXJzb25uZWwgRGF0YSBGaWxlHwIFGn4vRm9ybXMvRG93bmxvYWRGaWxlMi5hc3B4HwMFSURvd25sb2FkIFByaW5jaXBhbHMsIFN1cGVyaW50ZW5kZW50cywgRGlzdHJpY3QgYW5kL29yIEVTQyBTdGFmZiBEYXRhIEZpbGUfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDB8ABSVfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzHwEFGFRleGFzIFNjaG9vbCBEaXJlY3Rvcmllcx8DBTZQdWJsaXNoZWQgSGlzdG9yaWNhbCBUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IC5wZGYgZmlsZXMfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmgUKwAfEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMB8BBQsyMDE3IC0gMjAxOB8CBRl+L0Zvcm1zL3RzZGluZGV4MjAxOC5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxNyAtIDIwMTgfBAUSaG9yaXpvbnRhbG1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDEfAQUhMjAxNyAtIDIwMTggc2NyZWVuIHJlYWRlciBlbmFibGVkHwIFH34vRm9ybXMvdHNkaW5kZXgyMDE4dGFnZ2VkLmFzcHgfAwU4VGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDE3IC0gMjAxOCBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDIfAQULMjAxNiAtIDIwMTcfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMTcuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTYgLSAyMDE3HwQFEmhvcml6b250YWxtZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzHwEFITIwMTYgLSAyMDE3IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8CBR9+L0Zvcm1zL3RzZGluZGV4MjAxN3RhZ2dlZC5hc3B4HwMFOFRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxNiAtIDIwMTcgc2NyZWVuIHJlYWRlciBlbmFibGVkHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDA0HwEFCzIwMTUgLSAyMDE2HwIFGX4vRm9ybXMvdHNkaW5kZXgyMDE2LmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDE1IC0gMjAxNh8EBRJob3Jpem9udGFsbWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwNR8BBSEyMDE1IC0gMjAxNiBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfAgUffi9Gb3Jtcy90c2RpbmRleDIwMTZ0YWdnZWQuYXNweB8DBThUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTUgLSAyMDE2IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwNh8BBQsyMDE0IC0gMjAxNR8CBRl+L0Zvcm1zL3RzZGluZGV4MjAxNS5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxNCAtIDIwMTUfBAUSaG9yaXpvbnRhbG1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDcfAQUhMjAxNCAtIDIwMTUgc2NyZWVuIHJlYWRlciBlbmFibGVkHwIFH34vRm9ybXMvdHNkaW5kZXgyMDE1dGFnZ2VkLmFzcHgfAwU4VGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDE0IC0gMjAxNSBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDgfAQULMjAxMyAtIDIwMTQfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMTQuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTMgLSAyMDE0HwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDA5HwEFITIwMTMgLSAyMDE0IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8CBR9+L0Zvcm1zL3RzZGluZGV4MjAxNHRhZ2dlZC5hc3B4HwMFOFRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxMyAtIDIwMTQgc2NyZWVuIHJlYWRlciBlbmFibGVkHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDEwHwEFCzIwMTIgLSAyMDEzHwIFGX4vRm9ybXMvdHNkaW5kZXgyMDEzLmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDEyIC0gMjAxMx8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAxMR8BBSEyMDEyIC0gMjAxMyBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfAgUffi9Gb3Jtcy90c2RpbmRleDIwMTN0YWdnZWQuYXNweB8DBThUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTIgLSAyMDEzIHNjcmVlbiByZWFkZXIgZW5hYmxlZB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAxMh8BBQsyMDExIC0gMjAxMh8CBRl+L0Zvcm1zL3RzZGluZGV4MjAxMi5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxMSAtIDIwMTIfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMTMfAQUhMjAxMSAtIDIwMTIgc2NyZWVuIHJlYWRlciBlbmFibGVkHwIFH34vRm9ybXMvdHNkaW5kZXgyMDEydGFnZ2VkLmFzcHgfAwU4VGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDExIC0gMjAxMiBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMTQfAQULMjAxMCAtIDIwMTEfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMTEuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMTAgLSAyMDExHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDE1HwEFITIwMTAgLSAyMDExIHNjcmVlbiByZWFkZXIgZW5hYmxlZB8CBR9+L0Zvcm1zL3RzZGluZGV4MjAxMXRhZ2dlZC5hc3B4HwMFOFRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAxMCAtIDIwMTEgc2NyZWVuIHJlYWRlciBlbmFibGVkHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDE2HwEFCzIwMDkgLSAyMDEwHwIFGX4vRm9ybXMvdHNkaW5kZXgyMDEwLmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDA5IC0gMjAxMB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAxNx8BBSEyMDA5IC0gMjAxMCBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfAgUffi9Gb3Jtcy90c2RpbmRleDIwMTB0YWdnZWQuYXNweB8DBThUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDkgLSAyMDEwIHNjcmVlbiByZWFkZXIgZW5hYmxlZB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAxOB8BBQsyMDA4IC0gMjAwOR8CBRl+L0Zvcm1zL3RzZGluZGV4MjAwOS5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwOCAtIDIwMDkfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMTkfAQUhMjAwOCAtIDIwMDkgc2NyZWVuIHJlYWRlciBlbmFibGVkHwIFH34vRm9ybXMvdHNkaW5kZXgyMDA5dGFnZ2VkLmFzcHgfAwU4VGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDA4IC0gMjAwOSBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMjAfAQULMjAwNyAtIDIwMDgfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMDguYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDcgLSAyMDA4HwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDIxHwEFITIwMDcgLSAyMDA4IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8CBR9+L0Zvcm1zL3RzZGluZGV4MjAwOHRhZ2dlZC5hc3B4HwMFOFRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwNyAtIDIwMDggc2NyZWVuIHJlYWRlciBlbmFibGVkHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDIyHwEFCzIwMDYgLSAyMDA3HwIFGX4vRm9ybXMvdHNkaW5kZXgyMDA3LmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDA2IC0gMjAwNx8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAyMx8BBSEyMDA2IC0gMjAwNyBzY3JlZW4gcmVhZGVyIGVuYWJsZWQfAgUffi9Gb3Jtcy90c2RpbmRleDIwMDd0YWdnZWQuYXNweB8DBThUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDYgLSAyMDA3IHNjcmVlbiByZWFkZXIgZW5hYmxlZB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAyNB8BBQsyMDA1IC0gMjAwNh8CBRl+L0Zvcm1zL3RzZGluZGV4MjAwNi5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwNSAtIDIwMDYfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMjUfAQULMjAwNCAtIDIwMDUfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMDUuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDQgLSAyMDA1HwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDI2HwEFCzIwMDMgLSAyMDA0HwIFGX4vRm9ybXMvdHNkaW5kZXgyMDA0LmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDAzIC0gMjAwNB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAyNx8BBQsyMDAyIC0gMjAwMx8CBRl+L0Zvcm1zL3RzZGluZGV4MjAwMy5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMjAwMiAtIDIwMDMfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZBAWDh8ABTlfY3RsMC1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMjgfAQULMjAwMSAtIDIwMDIfAgUZfi9Gb3Jtcy90c2RpbmRleDIwMDIuYXNweB8DBSJUZXhhcyBTY2hvb2wgRGlyZWN0b3J5IDIwMDEgLSAyMDAyHwQFEmhvcml6b250YWxNZW51SXRlbR8FBRZob3Jpem9udGFsTWVudVNlbGVjdGVkHwZoZGQQFg4fAAU5X2N0bDAtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAwMy1zdWJNZW51LW1lbnVJdGVtMDI5HwEFCzIwMDAgLSAyMDAxHwIFGX4vRm9ybXMvdHNkaW5kZXgyMDAxLmFzcHgfAwUiVGV4YXMgU2Nob29sIERpcmVjdG9yeSAyMDAwIC0gMjAwMR8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYOHwAFOV9jdGwwLW1lbnVJdGVtMDAzLXN1Yk1lbnUtbWVudUl0ZW0wMDMtc3ViTWVudS1tZW51SXRlbTAzMB8BBQsxOTk5IC0gMjAwMB8CBRl+L0Zvcm1zL3RzZGluZGV4MjAwMC5hc3B4HwMFIlRleGFzIFNjaG9vbCBEaXJlY3RvcnkgMTk5OSAtIDIwMDAfBAUSaG9yaXpvbnRhbE1lbnVJdGVtHwUFFmhvcml6b250YWxNZW51U2VsZWN0ZWQfBmhkZGRkEBYOHwAFEV9jdGwwLW1lbnVJdGVtMDA0HwEFVTxhIGhyZWY9Ii9URUEuQXNrVEVELldlYi9Gb3Jtcy9FU0NTZWFyY2hTY3JlZW4uYXNweCIgY2xhc3M9Im1lbnVOYXYiPlNlYXJjaCBSRVNDczwvYT4fAgUcfi9Gb3Jtcy9FU0NTZWFyY2hTY3JlZW4uYXNweB8DBSlTZWFyY2ggUmVnaW9uYWwgRWR1Y2F0aW9uIFNlcnZpY2UgQ2VudGVycx8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYQHwAFEV9jdGwwLW1lbnVJdGVtMDA1HwEFMjxhIGhyZWY9IyBjbGFzcz0ibWVudU5hdiI+QWRtaW5pc3RyYXRpdmUgTG9nb248L2E+HwIFEH4vVGVhbExvZ2luLmFzcHgeCkl0ZW1UYXJnZXQFBl9ibGFuax8DBRpBZG1pbmlzdHJhdGl2ZSBQYWdlIEFjY2Vzcx8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkEBYQHwAFEV9jdGwwLW1lbnVJdGVtMDA2HwEFIjxhIGhyZWY9IyBjbGFzcz0ibWVudU5hdiI+SGVscDwvYT4fAgUVfi9oZWxwL2Fza3RlZF9uZXcuaHRtHwcFBl9ibGFuax8DBRFBc2tURUQgUXVpY2sgSGVscB8EBRJob3Jpem9udGFsTWVudUl0ZW0fBQUWaG9yaXpvbnRhbE1lbnVTZWxlY3RlZB8GaGRkFCsAAQUHdGVhdGVtcGQCEQ8QDxYGHg1EYXRhVGV4dEZpZWxkBQ5ST0xFX1RZUEVfREVTQx4ORGF0YVZhbHVlRmllbGQFCVJPTEVfVFlQRR4LXyFEYXRhQm91bmRnZBAVHwROb25lD0JPQVJEIFBSRVNJREVOVBRCT0FSRCBWSUNFLVBSRVNJREVOVA9CT0FSRCBTRUNSRVRBUlkZQk9BUkQgQVNTSVNUQU5UIFNFQ1JFVEFSWQ9CT0FSRCBUUkVBU1VSRVIMQk9BUkQgTUVNQkVSE0FSRUEgU1VQRVJJTlRFTkRFTlQVREVQVVRZIFNVUEVSSU5URU5ERU5UGEFTU09DSUFURSBTVVBFUklOVEVOREVOVBhBU1NJU1RBTlQgU1VQRVJJTlRFTkRFTlQaQVQtUklTSy9EUk9QT1VUIFBSRVZFTlRJT04RQVRITEVUSUMgRElSRUNUT1INQklMSU5HVUFML0VTTBRDRk8vQlVTSU5FU1MgTUFOQUdFUhJDSElMRCBGSU5EIENPTlRBQ1QKQ1VSUklDVUxVTRNGT1NURVIgQ0FSRSBMSUFJU09OEEhPTUVMRVNTIExJQUlTT04PSFVNQU4gUkVTT1VSQ0VTFU5DTEIvRkVERVJBTCBQUk9HUkFNUxFQRUlNUyBDT09SRElOQVRPUhRTQ0hPT0wgU09DSUFMIFdPUktFUhtTRUNSRVRBUlkgVE8gU1VQRVJJTlRFTkRFTlQaU1BFQ0lBTCBFRFVDQVRJT04gRElSRUNUT1IWVEVDSE5PTE9HWSBDT09SRElOQVRPUhFURUQgQURNSU5JU1RSQVRPUhBURVNUIENPT1JESU5BVE9SDlRSQU5TUE9SVEFUSU9OEFRSRVggQ09PUkRJTkFUT1IOV0VCIEVSIENPTlRBQ1QVHwEwAzEyNgMxMjgCMjMDMTI3AzEyOQIyNAMxMzIDMTM0AzEzMwMxMzECMzEDMTYwAzE1NAIzNQMxMzgDMTUyAzE1OQMxNjMDMTUzAzE1NQI2NwMxMzADMTYxAzE0MQMxNDMDMTM1Ajc2AzE2MgMxNDkDMTI1FCsDH2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dkZAITDxAPFgYfCAUOUk9MRV9UWVBFX0RFU0MfCQUJUk9MRV9UWVBFHwpnZBAVYgROb25lEkVYRUNVVElWRSBESVJFQ1RPUhpJTlRFUklNIEVYRUNVVElWRSBESVJFQ1RPUgtCT0FSRCBDSEFJUhBCT0FSRCBWSUNFIENIQUlSD0JPQVJEIFNFQ1JFVEFSWQxCT0FSRCBNRU1CRVIaU0VDUkVUQVJZIFRPIEVYRUMgRElSRUNUT1IOQUNDT1VOVEFCSUxJVFkVQURVTFQgRURVQ0FUSU9OIChHRUQpBEFFSVMZQUxURVJOQVRJVkUgQ0VSVElGSUNBVElPTh1BTFRFUk5BVElWRSBFRFVDQVRJT04gUFJPR1JBTRRBU1NJU1RJVkUgVEVDSE5PTE9HWRpBVC1SSVNLL0RST1BPVVQgUFJFVkVOVElPTgZBVVRJU00ZQkVIQVZJT1IgLyBDTEFTU1JPT00gTUdNVBNCSUxJTkdVQUwgRURVQ0FUSU9OEEJSQUlMTEUgU0VSVklDRVMTQlVTIERSSVZFUiBUUkFJTklORxJCVVNJTkVTUyBFRFVDQVRJT04cQ0FSRUVSICYgVEVDSE5JQ0FMIEVEVUNBVElPTg9DSEFSVEVSIFNDSE9PTFMXQ0hJRUYgRklOQU5DSUFMIE9GRklDRVILQ0hJTEQgQUJVU0UKQ0hJTEQgRklORA9DSElMRCBOVVRSSVRJT04QQ08tT1AgUFVSQ0hBU0lORwRDUkNHGURBVEEgUFJPQ0VTU0lORy9JTkZPIE1HTVQOREVBRiBFRFVDQVRJT04VRElTQ0lQTElORSBNQU5BR0VNRU5UEkRSSVZFUidTIEVEVUNBVElPTghEWVNMRVhJQRlFQVJMWSBDSElMREhPT0QgRURVQ0FUSU9OFkVEVUNBVElPTkFMIEFTU0VTU01FTlQURUxFTUVOVEFSWSBFRFVDQVRJT04URU1FUkdFTkNZIE1BTkFHRU1FTlQURVNFQSBUSVRMRSBJIE1JR1JBTlQcRVNFQSBUSVRMRSBJIFNUVURFTlQgU1VQUE9SVBNGQUNJTElUSUVTIFBMQU5OSU5HE0ZJRUxEIFNFUlZJQ0UgQUdFTlQTRklORSBBUlRTIEVEVUNBVElPThFGT1JFSUdOIExBTkdVQUdFUxNGT1NURVIgQ0FSRSBMSUFJU09OHEdFTkVSQUwgRURVQ0FUSU9OIENVUlJJQ1VMVU0bR0VORVJBTCBNQU5BR0VNRU5UIFRSQUlOSU5HE0dJRlRFRCBBTkQgVEFMRU5URUQKR09WRVJOQU5DRQxHUkFQSElDUyBMQUITR1VJREFOQ0UvQ09VTlNFTElORwpIRUFEIFNUQVJUFUhJR0ggU0NIT09MIEVEVUNBVElPTg1ISVYgRURVQ0FUSU9OEEhPTUVMRVNTIExJQUlTT04JSU5DTFVTSU9OGElOU1RSVUNUSU9OQUwgVEVDSE5PTE9HWQ1MQU5HVUFHRSBBUlRTFUxFQVJOICYgU0VSVkUgQU1FUklDQQdMSUJSQVJZBE1BVEgFTUVESUEOTUlERExFIFNDSE9PTFMeTk9OLUVEIENPTU1VTklUWSBCQVNFRCBTRVJWSUNFElBBUkVOVCBJTlZPTFZFTUVOVARQREFTEVBFSU1TIENPT1JESU5BVE9SHFBFUkZPUk1BTkNFLUJBU0VEIE1PTklUT1JJTkcJUEVSU09OTkVMG1BSRVNDSE9PTCBTUEVDSUFMIEVEVUNBVElPTgdSRUFESU5HHFNDSE9PTCBCT0FSRCBNRU1CRVIgVFJBSU5JTkcNU0NIT09MIEhFQUxUSA1TQ0hPT0wgU0FGRVRZB1NDSUVOQ0UFU0RGU0MaU0lURS1CQVNFRCBERUNJU0lPTiBNQUtJTkcOU09DSUFMIFNUVURJRVMRU1BFQ0lBTCBFRFVDQVRJT04dU1RBRkYgREVWRUxPUE1FTlQgQ09PUkRJTkFUT1IVVEVBQ0hFUiBDRVJUSUZJQ0FUSU9OHFRFQUNIRVIgSk9CIFBMQUNFTUVOVCBDRU5URVIZVEVBQ0hFUiBPRiBUSEUgWUVBUiBDT09SRAtURUNBVC9FWENFVBZURUNITk9MT0dZIENPT1JESU5BVE9SEVRFRCBBRE1JTklTVFJBVE9SBFRFS1MQVEVTVCBDT09SRElOQVRPUgRURVROEFRSRVggQ09PUkRJTkFUT1IEVFNJSRdUVVJOQVJPVU5EIFRFQU0gQ09OVEFDVBlWSSBPUklFTlRBVElPTiAmIE1PQklMSVRZHFZJREVPIC8gU0FURUxMSVRFIFBST0RVQ1RJT04RVklTVUFMTFkgSU1QQUlSRUQHV0FJVkVSUw5XRUIgRVIgQ09OVEFDVBRZRUFSLVJPVU5EIEVEVUNBVElPThViATABMQEyAjIxAjIyAjIzAjI0AjI1AjI2AjI3AjI4AjI5AjkwAjk1AjMxAjk2AzEwNQIzMgMxNTACMzMCMzQCODUCOTcDMTUxAjM2Ajk0AjM3AzEwOQIzOQIzOAI0MQI0MgI0MwI0NAI0NQI0NgI0NwI0OAI0OQMxMDICNTADMTA3AjMwAjUxAzE1OQI0MAI1MgI1MwI1NAMxMDECNTUCNTYCNTgCNTcDMTYzAjk4AjYwAjYxAjg5AjYyAjYzAjY0AjY1AjkyAjY2AzEzOQI2NwMxMDMCOTkCNjgCOTMCNzACNzEDMTQyAjcyAjczAjc0AzEwNAI3NQI3OAI3NwI5MQMxNDACNzkDMTQzAzEzNQI2OQI3NgMxMDADMTQ5AjgwAzE1NgI4MwMxMDYCODQCODYDMTI1Ajg3FCsDYmdnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZGQCFQ8QZA8WBWYCAQICAgMCBBYFEAURT3JnYW5pemF0aW9uIE5hbWUFEU9yZ2FuaXphdGlvbiBOYW1lZxAFE09yZ2FuaXphdGlvbiBOdW1iZXIFE09yZ2FuaXphdGlvbiBOdW1iZXJnEAUEQ2l0eQUEQ2l0eWcQBQhaaXAgQ29kZQUIWmlwIENvZGVnEAUJTGFzdCBOYW1lBQlMYXN0IE5hbWVnZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgQFB2Noa1ByaW4FCGNoa1N1cGVyBRBsc3REaXN0cmljdFN0YWZmBQtsc3RFU0NTdGFmZnL9cwn6/MGwh6QEQmaQebCB4m29"  # noqa
+   12  
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/core/replacements.py:
+   12      'Llc': 'LLC',
+   13      ' Pub Chtr Sch': ' Public Charter School',
+   14:     'Stepping Stones Charter El': 'Stepping Stones Charter Elementary School',
+   15      ' Of ': ' of ',
+   16      ' And ': ' and ',
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/counties/models.py:
+   34      @property
+   35      def name_cohorts(self):
+   36:         if self.name == "El Paso":
+   37:             return "El Paso and Hudspeth"
+   38          else:
+   39              return self.name
+   ..
+   41      @property
+   42      def name_full_cohorts(self):
+   43:         if self.name == "El Paso":
+   44:             return "El Paso and Hudspeth County"
+   45          else:
+   46              return self.name_full
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/base.html:
+   83  <!-- Google Tag Manager -->
+   84  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+   85: new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+   86: j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+   87  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+   88  })(window,document,'script','dataLayer','GTM-P5L2Z5Z');</script>
+   ..
+  102    var h = d.location.protocol,
+  103      i = p + '-' + s,
+  104:     e = d.getElementById(i),
+  105:     r = d.getElementById(p + '-root'),
+  106      u =
+  107        h === 'https:' ? 'd1z2jf7jlzjs58.cloudfront.net' : 'static.' + p + '.com';
+  108    if (e) return;
+  109:   e = d.createElement(s);
+  110    e.id = i;
+  111    e.async = true;
+
+/Users/chrisessig/Documents/tribune/github/scuole/scuole/templates/cohorts_base.html:
+   76  <!-- Google Tag Manager -->
+   77  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+   78: new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+   79: j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+   80  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+   81  })(window,document,'script','dataLayer','GTM-P5L2Z5Z');</script>
+   ..
+   95    var h = d.location.protocol,
+   96      i = p + '-' + s,
+   97:     e = d.getElementById(i),
+   98:     r = d.getElementById(p + '-root'),
+   99      u =
+  100        h === 'https:' ? 'd1z2jf7jlzjs58.cloudfront.net' : 'static.' + p + '.com';
+  101    if (e) return;
+  102:   e = d.createElement(s);
+  103    e.id = i;
+  104    e.async = true;
+
+<untitled 510>:
+   42  al Jr Middle School>, <Campus: A Maceo Smith High School>, <Campus: A&M Consolidated High School>, <Campus: A&M C​‌​
+   43  onsolidated Middle School>, <Campus: A+ Academy>, <Campus: A+ Unlimited Potential>, <Campus: A+up University>, <C​‌​
+   44: ampus: AA Milne Elementary School>, <Campus: AB Duncan Elementary School>, <Campus: AB Harrison Intermediate Scho​‌​
+   45: ol>, <Campus: AB McBay Elementary School>, <Campus: AC Blunt Middle School>, <Campus: AC Jones High School>, <Cam​‌​
+   46: pus: ACES Campus>, <Campus: AD Wheat Middle School>, <Campus: AE Butler Intermediate School>, <Campus: AG Elder E​‌​
+   47: lementary School>, <Campus: AM Ochoa Elementary>, '...(remaining elements truncated)...']>
+   48  
+   49  In [4]: Campus.objects.all().count()                                                                             
+
+128 matches across 16 files

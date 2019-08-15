@@ -1,0 +1,250 @@
+Texass-MacBook-Pro-6:scuole chrisessig$ pipenv shell
+Launching subshell in virtual environment…
+bash-3.2$  . /Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/bin/activate
+(scuole) bash-3.2$ python manage.py campusesexportdata.py                                                        
+Unknown command: 'campusesexportdata.py'. Did you mean campusesexportdata?
+Type 'manage.py help' for usage.
+(scuole) bash-3.2$ python manage.py campusesexportdata                                                           
+
+(scuole) bash-3.2$ 
+(scuole) bash-3.2$ python manage.py campusesexportdata
+(scuole) bash-3.2$ python manage.py exportslugs --shape=district                                                 
+Traceback (most recent call last):
+  File "manage.py", line 10, in <module>
+    execute_from_command_line(sys.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 375, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 224, in fetch_command
+    klass = load_command_class(app_name, subcommand)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 36, in load_command_class
+    module = import_module('%s.management.commands.%s' % (app_name, name))
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/importlib/__init__.py", line 127​‌​
+, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 724, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 860, in get_code
+  File "<frozen importlib._bootstrap_external>", line 791, in source_to_code
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/Users/chrisessig/Documents/tribune/github/scuole/scuole/districts/management/commands/exportslugs.py", l​‌​
+ine 18
+    shape = = options.get('shape')
+            ^
+SyntaxError: invalid syntax
+(scuole) bash-3.2$ python manage.py exportslugs --shape=district
+Traceback (most recent call last):
+  File "manage.py", line 10, in <module>
+    execute_from_command_line(sys.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 375, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 224, in fetch_command
+    klass = load_command_class(app_name, subcommand)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 36, in load_command_class
+    module = import_module('%s.management.commands.%s' % (app_name, name))
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/importlib/__init__.py", line 127​‌​
+, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 724, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 860, in get_code
+  File "<frozen importlib._bootstrap_external>", line 791, in source_to_code
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/Users/chrisessig/Documents/tribune/github/scuole/scuole/districts/management/commands/exportslugs.py", l​‌​
+ine 18
+    shape = = options.get('shape')
+            ^
+SyntaxError: invalid syntax
+(scuole) bash-3.2$ python manage.py exportslugs --shape=district
+Creating csv with slugs
+Traceback (most recent call last):
+  File "manage.py", line 10, in <module>
+    execute_from_command_line(sys.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 375, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 323, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 364, in execute
+    output = self.handle(*args, **options)
+  File "/Users/chrisessig/Documents/tribune/github/scuole/scuole/districts/management/commands/exportslugs.py", l​‌​
+ine 34, in handle
+    for i in shapes:
+UnboundLocalError: local variable 'shapes' referenced before assignment
+(scuole) bash-3.2$ python manage.py exportslugs --shape=district
+district
+Creating csv with slugs
+Traceback (most recent call last):
+  File "manage.py", line 10, in <module>
+    execute_from_command_line(sys.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 375, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 323, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 364, in execute
+    output = self.handle(*args, **options)
+  File "/Users/chrisessig/Documents/tribune/github/scuole/scuole/districts/management/commands/exportslugs.py", l​‌​
+ine 35, in handle
+    for i in shapes:
+UnboundLocalError: local variable 'shapes' referenced before assignment
+(scuole) bash-3.2$ python manage.py exportslugs --shape=district
+Traceback (most recent call last):
+  File "manage.py", line 10, in <module>
+    execute_from_command_line(sys.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 375, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 323, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 364, in execute
+    output = self.handle(*args, **options)
+  File "/Users/chrisessig/Documents/tribune/github/scuole/scuole/districts/management/commands/exportslugs.py", l​‌​
+ine 26, in handle
+    print(shapes.count())
+UnboundLocalError: local variable 'shapes' referenced before assignment
+(scuole) bash-3.2$ python manage.py exportslugs --shape=district
+Traceback (most recent call last):
+  File "manage.py", line 10, in <module>
+    execute_from_command_line(sys.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 375, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 323, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 364, in execute
+    output = self.handle(*args, **options)
+  File "/Users/chrisessig/Documents/tribune/github/scuole/scuole/districts/management/commands/exportslugs.py", l​‌​
+ine 26, in handle
+    print(shapes.count())
+UnboundLocalError: local variable 'shapes' referenced before assignment
+(scuole) bash-3.2$ python manage.py exportslugs --shape=district                                                 
+Traceback (most recent call last):
+  File "manage.py", line 10, in <module>
+    execute_from_command_line(sys.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 375, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 323, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 364, in execute
+    output = self.handle(*args, **options)
+  File "/Users/chrisessig/Documents/tribune/github/scuole/scuole/districts/management/commands/exportslugs.py", l​‌​
+ine 26, in handle
+    print( shapes.count() )
+UnboundLocalError: local variable 'shapes' referenced before assignment
+(scuole) bash-3.2$ python manage.py exportslugs --shape=district
+Traceback (most recent call last):
+  File "manage.py", line 10, in <module>
+    execute_from_command_line(sys.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 375, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 323, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 364, in execute
+    output = self.handle(*args, **options)
+  File "/Users/chrisessig/Documents/tribune/github/scuole/scuole/districts/management/commands/exportslugs.py", l​‌​
+ine 27, in handle
+    print( shapes.count() )
+UnboundLocalError: local variable 'shapes' referenced before assignment
+(scuole) bash-3.2$ python manage.py exportslugs --shape=district
+made it
+1203
+(scuole) bash-3.2$ python manage.py exportslugs --shape=district
+made it
+Creating csv with slugs
+---
+done
+(scuole) bash-3.2$ python manage.py exportslugs --shape=campus                                                   
+Traceback (most recent call last):
+  File "manage.py", line 10, in <module>
+    execute_from_command_line(sys.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/__init__.py", line 375, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage
+ment/base.py", line 323, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp/lib/python3.7/site-packages/django/core/manage​‌​
+ment/base.py", line 364, in execute
+    output = self.handle(*args, **options)
+  File "/Users/chrisessig/Documents/tribune/github/scuole/scuole/districts/management/commands/exportslugs.py", l​‌​
+ine 25, in handle
+    shapes = Campus.objects.all()
+NameError: name 'Campus' is not defined
+(scuole) bash-3.2$ python manage.py exportslugs --shape=campus
+Creating csv with slugs
+---
+done
+(scuole) bash-3.2$ pipenv shell                                                                                  
+Shell for /Users/chrisessig/.local/share/virtualenvs/scuole-Xn9TlKfp already activated.
+No action taken to avoid nested environments.
+(scuole) bash-3.2$ python manage.py exportslugs --shape=district                                                 
+made it
+Creating csv with slugs
+---
+done
+(scuole) bash-3.2$ python manage.py exportslugs --shape=campus                                                   
+Creating csv with slugs
+---
+done
+(scuole) bash-3.2$ python manage.py exportslugs --shape=campus
+Creating csv with slugs
+---
+done
+(scuole) bash-3.2$ python manage.py exportslugs --shape=district                                                 
+Creating csv with slugs
+---
+done
+(scuole) bash-3.2$ 

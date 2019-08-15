@@ -31,7 +31,7 @@ RUN apk update && \
   geos \
   make \
   musl-dev \
-  proj4 \
+  proj \
   postgresql-dev \
   && rm -rf /var/cache/apk/*
 

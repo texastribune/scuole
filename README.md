@@ -19,16 +19,22 @@ export DATABASE_URL=postgres://docker:docker@docker.local:5432/docker
 
 From there, the app should be runnable as normal.
 
-Create your virtual environment:
+Fire up pipenv:
 
 ```sh
-mkvirtualenv scuole-dev
+pipenv --three
 ```
 
-Then install the requirements:
+Install dependencies via pipenv:
 
 ```sh
-pip install -r requirements/local.txt
+pipenv install --dev
+```
+
+Run pipenv:
+
+```sh
+pipenv shell
 ```
 
 Check for any migrations:
