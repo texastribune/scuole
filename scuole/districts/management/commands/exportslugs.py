@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         shape = options.get('shape')
-        output_dir = 'analysis/raw_data/'
+        output_dir = 'workspace/a_f_scores/raw_data/'
 
         shapes_array = ['district', 'campus']
 

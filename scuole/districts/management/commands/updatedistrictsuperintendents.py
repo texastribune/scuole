@@ -2,17 +2,26 @@ from csv import DictReader
 from string import capwords
 
 import requests
+import re
 
 from django.core.management.base import BaseCommand
 
 from scuole.core.constants import ASKTED_PERSONNEL_URL, ASKTED_PERSONNEL_VIEWSTATE
 from scuole.districts.models import District, Superintendent
 
+def phoneNumberFormat(number):
+    if number is ' ' or '000-0000' in number:
+        return ''
+    else:
+        return number.replace('(000) 000-0000','')\
+                        .replace('(993)','(936)')
 
 class Command(BaseCommand):
     help = "Update District models with AskTED superintendent data."
 
     def handle(self, *args, **options):
+        # Downloads data directly from AskTED site
+        # http://mansfield.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx
         req = requests.post(
             ASKTED_PERSONNEL_URL,
             data={
@@ -62,6 +71,17 @@ class Command(BaseCommand):
             fax_number, fax_number_extension = fax_number.split(" ext:")
         else:
             fax_number_extension = ""
+
+        # This accounts for invalid phone numbers
+
+        # print(phone_number)
+        # print(fax_number)
+        # print('-')\
+        phone_number = phoneNumberFormat(phone_number)
+        fax_number = phoneNumberFormat(fax_number)
+        # print(phone_number)
+        # print(fax_number)
+        # print('---')
 
         Superintendent.objects.update_or_create(
             name=name,

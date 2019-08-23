@@ -7,6 +7,12 @@ from django.core.management.base import BaseCommand
 from scuole.campuses.models import Campus
 from scuole.core.constants import ASKTED_DIRECTORY_URL, ASKTED_DIRECTORY_VIEWSTATE
 
+def phoneNumberFormat(number):
+    if number is ' ' or '000-0000' in number:
+        return ''
+    else:
+        return number.replace('(000) 000-0000','')
+
 
 class Command(BaseCommand):
     help = "Update Campus models with AskTED data."
@@ -66,6 +72,16 @@ class Command(BaseCommand):
         state = data.get("School State")
         zip_code = data.get("School Zip")
         website = data.get("School Web Page Address")
+
+        # This accounts for invalid phone numbers
+        # print(phone_number)
+        # print(fax_number)
+        # print('-')
+        phone_number = phoneNumberFormat(phone_number)
+        fax_number = phoneNumberFormat(fax_number)
+        # print(phone_number)
+        # print(fax_number)
+        # print('---')
 
         campus.phone_number = phone_number
         campus.phone_number_extension = phone_number_extension

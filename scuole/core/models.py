@@ -21,10 +21,10 @@ class PersonnelBase(models.Model):
     role = models.CharField(_('Role of personnel'), max_length=100)
 
     email = models.EmailField(_('Email of personnel'))
-    phone_number = PhoneNumberField(_('Phone number of personnel'))
+    phone_number = PhoneNumberField(_('Phone number of personnel'), null=True, blank=True)
     phone_number_extension = models.CharField(
         _('Phone number extension'), max_length=4, blank=True, default='')
-    fax_number = PhoneNumberField(_('Fax number of personnel'))
+    fax_number = PhoneNumberField(_('Fax number of personnel'), null=True, blank=True)
     fax_number_extension = models.CharField(
         _('Fax number extension'), max_length=4, blank=True, default='')
 

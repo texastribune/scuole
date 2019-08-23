@@ -8,6 +8,18 @@ from django.core.management.base import BaseCommand
 from scuole.campuses.models import Campus, Principal
 from scuole.core.constants import ASKTED_PERSONNEL_URL, ASKTED_PERSONNEL_VIEWSTATE
 
+def phoneNumberFormat(number):
+    if number is ' ' or '000-0000' in number:
+        return ''
+    else:
+        return number.replace('(000) 000-0000','')\
+                        .replace('(993)','(936)')\
+                        .replace('(173)','(713)')\
+                        .replace('(942)','(972)')\
+                        .replace('(291)','(281)')\
+                        .replace('(230)','(210)')\
+                        .replace('(656)','(956)')\
+                        .replace('(396)','(956)')
 
 class Command(BaseCommand):
     help = "Update Campus models with AskTED principal data."
@@ -74,6 +86,16 @@ class Command(BaseCommand):
             fax_number, fax_number_extension = fax_number.split(" ext:")
         else:
             fax_number_extension = ""
+
+        # This accounts for invalid phone numbers
+        # print(phone_number)
+        # print(fax_number)
+        # print('-')
+        phone_number = phoneNumberFormat(phone_number)
+        fax_number = phoneNumberFormat(fax_number)
+        # print(phone_number)
+        # print(fax_number)
+        # print('---')
 
         instance, _ = Principal.objects.update_or_create(
             name=name,

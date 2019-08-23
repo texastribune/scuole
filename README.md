@@ -43,19 +43,24 @@ Check for any migrations:
 python manage.py migrate
 ```
 
-Alternatively, you can load in last year's data. This command will drop your database, create a new one and run migrations before loading in the data:
+Alternatively, you can load in last year's data. These commands will drop your database, create a new one and run migrations before loading in the data:
 
 ```sh
-make local/reset-db-bootstrap-latest
+make local/reset-db
+sh boostrap.sh
 ```
 
-Check out the makefile for more commands.
+The data we load will be pulled from the [AskTed website](http://mansfield.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx]). As you go through this, you may have data formatting errors with some of the data being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You may need to edit this function or create new ones if you're running into problems loading the data from AskTed.
 
-Then see if it'll run:
+There are also other commands in makefile at your disposal so check them out.
+
+Once the data is loaded, you can run the following command:
 
 ```sh
-python manage.py runserver
+sh docker-entrypoint.sh
 ```
+
+This will collect static files, as well as fire up a local server.
 
 All good? Let's go!
 
