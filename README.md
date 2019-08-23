@@ -70,9 +70,9 @@ python manage.py createsuperuser
 Then, after a `python manage.py runserver`, you can visit [http://localhost:8000/admin](http://localhost:8000/admin) and use the credentials you setup to get access. Every thing will be set to read-only, so there's no risk of borking anything.
 
 
-## Analysis
+## Workspace
 
-The analysis directory is used for incorporating the schools database with other datasets we run across in our reporting. These include:
+The `workspace` directory is used for incorporating the schools database with other datasets we run across in our reporting. These include:
 
 1) A-F scores
 
