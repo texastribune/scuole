@@ -72,7 +72,7 @@ Then, after a `python manage.py runserver`, you can visit [http://localhost:8000
 
 ## Analysis
 
-The analysis directory is used for incorporating the schools database with other datasets in the wild. These include:
+The analysis directory is used for incorporating the schools database with other datasets we run across in our reporting. These include:
 
 1) A-F scores
 
