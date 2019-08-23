@@ -60,13 +60,13 @@ local/reset-db-bootstrap-areas-entities: local/reset-db-bootstrap-areas data/boo
 
 local/reset-db-bootstrap-areas-entities-directories: local/reset-db-bootstrap-areas-entities data/update-directories
 
-local/reset-db-bootstrap-latest: local/reset-db-bootstrap-areas-entities data/latest-school
+local/reset-db-bootstrap-latest: local/reset-db-bootstrap-areas-entities-directories data/latest-school
 
-local/reset-db-and-bootstrap-over-time: local/reset-db data/all-schools data/all-cohorts
+local/reset-db-bootstrap-over-time: local/reset-db data/all-schools data/all-cohorts
 
-local/cohorts: local/reset-db-and-bootstrap-areas data/all-cohorts
+local/cohorts: local/reset-db-bootstrap-areas data/all-cohorts
 
-local/all: local/reset-db-and-bootstrap-areas data/bootstrap-edu data/all-schools data/all-cohorts
+local/all: local/reset-db-bootstrap-areas data/bootstrap-edu data/all-schools data/all-cohorts
 
 docker/pull:
 	@echo "Getting a fresh copy of master..."
