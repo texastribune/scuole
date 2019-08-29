@@ -37,6 +37,14 @@ Run pipenv:
 pipenv shell
 ```
 
+Install npm packages:
+
+```sh
+npm install
+npm run build
+```
+
+
 Check for any migrations:
 
 ```sh
