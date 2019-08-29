@@ -42,7 +42,7 @@
     "postcss": "^7.0.14",
     "postcss-flexbugs-fixes": "^4.1.0",
     "prettier": "^1.16.4",
-    "sass": "^1.17.3",
+    "sass": "^1.18.0",
     "sass-mq": "^5.0.0",
     "terser-webpack-plugin": "^1.2.3",
     "webpack": "^4.29.6",
