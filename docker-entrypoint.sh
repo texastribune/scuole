@@ -3,6 +3,8 @@
 # Collect static files
 python manage.py collectstatic --noinput
 
+pwd
+
 # Run app
 exec gunicorn config.wsgi:application \
   --workers 3 \

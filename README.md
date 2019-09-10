@@ -37,25 +37,32 @@ Run pipenv:
 pipenv shell
 ```
 
-Install npm packages:
+If there's a problem installing `psycopg2` when installing pipenv dependencies, you may need to the pg_config path by running pg_config and then reinstalling it.
+
+```sh
+pg_config --bindir
+export PATH=$PATH:path/to/pg/config
+pip3 install psycopg2
+```
+
+Next, install npm packages:
 
 ```sh
 npm install
 npm run build
 ```
 
-
-Check for any migrations:
-
-```sh
-python manage.py migrate
-```
-
-Alternatively, you can load in last year's data. These commands will drop your database, create a new one and run migrations before loading in the data:
+If this is your first time using the app, you'll probably want to load in last year's data to start off. These commands will drop your database (which doesn't exist yet), create a new one and run migrations before loading in the data:
 
 ```sh
 make local/reset-db
-sh boostrap.sh
+sh bootstrap.sh
+```
+
+If this is not your first time loading the app, you can run this to catch up with any outstanding migrations you might have:
+
+```sh
+python manage.py migrate
 ```
 
 The data we load will be pulled from the [AskTed website](http://mansfield.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx]). As you go through this, you may have data formatting errors with some of the data being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You may need to edit this function or create new ones if you're running into problems loading the data from AskTed.
@@ -69,6 +76,13 @@ sh docker-entrypoint.sh
 ```
 
 This will collect static files, as well as fire up a local server.
+
+If that doesn't work, try:
+
+```sh
+python manage.py collectstatic --noinput
+python manage.py runserver
+```
 
 All good? Let's go!
 
