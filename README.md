@@ -176,7 +176,9 @@ from scuole.states.models import *
 StateCohorts.objects.get(year__name = '2007-2008',ethnicity='African American',gender='',economic_status='').enrolled_8th
 ```
 
-You will need to change the school year to fit the year you are updating. Once that's done, it should spit out the number you see in the "Class size" for black students in first table under "Ethnicity" on the page. You can also modify your query to be whatever you want to check on the page.
+You will need to change the school year to fit the year you are updating. Once that's done, it should spit out the number you see in the "Class size" column for "Black" students in first table under "Ethnicity" on the page.
+
+Alternatively, you can make your own query and check something else on the page.
 
 Now exit out of the python shell and your Docker container and run the following command. This will push up code changes.
 
@@ -184,7 +186,21 @@ Now exit out of the python shell and your Docker container and run the following
 make compose/production-deploy
 ```
 
-Now check the live site. Your changes should be there! Now go home, your work here is done.
+Just a quick reminder: Schools has TWO production databases so we actually need to make any code changes to the other database as well. Get out of the production server, then get into the second one:
+
+```sh
+ssh schools-prod-2
+```
+
+Then run the following to get the latest code and deploy it
+
+```sh
+cd scuole
+git pull
+make compose/production-deploy
+```
+
+Once that's done, check the live site. Your changes should be there! Now go home, your work here is done.
 
 ## Workspace
 
