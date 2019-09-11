@@ -162,7 +162,13 @@ docker/kickstart: docker/build docker/run docker/nginx
 
 compose/production-deploy:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build web proxy
-	docker-compose  -f docker-compose.yml -f docker-compose.prod.yml up -d
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
 compose/admin-update-askted:
 	docker-compose -f docker-compose.yml -f docker-compose.admin.yml run --rm asktedupdate
+
+
+# Run this to create an image and get into the docker container
+# Runs as an ash shell (what Alpine Linux uses, which is the Docker image base, basically the same as bash)
+compose/container:
+	docker-compose -f docker-compose.yml run --entrypoint ash web

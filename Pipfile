@@ -15,6 +15,7 @@ sentry-sdk = "*"
 django-phonenumber-field = "*"
 phonenumberslite = "*"
 requests = "*"
+django-postgres-copy = "*"
 
 [dev-packages]
 "django-debug-toolbar" = "*"
@@ -25,4 +26,3 @@ ipython = "*"
 isort = "*"
 black = "==19.3b0"
 v = {editable = true,version = "*"}
-django-postgres-copy = "*"
