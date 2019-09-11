@@ -137,11 +137,11 @@ If you're not set up with the ssh yet, check out [this doc](https://github.com/t
 Once you're on the production server, you can run:
 
 ```sh
-docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --entrypoint=ash --env-file=env-docker scuole
+docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --entrypoint=ash --env-file=env-docker schools/web
 ```
 
 <!---
-Alternative to the above command:
+Alternative to the above command that's not working at the moment:
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --volume /home/ubuntu/scuole-data:/home/ubuntu/scuole/data:ro --entrypoint ash web
 -->
 
@@ -151,17 +151,20 @@ Now run the same command you ran earlier to update the data:
 python manage.py loadallcohorts 2008
 ```
 
-Once that's ran, go ahead and get into the Django shell and make sure you see your changes:
+Once that's ran, go ahead and get into the Django shell and make sure you can see your changes:
 
 ```sh
 python manage.py shell
 ```
 
-For instance, if you're updating cohorts, make sure the correct school year is in there:
+For instance, if you're updating cohorts, make sure the data is correct:
 
-```sh
-make compose/production-deploy
+```python
+from scuole.states.models import *
+StateCohorts.objects.get(year__name = '2007-2008',ethnicity='African American',gender='',economic_status='').enrolled_8th
 ```
+
+You will need to change the school year to fit the year you are updating. Once that's done, it should spit out the number you see in the "Class size" for black students in first table under "Ethnicity" on the page. You can also modify your query to be whatever you want to check on the page.
 
 Now exit out of the python shell and your Docker container and run the following command. This will push up code changes.
 
@@ -169,7 +172,7 @@ Now exit out of the python shell and your Docker container and run the following
 make compose/production-deploy
 ```
 
-Now check 
+Now check the live site. Your changes should be there! Now go home, your work here is done.
 
 ## Workspace
 

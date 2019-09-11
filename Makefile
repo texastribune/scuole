@@ -162,6 +162,7 @@ docker/kickstart: docker/build docker/run docker/nginx
 
 compose/production-deploy:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build web proxy
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
 compose/admin-update-askted:
