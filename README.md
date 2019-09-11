@@ -3,6 +3,18 @@
 
 Public Schools 3!
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Setup](#setup)
+- [Deploy](#deploy)
+- [Workspace](#workspace)
+- [Admin](#admin)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
 ## Setup
 
 This project assumes you are using the provided docker postgreSQL database build. Make sure docker is up and running, then run:
