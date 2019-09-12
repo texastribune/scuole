@@ -153,7 +153,7 @@ docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --en
 ```
 
 <!---
-Alternative to the above command that's not working at the moment:
+Alternative to the above command that needs a more recent version of docker-compose on production to work:
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --volume /home/ubuntu/scuole-data:/home/ubuntu/scuole/data:ro --entrypoint ash web
 -->
 
@@ -180,19 +180,19 @@ You will need to change the school year to fit the year you are updating. Once t
 
 Alternatively, you can make your own query and check something else on the page.
 
-Now exit out of the python shell and your Docker container and run the following command. This will push up code changes.
+Now exit out of the python shell and your Docker container and run the following command. This will push up code changes:
 
 ```sh
 make compose/production-deploy
 ```
 
-Just a quick reminder: Schools has TWO production databases so we actually need to make any code changes to the other database as well. Get out of the production server, then get into the second one:
+Just a quick reminder: Schools has TWO production databases so we actually need to make code changes to the other server as well. Get out of the server you're currently in, then get into the second one:
 
 ```sh
 ssh schools-prod-2
 ```
 
-Then run the following to get the latest code and deploy it
+Then run the following to get the latest code and deploy it:
 
 ```sh
 cd scuole
