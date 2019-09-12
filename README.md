@@ -108,9 +108,24 @@ All good? Let's go!
 
 ## Deploy
 
-Once you've made changes, make sure they are showing up on local. Once you've verified this, we can deploy to production. This projces will involve getting into the Docker container on the production server, loading in the new data and deploying it live.
+### Changes to the code
 
-First, however, let's create a Docker container on your local machine to make sure it's working. This will mirror what we'll do on production later. Make sure you're in the `scuole` directory and run:
+If you're making changes to just the code and not the data, these are the only commands you need to run:
+
+```sh
+ssh schools-prod
+cd scuole
+git pull
+make compose/production-deploy
+```
+
+You'll need to push all your changes locally to [Github](https://github.com/texastribune/scuole) before running this. Then repeat those for the second production server: `schools-prod-2`.
+
+### Changes to the data
+
+If you're making changes to the data, make sure they are showing up on local. Once you've verified this, we can deploy to production. This process will involve getting into the Docker container on the production server, loading in the new data and deploying it live.
+
+First, let's create a Docker container on your local machine to make sure it's working. This will mirror what we'll do on production later. Make sure you're in the `scuole` directory and run:
 
 ```sh
 docker-compose -f docker-compose.yml run --volume /Users/chrisessig/Documents/tribune/github/scuole-house/scuole-data:/usr/src/app/data/:ro -e DATABASE_URL=postgis://chrisessig@host.docker.internal/scuole --entrypoint ash web
@@ -146,7 +161,7 @@ git pull
 
 If you're not set up with the ssh yet, check out [this doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools) for more info.
 
-Once you're on the production server, you can run:
+Once you're on the production server, you can run this to get into the Docker container:
 
 ```sh
 docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --entrypoint=ash --env-file=env-docker schools/web
@@ -180,21 +195,16 @@ You will need to change the school year to fit the year you are updating. Once t
 
 Alternatively, you can make your own query and check something else on the page.
 
-Now exit out of the python shell and your Docker container and run the following command. This will push up code changes:
+Now exit out of the python shell and your Docker container. If you have code changes as well, you can push them live by running:
 
 ```sh
 make compose/production-deploy
 ```
 
-Just a quick reminder: Schools has TWO production databases so we actually need to make code changes to the other server as well. Get out of the server you're currently in, then get into the second one:
+Just a quick reminder: Schools has TWO production databases so we actually need to make code changes to the other server as well. Get out of the server you're currently in, then get into the second one and push those changes:
 
 ```sh
 ssh schools-prod-2
-```
-
-Then run the following to get the latest code and deploy it:
-
-```sh
 cd scuole
 git pull
 make compose/production-deploy
