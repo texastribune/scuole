@@ -195,7 +195,7 @@ You will need to change the school year to fit the year you are updating. Once t
 
 Alternatively, you can make your own query and check something else on the page.
 
-Now exit out of the python shell and your Docker container. If you have code changes as well, you can push them live by running:
+Now exit out of the python shell and your Docker container with `Ctrl + P + Q`. If you have code changes as well, you can push them live by running:
 
 ```sh
 make compose/production-deploy
