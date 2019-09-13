@@ -12,4 +12,21 @@
 
   try { _402_Show(); } catch(e) {}
 })();
+
+window.onload = function() {
+  // A hacky way of determining if a survey has been loaded
+  var gtm = document.getElementById('t402-prompt-iframe');
+
+  // Send Google Analytics event if there's an iframe on the page
+  if (gtm != null) {
+    if ( gtm.innerHTML.length > 0 ) {
+      window.dataLayer.push({
+        event: 'customDataVisuals',
+        gaCategory: 'data visuals - salaries',
+        gaAction: 'google form loaded',
+        gaLabel: '',
+      });
+    }
+  }
+}
 </script>
