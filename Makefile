@@ -32,7 +32,7 @@ data/update-directories:
 	python manage.py updatecampusdirectory
 	python manage.py updatecampusprincipals
 
-# Load in the latest year's TAPR data
+# Load in the latest year's TAPR data with v2 script
 data/latest-school:
 	python manage.py loadtaprdata_v2 2017-2018
 
