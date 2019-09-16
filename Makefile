@@ -160,6 +160,10 @@ docker/nginx: docker/nginx-build
 
 docker/kickstart: docker/build docker/run docker/nginx
 
+# What we use to deploy changes to the scuole repo in production
+# define services that make up the app with the docker-compose.yml file, and build them
+# `down` stops and removes previously started containers
+# `up -d` starts containers in the background with the defined services and leaves them running
 compose/production-deploy:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
@@ -167,7 +171,6 @@ compose/production-deploy:
 
 compose/admin-update-askted:
 	docker-compose -f docker-compose.yml -f docker-compose.admin.yml run --rm asktedupdate
-
 
 # Run this to create an image and get into the docker container
 # Runs as an ash shell (what Alpine Linux uses, which is the Docker image base, basically the same as bash)

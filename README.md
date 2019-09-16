@@ -153,9 +153,9 @@ If nothing blows up, it worked. Now we're ready to do the same on production. Fi
 
 ```sh
 ssh schools-prod
-cd scoule-data
+cd scuole-data
 git pull
-cd ../scoule 
+cd ../scuole 
 git pull
 ```
 
