@@ -43,8 +43,10 @@
 {% block extra_content %}{% endblock %}
 
 <main class="{% block main_class %}{% endblock main_class %}" id="main" role="main">
-{% block breadcrumbs %}{% endblock breadcrumbs %}
-{% block content %}{% endblock content %}
+  <div class="p402_premium">
+    {% block breadcrumbs %}{% endblock breadcrumbs %}
+    {% block content %}{% endblock content %}
+  </div>
 </main>
 
 {% block footer_ad %}
@@ -89,7 +91,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P5L2Z5Z"
+<noscript><iframe id="gtm-iframe" src="https://www.googletagmanager.com/ns.html?id=GTM-P5L2Z5Z"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 

@@ -110,22 +110,24 @@ All good? Let's go!
 
 ### Changes to the code
 
-If you're making changes to just the code and not the data, these are the only commands you need to run:
+If you're making changes to just the code and not the data, first you need to push all your changes locally to [Github](https://github.com/texastribune/scuole). Then you can run:
 
 ```sh
-ssh schools-prod
+ssh schools-test
 cd scuole
 git pull
 make compose/production-deploy
 ```
 
-You'll need to push all your changes locally to [Github](https://github.com/texastribune/scuole) before running this. Then repeat those for the second production server: `schools-prod-2`.
+Once you run these, make sure everything is working on the [test url](schools-test.texastribune.org). If so, then you'll need to repeat those steps on the two production servers: `schools-prod` and `schools-prod-2`.
+
+Congrats, you're changes are now [live](schools.texastribune.org)!
 
 ### Changes to the data
 
-If you're making changes to the data, make sure they are showing up on local. Once you've verified this, we can deploy to production. This process will involve getting into the Docker container on the production server, loading in the new data and deploying it live.
+If you're making changes to the data, make sure they are showing up on local. Once you've verified this, we can first deploy to the test server and then production. This process will involve getting into the Docker container on the server, loading in the new data and deploying it live.
 
-First, let's create a Docker container on your local machine to make sure it's working. This will mirror what we'll do on production later. Make sure you're in the `scuole` directory and run:
+But first, let's create a Docker container on your local machine to make sure it's working. This will mirror what we'll do on test/production servers later. Make sure you're in the `scuole` directory and run:
 
 ```sh
 docker-compose -f docker-compose.yml run --volume /Users/chrisessig/Documents/tribune/github/scuole-house/scuole-data:/usr/src/app/data/:ro -e DATABASE_URL=postgis://chrisessig@host.docker.internal/scuole --entrypoint ash web
@@ -149,19 +151,19 @@ And run your update, which would look something like:
 python manage.py loadallcohorts 2008
 ```
 
-If nothing blows up, it worked. Now we're ready to do the same on production. First get out of the shell and push all your changes to [Github](https://github.com/texastribune/scuole). Then log into the server and pull those changes:
+If nothing blows up, it worked. Now we're ready to do the same on the test server. First get out of the shell and push all your changes to [Github](https://github.com/texastribune/scuole). Then log into the server and pull those changes:
 
 ```sh
-ssh schools-prod
+ssh schools-test
 cd scoule-data
 git pull
-cd ../scoule 
+cd ../scoule
 git pull
 ```
 
 If you're not set up with the ssh yet, check out [this doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools) for more info.
 
-Once you're on the production server, you can run this to get into the Docker container:
+Once you're on the test server, you can run this to get into the Docker container:
 
 ```sh
 docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --entrypoint=ash --env-file=env-docker schools/web
@@ -201,7 +203,11 @@ Now exit out of the python shell and your Docker container with `Ctrl + P + Q`. 
 make compose/production-deploy
 ```
 
-Just a quick reminder: Schools has TWO production databases so we actually need to make code changes to the other server as well. Get out of the server you're currently in, then get into the second one and push those changes:
+Your changes should now be on the test server! Now we're ready for production a.k.a. the big time.
+
+Just a quick reminder: Schools has TWO production databases. For `schools-prod`, we will run all the commands we just ran on the test server. This will deploy both data and code changes. So go ahead and do that.
+
+The second server works a little bit differently. Fortunately, it's easier. You just need to push code changes to the second server, not data. To do this, run these simple commands:
 
 ```sh
 ssh schools-prod-2
