@@ -32,9 +32,11 @@ data/update-directories:
 	python manage.py updatecampusdirectory
 	python manage.py updatecampusprincipals
 
+# Load in the latest year's TAPR data with v2 script
 data/latest-school:
 	python manage.py loadtaprdata_v2 2017-2018
 
+# Load in all past TAPR data 
 data/all-schools:
 	python manage.py loadtaprdata 2016-2017 --bulk
 	python manage.py loadtaprdata 2015-2016 --bulk
@@ -42,6 +44,8 @@ data/all-schools:
 	python manage.py loadtaprdata 2013-2014 --bulk
 	python manage.py loadtaprdata 2012-2013 --bulk
 
+# Add the latest cohort year here when you're adding new data
+# Run the command for the latest year to update the explorer
 data/all-cohorts:
 	python manage.py loadallcohorts 1998
 	python manage.py loadallcohorts 1999
@@ -158,8 +162,13 @@ docker/nginx: docker/nginx-build
 		--publish 80:80 \
 		${APP}-nginx
 
+# Build app and its services, run the app, and load the app on a web server
 docker/kickstart: docker/build docker/run docker/nginx
 
+# What we use to deploy changes to the scuole repo in production
+# define services that make up the app with the docker-compose.yml file, and build them
+# `down` stops and removes previously started containers
+# `up -d` starts containers in the background with the defined services and leaves them running
 compose/production-deploy:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
@@ -167,7 +176,6 @@ compose/production-deploy:
 
 compose/admin-update-askted:
 	docker-compose -f docker-compose.yml -f docker-compose.admin.yml run --rm asktedupdate
-
 
 # Run this to create an image and get into the docker container
 # Runs as an ash shell (what Alpine Linux uses, which is the Docker image base, basically the same as bash)
