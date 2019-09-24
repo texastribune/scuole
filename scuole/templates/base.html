@@ -30,7 +30,6 @@
       }
     }
   </script>
-  {% block extra_head %}{% endblock extra_head %}
 </head>
 <body class="{% block body_class %}{% endblock body_class %}">
 
@@ -122,4 +121,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- END Parse.ly Include: Standard -->
 
 </body>
+
+<!-- Google surveys have to go at the bottom -->
+{% block extra_head %}{% endblock extra_head %}
+
 </html>
