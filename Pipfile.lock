@@ -69,11 +69,11 @@
         },
         "django-postgres-copy": {
             "hashes": [
-                "sha256:bac1d34709f9f12e6a553c4e20ccbda32ca641d06d67ca7f41198e30214fde2b",
-                "sha256:ef2c2e9e9d204e28d70a2f43fdb8caf01ab2b22850fdbab6cdc76be0ece2ad1a"
+                "sha256:9df04af234b8d3fe6f970cfce9320ae2f4e87add587f90418054f7ce8e242f9f",
+                "sha256:f2f0cc2ce9e820367d233ba16e7f6192f4404a0e028447bd96af1bf242a3ccb7"
             ],
             "index": "pypi",
-            "version": "==2.4.1"
+            "version": "==2.4.2"
         },
         "gunicorn": {
             "hashes": [
@@ -92,11 +92,11 @@
         },
         "phonenumberslite": {
             "hashes": [
-                "sha256:5bd43a4c88a015d9762d9e4a6861ed3a8dbbfb34f64239d5f31ada0892730ae1",
-                "sha256:8f41d6e10cc81d5e2fa11d3391707dd8e1d71fbfcd7a8abab5a6dfadd2914a9e"
+                "sha256:5236cf868c7f313bd5f96ee113456f10532a4469c56f28acf6dcfbe252d0d966",
+                "sha256:c7ccca47a1170a7b45f2e7451a8d2bfc9724b06e85b97d7edc568aa1b3f13b02"
             ],
             "index": "pypi",
-            "version": "==8.10.18"
+            "version": "==8.10.19"
         },
         "psycopg2": {
             "hashes": [
@@ -139,11 +139,11 @@
         },
         "sentry-sdk": {
             "hashes": [
-                "sha256:528f936118679e9a52dacb96bfefe20acb5d63e0797856c64a582cc3c2bc1f9e",
-                "sha256:b4edcb1296fee107439345d0f8b23432b8732b7e28407f928367d0a4a36301a9"
+                "sha256:2529ab6f93914d01bcd80b1b16c15a025902350ab19af2033aa5ff797c1600ad",
+                "sha256:ab16b539c40cc18e3dcfec99d0d3fff16337a050eaf79d4503ef2b73af9a7d9e"
             ],
             "index": "pypi",
-            "version": "==0.11.2"
+            "version": "==0.12.2"
         },
         "six": {
             "hashes": [
