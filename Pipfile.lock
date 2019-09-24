@@ -69,11 +69,11 @@
         },
         "django-postgres-copy": {
             "hashes": [
-                "sha256:bac1d34709f9f12e6a553c4e20ccbda32ca641d06d67ca7f41198e30214fde2b",
-                "sha256:ef2c2e9e9d204e28d70a2f43fdb8caf01ab2b22850fdbab6cdc76be0ece2ad1a"
+                "sha256:9df04af234b8d3fe6f970cfce9320ae2f4e87add587f90418054f7ce8e242f9f",
+                "sha256:f2f0cc2ce9e820367d233ba16e7f6192f4404a0e028447bd96af1bf242a3ccb7"
             ],
             "index": "pypi",
-            "version": "==2.4.1"
+            "version": "==2.4.2"
         },
         "gunicorn": {
             "hashes": [
