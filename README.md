@@ -116,7 +116,7 @@ If you're making changes to just the code and not the data, first you need to pu
 ssh schools-test
 cd scuole
 git pull
-make compose/production-deploy
+make compose/test-deploy
 ```
 
 Once you run these, make sure everything is working on the [test url](schools-test.texastribune.org). If so, then you'll need to repeat those steps on the two production servers: `schools-prod` and `schools-prod-2`.
@@ -125,33 +125,11 @@ Congrats, you're changes are now [live](schools.texastribune.org)!
 
 ### Changes to the data
 
-If you're making changes to the data, make sure they are showing up on local. Once you've verified this, we can first deploy to the test server and then production. This process will involve getting into the Docker container on the server, loading in the new data and deploying it live.
+If you're making changes to the data, we will first deploy to the test server and then production. This process will involve getting into the Docker container on the server, loading in the new data and deploying it live.
 
-But first, let's create a Docker container on your local machine to make sure it's working. This will mirror what we'll do on test/production servers later. Make sure you're in the `scuole` directory and run:
+If you're not set up with the ssh yet, check out [this doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools) for more info.
 
-```sh
-docker-compose -f docker-compose.yml run --volume /Users/chrisessig/Documents/tribune/github/scuole-house/scuole-data:/usr/src/app/data/:ro -e DATABASE_URL=postgis://chrisessig@host.docker.internal/scuole --entrypoint ash web
-```
-
-You will need to change the `/Users/chrisessig/Documents/tribune/github/scuole-house/scuole-data` path to the correct path for your data folder. Also change the `chrisessig` user to whoever owns the `scuole` database on your local machine. To find that out, run:
-
-```sh
-psql -c "\l"
-```
-
-If this works correctly, this will log you into the Docker container and give you a new shell. Once inside, install the dependencies:
-
-```sh
-pipenv install --dev --system
-```
-
-And run your update, which would look something like:
-
-```sh
-python manage.py loadallcohorts 2008
-```
-
-If nothing blows up, it worked. Now we're ready to do the same on the test server. First get out of the shell and push all your changes to [Github](https://github.com/texastribune/scuole). Then log into the server and pull those changes:
+First, make sure all of your changes are pushed to [Github](https://github.com/texastribune/scuole). Then log into the server and pull those changes:
 
 ```sh
 ssh schools-test
@@ -161,12 +139,10 @@ cd ../scoule
 git pull
 ```
 
-If you're not set up with the ssh yet, check out [this doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools) for more info.
-
-Once you're on the test server, you can run this to get into the Docker container:
+Now let's get into the Docker container:
 
 ```sh
-docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --entrypoint=ash --env-file=env-docker schools/web
+docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --net=scuole_default --entrypoint=ash --env-file=env-docker schools/web
 ```
 
 <!---
@@ -174,40 +150,49 @@ Alternative to the above command that needs a more recent version of docker-comp
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --volume /home/ubuntu/scuole-data:/home/ubuntu/scuole/data:ro --entrypoint ash web
 -->
 
-Now run the same command you ran earlier to update the data:
+And run the update to your data, which would look something like:
 
 ```sh
 python manage.py loadallcohorts 2008
 ```
 
-Once that's ran, go ahead and get into the Django shell and make sure you can see your changes:
+Now exit out of the python shell and your Docker container with `Ctrl + P + Q`. If you have code changes as well, you can push them live by running:
 
 ```sh
-python manage.py shell
+make compose/test-deploy
 ```
 
-For instance, if you're updating cohorts, make sure the data is correct:
+Your changes should now be on the [test server](schools-test.texastribune.org)! Now we're ready for production a.k.a. the big time.
 
-```python
-from scuole.states.models import *
-StateCohorts.objects.get(year__name = '2007-2008',ethnicity='African American',gender='',economic_status='').enrolled_8th
+Just a quick reminder: Schools has TWO production databases. For `schools-prod`, we will need to pull down Github changes:
+
+```sh
+ssh schools-prod
+cd scoule-data
+git pull
+cd ../scoule
+git pull
 ```
 
-You will need to change the school year to fit the year you are updating. Once that's done, it should spit out the number you see in the "Class size" column for "Black" students in first table under "Ethnicity" on the page.
+If your making data changes, the command to get into the Docker containers on the prod servers will change a little bit. You won't need the `--net` parameter anymore:
 
-Alternatively, you can make your own query and check something else on the page.
+```sh
+docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --entrypoint=ash --env-file=env-docker schools/web
+```
 
-Now exit out of the python shell and your Docker container with `Ctrl + P + Q`. If you have code changes as well, you can push them live by running:
+Now go ahead make your changes. Here's an example:
+
+```sh
+python manage.py loadallcohorts 2008
+```
+
+And deploy:
 
 ```sh
 make compose/production-deploy
 ```
 
-Your changes should now be on the test server! Now we're ready for production a.k.a. the big time.
-
-Just a quick reminder: Schools has TWO production databases. For `schools-prod`, we will run all the commands we just ran on the test server. This will deploy both data and code changes. So go ahead and do that.
-
-The second server works a little bit differently. Fortunately, it's easier. You just need to push code changes to the second server, not data. To do this, run these simple commands:
+Fortunately, you only need to push data changes to one server. If you need to push code changes as well, go ahead and make those on the second server:
 
 ```sh
 ssh schools-prod-2
@@ -241,4 +226,9 @@ python manage.py createsuperuser
 ```
 
 Then, after a `python manage.py runserver`, you can visit [http://localhost:8000/admin](http://localhost:8000/admin) and use the credentials you setup to get access. Every thing will be set to read-only, so there's no risk of borking anything.
+
+
+## To-dos
+
+* Figure out if we're using `requirements.txt` or `Pipfile.lock`. Right now, the test server is using `requirements.txt` and has pending git changes. The local and production versions are using `Pipfile.lock`. This is why we use the `make compose/test-deploy` command on the test server and not on production.
 
