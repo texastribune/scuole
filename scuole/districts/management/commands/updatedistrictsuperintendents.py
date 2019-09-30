@@ -45,6 +45,7 @@ class Command(BaseCommand):
 
         try:
             district = District.objects.get(tea_id=district_id)
+            self.stdout.write(f"{district}")
         except District.DoesNotExist:
             # if there's no match don't worry about it
             return
