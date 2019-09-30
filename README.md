@@ -133,9 +133,9 @@ First, make sure all of your changes are pushed to [Github](https://github.com/t
 
 ```sh
 ssh schools-test
-cd scoule-data
+cd scuole-data
 git pull
-cd ../scoule
+cd ../scuole
 git pull
 ```
 
@@ -168,9 +168,9 @@ Just a quick reminder: Schools has TWO production databases. For `schools-prod`,
 
 ```sh
 ssh schools-prod
-cd scoule-data
+cd scuole-data
 git pull
-cd ../scoule
+cd ../scuole
 git pull
 ```
 
