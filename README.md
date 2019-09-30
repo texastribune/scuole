@@ -127,6 +127,8 @@ If you're making changes to just the code and not the data, first you need to pu
 ssh schools-test
 cd scuole
 git pull
+git checkout test-server
+git rebase master  
 make compose/test-deploy
 ```
 
@@ -155,6 +157,8 @@ cd scuole-data
 git pull
 cd ../scuole
 git pull
+git checkout test-server
+git rebase master  
 ```
 
 Now let's get into the Docker container:
