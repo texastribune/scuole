@@ -9,8 +9,12 @@ Public Schools 3!
 
 - [Setup](#setup)
 - [Deploy](#deploy)
+  - [Changes to the code](#changes-to-the-code)
+  - [Changes to the data](#changes-to-the-data)
+- [Troubleshooting](#troubleshooting)
 - [Workspace](#workspace)
 - [Admin](#admin)
+- [To-dos](#to-dos)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -108,6 +112,13 @@ All good? Let's go!
 
 ## Deploy
 
+**For cohorts**
+You'll need to add a line to `data/all-cohorts` in the `Makefile` with the latest year. Then, run 
+`python manage.py loadallcohorts <latest year>` during the update.
+
+**For AskTED**
+Run `make data/update-directories` to update the data. You can also run each command in that block separately, your choice!
+
 ### Changes to the code
 
 If you're making changes to just the code and not the data, first you need to push all your changes locally to [Github](https://github.com/texastribune/scuole). Then you can run:
@@ -202,6 +213,18 @@ make compose/production-deploy
 ```
 
 Once that's done, check the live site. Your changes should be there! Now go home, your work here is done.
+
+## Troubleshooting
+
+If you run into `ERROR: error while removing network: network <network-name> id <network-id> has active endpoints` while deploying to test or production, it means you need to clear out some lingering endpoints.
+
+- Run `docker network ls` to get a list of networks.
+- Grab the id of `scuole_default` and run `docker network inspect <scuole_default-id>`
+- You'll see a bunch of objects in the `Container` property. Each of them should have an endpoint ID and a name. The name is the endpoint name.
+- Run `docker network disconnect -f <scuole_default-id> <endpoint-name>`for each of the endpoints.
+- Try test deploying again. It should work this time around!
+
+[Source of this information](https://github.com/moby/moby/issues/17217)
 
 ## Workspace
 
