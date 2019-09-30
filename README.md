@@ -132,6 +132,13 @@ make compose/test-deploy
 
 Once you run these, make sure everything is working on the [test url](schools-test.texastribune.org). If so, then you'll need to repeat those steps on the two production servers: `schools-prod` and `schools-prod-2`.
 
+```sh
+ssh schools-prod
+cd scuole
+git pull
+make compose/production-deploy
+```
+
 Congrats, you're changes are now [live](schools.texastribune.org)!
 
 ### Changes to the data
@@ -203,14 +210,7 @@ And deploy:
 make compose/production-deploy
 ```
 
-Fortunately, you only need to push data changes to one server. If you need to push code changes as well, go ahead and make those on the second server:
-
-```sh
-ssh schools-prod-2
-cd scuole
-git pull
-make compose/production-deploy
-```
+Fortunately, you only need to push data changes to one server.
 
 Once that's done, check the live site. Your changes should be there! Now go home, your work here is done.
 
