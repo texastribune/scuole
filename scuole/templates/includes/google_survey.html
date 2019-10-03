@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<script>
 (function() {
   var ARTICLE_URL = window.location.href;
   var CONTENT_ID = 'everything';
@@ -11,16 +11,14 @@
     '" type="text/javascript">'+'\x3C/scr'+'ipt>'
   );
 })();
-</script>
 
-<script type="text/javascript">
+// A hacky way of determining if a Google survey has been loaded
 window.onload = function() {
-  // A hacky way of determining if a survey has been loaded
   var gtm = document.getElementById('t402-prompt-iframe');
 
   // Send Google Analytics event if there's an iframe on the page
   if (gtm != null) {
-    if ( gtm.innerHTML.length > 0 ) {
+    if ( gtm.contentWindow.document.body.innerHTML.length > 0 ) {
       window.dataLayer.push({
         event: 'customDataVisuals',
         gaCategory: 'data visuals - schools',

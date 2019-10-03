@@ -31,10 +31,12 @@
     }
   </script>
 </head>
-<body class="{% block body_class %}{% endblock body_class %}">
+
+<body>
 
 <!-- Google surveys need to go here -->
 {% block extra_head %}{% endblock extra_head %}
+<script src='{% static "scripts/google-survey.js" %}'></script>
 
 <header class="{% block header_class %}{% endblock header_class %}" role="banner">
 {% block header %}{% endblock header %}
@@ -105,6 +107,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="parsely-root" style="display: none">
   <span id="parsely-cfg" data-parsely-site="texastribune.org"></span>
 </div>
+
 <script>
 (function(s, p, d) {
   var h = d.location.protocol,
@@ -120,6 +123,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   e.src = h + '//' + u + '/p.js';
   r.appendChild(e);
 })('script', 'parsely', document);
+
 </script>
 <!-- END Parse.ly Include: Standard -->
 
