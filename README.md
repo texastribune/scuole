@@ -9,8 +9,12 @@ Public Schools 3!
 
 - [Setup](#setup)
 - [Deploy](#deploy)
+  - [Changes to the code](#changes-to-the-code)
+  - [Changes to the data](#changes-to-the-data)
+- [Troubleshooting](#troubleshooting)
 - [Workspace](#workspace)
 - [Admin](#admin)
+- [To-dos](#to-dos)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -108,6 +112,13 @@ All good? Let's go!
 
 ## Deploy
 
+**For cohorts**
+You'll need to add a line to `data/all-cohorts` in the `Makefile` with the latest year. Then, run 
+`python manage.py loadallcohorts <latest year>` during the update.
+
+**For AskTED**
+Run `make data/update-directories` to update the data. You can also run each command in that block separately, your choice!
+
 ### Changes to the code
 
 If you're making changes to just the code and not the data, first you need to push all your changes locally to [Github](https://github.com/texastribune/scuole). Then you can run:
@@ -116,10 +127,19 @@ If you're making changes to just the code and not the data, first you need to pu
 ssh schools-test
 cd scuole
 git pull
+git checkout test-server
+git rebase master  
 make compose/test-deploy
 ```
 
 Once you run these, make sure everything is working on the [test url](schools-test.texastribune.org). If so, then you'll need to repeat those steps on the two production servers: `schools-prod` and `schools-prod-2`.
+
+```sh
+ssh schools-prod
+cd scuole
+git pull
+make compose/production-deploy
+```
 
 Congrats, you're changes are now [live](schools.texastribune.org)!
 
@@ -133,10 +153,12 @@ First, make sure all of your changes are pushed to [Github](https://github.com/t
 
 ```sh
 ssh schools-test
-cd scoule-data
+cd scuole-data
 git pull
-cd ../scoule
+cd ../scuole
 git pull
+git checkout test-server
+git rebase master  
 ```
 
 Now let's get into the Docker container:
@@ -168,9 +190,9 @@ Just a quick reminder: Schools has TWO production databases. For `schools-prod`,
 
 ```sh
 ssh schools-prod
-cd scoule-data
+cd scuole-data
 git pull
-cd ../scoule
+cd ../scuole
 git pull
 ```
 
@@ -192,16 +214,33 @@ And deploy:
 make compose/production-deploy
 ```
 
-Fortunately, you only need to push data changes to one server. If you need to push code changes as well, go ahead and make those on the second server:
-
-```sh
-ssh schools-prod-2
-cd scuole
-git pull
-make compose/production-deploy
-```
+Fortunately, you only need to push data changes to one server.
 
 Once that's done, check the live site. Your changes should be there! Now go home, your work here is done.
+
+## Troubleshooting
+
+A brute force solution to updating a database is clearing out all of the objects from the table, and running the update again.
+
+- Run `ssh schools-test`. ALWAYS do this on the test server first.
+- Run `docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --net=scuole_default --entrypoint=ash --env-file=env-docker schools/web` to get into the test server Docker environment.
+- Run `python manage.py shell` to get into the Python shell to run Django commands.
+- If you want to clear `Superintendents`, for example, you'd need to import the District models by running `from scuole.districts.models import Superintendent` in the Python shell. You can get the syntax for the import by going to the Python file in `scuole` that updates that particular model and coping the line of code importing it.
+- Save the models in a variable: `super = Superintendent.objects.all()`.
+- `print(super)` to make sure you're clearing the right thing.
+- `super.delete()` to delete them all.
+- `exit()` to exit out of the Python shell.
+- Run your update command again.
+
+If you run into `ERROR: error while removing network: network <network-name> id <network-id> has active endpoints` while deploying to test or production, it means you need to clear out some lingering endpoints.
+
+- Run `docker network ls` to get a list of networks.
+- Grab the id of `scuole_default` and run `docker network inspect <scuole_default-id>`
+- You'll see a bunch of objects in the `Container` property. Each of them should have an endpoint ID and a name. The name is the endpoint name.
+- Run `docker network disconnect -f <scuole_default-id> <endpoint-name>` for each of the endpoints.
+- Try test deploying again. It should work this time around!
+
+[Source of this information](https://github.com/moby/moby/issues/17217)
 
 ## Workspace
 

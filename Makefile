@@ -26,6 +26,7 @@ data/bootstrap-entities:
 	python manage.py bootstrapdistricts_v2 2017-2018
 	python manage.py bootstrapcampuses_v2 2017-2018
 
+# Update AskTED information
 data/update-directories:
 	python manage.py updatedistrictdirectory
 	python manage.py updatedistrictsuperintendents
