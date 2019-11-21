@@ -166,11 +166,15 @@ docker/nginx: docker/nginx-build
 # Build app and its services, run the app, and load the app on a web server
 docker/kickstart: docker/build docker/run docker/nginx
 
+free-space:
+	-docker system prune -f
+
 # What we use to deploy changes to the scuole repo in production
 # define services that make up the app with the docker-compose.yml file, and build them
 # `down` stops and removes previously started containers
 # `up -d` starts containers in the background with the defined services and leaves them running
 compose/production-deploy:
+	make free-space
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
