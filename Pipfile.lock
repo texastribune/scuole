@@ -91,11 +91,11 @@
         },
         "phonenumberslite": {
             "hashes": [
-                "sha256:294f46126289c0843c94c7e7f7efa9b1a4dd7b95c159a81d75dcd6b38fea842c",
-                "sha256:a1086ffa60cb3dd0f8bddf9b59c86995dbc84da2943a4a4204fe70fd6bac608b"
+                "sha256:1444f6260491075dba575bc2a8f5f8a72f5e50ad96160e9fadaecd747e83d3bf",
+                "sha256:9590121b80353d72fb7420d2530fd3fc79f6c61d56a13e0b4d41459ec2a9e62e"
             ],
             "index": "pypi",
-            "version": "==8.11.0"
+            "version": "==8.11.1"
         },
         "psycopg2": {
             "hashes": [
