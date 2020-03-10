@@ -131,7 +131,7 @@ Congrats, you're changes are now [live](schools.texastribune.org)!
 
 ### Changes to the data
 
-## Updating data
+#### Updating data
 
 There are two types of data updates. One type is when you manually download the data, format it, and load it into the appropriate folder in `scuole-data`. You'll then need to deploy the latest data in `scuole-data` (instructions in the deploy section). 
 
