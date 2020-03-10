@@ -43,7 +43,14 @@ class Command(BaseCommand):
 
             for feature in features:
                 properties = feature.get("properties")
-                tea_id = properties.get("CAMPUS")
+
+                raw_id = str(int(properties.get("School_ID")))
+                tea_id = raw_id
+
+                # a campus ID is typically 9 digits
+                # in the new geoJSON data, the campus ID's are formatted weirdly
+                if (len(raw_id) < 9):
+                    tea_id = ((9 - len(raw_id)) * '0') + raw_id
 
                 shape_data[tea_id] = feature.get("geometry")
 
