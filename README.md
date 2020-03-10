@@ -131,8 +131,6 @@ Congrats, you're changes are now [live](schools.texastribune.org)!
 
 ### Changes to the data
 
-#### Updating data
-
 There are two types of data updates. One type is when you manually download the data, format it, and load it into the appropriate folder in `scuole-data`. You'll then need to deploy the latest data in `scuole-data` (instructions in the deploy section). 
 
 Another type is when you run a command to download the latest data directly from the website. Updating AskTED is an example of this. You'll need to ssh onto the appropriate server (test or production) and run a series of commands to pull the latest data before deploying it to the server.
