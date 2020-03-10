@@ -139,20 +139,6 @@ Another type is when you run a command to download the latest data directly from
 
 See [`scuole-data`](https://github.com/texastribune/scuole-data) for more descriptions about the data used in `scuole`. `scuole-data` also has instructions on how to clean and download TAPR and cohorts data.
 
-#### For cohorts
-You'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year. Then, run 
-`python manage.py loadallcohorts <latest year>` during the update.
-
-#### For AskTED
-Run `make data/update-directories` to update the data. You can also run each command in that block separately, your choice!
-
-If you run into any duplicate key errors during the AskTED update, refer to the Troublshooting section below for instructions on how to clear a table. 
-
-You'll need to clear the table that is throwing this error, and reload the data. This error happens because the update may be trying to insert something that has the same ID as something else.
-
-#### For TAPR
-Refer to this [Confluence document](https://texastribune.atlassian.net/wiki/spaces/APPS/pages/163844/How+to+update+Public+Schools+2019).
-
 If you're making changes to the data, we will first deploy to the test server and then production. This process will involve getting into the Docker container on the server, loading in the new data and deploying it live.
 
 If you're not set up with the ssh yet, check out [this doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools) for more info.
@@ -185,6 +171,20 @@ And run the update to your data, which would look something like:
 ```sh
 python manage.py loadallcohorts 2008
 ```
+
+#### For cohorts
+You'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year. Then, run 
+`python manage.py loadallcohorts <latest year>` during the update.
+
+#### For AskTED
+Run `make data/update-directories` to update the data. You can also run each command in that block separately, your choice!
+
+If you run into any duplicate key errors during the AskTED update, refer to the Troublshooting section below for instructions on how to clear a table. 
+
+You'll need to clear the table that is throwing this error, and reload the data. This error happens because the update may be trying to insert something that has the same ID as something else.
+
+#### For TAPR
+Refer to this [Confluence document](https://texastribune.atlassian.net/wiki/spaces/APPS/pages/163844/How+to+update+Public+Schools+2019).
 
 Now exit out of the python shell and your Docker container with `Ctrl + P + Q`. If you have code changes as well, you can push them live by running:
 
