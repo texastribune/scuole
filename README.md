@@ -8,9 +8,10 @@ Public Schools 3!
 
 
 - [Setup](#setup)
-- [Deploy](#deploy)
+- [Updating and deploying](#updating-and-deploying)
   - [Changes to the code](#changes-to-the-code)
   - [Changes to the data](#changes-to-the-data)
+- [Updating data](#updating-data)
 - [Troubleshooting](#troubleshooting)
 - [Workspace](#workspace)
 - [Admin](#admin)
@@ -28,14 +29,6 @@ make docker/db
 ```
 
 This will create the data volume and instance of PostgreSQL for Django. 
-
-To ensure Django knows where to look, you need to set the `DATABASE_URL`. If you are not using the Docker provided database, use `DATABASE_URL` to tell the app what you've done instead. You may not need to set this up when running the app locally.
-
-```sh
-export DATABASE_URL=postgres://docker:docker@docker.local:5432/docker
-```
-
-If you get the error `django.db.utils.OperationalError: could not translate host name "docker.local" to address: nodename nor servname provided, or not known`, unset `DATABASE_URL` in your environment by running `unset DATABASE_URL` in the terminal. From there, the app should be runnable as normal.
 
 Fire up pipenv:
 
@@ -110,25 +103,7 @@ python manage.py runserver
 
 All good? Let's go! There are also other commands in scuole's `Makefile` at your disposal so check them out.
 
-## Updating data
-
-See [`scuole-data`](https://github.com/texastribune/scuole-data) for more descriptions about the data used in `scuole`. `scuole-data` also has instructions on how to clean and download TAPR and cohorts data.
-
-**For cohorts**
-You'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year. Then, run 
-`python manage.py loadallcohorts <latest year>` during the update.
-
-**For AskTED**
-Run `make data/update-directories` to update the data. You can also run each command in that block separately, your choice!
-
-If you run into any duplicate key errors during the AskTED update, refer to the Troublshooting section below for instructions on how to clear a table. 
-
-You'll need to clear the table that is throwing this error, and reload the data. This error happens because the update may be trying to insert something that has the same ID as something else.
-
-**For TAPR**
-Refer to this [Confluence document](https://texastribune.atlassian.net/wiki/spaces/APPS/pages/163844/How+to+update+Public+Schools+2019).
-
-## Deploy
+## Updating and deploying
 
 ### Changes to the code
 
@@ -155,6 +130,28 @@ make compose/production-deploy
 Congrats, you're changes are now [live](schools.texastribune.org)!
 
 ### Changes to the data
+
+## Updating data
+
+There are two types of data updates. One type is when you manually download the data, format it, and load it into the appropriate folder in `scuole-data`. You'll then need to deploy the latest data in `scuole-data` (instructions in the deploy section). 
+
+Another type is when you run a command to download the latest data directly from the website. Updating AskTED is an example of this. You'll need to ssh onto the appropriate server (test or production) and run a series of commands to pull the latest data before deploying it to the server.
+
+See [`scuole-data`](https://github.com/texastribune/scuole-data) for more descriptions about the data used in `scuole`. `scuole-data` also has instructions on how to clean and download TAPR and cohorts data.
+
+**For cohorts**
+You'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year. Then, run 
+`python manage.py loadallcohorts <latest year>` during the update.
+
+**For AskTED**
+Run `make data/update-directories` to update the data. You can also run each command in that block separately, your choice!
+
+If you run into any duplicate key errors during the AskTED update, refer to the Troublshooting section below for instructions on how to clear a table. 
+
+You'll need to clear the table that is throwing this error, and reload the data. This error happens because the update may be trying to insert something that has the same ID as something else.
+
+**For TAPR**
+Refer to this [Confluence document](https://texastribune.atlassian.net/wiki/spaces/APPS/pages/163844/How+to+update+Public+Schools+2019).
 
 If you're making changes to the data, we will first deploy to the test server and then production. This process will involve getting into the Docker container on the server, loading in the new data and deploying it live.
 
@@ -230,6 +227,14 @@ Fortunately, you only need to push data changes to one server.
 Once that's done, check the live site. Your changes should be there! Now go home, your work here is done.
 
 ## Troubleshooting
+
+To ensure Django knows where to look, you may need to set the `DATABASE_URL`. If you are not using the Docker provided database, use `DATABASE_URL` to tell the app what you've done instead. We haven't needed to set this lately.
+
+```sh
+export DATABASE_URL=postgres://docker:docker@docker.local:5432/docker
+```
+
+If you get the error `django.db.utils.OperationalError: could not translate host name "docker.local" to address: nodename nor servname provided, or not known`, unset `DATABASE_URL` in your environment by running `unset DATABASE_URL` in the terminal. From there, the app should be runnable as normal.
 
 Sometimes an update can throw a duplicate key error. A brute force solution is clearing out all of the objects from the table, and running the update again.
 
