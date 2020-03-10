@@ -21,19 +21,21 @@ Public Schools 3!
 
 ## Setup
 
-This project assumes you are using the provided docker postgreSQL database build. Make sure docker is up and running, then run:
+This project assumes you are using the provided docker PostgreSQL database build. Make sure docker is up and running, then run:
 
 ```sh
 make docker/db
 ```
 
-This will create the data volume and instance of PostgreSQL for Django. To ensure Django knows where to look, you need to set the `DATABASE_URL`. If you are not using the docker provided database, use `DATABASE_URL` to tell the app what you've done instead.
+This will create the data volume and instance of PostgreSQL for Django. 
+
+To ensure Django knows where to look, you need to set the `DATABASE_URL`. If you are not using the Docker provided database, use `DATABASE_URL` to tell the app what you've done instead. You may not need to set this up when running the app locally.
 
 ```sh
 export DATABASE_URL=postgres://docker:docker@docker.local:5432/docker
 ```
 
-From there, the app should be runnable as normal.
+If you get the error `django.db.utils.OperationalError: could not translate host name "docker.local" to address: nodename nor servname provided, or not known`, unset `DATABASE_URL` in your environment by running `unset DATABASE_URL` in the terminal. From there, the app should be runnable as normal.
 
 Fire up pipenv:
 
@@ -75,13 +77,13 @@ make local/reset-db
 sh bootstrap.sh
 ```
 
-If you're having trouble with the data, it might be because your `.env` file is not getting use. In that file is where we set up the `DATA_FOLDER` as explained in the [setup doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools). But you can also get around using that file by typing:
+If you're having trouble with the data, it might be because your `.env` file is not getting used. In that file is where we set up the `DATA_FOLDER` as explained in the [setup doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools). But you can also get around using that file by typing:
 
 ```sh
 export DATA_FOLDER=~/Documents/tribune/github/scuole-house/scuole-data/
 ```
 
-Before running any commands that load in data.
+This should be run before running any commands that load in data.
 
 If this is not your first time loading the app, you can run this to catch up with any outstanding migrations you might have:
 
@@ -89,9 +91,7 @@ If this is not your first time loading the app, you can run this to catch up wit
 python manage.py migrate
 ```
 
-The data we load will be pulled from the [AskTed website](http://mansfield.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx]). As you go through this, you may have data formatting errors with some of the data being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You may need to edit this function or create new ones if you're running into problems loading the data from AskTed.
-
-There are also other commands in makefile at your disposal so check them out.
+Some of the data we load will be pulled from the [AskTed website](http://mansfield.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx]). There may be data formatting errors with some of the data as its being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You may need to edit this function or create new ones if you're running into problems loading the data from AskTed.
 
 Once the data is loaded, you can run the following command:
 
@@ -108,16 +108,27 @@ python manage.py collectstatic --noinput
 python manage.py runserver
 ```
 
-All good? Let's go!
+All good? Let's go! There are also other commands in scuole's `Makefile` at your disposal so check them out.
 
-## Deploy
+## Updating data
+
+See [`scuole-data`](https://github.com/texastribune/scuole-data) for more descriptions about the data used in `scuole`. `scuole-data` also has instructions on how to clean and download TAPR and cohorts data.
 
 **For cohorts**
-You'll need to add a line to `data/all-cohorts` in the `Makefile` with the latest year. Then, run 
+You'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year. Then, run 
 `python manage.py loadallcohorts <latest year>` during the update.
 
 **For AskTED**
 Run `make data/update-directories` to update the data. You can also run each command in that block separately, your choice!
+
+If you run into any duplicate key errors during the AskTED update, refer to the Troublshooting section below for instructions on how to clear a table. 
+
+You'll need to clear the table that is throwing this error, and reload the data. This error happens because the update may be trying to insert something that has the same ID as something else.
+
+**For TAPR**
+Refer to this [Confluence document](https://texastribune.atlassian.net/wiki/spaces/APPS/pages/163844/How+to+update+Public+Schools+2019).
+
+## Deploy
 
 ### Changes to the code
 
@@ -220,7 +231,7 @@ Once that's done, check the live site. Your changes should be there! Now go home
 
 ## Troubleshooting
 
-A brute force solution to updating a database is clearing out all of the objects from the table, and running the update again.
+Sometimes an update can throw a duplicate key error. A brute force solution is clearing out all of the objects from the table, and running the update again.
 
 - Run `ssh schools-test`. ALWAYS do this on the test server first.
 - Run `docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --net=scuole_default --entrypoint=ash --env-file=env-docker schools/web` to get into the test server Docker environment.
