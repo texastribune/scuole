@@ -143,7 +143,7 @@ git rebase master
 make compose/test-deploy
 ```
 
-Once you run these, make sure everything is working on the [test url](schools-test.texastribune.org). If so, then you'll need to repeat those steps on the two production servers: `schools-prod` and `schools-prod-2`.
+Once you run these, make sure everything is working on the [test url](https://schools-test.texastribune.org/). If so, then you'll need to repeat those steps on the two production servers: `schools-prod` and `schools-prod-2`.
 
 ```sh
 ssh schools-prod
