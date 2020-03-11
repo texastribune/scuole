@@ -127,7 +127,7 @@ git pull
 make compose/production-deploy
 ```
 
-Congrats, you're changes are now [live](schools.texastribune.org)!
+Congrats, your changes are now [live](schools.texastribune.org)!
 
 ### Changes to the data
 
