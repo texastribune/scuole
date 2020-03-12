@@ -101,6 +101,7 @@ class Command(BaseCommand):
 
                 with open(data_file_path) as f:
                     reader = DictReader(f)
+                    # print('EFFFFF', reader)
                     # data_list_joiner filters out any not matching columns
                     self.data_list_joiner(id_column, reader, prepared_schema.values(), file_name)
 
@@ -167,10 +168,13 @@ class Command(BaseCommand):
                         short_code=short_code, year=short_year, suffix=suffix
                     )
 
-                    if mapping.get("folder") == 'district':
-                        print('column', column, template)
+                    # if mapping.get("folder") == 'district':
+                    #     print('column', column, template)
 
                     value = row[column]
+
+                    # if mapping.get("folder") == 'district':
+                    #     print('column', column, 'template', template, 'value', value, 'roooow', row)
 
                     if value == ".":
                         value = None
@@ -209,9 +213,9 @@ class Command(BaseCommand):
             # get the unique ID
             uid = item.get(id_column, "STATE")
 
-            # if id_column == 'DISTRICT' and file_name == 'accountability.csv':
-            #     print('ITEM', item)
-            #     break
+            if id_column == 'DISTRICT':
+                print('UID', uid)
+                uid = uid.zfill(6)
 
             # filter out non-matching keys
             clean_item = {key: item[key] for key in valid_keys if key in item}
