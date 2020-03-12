@@ -101,7 +101,6 @@ class Command(BaseCommand):
 
                 with open(data_file_path) as f:
                     reader = DictReader(f)
-                    # print('EFFFFF', reader)
                     # data_list_joiner filters out any not matching columns
                     self.data_list_joiner(id_column, reader, prepared_schema.values(), file_name)
 
@@ -112,8 +111,6 @@ class Command(BaseCommand):
 
             # get the columns from the data that are included in the prepared_schema
             data = self.matched_data.values()
-
-            # print('DATA', data)
 
             bulk_list = []
 
@@ -128,6 +125,7 @@ class Command(BaseCommand):
                     name, identifier, id_field, active_model
                 )
 
+                # print('NAME', name, 'IDENTIFIER', identifier)
                 # write the instance name out to the terminal so we know
                 self.stdout.write(instance.name)
 
@@ -181,8 +179,14 @@ class Command(BaseCommand):
 
                     payload["defaults"][field_name] = value
 
+                if include_accountability_rating:
+                    if payload['defaults']['accountability_rating'] == "Data Integrity Issues":
+                        payload['defaults']['accountability_rating'] = 'Q'
+                    # if payload['defaults']['closing_the_gaps_rating'] == "Not Rated":
+                    #     payload['defaults']['closing_the_gaps_rating'] = 'Z'
+
                 # The A-F transition made campus accountability weird
-                if year == "2017-2018" and include_accountability_rating:
+                if include_accountability_rating:
                     for field in ACCOUNTABILITY_FIELDS:
                         if field not in payload["defaults"]:
                             continue
@@ -202,6 +206,9 @@ class Command(BaseCommand):
 
                     bulk_list.append(stats_model(**bulk_payload))
                 else:
+                    # print('PAYLOAD', payload)
+                    # print('STATS_MODELS', stats_model.objects)
+                    # print('PAYLOOOOAD', instance.name, payload)
                     stats_model.objects.update_or_create(**payload)
 
             if use_bulk:
@@ -213,19 +220,14 @@ class Command(BaseCommand):
             # get the unique ID
             uid = item.get(id_column, "STATE")
 
-            if id_column == 'DISTRICT':
-                print('UID', uid)
-                uid = uid.zfill(6)
+            # if id_column == 'DISTRICT':
+            #     uid = uid.zfill(6)
 
             # filter out non-matching keys
             clean_item = {key: item[key] for key in valid_keys if key in item}
 
             # include the unique ID
             clean_item[id_column] = uid
-
-            # if id_column == 'DISTRICT':
-            #     print('FILE', file_name, 'CLEAAN', clean_item)
-            #     break
 
             # update the matcher
             self.matched_data[uid].update(clean_item)
