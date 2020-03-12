@@ -11,7 +11,6 @@ from scuole.counties.models import County
 from scuole.districts.models import District
 from scuole.regions.models import Region
 
-
 class Command(BaseCommand):
     help = "Bootstraps District models using TEA data."
 
@@ -74,6 +73,8 @@ class Command(BaseCommand):
         else:
             geometry = None
             self.stderr.write(f"No shape data for {district_name}")
+
+        # print('DISTRICT ID', district_id)
 
         instance, _ = District.objects.update_or_create(
             tea_id=district_id,

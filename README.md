@@ -70,6 +70,8 @@ make local/reset-db
 sh bootstrap.sh
 ```
 
+`bootstrap.sh` is a compilation of commands from the `Makefile` that load in the latest data (for the state, regions, counties, districts, campuses, etc.) and create models from them.
+
 If you're having trouble with the data, it might be because your `.env` file is not getting used. In that file is where we set up the `DATA_FOLDER` as explained in the [setup doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools). But you can also get around using that file by typing:
 
 ```sh
