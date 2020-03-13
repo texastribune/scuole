@@ -109,9 +109,9 @@ All good? Let's go! There are also other commands in scuole's `Makefile` at your
 
 ## Updating and deploying
 
-Ever year, we need to update cohorts, TAPR, district boundaries, campus coordinates, and the entities files for districts and campuses. 
+Ever year, we need to update cohorts, TAPR, district boundaries, campus coordinates, and the entities files for districts and campuses. Ideally, we would update AskTED every quarter. 
 
-Ideally, we would update AskTED every quarter.
+More specific instructions for updating each dataset are in the [`scuole-data` repo README](https://github.com/texastribune/scuole-data).
 
 ### Changes to the code
 
