@@ -22,6 +22,7 @@ class ReferenceBase(models.Model):
     NOT_RATED_DATA_INTEGRITY_ISSUE = "Q"
     NOT_RATED_ANNEXATION = "T"
     NOT_RATED_HARVEY = "H"
+    NOT_RATED_PAIRED = "P"
 
     RATING_CHOICES = (
         (MET_STANDARD, "Met standard"),
@@ -33,6 +34,7 @@ class ReferenceBase(models.Model):
         (NOT_RATED_DATA_INTEGRITY_ISSUE, "Not rated (data integrity issue)"),
         (NOT_RATED_ANNEXATION, "Not rated (Annexed)"),
         (NOT_RATED_HARVEY, "Not rated (Harvey provision)"),
+        (NOT_RATED_PAIRED, "Not rated (Paired campus)"),
         ("", None),
     )
 
@@ -43,6 +45,7 @@ class ReferenceBase(models.Model):
         "Not Rated": NOT_RATED_X,
         "Not Rated: Annexation": NOT_RATED_ANNEXATION,
         "Not Rated: Harvey Provision": NOT_RATED_HARVEY,
+        "Not Rated: Paired Campus": NOT_RATED_PAIRED
     }
 
     accountability_rating = models.CharField(

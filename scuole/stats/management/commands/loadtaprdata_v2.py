@@ -243,6 +243,9 @@ class Command(BaseCommand):
         if name == 'district' and id_field == 'tea_id':
             identifier = str(identifier).zfill(6)
 
+        if name == 'campus' and id_field == 'tea_id':
+            identifier = str(identifier).zfill(9)
+
         try:
             model = Model.objects.get(**{id_field: identifier})
         except Model.DoesNotExist:
