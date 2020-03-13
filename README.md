@@ -11,7 +11,9 @@ Public Schools 3!
 - [Updating and deploying](#updating-and-deploying)
   - [Changes to the code](#changes-to-the-code)
   - [Changes to the data](#changes-to-the-data)
-- [Updating data](#updating-data)
+    - [For cohorts](#for-cohorts)
+    - [For AskTED](#for-askted)
+    - [For TAPR](#for-tapr)
 - [Troubleshooting](#troubleshooting)
 - [Workspace](#workspace)
 - [Admin](#admin)
@@ -106,6 +108,10 @@ python manage.py runserver
 All good? Let's go! There are also other commands in scuole's `Makefile` at your disposal so check them out.
 
 ## Updating and deploying
+
+Ever year, we need to update cohorts, TAPR, district boundaries, campus coordinates, and the entities files for districts and campuses. 
+
+Ideally, we would update AskTED every quarter.
 
 ### Changes to the code
 
