@@ -38,7 +38,7 @@ class ReferenceBase(models.Model):
         ("", None),
     )
 
-    RATING_MATCH_17_18 = {
+    RATING_MATCH = {
         "Met Standard": MET_STANDARD,
         "Met Alternative Standard": MET_ALTERNATIVE_STANDARD_AF,
         "Improvement Required": IMPROVEMENT_REQUIRED,

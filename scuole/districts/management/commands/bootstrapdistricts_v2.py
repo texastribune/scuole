@@ -74,8 +74,6 @@ class Command(BaseCommand):
             geometry = None
             self.stderr.write(f"No shape data for {district_name}")
 
-        # print('DISTRICT ID', district_id)
-
         instance, _ = District.objects.update_or_create(
             tea_id=district_id,
             defaults={

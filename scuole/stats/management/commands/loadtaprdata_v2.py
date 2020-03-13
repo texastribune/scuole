@@ -105,9 +105,9 @@ class Command(BaseCommand):
                     self.data_list_joiner(id_column, reader, prepared_schema.values(), file_name)
 
                 # if mapping.get("folder") == 'district' and file_name == 'accountability.csv':
-                    # print('PREPARED SCHEMA', prepared_schema.values())
-                    # print('DATAAAAA', data)
-                    # print('ACTUAL VALUE DATAA', self.matched_data.values())
+                    # print(prepared_schema.values())
+                    # print(data)
+                    # print(self.matched_data.values())
 
             # get the columns from the data that are included in the prepared_schema
             data = self.matched_data.values()
@@ -125,7 +125,7 @@ class Command(BaseCommand):
                     name, identifier, id_field, active_model
                 )
 
-                # print('NAME', name, 'IDENTIFIER', identifier)
+                # print(name, identifier)
                 # write the instance name out to the terminal so we know
                 self.stdout.write(instance.name)
 
@@ -140,7 +140,7 @@ class Command(BaseCommand):
                 # loop through the schema again
                 for field_name, template in SCHEMA.items():
                     # if mapping.get("folder") == 'district' and file_name == 'accountability.csv':
-                        # print('TEMPLATE', template)
+                        # print(template)
         
                     # skip the accountability fields for things that don't have those (state and region)
                     if (
@@ -148,14 +148,6 @@ class Command(BaseCommand):
                         and not include_accountability_rating
                     ):
                         continue
-
-                    # skip the AF accountability fields for campuses, 2017-2018 is the transition year
-                    # if (
-                    #     field_name in AF_ACCOUNTABILITY_FIELDS
-                    #     and name == "campus"
-                    #     and year == "2017-2018"
-                    # ):
-                    #     continue
 
                     if "four_year_graduate" in field_name and short_code in ("C", "D"):
                         suffix = "X"
@@ -166,13 +158,10 @@ class Command(BaseCommand):
                         short_code=short_code, year=short_year, suffix=suffix
                     )
 
-                    # if mapping.get("folder") == 'district':
-                    #     print('column', column, template)
-
                     value = row[column]
 
                     # if mapping.get("folder") == 'district':
-                    #     print('column', column, 'template', template, 'value', value, 'roooow', row)
+                    #     print(column, template, value, row)
 
                     if value == ".":
                         value = None
@@ -180,18 +169,20 @@ class Command(BaseCommand):
                     payload["defaults"][field_name] = value
 
                 if include_accountability_rating:
+                    # In 2018-2019, some accountability ratings showed up as 'Data Integrity Issues', which is 
+                    # not a choice in `references.py`, so we replace it with `Q` which we do list and is
+                    # the code for that problem
                     if payload['defaults']['accountability_rating'] == "Data Integrity Issues":
                         payload['defaults']['accountability_rating'] = 'Q'
-                    # if payload['defaults']['closing_the_gaps_rating'] == "Not Rated":
-                    #     payload['defaults']['closing_the_gaps_rating'] = 'Z'
 
-                # The A-F transition made campus accountability weird
-                if include_accountability_rating:
                     for field in ACCOUNTABILITY_FIELDS:
                         if field not in payload["defaults"]:
                             continue
 
-                        payload["defaults"][field] = stats_model.RATING_MATCH_17_18.get(
+                        # Ratings may not show up as a code (i.e. "Not Rated")
+                        # so we match the rating up to a code with RATING_MATCH
+                        # in `reference.py`
+                        payload["defaults"][field] = stats_model.RATING_MATCH.get(
                             payload["defaults"][field], payload["defaults"][field]
                         )
 
@@ -206,9 +197,9 @@ class Command(BaseCommand):
 
                     bulk_list.append(stats_model(**bulk_payload))
                 else:
-                    # print('PAYLOAD', payload)
-                    # print('STATS_MODELS', stats_model.objects)
-                    # print('PAYLOOOOAD', instance.name, payload)
+                    # print(payload)
+                    # print(stats_model.objects)
+                    # print(instance.name, payload)
                     stats_model.objects.update_or_create(**payload)
 
             if use_bulk:
@@ -219,9 +210,6 @@ class Command(BaseCommand):
         for item in data:
             # get the unique ID
             uid = item.get(id_column, "STATE")
-
-            # if id_column == 'DISTRICT':
-            #     uid = uid.zfill(6)
 
             # filter out non-matching keys
             clean_item = {key: item[key] for key in valid_keys if key in item}
@@ -236,9 +224,8 @@ class Command(BaseCommand):
         if name == "state":
             return State.objects.get(name="TX")
 
-        # if name == "district":
-        #     for blah in Model.objects.all():
-        #         print('GET MODEL INSTANCE', getattr(blah, id_field))
+        # to see every model object
+        # print(Model.objects.all())
 
         if name == 'district' and id_field == 'tea_id':
             identifier = str(identifier).zfill(6)
