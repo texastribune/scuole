@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Refer to Makefile for these commands
 # create the areas
 make data/bootstrap-areas
 

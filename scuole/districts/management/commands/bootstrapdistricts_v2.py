@@ -11,7 +11,6 @@ from scuole.counties.models import County
 from scuole.districts.models import District
 from scuole.regions.models import Region
 
-
 class Command(BaseCommand):
     help = "Bootstraps District models using TEA data."
 

@@ -17,14 +17,16 @@ local/reset-db:
 data/create-superuser:
 	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | python manage.py shell --plain
 
+# Create state, region, and county models (w/ name, geographic coordinates, etc.)
 data/bootstrap-areas:
 	python manage.py bootstrapstates
 	python manage.py bootstrapregions
 	python manage.py bootstrapcounties
 
+# Create district and campus models (w/ name, geographic coordinates, etc.)
 data/bootstrap-entities:
-	python manage.py bootstrapdistricts_v2 2017-2018
-	python manage.py bootstrapcampuses_v2 2017-2018
+	python manage.py bootstrapdistricts_v2 2018-2019
+	python manage.py bootstrapcampuses_v2 2018-2019
 
 # Update AskTED information
 data/update-directories:
@@ -35,10 +37,11 @@ data/update-directories:
 
 # Load in the latest year's TAPR data with v2 script
 data/latest-school:
-	python manage.py loadtaprdata_v2 2017-2018
+	python manage.py loadtaprdata_v2 2018-2019
 
 # Load in all past TAPR data 
 data/all-schools:
+	python manage.py loadtaprdata 2017-2018 --bulk
 	python manage.py loadtaprdata 2016-2017 --bulk
 	python manage.py loadtaprdata 2015-2016 --bulk
 	python manage.py loadtaprdata 2014-2015 --bulk
