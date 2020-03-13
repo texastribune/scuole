@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
-## [1.1.0]
+## [1.1.0] - 2020-03-13
 ### Changed
 - `Makefile` - switch data loading commands to 2018-2019
 - `README.md` - add more documentation 
