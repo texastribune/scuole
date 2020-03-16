@@ -254,6 +254,8 @@ Sometimes an update can throw a duplicate key error. A brute force solution is c
 - `exit()` to exit out of the Python shell.
 - Run your update command again.
 
+If you see the error `django.db.utils.OperationalError: could not translate host name "db" to address: Name does not resolve` when deploying/updating data, it could mean that the app doesn't know where to look for the database. Running `make compose/test-deploy` does some of the setup, and might fix the issue.
+
 If you run into `ERROR: error while removing network: network <network-name> id <network-id> has active endpoints` while deploying to test or production, it means you need to clear out some lingering endpoints.
 
 - Run `docker network ls` to get a list of networks.
@@ -288,8 +290,6 @@ python manage.py createsuperuser
 
 Then, after a `python manage.py runserver`, you can visit [http://localhost:8000/admin](http://localhost:8000/admin) and use the credentials you setup to get access. Every thing will be set to read-only, so there's no risk of borking anything.
 
-
 ## To-dos
 
 * Figure out if we're using `requirements.txt` or `Pipfile.lock`. Right now, the test server is using `requirements.txt` and has pending git changes. The local and production versions are using `Pipfile.lock`. This is why we use the `make compose/test-deploy` command on the test server and not on production.
-
