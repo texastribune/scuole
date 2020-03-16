@@ -9,10 +9,20 @@ from django.views.generic import TemplateView, View
 
 from scuole.campuses.models import Campus
 from scuole.districts.models import District
-
+from scuole.stats.models import SchoolYear
 
 class AboutView(TemplateView):
     template_name = 'about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AboutView, self).get_context_data(**kwargs)
+        latest_year = SchoolYear.objects.first()
+        end_year = SchoolYear.objects.first().end_year
+
+        context['latest_year'] = latest_year
+        context['end_year'] = end_year
+
+        return context
 
 
 class SearchView(TemplateView):
