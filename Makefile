@@ -26,7 +26,9 @@ data/bootstrap-areas:
 # Create district and campus models (w/ name, geographic coordinates, etc.)
 data/bootstrap-entities:
 	python manage.py bootstrapdistricts_v2 2018-2019
+	python manage.py dedupedistrictslugs
 	python manage.py bootstrapcampuses_v2 2018-2019
+	python manage.py dedupecampusslugs
 
 # Update AskTED information
 data/update-directories:
