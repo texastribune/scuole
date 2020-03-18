@@ -126,7 +126,7 @@ git rebase master
 make compose/test-deploy
 ```
 
-Once you run these, make sure everything is working on the [test url](https://schools-test.texastribune.org/). If so, then you'll need to repeat those steps on the two production servers: `schools-prod` and `schools-prod-2`.
+Once you run these, make sure everything is working on the [test url](https://schools-test.texastribune.org/). If so, then you'll need to repeat those steps on the two production servers: `schools-prod` and `schools-prod-2`. You must do both servers — if you don't, the published app will switch between new and old code.
 
 ```sh
 ssh schools-prod
@@ -200,7 +200,7 @@ make compose/test-deploy
 
 Your changes should now be on the [test server](schools-test.texastribune.org)! Now we're ready for production a.k.a. the big time.
 
-Just a quick reminder: Schools has TWO production databases. For `schools-prod`, we will need to pull down Github changes:
+Fortunately, you only need to push data changes to one server. For `schools-prod`, we will need to pull down Github changes:
 
 ```sh
 ssh schools-prod
@@ -227,8 +227,6 @@ And deploy:
 ```sh
 make compose/production-deploy
 ```
-
-Fortunately, you only need to push data changes to one server.
 
 Once that's done, check the live site. Your changes should be there! Now go home, your work here is done.
 
