@@ -44,6 +44,10 @@ Install dependencies via pipenv:
 pipenv install -r requirements.txt
 ```
 
+We switched to using `requirements.txt` locally and on the test and production servers instead of Pipfile and Pipfile.lock. To generate the `requirements.txt`, we use the Python package [`pipenv-to-requirements`](https://pypi.org/project/pipenv-to-requirements/). 
+
+Locally, we install both `requirements/base.txt` and `requirements/local.txt` with the command above, but when deploying to our test or productions servers we only install `requirements/base.txt`. In the future, we may switch to using Docker locally to manage dependencies rather than relying on Pipfile.
+
 Run pipenv:
 
 ```sh
