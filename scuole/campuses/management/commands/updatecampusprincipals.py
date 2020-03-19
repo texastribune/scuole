@@ -67,6 +67,7 @@ class Command(BaseCommand):
             return
 
         self.stdout.write(f"Updating principal data for {campus.name} ({campus_id})")
+        print('PHONE NUMBER', data.get("Phone"))
 
         first_name = data.get("First Name").strip()
         last_name = data.get("Last Name").strip()
@@ -75,7 +76,6 @@ class Command(BaseCommand):
         role = capwords(data.get("Role"))
         email = data.get("Email Address")
         phone_number = data.get("Phone")
-        print('PHONE NUMBER', data.get("Phone"))
         fax_number = data.get("Fax")
 
         if "ext" in phone_number:
