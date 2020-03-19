@@ -67,7 +67,6 @@ class Command(BaseCommand):
             return
 
         self.stdout.write(f"Updating principal data for {campus.name} ({campus_id})")
-        print('PHONE NUMBER', data.get("Phone"))
 
         first_name = data.get("First Name").strip()
         last_name = data.get("Last Name").strip()
@@ -92,18 +91,11 @@ class Command(BaseCommand):
         # print(phone_number)
         # print(fax_number)
         # print('-')
-        print('UNFORMATTED PHONE NUMBER', phone_number)
         phone_number = phoneNumberFormat(phone_number)
         fax_number = phoneNumberFormat(fax_number)
         # print(phone_number)
         # print(fax_number)
         # print('---')
-
-        print('FORMATTED PHONE NUMBER', phone_number)
-
-        print('ROLE', role, 'EMAIL', email, 'PHONE NUMBER', phone_number,
-        'PHONE NUMBER EXT', phone_number_extension, 'FAX NUMBER', fax_number,
-        'FAX NUMBER EXT', fax_number_extension)
 
         instance, _ = Principal.objects.update_or_create(
             name=name,
