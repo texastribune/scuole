@@ -49,7 +49,7 @@ WORKDIR /usr/src/app
 # Grab requirements and install
 # COPY Pipfile Pipfile.lock /usr/src/app/
 # RUN pipenv install --system --verbose --deploy
-COPY requirements/base.txt /usr/src/app/
+COPY requirements /usr/src/app/requirements/
 RUN pip install -r requirements/base.txt
 
 # Bring over the rest of the app
