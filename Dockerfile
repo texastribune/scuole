@@ -47,8 +47,10 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Grab requirements and install
-COPY Pipfile Pipfile.lock /usr/src/app/
-RUN pipenv install --system --deploy
+# COPY Pipfile Pipfile.lock /usr/src/app/
+# RUN pipenv install --system --deploy
+COPY requirements.txt /usr/src/app/
+RUN pip install -r requirements.txt
 
 # Bring over the rest of the app
 COPY . /usr/src/app
