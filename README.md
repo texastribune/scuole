@@ -41,7 +41,7 @@ pipenv --three
 Install dependencies via pipenv:
 
 ```sh
-pipenv install --dev
+pipenv install -r requirements.txt
 ```
 
 Run pipenv:

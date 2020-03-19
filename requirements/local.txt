@@ -1,0 +1,19 @@
+################################################################################
+# This requirements file has been automatically generated from `Pipfile` with
+# `pipenv-to-requirements`
+#
+#
+# This has been done to maintain backward compatibility with tools and services
+# that do not support `Pipfile` yet.
+#
+# Do NOT edit it directly, use `pipenv install [-d]` to modify `Pipfile` and
+# `Pipfile.lock` and then regenerate `requirements*.txt`.
+################################################################################
+
+awscli==1.16.298
+black==19.3b0
+django-debug-toolbar==2.1
+django-extensions==2.2.5
+flake8==3.7.9
+ipython==7.10.1
+isort==4.3.21
