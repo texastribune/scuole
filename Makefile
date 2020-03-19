@@ -184,6 +184,12 @@ compose/production-deploy:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
+# What we use to deploy changes to the scuole repo in test
+compose/test-deploy:
+	docker-compose -f docker-compose.yml -f docker-compose.override.yml build web proxy
+	docker-compose -f docker-compose.yml -f docker-compose.override.yml down
+	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+
 compose/admin-update-askted:
 	docker-compose -f docker-compose.yml -f docker-compose.admin.yml run --rm asktedupdate
 
