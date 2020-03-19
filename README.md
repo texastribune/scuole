@@ -232,6 +232,20 @@ Once that's done, check the live site. Your changes should be there! Now go home
 
 ## Troubleshooting
 
+### What is the best place to view the data?
+
+[TablePlus](https://tableplus.com/) is recommended. Hook it up to the `scuole` PostgreSQL database!
+
+### I'm seeing models being imported that are not supposed to be.
+
+The easiest solution is to follow the instructions from the answer for the duplicate key error and selectively delete some models. There are probably better solutions for this ...
+
+### Why is my operation getting killed when I run `make compose/test-deploy` and `make compose/production-deploy`?
+
+This may be due to memory issues. It typically gets killed when packages are being installed in the Docker container. If you try a couple more times (wait a little), the application should deploy.
+
+### Django doesn't know where the the database is.
+
 To ensure Django knows where to look, you may need to set the `DATABASE_URL`. If you are not using the Docker provided database, use `DATABASE_URL` to tell the app what you've done instead. We haven't needed to set this lately.
 
 ```sh
@@ -239,6 +253,8 @@ export DATABASE_URL=postgres://docker:docker@docker.local:5432/docker
 ```
 
 If you get the error `django.db.utils.OperationalError: could not translate host name "docker.local" to address: nodename nor servname provided, or not known`, unset `DATABASE_URL` in your environment by running `unset DATABASE_URL` in the terminal. From there, the app should be runnable as normal.
+
+### I'm seeing a duplicate key error when loading new data into the database.
 
 Sometimes an update can throw a duplicate key error. A brute force solution is clearing out all of the objects from the table, and running the update again.
 
@@ -253,6 +269,8 @@ Sometimes an update can throw a duplicate key error. A brute force solution is c
 - Run your update command again.
 
 If you see the error `django.db.utils.OperationalError: could not translate host name "db" to address: Name does not resolve` when deploying/updating data, it could mean that the app doesn't know where to look for the database. Running `make compose/test-deploy` does some of the setup, and might fix the issue.
+
+### My deployment isn't working because there are "active endpoints".
 
 If you run into `ERROR: error while removing network: network <network-name> id <network-id> has active endpoints` while deploying to test or production, it means you need to clear out some lingering endpoints.
 

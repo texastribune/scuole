@@ -24,11 +24,13 @@ class Command(BaseCommand):
                 for campus in campuses_dup_slug:
                     if campus.city != None:
                         city_slug = slugify(campus.city, allow_unicode=True)
-                        campus.slug = f"{campus.slug}-{city_slug}"
+                        campus_name_slug = slugify(campus.name, allow_unicode=True)
+                        campus.slug = f"{campus_name_slug}-{city_slug}"
                         campus.save()
    
             # if the district, county, and city of the campuses are the same
             if all(obj.district == campuses_dup_slug[0].district for obj in campuses_dup_slug) and all(obj.county == campuses_dup_slug[0].county for obj in campuses_dup_slug) and all(obj.city == campuses_dup_slug[0].city for obj in campuses_dup_slug):
                 for campus in campuses_dup_slug:
-                    campus.slug = f"{campus.slug}-{campus.tea_id}"
+                    campus_name_slug = slugify(campus.name, allow_unicode=True)
+                    campus.slug = f"{campus_name_slug}-{campus.tea_id}"
                     campus.save()
