@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db.models import Count
+from django.utils.text import slugify
 
 from scuole.districts.models import District
 
@@ -18,7 +19,9 @@ class Command(BaseCommand):
             slug = duplicate['slug']
 
             for district in District.objects.filter(slug=slug):
-                district.slug = f"{district.slug}-{district.county.slug}"
+                county_slug = slugify(district.county, allow_unicode=True)
+                district_name_slug = slugify(district.name, allow_unicode=True)
+                district.slug = f"{district_name_slug}-{county_slug}"
                 district.save()
 
 
