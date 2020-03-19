@@ -305,7 +305,3 @@ python manage.py createsuperuser
 ```
 
 Then, after a `python manage.py runserver`, you can visit [http://localhost:8000/admin](http://localhost:8000/admin) and use the credentials you setup to get access. Every thing will be set to read-only, so there's no risk of borking anything.
-
-## To-dos
-
-* Figure out if we're using `requirements.txt` or `Pipfile.lock`. Right now, the test server is using `requirements.txt` and has pending git changes. The local and production versions are using `Pipfile.lock`. This is why we use the `make compose/test-deploy` command on the test server and not on production.
