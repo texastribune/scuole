@@ -11,7 +11,7 @@
 ################################################################################
 
 dj-database-url==0.5.0
-django==2.2.10
+django==2.2.13
 django-localflavor==2.2
 django-phonenumber-field==4.0.0
 django-postgres-copy==2.4.2
