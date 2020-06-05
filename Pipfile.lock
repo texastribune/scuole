@@ -92,11 +92,11 @@
         },
         "phonenumberslite": {
             "hashes": [
-                "sha256:294f46126289c0843c94c7e7f7efa9b1a4dd7b95c159a81d75dcd6b38fea842c",
-                "sha256:a1086ffa60cb3dd0f8bddf9b59c86995dbc84da2943a4a4204fe70fd6bac608b"
+                "sha256:6e1d31d8a5ad1fe280c3f7ba5b9c08da82245d59946ee06856712ef704f59e19",
+                "sha256:7e101c2d0be6ead83e2706c355aaba236df97e9a7b78aed5bda5d4b0eee11178"
             ],
             "index": "pypi",
-            "version": "==8.11.0"
+            "version": "==8.12.5"
         },
         "psycopg2": {
             "hashes": [
