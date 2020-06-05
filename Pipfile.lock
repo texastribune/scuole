@@ -53,11 +53,11 @@
         },
         "django-localflavor": {
             "hashes": [
-                "sha256:628f382ac0b8ce401d4ba684031abd2548c24782df9fb0d5c7ad44c35a2bb095",
-                "sha256:7a4fa03651e609c30f720e35fb9442cddefa1975646cf9d6765a2ba1ed139961"
+                "sha256:24e9a03bc11ced92365821d3cfdd96eb4e2f3e44a6f40e86c645d3e0ec65ec53",
+                "sha256:3c3034dc64a1f7e5efd9eb53d653af905c20482d438c0e8b825d02e3121b86fa"
             ],
             "index": "pypi",
-            "version": "==2.2"
+            "version": "==3.0.1"
         },
         "django-phonenumber-field": {
             "hashes": [
