@@ -185,7 +185,9 @@ You'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` wi
 `python manage.py loadallcohorts <latest year>` during the update.
 
 #### For AskTED
-Run `make data/update-directories` to update the data. You can also run each command in that block separately, your choice!
+Run `make data/update-directories` to update the data. You can also run each command in that block separately, your choice! 
+
+If you are doing this locally, make sure you have run `pipenv shell` and are in the shell — otherwise you won't have the dependencies you need to run this successfully.
 
 If you run into any duplicate key errors during the AskTED update, refer to the Troublshooting section below for instructions on how to clear a table. 
 
