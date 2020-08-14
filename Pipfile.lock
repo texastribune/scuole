@@ -92,11 +92,11 @@
         },
         "phonenumberslite": {
             "hashes": [
-                "sha256:6e1d31d8a5ad1fe280c3f7ba5b9c08da82245d59946ee06856712ef704f59e19",
-                "sha256:7e101c2d0be6ead83e2706c355aaba236df97e9a7b78aed5bda5d4b0eee11178"
+                "sha256:424053cbd468ed84fa3722f0235d636c348591d7acdecdb6a00875ae3f03874c",
+                "sha256:cdb969afecc532ad4cfee12f6fb90d4a5cdf938150dffa4626fb43b8eb2f9396"
             ],
             "index": "pypi",
-            "version": "==8.12.5"
+            "version": "==8.12.7"
         },
         "psycopg2": {
             "hashes": [
@@ -215,7 +215,8 @@
         },
         "awscli": {
             "hashes": [
-                "sha256:9943fd23b76aade630068c188e1c1a4957ef43b4ccd1bcff8eb9c0555c0017c8"
+                "sha256:9943fd23b76aade630068c188e1c1a4957ef43b4ccd1bcff8eb9c0555c0017c8",
+                "sha256:dcd237a1c203f4206df0b3de66d4f618d2b4bfc607ea73429e5e631c48c2c4e2"
             ],
             "index": "pypi",
             "version": "==1.18.119"
@@ -254,6 +255,7 @@
                 "sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff",
                 "sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1"
             ],
+            "markers": "python_version != '3.4'",
             "version": "==0.4.3"
         },
         "decorator": {
@@ -446,6 +448,7 @@
                 "sha256:cc8955cfbfc7a115fa81d85284ee61147059a753344bc51098f3ccd69b0d7e0c",
                 "sha256:d13155f591e6fcc1ec3b30685d50bf0711574e2c0dfffd7644babf8b5102ca1a"
             ],
+            "markers": "python_version != '3.4'",
             "version": "==5.3.1"
         },
         "rsa": {
@@ -453,6 +456,7 @@
                 "sha256:35c5b5f6675ac02120036d97cf96f1fde4d49670543db2822ba5015e21a18032",
                 "sha256:4d409f5a7d78530a4a2062574c7bd80311bc3af29b364e293aa9b03eea77714f"
             ],
+            "markers": "python_version != '3.4'",
             "version": "==4.5"
         },
         "s3transfer": {
