@@ -10,10 +10,10 @@
 # `Pipfile.lock` and then regenerate `requirements*.txt`.
 ################################################################################
 
-awscli==1.16.298
+awscli==1.18.120
 black==19.3b0
-django-debug-toolbar==2.1
-django-extensions==2.2.5
-flake8==3.7.9
-ipython==7.10.1
-isort==4.3.21
+django-debug-toolbar==2.2
+django-extensions==3.0.5
+flake8==3.8.3
+ipython==7.17.0
+isort==5.4.2
