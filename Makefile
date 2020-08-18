@@ -174,6 +174,12 @@ docker/kickstart: docker/build docker/run docker/nginx
 free-space:
 	-docker system prune -f
 
+# Fire up Docker locally
+compose/local:
+	docker-compose -f docker-compose.local.yml build web proxy
+	docker-compose -f docker-compose.local.yml down
+	docker-compose -f docker-compose.local.yml up
+	
 # What we use to deploy changes to the scuole repo in production
 # define services that make up the app with the docker-compose.yml file, and build them
 # `down` stops and removes previously started containers
@@ -189,6 +195,7 @@ compose/test-deploy:
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml build web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+
 
 compose/admin-update-askted:
 	docker-compose -f docker-compose.yml -f docker-compose.admin.yml run --rm asktedupdate
