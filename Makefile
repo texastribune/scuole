@@ -177,6 +177,9 @@ docker/nginx: docker/nginx-build
 		--publish 80:80 \
 		${APP}-nginx
 
+docker/shell:
+	docker exec -ti scuole_web_1 /bin/sh
+
 # Build app and its services, run the app, and load the app on a web server
 docker/kickstart: docker/build docker/run docker/nginx
 
