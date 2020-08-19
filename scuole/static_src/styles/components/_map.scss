@@ -9,6 +9,10 @@
   }
 }
 
+#map-regions, #map-state {
+  margin-bottom: $gutter;
+}
+
 .map-caption {
   font-size: 13px;
   margin-top: .25rem;
