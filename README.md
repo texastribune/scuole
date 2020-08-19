@@ -68,9 +68,9 @@ A temporary workaround is to generate a `requirements.txt` file that's based on 
 pipenv run pipenv_to_requirements -f
 ```
 
-This will generate a `requirements.txt` in the root directory, which will be used by the Dockerfile when creating/editing the containers for staging and production. It also creates a `requirements-dev.txt` file, which currently isn't being used.
+This will generate a `requirements.txt` file in the root directory, which will be used by the Dockerfile when creating/editing the containers for staging and production. It also creates a `requirements-dev.txt` file, which currently isn't being used.
 
-In the future, we may switch to using Docker locally to manage dependencies rather than relying on Pipfile. Several files have been created to start this process:
+In the future, we will be switching to using Docker locally to manage dependencies rather than relying on pipenv. Several files have been created to start this process:
 
 ```sh
 Dockerfile.local
