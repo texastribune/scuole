@@ -41,12 +41,8 @@ pipenv --three
 Install dependencies via pipenv:
 
 ```sh
-pipenv install -r requirements.txt
+pipenv install
 ```
-
-We switched to using `requirements.txt` locally and on the test and production servers instead of Pipfile and Pipfile.lock. To generate the `requirements.txt`, we use the Python package [`pipenv-to-requirements`](https://pypi.org/project/pipenv-to-requirements/). 
-
-Locally, we install both `requirements/base.txt` and `requirements/local.txt` with the command above, but when deploying to our test or productions servers we only install `requirements/base.txt`. In the future, we may switch to using Docker locally to manage dependencies rather than relying on Pipfile.
 
 Run pipenv:
 
@@ -61,6 +57,28 @@ pg_config --bindir
 export PATH=$PATH:path/to/pg/config
 pip3 install psycopg2
 ```
+
+Locally, we are using Pipfile and Pipfile.lock files to manage dependencies. On the staging and production servers, we are using a Dockerfile, which installs dependencies from a `requirements.txt` file.
+
+We need to always make sure these are in sync. For instance, if you are pulling updates from dependabot, changes will be made to the Pipfile.lock but will never make it over to the `requirements.txt` file, which is used on staging/production. This is a big problem.
+
+A temporary workaround is to generate a `requirements.txt` file that's based on the Pipfile, using the [`pipenv-to-requirements`](https://pypi.org/project/pipenv-to-requirements/) package. You can do this simply by running:
+
+```sh
+pipenv run pipenv_to_requirements -f
+```
+
+This will generate a `requirements.txt` in the root directory, which will be used by the Dockerfile when creating/editing the containers for staging and production. It also creates a `requirements-dev.txt` file, which currently isn't being used.
+
+In the future, we may switch to using Docker locally to manage dependencies rather than relying on Pipfile. Several files have been created to start this process:
+
+```sh
+Dockerfile.local
+docker-entrypoint-local.sh
+docker-compose.local.yml
+```
+
+At the moment, however, this is not working.
 
 Next, install npm packages:
 
