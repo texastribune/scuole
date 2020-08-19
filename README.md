@@ -41,7 +41,7 @@ pipenv --three
 Install dependencies via pipenv:
 
 ```sh
-pipenv install
+pipenv install --dev
 ```
 
 Run pipenv:
