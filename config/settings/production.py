@@ -143,7 +143,14 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-sentry_sdk.init(dsn=env("SENTRY_DSN", "None"), integrations=[DjangoIntegration()])
+SENTRY_ENVIRONMENT = 'production'
+ENABLE_SENTRY = True
+
+sentry_sdk.init(
+    dsn=env("SENTRY_DSN", "None"),
+    integrations=[DjangoIntegration()],
+    environment=SENTRY_ENVIRONMENT
+)
 
 ############################
 # MIDDLEWARE CONFIGURATION #
