@@ -18,9 +18,19 @@ function initialize() {
     style: 'mapbox://styles/mapbox/light-v9',
     center: [-99.9018, 31.3915],
     zoom: 4.25,
+    scrollZoom: false,
+    dragPan: false,
   });
-  nav = new mapboxgl.NavigationControl({ showCompass: false });
-  map.addControl(nav, 'top-right');
+  // nav = new mapboxgl.NavigationControl({ showCompass: false });
+  // map.addControl(nav, 'top-right');
+
+  map.doubleClickZoom.disable()
+  
+  // disable map rotation using right click + drag
+  map.dragRotate.disable();
+
+  // disable map rotation using touch rotation gesture
+  map.touchZoomRotate.disableRotation();
 
   // map.setMaxBounds(map.getBounds());
 

@@ -79,6 +79,15 @@ local/cohorts: local/reset-db-bootstrap-areas data/all-cohorts
 
 local/all: local/reset-db-bootstrap-areas data/bootstrap-edu data/all-schools data/all-cohorts
 
+
+# If you have having a hard time getting `docker-entrypoint.sh` to run locally
+# you can use this to rebuild the npm files and then run the python server
+# useful for when you're making js changes
+local/npm_reset:
+	npm run build
+	python manage.py collectstatic --noinput
+	python manage.py runserver
+
 docker/pull:
 	@echo "Getting a fresh copy of master..."
 	git checkout master

@@ -78,12 +78,27 @@ function initialize() {
   map = new mapboxgl.Map({
     container: 'map-container',
     style: 'mapbox://styles/mapbox/light-v9',
+    minZoom: 4,
+    maxZoom: 11,
+    scrollZoom: false,
+    dragPan: false,
   });
 
   map.fitBounds(SHAPE.bbox, { duration: 0, padding: 30 });
 
   nav = new mapboxgl.NavigationControl({ showCompass: false });
   map.addControl(nav, 'top-right');
+
+  map.on('click', () => {
+    map.dragPan.enable();
+    map.scrollZoom.enable();
+  });
+  
+  // disable map rotation using right click + drag
+  map.dragRotate.disable();
+
+  // disable map rotation using touch rotation gesture
+  map.touchZoomRotate.disableRotation();
 
   map.on('load', () => {
     map.addLayer({

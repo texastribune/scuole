@@ -16,10 +16,25 @@ function initialize() {
     style: 'mapbox://styles/mapbox/light-v9',
     center: COORDS.geometry.coordinates,
     zoom: 13,
+    minZoom: 10,
+    maxZoom: 15,
+    scrollZoom: false,
+    dragPan: false,
   });
 
   const nav = new mapboxgl.NavigationControl({ showCompass: false });
   map.addControl(nav, 'top-right');
+
+  map.on('click', () => {
+    map.dragPan.enable();
+    map.scrollZoom.enable();
+  });
+  
+  // disable map rotation using right click + drag
+  map.dragRotate.disable();
+
+  // disable map rotation using touch rotation gesture
+  map.touchZoomRotate.disableRotation();
 
   const marker = new mapboxgl.Marker();
 
