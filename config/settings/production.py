@@ -145,8 +145,6 @@ from sentry_sdk.integrations.django import DjangoIntegration
 
 sentry_sdk.init(dsn=env("SENTRY_DSN", "None"), integrations=[DjangoIntegration()])
 
-Sentry.captureException(new Error("This is my fake error message"));
-
 ############################
 # MIDDLEWARE CONFIGURATION #
 ############################
