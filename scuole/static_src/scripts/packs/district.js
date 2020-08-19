@@ -21,13 +21,17 @@ function initialize() {
     d.id = i;
     return d;
   });
-
+  
   if (SHAPE.geometry) {
     map = new mapboxgl.Map({
       container: 'map-district',
       style: 'mapbox://styles/mapbox/light-v9',
       center: [-99.9018, 31.3915],
       zoom: 4.25,
+      minZoom: 6,
+      maxZoom: 13,
+      scrollZoom: false,
+      dragPan: false,
     });
 
     map.fitBounds(SHAPE.bbox, { duration: 0, padding: 30 });
@@ -92,6 +96,11 @@ function initialize() {
       },
     });
 
+    map.on('click', () => {
+      map.dragPan.enable();
+      map.scrollZoom.enable();
+    });
+
     map.on('mousemove', 'school', function(e) {
       map.getCanvas().style.cursor = 'pointer';
       if (e.features.length > 0) {
@@ -131,7 +140,7 @@ function initialize() {
       tooltip.textContent = '';
       map.getCanvas().style.cursor = '';
     });
-
+    
     map.on('click', 'school', function(e) {
       console.log(e.features[0].properties);
       console.log(e.features[0].properties.name);
@@ -141,6 +150,14 @@ function initialize() {
         }`;
       }
     });
+
+    // disable map rotation using right click + drag
+    map.dragRotate.disable();
+
+    // disable map rotation using touch rotation gesture
+    map.touchZoomRotate.disableRotation();
   });
+
+
 }
 initialize();

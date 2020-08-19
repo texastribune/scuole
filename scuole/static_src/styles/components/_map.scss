@@ -1,6 +1,5 @@
 .map {
   background-color: $color-gray;
-  margin-bottom: $gutter;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -8,6 +7,16 @@
   @include mq($from: tablet) {
     //height: 200px;
   }
+}
+
+#map-regions, #map-state {
+  margin-bottom: $gutter;
+}
+
+.map-caption {
+  font-size: 13px;
+  margin-top: .25rem;
+  margin-bottom: $gutter;
 }
 
 #map-campus {

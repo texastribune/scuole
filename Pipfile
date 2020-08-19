@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+django = "==2.2.7"
 "dj-database-url" = "*"
 "django-localflavor" = "*"
 "psycopg2" = "*"
@@ -26,3 +26,4 @@ ipython = "*"
 isort = "*"
 black = "==19.3b0"
 v = {editable = true,version = "*"}
+pipenv-to-requirements = "*"
