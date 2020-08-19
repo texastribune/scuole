@@ -10,6 +10,7 @@ mapboxgl.accessToken =
   'pk.eyJ1IjoidGV4YXN0cmlidW5lIiwiYSI6ImNqb3lxOXg4cTJsdm8zdHBpbTUyaG9sYXcifQ.HM6pBNV6vnvQBg7v4X5nFw';
 
 function initialize() {
+  console.log(Sentry.captureException(new Error("This is my fake error message")))
   const SHAPE = loadJsonScript('shape');
 
   map = new mapboxgl.Map({
