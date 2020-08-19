@@ -78,7 +78,7 @@ function initialize() {
   map = new mapboxgl.Map({
     container: 'map-container',
     style: 'mapbox://styles/mapbox/light-v9',
-    minZoom: 4,
+    minZoom: 3,
     maxZoom: 11,
     scrollZoom: false,
     dragPan: false,

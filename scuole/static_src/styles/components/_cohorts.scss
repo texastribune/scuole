@@ -16,6 +16,15 @@
 }
 
 .list-container {
+  font-size: 18px;
+  padding-top: $gutter-half;
+  padding-bottom: $gutter-half;
+
+  @include mq($from: tablet) {
+    font-size: 16px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 .list-item {
