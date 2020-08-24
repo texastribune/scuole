@@ -18,6 +18,15 @@
     text-align: left;
     vertical-align: bottom;
   }
+
+  @include mq($from: mobile) {
+    td {
+      font-size: 16px;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+
+    }
+  }
 }
 
 .table-striped {
