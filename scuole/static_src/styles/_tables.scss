@@ -3,12 +3,13 @@
   max-width: 100%;
   width: 100%;
 
+  // Mobile
   th,
   td {
-    @include font-size(14);
     border-top: 1px solid $color-gray;
-    padding: .5rem;
     vertical-align: top;
+    font-size: font-size(16);
+    padding: 1rem 0.5rem;
   }
 
   thead th {
@@ -17,6 +18,14 @@
     border-top: 0;
     text-align: left;
     vertical-align: bottom;
+    padding: .5rem;
+  }
+
+  @include mq($from: mobile) {
+    td {
+      @include font-size(14);
+      padding: .5rem;
+    }
   }
 }
 
