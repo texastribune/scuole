@@ -19,6 +19,7 @@
     border-top: 0;
     text-align: left;
     vertical-align: bottom;
+    padding: .5rem;
   }
 
   @include mq($from: mobile) {

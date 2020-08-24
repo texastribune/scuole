@@ -13,7 +13,9 @@
 }
 
 .campus-list-title {
-  @include font-size(16);
+  font-size: font-size(16);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   font-weight: 700;
   margin-bottom: $gutter-half;
 }
@@ -29,6 +31,13 @@
 
   &.campus-list-item--display {
     display: block;
+  }
+}
+
+@include mq($from: mobile) {
+  .campus-list-item {
+    @include font-size(14);
+    padding: .5rem;
   }
 }
 
