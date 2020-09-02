@@ -64,6 +64,7 @@ data/all-cohorts:
 	python manage.py loadallcohorts 2006
 	python manage.py loadallcohorts 2007
 	python manage.py loadallcohorts 2008
+	python manage.py loadallcohorts 2009
 
 local/reset-db-bootstrap-areas: local/reset-db data/bootstrap-areas
 
@@ -78,7 +79,6 @@ local/reset-db-bootstrap-over-time: local/reset-db data/all-schools data/all-coh
 local/cohorts: local/reset-db-bootstrap-areas data/all-cohorts
 
 local/all: local/reset-db-bootstrap-areas data/bootstrap-edu data/all-schools data/all-cohorts
-
 
 # If you have having a hard time getting `docker-entrypoint.sh` to run locally
 # you can use this to rebuild the npm files and then run the python server
@@ -207,7 +207,6 @@ compose/test-deploy:
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml build web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
-
 
 compose/admin-update-askted:
 	docker-compose -f docker-compose.yml -f docker-compose.admin.yml run --rm asktedupdate

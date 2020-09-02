@@ -127,6 +127,10 @@ python manage.py collectstatic --noinput
 python manage.py runserver
 ```
 
+If you make changes to the styles, you'll need to run `npm run build` again to rebuild the `main.css` file in the `assets/` folder that the
+templates reference. You'll also need to do a hard refresh in whatever
+browser you're running the explorer in to fetch the new styles.
+
 All good? Let's go! There are also other commands in scuole's `Makefile` at your disposal so check them out.
 
 ## Updating and deploying
@@ -201,6 +205,10 @@ python manage.py loadallcohorts 2008
 #### For cohorts
 You'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year. Then, run 
 `python manage.py loadallcohorts <latest year>` during the update.
+
+You will also need to change the `latest_cohort_year` variable in the `scuole/cohorts/views.py` file to reference the latest cohorts school year.
+
+Lastly, make sure the `scuole/cohorts/schema/cohorts/schema.py` has the correct years (i.e. you'll need to change the year in `8th Grade (FY 2009)` for the reference `'enrolled_8th': '8th Grade (FY 2009)'`, along with the rest of the references.)
 
 #### For AskTED
 Run `make data/update-directories` to update the data. You can also run each command in that block separately, your choice! 
@@ -289,6 +297,17 @@ Sometimes an update can throw a duplicate key error. A brute force solution is c
 - `super.delete()` to delete them all.
 - `exit()` to exit out of the Python shell.
 - Run your update command again.
+
+You may need to run this process when updating cohorts data — if the cohorts data upload for the latest year is failing because there are too many regional or county cohorts, it may be because you've tried to upload the data more than once and there are duplicates. 
+
+You'll need to filter for the latest year by filtering for the objects with the highest `year_id` so you can delete them. You can find the highest `year_id` by looking at the objects in Table Plus. Then, you'll run:
+
+```
+from scuole.counties.models import CountyCohorts
+latest = CountyCohorts.objects.filter(year_id=14)
+print(latest) # to check if these are the objects we want to delete
+latest.delete()
+```
 
 If you see the error `django.db.utils.OperationalError: could not translate host name "db" to address: Name does not resolve` when deploying/updating data, it could mean that the app doesn't know where to look for the database. Running `make compose/test-deploy` does some of the setup, and might fix the issue.
 
