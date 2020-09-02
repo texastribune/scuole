@@ -1,22 +1,12 @@
-################################################################################
-# This requirements file has been automatically generated from `Pipfile` with
-# `pipenv-to-requirements`
-#
-#
-# This has been done to maintain backward compatibility with tools and services
-# that do not support `Pipfile` yet.
-#
-# Do NOT edit it directly, use `pipenv install [-d]` to modify `Pipfile` and
-# `Pipfile.lock` and then regenerate `requirements*.txt`.
-################################################################################
-
+-i https://pypi.python.org/simple/
+asgiref==3.2.10
 certifi==2020.6.20
 chardet==3.0.4
 dj-database-url==0.5.0
 django-localflavor==3.0.1
 django-phonenumber-field==5.0.0
 django-postgres-copy==2.4.2
-django==2.2.13
+django==3.1.1
 gunicorn==20.0.4
 idna==2.10
 phonenumberslite==8.12.8
