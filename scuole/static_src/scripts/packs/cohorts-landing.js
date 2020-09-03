@@ -1,4 +1,5 @@
 import '../utils/cohortsNav';
+import '../utils/loadStoryGrid';
 import loadJsonScript from '../utils/loadJsonScript';
 
 let map, nav, hoveredStateId;
