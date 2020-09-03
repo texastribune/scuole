@@ -260,6 +260,12 @@ make compose/production-deploy
 
 Once that's done, check the live site. Your changes should be there! Now go home, your work here is done.
 
+#### For the sitemap
+
+When we add new urls, we also need to update the sitemap (`sitemap.xml`) to include those paths. Fortunately, Django has functions that allow us to generate all of the urls associated with an object's views.
+
+To see an example, view any of the `sitemaps.py` files. You'll need to add the sitemap to the `config/urls.py` file, and view the updated sitemap locally at `localhost:8000/sitemap.xml`. After verifying that the sitemap looks OK locally, copy the content starting from the `<urlset>` tag in `sitemap.xml` and paste it into `scuole/static_src/sitemap.xml` before deploying.
+
 ## Troubleshooting
 
 ### What is the best place to view the data?
