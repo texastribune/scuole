@@ -108,6 +108,13 @@ class CohortsLandingView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CohortsLandingView, self).get_context_data(**kwargs)
+        latest_year = SchoolYear.objects.first()
+        start_year = SchoolYear.objects.first().start_year
+        end_year = SchoolYear.objects.first().end_year
+
+        context['latest_year'] = latest_year
+        context['start_year'] = start_year
+        context['end_year'] = end_year
 
         context["county_list"] = distinct_cohort_counties
         context["region_list"] = self.region_model.objects.all().defer("shape")
