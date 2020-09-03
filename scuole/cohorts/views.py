@@ -29,8 +29,12 @@ class CountyCohortsDetailView(DetailView):
         context = super(CountyCohortsDetailView, self).get_context_data(**kwargs)
 
         cohorts = self.cohorts_model.objects.filter(county=self.object)
+
+        first_cohort_year = SchoolYear.objects.get(name="1997-1998")
         latest_cohort_year = SchoolYear.objects.get(name="2008-2009")
 
+        context['first_cohort_year'] = first_cohort_year
+        context['latest_cohort_year'] = latest_cohort_year
         context["latest_cohort"] = cohorts.latest_cohort(county=self.object)
         context["latest_state_cohort"] = StateCohorts.objects.latest_cohort(
             state__name="TX"
@@ -57,8 +61,12 @@ class RegionCohortsDetailView(DetailView):
         context = super(RegionCohortsDetailView, self).get_context_data(**kwargs)
 
         cohorts = self.cohorts_model.objects.filter(region=self.object)
+        
+        first_cohort_year = SchoolYear.objects.get(name="1997-1998")
         latest_cohort_year = SchoolYear.objects.get(name="2008-2009")
 
+        context['first_cohort_year'] = first_cohort_year
+        context['latest_cohort_year'] = latest_cohort_year
         context["latest_cohort"] = cohorts.latest_cohort(region=self.object)
         context["latest_state_cohort"] = StateCohorts.objects.latest_cohort(
             state__name="TX"
@@ -85,8 +93,12 @@ class StateCohortsDetailView(DetailView):
         context = super(StateCohortsDetailView, self).get_context_data(**kwargs)
 
         cohorts = self.cohorts_model.objects.filter(state=self.object)
+
+        first_cohort_year = SchoolYear.objects.get(name="1997-1998")
         latest_cohort_year = SchoolYear.objects.get(name="2008-2009")
 
+        context['first_cohort_year'] = first_cohort_year
+        context['latest_cohort_year'] = latest_cohort_year
         context["latest_cohort"] = cohorts.latest_cohort(state=self.object)
 
         cohorts = cohorts.select_related("year")
@@ -108,14 +120,12 @@ class CohortsLandingView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CohortsLandingView, self).get_context_data(**kwargs)
-        latest_year = SchoolYear.objects.first()
-        start_year = SchoolYear.objects.first().start_year
-        end_year = SchoolYear.objects.first().end_year
 
-        context['latest_year'] = latest_year
-        context['start_year'] = start_year
-        context['end_year'] = end_year
+        first_cohort_year = SchoolYear.objects.get(name="1997-1998")
+        latest_cohort_year = SchoolYear.objects.get(name="2008-2009")
 
+        context['first_cohort_year'] = first_cohort_year
+        context['latest_cohort_year'] = latest_cohort_year
         context["county_list"] = distinct_cohort_counties
         context["region_list"] = self.region_model.objects.all().defer("shape")
 
