@@ -40,9 +40,9 @@ sitemaps = {
     "scuole.campuses": CampusSitemap,
     "scuole.districts": DistrictSitemap,
     "scuole.states": StateSitemap,
-    "scuole.cohorts": CountyCohortSitemap,
-    "scuole.cohorts": RegionCohortSitemap,
-    "scuole.cohorts": StateCohortSitemap,
+    "scuole.cohorts_counties": CountyCohortSitemap,
+    "scuole.cohorts_regions": RegionCohortSitemap,
+    "scuole.cohorts_states": StateCohortSitemap,
     "scuole.core": StaticSitemap,
 }
 
