@@ -32,11 +32,17 @@ from scuole.core.views import (
 )
 from scuole.districts.sitemaps import DistrictSitemap
 from scuole.states.sitemaps import StateSitemap
+from scuole.cohorts.sitemaps_county import CountyCohortSitemap
+from scuole.cohorts.sitemaps_region import RegionCohortSitemap
+from scuole.cohorts.sitemaps_state import StateCohortSitemap
 
 sitemaps = {
     "scuole.campuses": CampusSitemap,
     "scuole.districts": DistrictSitemap,
     "scuole.states": StateSitemap,
+    "scuole.cohorts_counties": CountyCohortSitemap,
+    "scuole.cohorts_regions": RegionCohortSitemap,
+    "scuole.cohorts_states": StateCohortSitemap,
     "scuole.core": StaticSitemap,
 }
 

@@ -39,7 +39,6 @@ class Region(models.Model):
     def as_geojson(self):
         return to_geojson_feature(self, "shape", ["name", "region_id"])
 
-
 class RegionStats(StatsBase):
     region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="stats")
     year = models.ForeignKey(
@@ -52,7 +51,6 @@ class RegionStats(StatsBase):
 
     def __str__(self):
         return "{0} {1}".format(self.year.name, self.region.name)
-
 
 class RegionCohorts(CohortsBase):
     region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="cohorts")
