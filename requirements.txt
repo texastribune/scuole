@@ -1,15 +1,4 @@
-################################################################################
-# This requirements file has been automatically generated from `Pipfile` with
-# `pipenv-to-requirements`
-#
-#
-# This has been done to maintain backward compatibility with tools and services
-# that do not support `Pipfile` yet.
-#
-# Do NOT edit it directly, use `pipenv install [-d]` to modify `Pipfile` and
-# `Pipfile.lock` and then regenerate `requirements*.txt`.
-################################################################################
-
+-i https://pypi.python.org/simple/
 certifi==2020.6.20
 chardet==3.0.4
 dj-database-url==0.5.0
@@ -24,7 +13,7 @@ psycopg2==2.8.5
 python-stdnum==1.14
 pytz==2020.1
 requests==2.24.0
-sentry-sdk==0.16.5
+sentry-sdk==0.17.5
 six==1.15.0
 sqlparse==0.3.1
 unicode-slugify==0.1.3
