@@ -3,3 +3,4 @@ Disallow: /admin/
 Disallow: /search/
 Disallow: /lookup/
 Disallow: /redirect/
+Sitemap: https://salaries.texastribune.org/sitemap.xml
