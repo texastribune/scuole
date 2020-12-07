@@ -13,7 +13,7 @@ psycopg2==2.8.6
 python-stdnum==1.14
 pytz==2020.4
 requests==2.24.0
-sentry-sdk==0.16.5
+sentry-sdk==0.19.4
 six==1.15.0
 sqlparse==0.4.1
 unicode-slugify==0.1.3
