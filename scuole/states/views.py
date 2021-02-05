@@ -23,8 +23,11 @@ class StateDetailView(DetailView):
         #     context['stat'] = get_object_or_404(
         #         StateStats, year__name=year, state=self.object)
         # else:
+
+        latest_year = SchoolYear.objects.first()
+
         context['stat'] = get_object_or_404(
-            StateStats, year=SchoolYear.objects.first(),
+            StateStats, year=latest_year,
             state=self.object)
 
         context['latest_state_cohort'] = state_cohorts.latest_cohort

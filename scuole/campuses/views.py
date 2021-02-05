@@ -45,6 +45,7 @@ class CampusDetailView(DetailView):
         #         StateStats, year__name=year, state__name="TX"
         #     )
         # else:
+
         latest_year = SchoolYear.objects.first()
 
         context["stat"] = get_object_or_404(
