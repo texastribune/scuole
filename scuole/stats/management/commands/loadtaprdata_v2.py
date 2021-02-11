@@ -28,7 +28,6 @@ AF_ACCOUNTABILITY_FIELDS = (
 
 ACCOUNTABILITY_FIELDS = ("accountability_rating",) + AF_ACCOUNTABILITY_FIELDS
 
-
 class Command(BaseCommand):
     help = "Loads a school year's worth of TAPR data."
 
@@ -49,7 +48,6 @@ class Command(BaseCommand):
 
         # if it is there, we get or create the SchoolYear model
         school_year, _ = SchoolYear.objects.get_or_create(name=year)
-
         short_year = school_year.name.split("-")[0][2:]
 
         # mapping is divided into 4 units: state, region, district, campus
@@ -80,6 +78,7 @@ class Command(BaseCommand):
                 # i.e. 'african_american_count': "DPETBLAC"
                 prepared_schema[field_name] = column
 
+            # check if the corresponding model has an A-F rating field
             try:
                 stats_model._meta.get_field("accountability_rating")
                 include_accountability_rating = True
@@ -101,6 +100,7 @@ class Command(BaseCommand):
 
                 with open(data_file_path) as f:
                     reader = DictReader(f)
+
                     # data_list_joiner filters out any not matching columns
                     self.data_list_joiner(id_column, reader, prepared_schema.values(), file_name)
 
@@ -111,7 +111,6 @@ class Command(BaseCommand):
 
             # get the columns from the data that are included in the prepared_schema
             data = self.matched_data.values()
-
             bulk_list = []
 
             # loop through the formatted data
@@ -125,7 +124,6 @@ class Command(BaseCommand):
                     name, identifier, id_field, active_model
                 )
 
-                # print(name, identifier)
                 # write the instance name out to the terminal so we know
                 self.stdout.write(instance.name)
 
@@ -139,9 +137,6 @@ class Command(BaseCommand):
 
                 # loop through the schema again
                 for field_name, template in SCHEMA.items():
-                    # if mapping.get("folder") == 'district' and file_name == 'accountability.csv':
-                        # print(template)
-        
                     # skip the accountability fields for things that don't have those (state and region)
                     if (
                         field_name in ACCOUNTABILITY_FIELDS
@@ -159,9 +154,6 @@ class Command(BaseCommand):
                     )
 
                     value = row[column]
-
-                    # if mapping.get("folder") == 'district':
-                    #     print(column, template, value, row)
 
                     if value == ".":
                         value = None

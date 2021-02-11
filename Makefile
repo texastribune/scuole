@@ -25,9 +25,9 @@ data/bootstrap-areas:
 
 # Create district and campus models (w/ name, geographic coordinates, etc.)
 data/bootstrap-entities:
-	python manage.py bootstrapdistricts_v2 2018-2019
+	python manage.py bootstrapdistricts_v2 2019-2020
 	python manage.py dedupedistrictslugs
-	python manage.py bootstrapcampuses_v2 2018-2019
+	python manage.py bootstrapcampuses_v2 2019-2020
 	python manage.py dedupecampusslugs
 
 # Update AskTED information
@@ -39,10 +39,12 @@ data/update-directories:
 
 # Load in the latest year's TAPR data with v2 script
 data/latest-school:
-	python manage.py loadtaprdata_v2 2018-2019
+	python manage.py loadtaprdata_v2 2019-2020
 
 # Load in all past TAPR data 
 data/all-schools:
+  python manage.py loadtaprdata 2019-2020 --bulk
+	python manage.py loadtaprdata 2018-2019 --bulk
 	python manage.py loadtaprdata 2017-2018 --bulk
 	python manage.py loadtaprdata 2016-2017 --bulk
 	python manage.py loadtaprdata 2015-2016 --bulk
