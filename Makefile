@@ -43,7 +43,7 @@ data/latest-school:
 
 # Load in all past TAPR data 
 data/all-schools:
-  python manage.py loadtaprdata 2019-2020 --bulk
+	python manage.py loadtaprdata 2019-2020 --bulk
 	python manage.py loadtaprdata 2018-2019 --bulk
 	python manage.py loadtaprdata 2017-2018 --bulk
 	python manage.py loadtaprdata 2016-2017 --bulk
