@@ -32,30 +32,31 @@ class CampusDetailView(DetailView):
         region_cohorts = self.region_cohorts_model.objects.filter(
             region=self.object.district.region
         )
-        year = self.kwargs["campus_year"]
+        # year = self.kwargs["campus_year"]
 
-        if year:
-            context["stat"] = get_object_or_404(
-                CampusStats, year__name=year, campus=self.object
-            )
-            context["district"] = get_object_or_404(
-                DistrictStats, year__name=year, district=self.object.district
-            )
-            context["state"] = get_object_or_404(
-                StateStats, year__name=year, state__name="TX"
-            )
-        else:
-            latest_year = SchoolYear.objects.first()
+        # if year:
+        #     context["stat"] = get_object_or_404(
+        #         CampusStats, year__name=year, campus=self.object
+        #     )
+        #     context["district"] = get_object_or_404(
+        #         DistrictStats, year__name=year, district=self.object.district
+        #     )
+        #     context["state"] = get_object_or_404(
+        #         StateStats, year__name=year, state__name="TX"
+        #     )
+        # else:
 
-            context["stat"] = get_object_or_404(
-                CampusStats, year=latest_year, campus=self.object
-            )
-            context["district"] = get_object_or_404(
-                DistrictStats, year=latest_year, district=self.object.district
-            )
-            context["state"] = get_object_or_404(
-                StateStats, year=latest_year, state__name="TX"
-            )
+        latest_year = SchoolYear.objects.first()
+
+        context["stat"] = get_object_or_404(
+            CampusStats, year=latest_year, campus=self.object
+        )
+        context["district"] = get_object_or_404(
+            DistrictStats, year=latest_year, district=self.object.district
+        )
+        context["state"] = get_object_or_404(
+            StateStats, year=latest_year, state__name="TX"
+        )
 
         context["latest_county_cohort"] = county_cohorts.latest_cohort(
             county=self.object.county

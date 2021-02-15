@@ -16,6 +16,7 @@ django-phonenumber-field = "*"
 phonenumberslite = "*"
 requests = "*"
 django-postgres-copy = "*"
+six = "*"
 
 [dev-packages]
 "django-debug-toolbar" = "*"

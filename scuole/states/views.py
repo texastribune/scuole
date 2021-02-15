@@ -17,15 +17,18 @@ class StateDetailView(DetailView):
         context = super(StateDetailView, self).get_context_data(**kwargs)
         state_cohorts = self.state_cohorts_model.objects.all()
 
-        year = self.kwargs['state_year']
+        # year = self.kwargs['state_year']
 
-        if year:
-            context['stat'] = get_object_or_404(
-                StateStats, year__name=year, state=self.object)
-        else:
-            context['stat'] = get_object_or_404(
-                StateStats, year=SchoolYear.objects.first(),
-                state=self.object)
+        # if year:
+        #     context['stat'] = get_object_or_404(
+        #         StateStats, year__name=year, state=self.object)
+        # else:
+
+        latest_year = SchoolYear.objects.first()
+
+        context['stat'] = get_object_or_404(
+            StateStats, year=latest_year,
+            state=self.object)
 
         context['latest_state_cohort'] = state_cohorts.latest_cohort
 

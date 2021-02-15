@@ -4,7 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from django import template
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.template.defaultfilters import floatformat
-from django.utils import six
+import six
 from django.utils.html import format_html
 
 register = template.Library()
