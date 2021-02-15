@@ -6,18 +6,37 @@ Public Schools 3!
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Setup](#setup)
+  - [Make sure Docker is up and running](#make-sure-docker-is-up-and-running)
+  - [Fire up pipenv](#fire-up-pipenv)
+  - [Install dependencies via pipenv](#install-dependencies-via-pipenv)
+    - [Troubleshooting](#troubleshooting)
+  - [Run pipenv](#run-pipenv)
+  - [Install npm packages](#install-npm-packages)
+  - [If this is your first time loading the app, load in last year's data](#if-this-is-your-first-time-loading-the-app-load-in-last-years-data)
+  - [If this is not your first time loading the app, run outstanding migrations](#if-this-is-not-your-first-time-loading-the-app-run-outstanding-migrations)
+  - [Fire up the server](#fire-up-the-server)
 - [Updating and deploying](#updating-and-deploying)
-  - [Changes to the code](#changes-to-the-code)
-  - [Changes to the data](#changes-to-the-data)
-    - [For cohorts](#for-cohorts)
-    - [For AskTED](#for-askted)
-    - [For TAPR](#for-tapr)
-- [Troubleshooting](#troubleshooting)
+    - [Updating entities](#updating-entities)
+    - [Updating AskTED data](#updating-askted-data)
+    - [Updating TAPR data](#updating-tapr-data)
+    - [Updating cohorts data](#updating-cohorts-data)
+    - [Updating the CSS styling and other static assets](#updating-the-css-styling-and-other-static-assets)
+  - [Deploying code changes](#deploying-code-changes)
+    - [Deploying on the test server](#deploying-on-the-test-server)
+    - [Deploying on the production server](#deploying-on-the-production-server)
+  - [Deploying the data](#deploying-the-data)
+    - [Deploying on the test server](#deploying-on-the-test-server-1)
+    - [For the sitemap](#for-the-sitemap)
+- [Troubleshooting](#troubleshooting-1)
+  - [What is the best place to view the data?](#what-is-the-best-place-to-view-the-data)
+  - [I'm seeing models being imported that are not supposed to be.](#im-seeing-models-being-imported-that-are-not-supposed-to-be)
+  - [Why is my operation getting killed when I run `make compose/test-deploy` and `make compose/production-deploy`?](#why-is-my-operation-getting-killed-when-i-run-make-composetest-deploy-and-make-composeproduction-deploy)
+  - [Django doesn't know where the the database is.](#django-doesnt-know-where-the-the-database-is)
+  - [I'm seeing a duplicate key error when loading new data into the database.](#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database)
+  - [My deployment isn't working because there are "active endpoints".](#my-deployment-isnt-working-because-there-are-active-endpoints)
 - [Workspace](#workspace)
 - [Admin](#admin)
-- [To-dos](#to-dos)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -149,11 +168,11 @@ In this explorer, we can see data for the entire state, regions, districts, and 
 
 #### Updating AskTED data
 
-##### Updating locally
+**Updating locally**
 
 Run `pipenv shell`, followed by `make data/update-directories` to update the data. You can also run each command in that block separately, your choice! 
 
-##### Updating on the test and production servers
+**Updating on the test and production servers**
 
 First, get inside the Docker container:
 
@@ -177,11 +196,11 @@ First, follow the instructions in this [Confluence document](https://texastribun
 
 Once you're done adding the latest data to `scuole-data`, you'll need to change the year in `make data/latest-school` to the latest year. You'll also need to add another line to load in the latest year to `make data/all-schools` — i.e. for 2019-2020, add `python manage.py loadtaprdata 2019-2020 --bulk`.
 
-##### Updating locally
+**Updating locally**
 
 Run `pipenv shell`, followed by `make data/latest-school` to update the data.
 
-##### Updating on the test and production servers
+**Updating on the test and production servers**
 
 First, get inside the Docker container:
 
@@ -199,13 +218,13 @@ make data/latest-school
 
 First, check out [`scuole-data`](https://github.com/texastribune/scuole-data#cohorts) for instructions on how to download and format the latest cohorts data.
 
-##### Updating locally
+**Updating locally**
 
 Next, you'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year. Then, run `pipenv shell`, followed by `python manage.py loadallcohorts <latest year>` to update the data locally.
 
 Lastly, you will need to change the `latest_cohort_year` variable in the `scuole/cohorts/views.py` file to reference the latest cohorts school year. Also, make sure the `scuole/cohorts/schema/cohorts/schema.py` has the correct years (i.e. you'll need to change the year in `8th Grade (FY 2009)` for the reference `'enrolled_8th': '8th Grade (FY 2009)'`, along with the rest of the references.)
 
-##### Updating on the test and production servers
+**Updating on the test and production servers**
 
 First, get inside the Docker container:
 
@@ -221,7 +240,7 @@ python manage.py loadallcohorts <latest year>
 
 #### Updating the CSS styling and other static assets
 
-##### Updating locally
+**Updating locally**
 
 If you make changes to the styles, you'll need to run `npm run build` again to rebuild the `main.css` file in the `assets/` folder that the templates reference. 
 
