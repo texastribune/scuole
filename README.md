@@ -166,7 +166,9 @@ There are two types of data updates. One type is when you manually download the 
 
 In this explorer, we can see data for the entire state, regions, districts, and campuses. Regions typically don't change from year to year, but districts and campuses can be added or removed. As a result, we have to update the district and campus models every year.
 
-First, make sure you've created new district and campus `entities.csv` files — instructions are in [scuole-data](https://github.com/texastribune/scuole-data). We use these files to create the models.
+First, make sure you've created new district and campus `entities.csv` files and added them to `scuole-data` — instructions are in [scuole-data](https://github.com/texastribune/scuole-data). We use these files to create the models.
+
+**Updating locally**
 
 Next, remove the existing district and campus models (they're might be a better way to refresh them, we're going with this for now). Get into the shell, and start the Python terminal.
 
@@ -188,6 +190,29 @@ exit()
 ```
 
 Then, run `make data/bootstrap-entities` to create the district and campus models.
+
+**Updating on the test and production servers**
+
+First, get inside the Docker container:
+
+```sh
+docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --entrypoint=ash --env-file=env-docker schools/web
+```
+
+Then, get into the Python terminal and remove the district and campus models:
+
+```sh
+python manage.py shell
+from scuole.districts.models import District
+district = District.objects.all()
+district.delete()
+from scuole.campuses.models import Campus
+campus = Campus.objects.all()
+campus.delete()
+exit()
+```
+
+Lastly, run `make data/bootstrap-entities` to create the district and campus models.
 
 ### Updating AskTED data
 
@@ -243,7 +268,7 @@ First, check out [`scuole-data`](https://github.com/texastribune/scuole-data#coh
 
 **Updating locally**
 
-Next, you'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year. Then, run `pipenv shell`, followed by `python manage.py loadallcohorts <latest year>` to update the data locally.
+After you've put the latest cohorts data in `scuole-data`, you'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year. Then, run `pipenv shell`, followed by `python manage.py loadallcohorts <latest year>` to update the data locally.
 
 Lastly, you will need to change the `latest_cohort_year` variable in the `scuole/cohorts/views.py` file to reference the latest cohorts school year. Also, make sure the `scuole/cohorts/schema/cohorts/schema.py` has the correct years (i.e. you'll need to change the year in `8th Grade (FY 2009)` for the reference `'enrolled_8th': '8th Grade (FY 2009)'`, along with the rest of the references.)
 
