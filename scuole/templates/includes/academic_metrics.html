@@ -3,10 +3,11 @@
 <section class="section js-metrics-block" id="academics">
   <h2 class="page-section-header">Academics</h2>
   {% if not is_state %}
-  <h3 class="page-section-subheader">Accountability ratings (2018-2019)</h3>
+  <h3 class="page-section-subheader">Accountability ratings</h3>
 
   <div class="page-prose">
-    <p>Texas assigns ratings to districts and campuses that designate their performance in relation to the state's accountability system.</p>
+    <p>Texas assigns ratings to districts and campuses that designate their performance in relation to the state's accountability system.
+    The following accountability ratings are from the <span style="font-weight: bold;">2018-2019</span> school year.</p>
   </div>
 
   <section class="row metrics">
@@ -29,7 +30,7 @@
   <h3 class="page-section-subheader">Four-year graduation rates</h3>
 
   <div class="page-prose">
-    <p>The percentage of students who started ninth grade in {{ stat.year.ninth_grade_year }} who received a high school diploma on time &mdash; by Aug. 31, {{ stat.year.start_year }}. (<a href="{% url 'about' %}#four-year-grad">Learn more about how four-year graduation rates are defined</a>.)</p>
+    <p>The percentage of students who started ninth grade in {{ stat.year.ninth_grade_year }} who received a high school diploma on time &mdash; by Aug. 31, {{ stat.year.end_year }}. (<a href="{% url 'about' %}#four-year-grad">Learn more about how four-year graduation rates are defined</a>.)</p>
   </div>
 
   <section class="row metrics">
@@ -50,8 +51,8 @@
   <h3 class="page-section-subheader">Dropout rates</h3>
 
   <div class="page-prose">
-    <p>The dropout rate for students in grades 9-12 for the {{ stat.year.previous_year }} school year. It is calculated by dividing the number of dropouts by the number of students who were in attendance at any time during the school year.</p>
-    <!-- These rates are a year behind so the school year must be hard-coded -->
+    <p>The dropout rate for students in grades 9-12 for the <span style="font-weight: bold;">{{ stat.year.previous_year }}</span> school year. 
+    It is calculated by dividing the number of dropouts by the number of students who were in attendance at any time during the school year.</p>
   </div>
 
   <section class="row metrics">

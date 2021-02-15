@@ -6,8 +6,8 @@
   <h3 class="page-section-subheader">AP/IB participation</h3>
 
   <section class="page-prose">
-    <p>The percentage of students in grades 11 and 12 taking at least one Advanced Placement (AP) or International Baccalaureate (IB) exam in any subject during the {{ stat.year.previous_year }} school year.</p>
-    <!-- These scores are a year behind so the school year must be hard-coded -->
+    <p>The percentage of students in grades 11 and 12 taking at least one Advanced Placement (AP) or International Baccalaureate (IB) exam in any subject 
+    during the <span style="font-weight: bold;">{{ stat.year.previous_year }}</span> school year.</p>
   </section>
 
   <section class="row metrics">
@@ -24,8 +24,8 @@
   <h3 class="page-section-subheader">AP/IB performance</h3>
 
   <section class="page-prose">
-    <p>The percentage of test-taking students who passed at least one AP or IB exam in the {{ stat.year.previous_year }} school year. A passing score on the AP exam is a 3, 4 or 5. On an IB exam, it is a 4, 5, 6 or 7.</p>
-    <!-- These scores are a year behind so the school year must be hard-coded -->
+    <p>The percentage of test-taking students who passed at least one AP or IB exam in the <span style="font-weight: bold;">{{ stat.year.previous_year }}</span> school year. 
+    A passing score on the AP exam is a 3, 4 or 5. On an IB exam, it is a 4, 5, 6 or 7.</p>
   </section>
 
   <section class="row metrics">
@@ -42,7 +42,8 @@
   <h3 class="page-section-subheader">SAT</h3>
 
   <section class="page-prose">
-    <p>The average SAT score for the Class of {{ stat.year.start_year }}, with critical reading, writing and mathematics results combined. The maximum score is 2400. For the small percentage of students who took the redesigned SAT with a maximum score of 1600, their scores were converted to the equivalent scores on the previous SAT using College Board concordance tables.</p>
+    <p>The average SAT score for the <span style="font-weight: bold;">Class of {{ stat.year.start_year }}</span>, with critical reading, writing and mathematics results combined. 
+    The maximum score is 2400. For the small percentage of students who took the redesigned SAT with a maximum score of 1600, their scores were converted to the equivalent scores on the previous SAT using College Board concordance tables.</p>
   </section>
 
   <section class="row metrics">
@@ -52,7 +53,7 @@
   <h3 class="page-section-subheader">ACT</h3>
 
   <section class="page-prose">
-    <p>The average ACT composite score for the Class of {{ stat.year.start_year }}. The maximum score is 36.</p>
+    <p>The average ACT composite score for the <span style="font-weight: bold;">Class of {{ stat.year.start_year }}</span>. The maximum score is 36.</p>
   </section>
 
   <section class="row metrics">
@@ -62,7 +63,8 @@
   <h3 class="page-section-subheader">College-ready graduates</h3>
 
   <section class="page-prose">
-    <p>A graduate is <a href="{% url 'about' %}#college-ready">considered college ready in Reading or Math</a> if he or she has met or exceeded the college-ready criteria on the Texas Success Initiative Assessment (TSIA) test, the SAT or the ACT test. These figures are for the Class of {{ stat.year.start_year }}.</p>
+    <p>A graduate is <a href="{% url 'about' %}#college-ready">considered college ready in Reading or Math</a> if he or she has met or exceeded the college-ready criteria on the Texas Success Initiative Assessment (TSIA) test, the SAT or the ACT test. 
+    These figures are for the <span style="font-weight: bold;">Class of {{ stat.year.start_year }}</span>.</p>
   </section>
 
   <section class="row metrics">
