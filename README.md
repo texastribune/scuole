@@ -162,11 +162,34 @@ Every year, we need to update cohorts, TAPR, district boundaries, campus coordin
 
 There are two types of data updates. One type is when you manually download the data, format it, and load it into the appropriate folder in `scuole-data`. The app then grabs the latest data from `scuole-data`. Another type is when you run a command to download the latest data directly from the website. Updating AskTED is an example of this. See [`scuole-data`](https://github.com/texastribune/scuole-data) for instructions on how to download and format the data used in `scuole`.
 
-#### Updating entities
+### Updating entities
 
-In this explorer, we can see data for the entire state, regions, districts, and campuses. Regions typically don't change from year to year, but districts and campuses can be added or removed.
+In this explorer, we can see data for the entire state, regions, districts, and campuses. Regions typically don't change from year to year, but districts and campuses can be added or removed. As a result, we have to update the district and campus models every year.
 
-#### Updating AskTED data
+First, make sure you've created new district and campus `entities.csv` files — instructions are in [scuole-data](https://github.com/texastribune/scuole-data). We use these files to create the models.
+
+Next, remove the existing district and campus models (they're might be a better way to refresh them, we're going with this for now). Get into the shell, and start the Python terminal.
+
+```sh
+pipenv shell
+python manage.py shell
+```
+
+Once you're in the Python terminal, run this:
+
+```sh
+from scuole.districts.models import District
+district = District.objects.all()
+district.delete()
+from scuole.campuses.models import Campus
+campus = Campus.objects.all()
+campus.delete()
+exit()
+```
+
+Then, run `make data/bootstrap-entities` to create the district and campus models.
+
+### Updating AskTED data
 
 **Updating locally**
 
@@ -190,9 +213,9 @@ If you run into any duplicate key errors during the AskTED update, refer to the 
 
 Some of the data we load will be pulled from the [AskTED website](http://mansfield.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx]). There may be data formatting errors with some of the data as its being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You'll need to edit this function or create new ones if you're running into problems loading the data from AskTED.
 
-#### Updating TAPR data
+### Updating TAPR data
 
-First, follow the instructions in this [Confluence document](https://texastribune.atlassian.net/wiki/spaces/APPS/pages/163844/How+to+update+Public+Schools+2019) to download and format the TAPR data. 
+First, follow the instructions in this [Confluence document](https://texastribune.atlassian.net/wiki/spaces/APPS/pages/163844/How+to+update+Public+Schools+2019) to download and format the TAPR data.
 
 Once you're done adding the latest data to `scuole-data`, you'll need to change the year in `make data/latest-school` to the latest year. You'll also need to add another line to load in the latest year to `make data/all-schools` — i.e. for 2019-2020, add `python manage.py loadtaprdata 2019-2020 --bulk`.
 
@@ -214,7 +237,7 @@ Then, run this command to load the latest TAPR data:
 make data/latest-school
 ```
 
-#### Updating cohorts data
+### Updating cohorts data
 
 First, check out [`scuole-data`](https://github.com/texastribune/scuole-data#cohorts) for instructions on how to download and format the latest cohorts data.
 
@@ -238,7 +261,7 @@ Then, run the Python command to load the latest batch of cohorts data:
 python manage.py loadallcohorts <latest year>
 ```
 
-#### Updating the CSS styling and other static assets
+### Updating the CSS styling and other static assets
 
 **Updating locally**
 
@@ -277,7 +300,7 @@ make compose/production-deploy
 
 Congrats, your changes are now [live](schools.texastribune.org)!
 
-### Deploying the data
+### Deploying data changes/new data
 
 Deploying the data on the test and production servers will be similar to loading it in locally.
 
