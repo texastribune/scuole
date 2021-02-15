@@ -23,6 +23,7 @@ class ReferenceBase(models.Model):
     NOT_RATED_ANNEXATION = "T"
     NOT_RATED_HARVEY = "H"
     NOT_RATED_PAIRED = "P"
+    NOT_RATED_DISASTER = "DD"
 
     RATING_CHOICES = (
         (MET_STANDARD, "Met standard"),
@@ -35,6 +36,7 @@ class ReferenceBase(models.Model):
         (NOT_RATED_ANNEXATION, "Not rated (Annexed)"),
         (NOT_RATED_HARVEY, "Not rated (Harvey provision)"),
         (NOT_RATED_PAIRED, "Not rated (Paired campus)"),
+        (NOT_RATED_DISASTER, "Not Rated: Declared State of Disaster"),
         ("", None),
     )
 
@@ -45,12 +47,13 @@ class ReferenceBase(models.Model):
         "Not Rated": NOT_RATED_X,
         "Not Rated: Annexation": NOT_RATED_ANNEXATION,
         "Not Rated: Harvey Provision": NOT_RATED_HARVEY,
-        "Not Rated: Paired Campus": NOT_RATED_PAIRED
+        "Not Rated: Paired Campus": NOT_RATED_PAIRED,
+        "Not Rated: Declared State of Disaster": NOT_RATED_DISASTER
     }
 
     accountability_rating = models.CharField(
         _("Accountability rating"),
-        max_length=1,
+        max_length=2,
         choices=RATING_CHOICES,
         blank=True,
         default="",
@@ -63,7 +66,7 @@ class ReferenceBase(models.Model):
     # Only exists for schools with A-F
     student_achievement_rating = models.CharField(
         _("Student achievement rating"),
-        max_length=1,
+        max_length=2,
         choices=RATING_CHOICES,
         blank=True,
         default="",
@@ -71,7 +74,7 @@ class ReferenceBase(models.Model):
 
     school_progress_rating = models.CharField(
         _("School progress rating"),
-        max_length=1,
+        max_length=2,
         choices=RATING_CHOICES,
         blank=True,
         default="",
@@ -79,7 +82,7 @@ class ReferenceBase(models.Model):
 
     closing_the_gaps_rating = models.CharField(
         _("Closing the gaps rating"),
-        max_length=1,
+        max_length=2,
         choices=RATING_CHOICES,
         blank=True,
         default="",
