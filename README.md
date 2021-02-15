@@ -402,7 +402,7 @@ make compose/production-deploy
 
 Once that's done, check the [live site](https://schools.texastribune.org/). Your changes should be there! Now go home, your work here is done.
 
-#### For the sitemap
+### Updating the sitemap
 
 When we add new urls, we also need to update the sitemap (`sitemap.xml`) to include those paths. Fortunately, Django has functions that allow us to generate all of the urls associated with an object's views.
 
