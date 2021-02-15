@@ -83,8 +83,8 @@ local/cohorts: local/reset-db-bootstrap-areas data/all-cohorts
 local/all: local/reset-db-bootstrap-areas data/bootstrap-edu data/all-schools data/all-cohorts
 
 # If you have having a hard time getting `docker-entrypoint.sh` to run locally
-# you can use this to rebuild the npm files and then run the python server
-# useful for when you're making js or css changes
+# You can use this to rebuild the npm files and then run the python server
+# Useful for when you're making js or css changes
 local/npm_reset:
 	npm run build
 	python manage.py collectstatic --noinput
@@ -185,6 +185,7 @@ docker/shell:
 # Build app and its services, run the app, and load the app on a web server
 docker/kickstart: docker/build docker/run docker/nginx
 
+# For when containers from previous builds are lingering/take up space
 free-space:
 	-docker system prune -f
 
@@ -194,7 +195,7 @@ compose/local:
 	docker-compose -f docker-compose.local.yml down
 	docker-compose -f docker-compose.local.yml up
 	
-# What we use to deploy changes to the scuole repo in production
+# What we use to deploy scuole changes to the production server
 # define services that make up the app with the docker-compose.yml file, and build them
 # `down` stops and removes previously started containers
 # `up -d` starts containers in the background with the defined services and leaves them running
@@ -204,7 +205,7 @@ compose/production-deploy:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
-# What we use to deploy changes to the scuole repo in test
+# What we use to deploy scuole changes to the test server
 compose/test-deploy:
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml build web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml down

@@ -24,7 +24,9 @@ Public Schools 3!
 
 ## Setup
 
-This project assumes you are using the provided docker PostgreSQL database build. Make sure docker is up and running, then run:
+This project assumes you are using the provided Docker PostgreSQL database build. 
+
+### Make sure Docker is up and running
 
 ```sh
 make docker/db
@@ -32,35 +34,21 @@ make docker/db
 
 This will create the data volume and instance of PostgreSQL for Django. 
 
-Fire up pipenv:
+### Fire up pipenv
 
 ```sh
 pipenv --three
 ```
 
-Install dependencies via pipenv:
+### Install dependencies via pipenv
 
 ```sh
 pipenv install --dev
 ```
 
-Run pipenv:
-
-```sh
-pipenv shell
-```
-
-If there's a problem installing `psycopg2` when installing pipenv dependencies, you may need to the pg_config path by running pg_config and then reinstalling it.
-
-```sh
-pg_config --bindir
-export PATH=$PATH:path/to/pg/config
-pip3 install psycopg2
-```
-
 Locally, we are using Pipfile and Pipfile.lock files to manage dependencies. On the staging and production servers, we are using a Dockerfile, which installs dependencies from a `requirements.txt` file.
 
-We need to always make sure these are in sync. For instance, if you are pulling updates from dependabot, changes will be made to the Pipfile.lock file but will never make it over to the `requirements.txt` file, which is used on staging/production. This is a big problem.
+We need to always make sure these are in sync. For instance, if you are pulling updates from dependabot, changes will be made to the Pipfile.lock file but will never make it over to the `requirements.txt` file, which is used on staging/production.
 
 A temporary workaround is to generate a `requirements.txt` file that's based on the Pipfile, using the [`pipenv-to-requirements`](https://pypi.org/project/pipenv-to-requirements/) package. You can do this simply by running:
 
@@ -78,16 +66,36 @@ docker-entrypoint-local.sh
 docker-compose.local.yml
 ```
 
-At the moment, however, this is not working.
+At the moment, however, this is still a work in progress.
 
-Next, install npm packages:
+#### Troubleshooting
+
+If there's a problem installing `psycopg2` when installing pipenv dependencies, you may need to the pg_config path by running pg_config and then reinstalling it.
+
+```sh
+pg_config --bindir
+export PATH=$PATH:path/to/pg/config
+pip3 install psycopg2
+```
+
+### Run pipenv
+
+```sh
+pipenv shell
+```
+
+You'll need to activate the shell to run any of the Python commands. When on the staging or production servers, you'll run `docker run -it` to get inside the Docker container to run commands.
+
+### Install npm packages
 
 ```sh
 npm install
 npm run build
 ```
 
-If this is your first time using the app, you'll probably want to load in last year's data to start off. These commands will drop your database (which doesn't exist yet), create a new one and run migrations before loading in the data:
+### If this is your first time loading the app, load in last year's data
+
+If this is your first time loading the app, you'll probably want to load in last year's data to start off. These commands will drop your database (which doesn't exist yet), create a new one and run migrations before loading in the data:
 
 ```sh
 make local/reset-db
@@ -96,23 +104,23 @@ sh bootstrap.sh
 
 `bootstrap.sh` is a compilation of commands from the `Makefile` that load in the latest data (for the state, regions, counties, districts, campuses, etc.) and create models from them.
 
-If you're having trouble with the data, it might be because your `.env` file is not getting used. In that file is where we set up the `DATA_FOLDER` as explained in the [setup doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools). But you can also get around using that file by typing:
+If you're having trouble with the data, it might be because your `.env` file is not getting used. That file is where we set up the `DATA_FOLDER`, as explained in the [setup doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools). But you can also get around using that file by typing:
 
 ```sh
 export DATA_FOLDER=~/Documents/tribune/github/scuole-house/scuole-data/
 ```
 
-This should be run before running any commands that load in data.
+This environmental variable should be set before running any commands that load in data.
 
-If this is not your first time loading the app, you can run this to catch up with any outstanding migrations you might have:
+### If this is not your first time loading the app, run outstanding migrations
+
+If this is not your first time loading the app, run this to catch up with any outstanding migrations you might have:
 
 ```sh
 python manage.py migrate
 ```
 
-Some of the data we load will be pulled from the [AskTed website](http://mansfield.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx]). There may be data formatting errors with some of the data as its being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You may need to edit this function or create new ones if you're running into problems loading the data from AskTed.
-
-Once the data is loaded, you can run the following command:
+### Fire up the server
 
 ```sh
 sh docker-entrypoint.sh
@@ -127,21 +135,105 @@ python manage.py collectstatic --noinput
 python manage.py runserver
 ```
 
-If you make changes to the styles, you'll need to run `npm run build` again to rebuild the `main.css` file in the `assets/` folder that the
-templates reference. You'll also need to do a hard refresh in whatever
-browser you're running the explorer in to fetch the new styles.
-
 All good? Let's go! There are also other commands in scuole's `Makefile` at your disposal so check them out.
 
 ## Updating and deploying
 
-Ever year, we need to update cohorts, TAPR, district boundaries, campus coordinates, and the entities files for districts and campuses. Ideally, we would update AskTED every quarter. 
+Every year, we need to update cohorts, TAPR, district boundaries, campus coordinates, and the entities files for districts and campuses. Ideally, we would update AskTED every quarter. 
 
-More specific instructions for updating each dataset are in the [`scuole-data` repo README](https://github.com/texastribune/scuole-data).
+There are two types of data updates. One type is when you manually download the data, format it, and load it into the appropriate folder in `scuole-data`. The app then grabs the latest data from `scuole-data`. Another type is when you run a command to download the latest data directly from the website. Updating AskTED is an example of this. See [`scuole-data`](https://github.com/texastribune/scuole-data) for instructions on how to download and format the data used in `scuole`.
 
-### Changes to the code
+#### Updating entities
 
-If you're making changes to just the code and not the data, first you need to push all your changes locally to [Github](https://github.com/texastribune/scuole). Then you can run:
+In this explorer, we can see data for the entire state, regions, districts, and campuses. Regions typically don't change from year to year, but districts and campuses can be added or removed.
+
+#### Updating AskTED data
+
+##### Updating locally
+
+Run `pipenv shell`, followed by `make data/update-directories` to update the data. You can also run each command in that block separately, your choice! 
+
+##### Updating on the test and production servers
+
+First, get inside the Docker container:
+
+```sh
+docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --entrypoint=ash --env-file=env-docker schools/web
+```
+
+Then, run this command to load the latest AskTED data:
+
+```sh
+make data/update-directories
+```
+
+If you run into any duplicate key errors during the AskTED update, refer to the [Troubleshooting section](https://github.com/texastribune/scuole#troubleshooting) for instructions on how to clear a table. You'll need to clear the table that is throwing this error, and reload the data.
+
+Some of the data we load will be pulled from the [AskTED website](http://mansfield.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx]). There may be data formatting errors with some of the data as its being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You'll need to edit this function or create new ones if you're running into problems loading the data from AskTED.
+
+#### Updating TAPR data
+
+First, follow the instructions in this [Confluence document](https://texastribune.atlassian.net/wiki/spaces/APPS/pages/163844/How+to+update+Public+Schools+2019) to download and format the TAPR data. 
+
+Once you're done adding the latest data to `scuole-data`, you'll need to change the year in `make data/latest-school` to the latest year. You'll also need to add another line to load in the latest year to `make data/all-schools` — i.e. for 2019-2020, add `python manage.py loadtaprdata 2019-2020 --bulk`.
+
+##### Updating locally
+
+Run `pipenv shell`, followed by `make data/latest-school` to update the data.
+
+##### Updating on the test and production servers
+
+First, get inside the Docker container:
+
+```sh
+docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --entrypoint=ash --env-file=env-docker schools/web
+```
+
+Then, run this command to load the latest TAPR data:
+
+```sh
+make data/latest-school
+```
+
+#### Updating cohorts data
+
+First, check out [`scuole-data`](https://github.com/texastribune/scuole-data#cohorts) for instructions on how to download and format the latest cohorts data.
+
+##### Updating locally
+
+Next, you'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year. Then, run `pipenv shell`, followed by `python manage.py loadallcohorts <latest year>` to update the data locally.
+
+Lastly, you will need to change the `latest_cohort_year` variable in the `scuole/cohorts/views.py` file to reference the latest cohorts school year. Also, make sure the `scuole/cohorts/schema/cohorts/schema.py` has the correct years (i.e. you'll need to change the year in `8th Grade (FY 2009)` for the reference `'enrolled_8th': '8th Grade (FY 2009)'`, along with the rest of the references.)
+
+##### Updating on the test and production servers
+
+First, get inside the Docker container:
+
+```sh
+docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --entrypoint=ash --env-file=env-docker schools/web
+```
+
+Then, run the Python command to load the latest batch of cohorts data:
+
+```sh
+python manage.py loadallcohorts <latest year>
+```
+
+#### Updating the CSS styling and other static assets
+
+##### Updating locally
+
+If you make changes to the styles, you'll need to run `npm run build` again to rebuild the `main.css` file in the `assets/` folder that the templates reference. 
+
+Then, run `pipenv shell`, followed by `python manage.py collectstatic --noinput` to recollect static files. You'll also need to do a hard refresh in whatever browser you're running the explorer in to fetch the new styles.
+
+### Deploying code changes
+
+Push all your changes to [Github](https://github.com/texastribune/scuole). We'll deploy on the test server first, and then the production servers.
+
+Make sure your set up with `ssh` — check out [this doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools) for more info.
+
+#### Deploying on the test server
 
 ```sh
 ssh schools-test
@@ -151,7 +243,11 @@ git pull
 make compose/test-deploy
 ```
 
-Once you run these, make sure everything is working on the [test url](https://schools-test.texastribune.org/). If so, then you'll need to repeat those steps on the two production servers: `schools-prod` and `schools-prod-2`. You must do both servers — if you don't, the published app will switch between new and old code.
+Once you run these, make sure everything is working on the [test url](https://schools-test.texastribune.org/). 
+
+#### Deploying on the production server
+
+After checking the test site, you'll need to repeat those steps on the two production servers: `schools-prod` and `schools-prod-2`. You must do both servers — if you don't, the published app will switch between new and old code.
 
 ```sh
 ssh schools-prod
@@ -162,30 +258,29 @@ make compose/production-deploy
 
 Congrats, your changes are now [live](schools.texastribune.org)!
 
-### Changes to the data
+### Deploying the data
 
-There are two types of data updates. One type is when you manually download the data, format it, and load it into the appropriate folder in `scuole-data`. You'll then need to deploy the latest data in `scuole-data` (instructions in the deploy section). 
+Deploying the data on the test and production servers will be similar to loading it in locally.
 
-Another type is when you run a command to download the latest data directly from the website. Updating AskTED is an example of this. You'll need to ssh onto the appropriate server (test or production) and run a series of commands to pull the latest data before deploying it to the server.
+#### Deploying on the test server
 
-See [`scuole-data`](https://github.com/texastribune/scuole-data) for more descriptions about the data used in `scuole`. `scuole-data` also has instructions on how to clean and download TAPR and cohorts data.
-
-If you're making changes to the data, we will first deploy to the test server and then production. This process will involve getting into the Docker container on the server, loading in the new data and deploying it live.
-
-If you're not set up with the ssh yet, check out [this doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools) for more info.
-
-First, make sure all of your changes are pushed to [Github](https://github.com/texastribune/scuole). Then log into the server and pull those changes:
+First, make sure all of your changes are pushed to [Github](https://github.com/texastribune/scuole-data). Then, log into the test server and pull the changes in `scuole-data`.
 
 ```sh
 ssh schools-test
 cd scuole-data
 git pull
+```
+
+Then, go back to `scuole`. 
+
+```
 cd ../scuole
 git checkout master
 git pull 
 ```
 
-Now let's get into the Docker container:
+Next, let's get into the Docker container:
 
 ```sh
 docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --net=scuole_default --entrypoint=ash --env-file=env-docker schools/web
@@ -196,33 +291,13 @@ Alternative to the above command that needs a more recent version of docker-comp
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --volume /home/ubuntu/scuole-data:/home/ubuntu/scuole/data:ro --entrypoint ash web
 -->
 
-And run the update to your data, which would look something like:
+Then, run the commands to load in new data, as documented above.
 
 ```sh
 python manage.py loadallcohorts 2008
 ```
 
-#### For cohorts
-You'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year. Then, run 
-`python manage.py loadallcohorts <latest year>` during the update.
-
-You will also need to change the `latest_cohort_year` variable in the `scuole/cohorts/views.py` file to reference the latest cohorts school year.
-
-Lastly, make sure the `scuole/cohorts/schema/cohorts/schema.py` has the correct years (i.e. you'll need to change the year in `8th Grade (FY 2009)` for the reference `'enrolled_8th': '8th Grade (FY 2009)'`, along with the rest of the references.)
-
-#### For AskTED
-Run `make data/update-directories` to update the data. You can also run each command in that block separately, your choice! 
-
-If you are doing this locally, make sure you have run `pipenv shell` and are in the shell — otherwise you won't have the dependencies you need to run this successfully.
-
-If you run into any duplicate key errors during the AskTED update, refer to the Troublshooting section below for instructions on how to clear a table. 
-
-You'll need to clear the table that is throwing this error, and reload the data. This error happens because the update may be trying to insert something that has the same ID as something else.
-
-#### For TAPR
-Refer to this [Confluence document](https://texastribune.atlassian.net/wiki/spaces/APPS/pages/163844/How+to+update+Public+Schools+2019).
-
-Now exit out of the python shell and your Docker container with `Ctrl + P + Q`. If you have code changes as well, you can push them live by running:
+Exit out of the Python shell and your Docker container with `Ctrl + P + Q`. Run the following command to build and deploy the data changes to the test site.
 
 ```sh
 make compose/test-deploy
@@ -240,25 +315,25 @@ cd ../scuole
 git pull
 ```
 
-If your making data changes, the command to get into the Docker containers on the prod servers will change a little bit. You won't need the `--net` parameter anymore:
+The command to get into the Docker containers on the production servers will change a little bit. You won't need the `--net` parameter anymore:
 
 ```sh
 docker run -it --rm --volume=/home/ubuntu/scuole-data:/usr/src/app/data/:ro --entrypoint=ash --env-file=env-docker schools/web
 ```
 
-Now go ahead make your changes. Here's an example:
+Run the commands to load in new data. Here's an example:
 
 ```sh
 python manage.py loadallcohorts 2008
 ```
 
-And deploy:
+Now, deploy:
 
 ```sh
 make compose/production-deploy
 ```
 
-Once that's done, check the live site. Your changes should be there! Now go home, your work here is done.
+Once that's done, check the [live site](https://schools.texastribune.org/). Your changes should be there! Now go home, your work here is done.
 
 #### For the sitemap
 

@@ -1,17 +1,17 @@
 #!/bin/sh
 
 # Refer to Makefile for these commands
-# create the areas
+# create state, region, and county models
 make data/bootstrap-areas
 
-# create the entities
+# create district and campus models
 make data/bootstrap-entities
 
-# initial update on directory
+# initial AskTED update on directory
 make data/update-directories
 
-# cohorts
+# add cohorts data
 make data/all-cohorts
 
-# add latest year
+# add latest year's TAPR data
 make data/latest-school
