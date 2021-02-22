@@ -159,6 +159,7 @@ In this explorer, we can see data for the entire state, regions, districts, and 
 First, make sure you've created new district and campus `entities.csv` files and added them to `scuole-data` — instructions are in [scuole-data](https://github.com/texastribune/scuole-data). We use these files to create the models.
 
 **Updating locally**
+
 Next, remove the existing district and campus models (they're might be a better way to refresh them, we're going with this for now). Get into the shell, and start the Python terminal.
 
 ```sh
@@ -181,6 +182,7 @@ exit()
 Then, run `make data/bootstrap-entities` to create the district and campus models.
 
 **Updating on the test and production servers**
+
 First, get inside the Docker container:
 
 ```sh
@@ -205,9 +207,11 @@ Lastly, run `make data/bootstrap-entities` to create the district and campus mod
 ### Updating AskTED data
 
 **Updating locally**
+
 Run `pipenv shell`, followed by `make data/update-directories` to update the data. You can also run each command in that block separately, your choice! 
 
 **Updating on the test and production servers**
+
 First, get inside the Docker container:
 
 ```sh
@@ -230,9 +234,11 @@ First, follow the instructions in this [Confluence document](https://texastribun
 Once you're done adding the latest data to `scuole-data`, you'll need to change the year in `make data/latest-school` to the latest year. You'll also need to add another line to load in the latest year to `make data/all-schools` — i.e. for 2019-2020, add `python manage.py loadtaprdata 2019-2020 --bulk`.
 
 **Updating locally**
+
 Run `pipenv shell`, followed by `make data/latest-school` to update the data.
 
 **Updating on the test and production servers**
+
 First, get inside the Docker container:
 
 ```sh
@@ -249,11 +255,13 @@ make data/latest-school
 First, check out [`scuole-data`](https://github.com/texastribune/scuole-data#cohorts) for instructions on how to download and format the latest cohorts data.
 
 **Updating locally**
+
 After you've put the latest cohorts data in `scuole-data`, you'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year. Then, run `pipenv shell`, followed by `python manage.py loadallcohorts <latest year>` to update the data locally.
 
 Lastly, you will need to change the `latest_cohort_year` variable in the `scuole/cohorts/views.py` file to reference the latest cohorts school year. Also, make sure the `scuole/cohorts/schema/cohorts/schema.py` has the correct years (i.e. you'll need to change the year in `8th Grade (FY 2009)` for the reference `'enrolled_8th': '8th Grade (FY 2009)'`, along with the rest of the references.)
 
 **Updating on the test and production servers**
+
 First, get inside the Docker container:
 
 ```sh
@@ -269,6 +277,7 @@ python manage.py loadallcohorts <latest year>
 ### Updating the CSS styling and other static assets
 
 **Updating locally**
+
 If you make changes to the styles, you'll need to run `npm run build` again to rebuild the `main.css` file in the `assets/` folder that the templates reference. 
 
 Then, run `pipenv shell`, followed by `python manage.py collectstatic --noinput` to recollect static files. You'll also need to do a hard refresh in whatever browser you're running the explorer in to fetch the new styles.
