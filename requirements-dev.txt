@@ -24,7 +24,7 @@ jedi==0.18.0
 jmespath==0.10.0
 mccabe==0.6.1
 parso==0.8.2
-pbr==5.5.1
+pbr==5.6.0
 pexpect==4.8.0 ; sys_platform != 'win32'
 pickleshare==0.7.5
 pipenv-to-requirements==0.9.0
@@ -44,8 +44,8 @@ six==1.15.0
 sqlparse==0.4.1
 toml==0.10.2
 traitlets==5.0.5
-urllib3==1.25.11
+urllib3==1.26.4
 v==0.0.0
 virtualenv-clone==0.5.4
-virtualenv==20.4.3
+virtualenv==20.4.4
 wcwidth==0.2.5
