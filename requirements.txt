@@ -9,7 +9,7 @@ django-postgres-copy==2.4.2
 django==3.1.4
 gunicorn==20.0.4
 idna==2.10
-phonenumberslite==8.12.14
+phonenumberslite==8.12.21
 psycopg2==2.8.6
 python-stdnum==1.16
 pytz==2021.1
