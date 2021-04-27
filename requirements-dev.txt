@@ -1,6 +1,6 @@
 -i https://pypi.python.org/simple/
 appdirs==1.4.4
-asgiref==3.3.1
+asgiref==3.3.4
 attrs==20.3.0
 awscli==1.18.190
 backcall==0.2.0
@@ -9,9 +9,9 @@ botocore==1.19.30
 certifi==2020.12.5
 click==7.1.2
 colorama==0.4.3 ; python_version != '3.4'
-decorator==4.4.2
+decorator==5.0.7
 distlib==0.3.1
-django-debug-toolbar==3.2
+django-debug-toolbar==3.2.1
 django-extensions==3.1.0
 django==3.1.4
 docutils==0.15.2
@@ -20,26 +20,26 @@ flake8==3.8.4
 ipython-genutils==0.2.0
 ipython==7.19.0
 isort==5.6.4
-jedi==0.17.2
+jedi==0.18.0
 jmespath==0.10.0
 mccabe==0.6.1
-parso==0.7.1
+parso==0.8.2
 pbr==5.5.1
 pexpect==4.8.0 ; sys_platform != 'win32'
 pickleshare==0.7.5
 pipenv-to-requirements==0.9.0
 pipenv==2020.11.15
-prompt-toolkit==3.0.8
-ptyprocess==0.6.0
+prompt-toolkit==3.0.18
+ptyprocess==0.7.0
 pyasn1==0.4.8
 pycodestyle==2.6.0
 pyflakes==2.2.0
-pygments==2.7.3
+pygments==2.8.1
 python-dateutil==2.8.1
-pytz==2020.4
+pytz==2021.1
 pyyaml==5.3.1 ; python_version != '3.4'
 rsa==4.5 ; python_version != '3.4'
-s3transfer==0.3.3
+s3transfer==0.3.7
 six==1.15.0
 sqlparse==0.4.1
 toml==0.10.2
@@ -47,5 +47,5 @@ traitlets==5.0.5
 urllib3==1.25.11
 v==0.0.0
 virtualenv-clone==0.5.4
-virtualenv==20.2.2
+virtualenv==20.4.3
 wcwidth==0.2.5
