@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "afbbdece722e0f4785a89e4c93244aac83e461d469ab749faa1ba43822cefe9b"
+            "sha256": "38293eae73e130c4fb8b1fc5079df988556b28b50a3c2a6728afdd03d6387ba4"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -45,11 +45,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:5c866205f15e7a7123f1eec6ab939d22d5bde1416635cab259684af66d8e48a2",
-                "sha256:edb10b5c45e7e9c0fb1dc00b76ec7449aca258a39ffd613dbd078c51d19c9f03"
+                "sha256:169e2e7b4839a7910b393eec127fd7cbae62e80fa55f89c6510426abf673fe5f",
+                "sha256:c6c0462b8b361f8691171af1fb87eceb4442da28477e12200c40420176206ba7"
             ],
             "index": "pypi",
-            "version": "==3.1.4"
+            "version": "==3.1.6"
         },
         "django-localflavor": {
             "hashes": [
@@ -284,11 +284,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:5c866205f15e7a7123f1eec6ab939d22d5bde1416635cab259684af66d8e48a2",
-                "sha256:edb10b5c45e7e9c0fb1dc00b76ec7449aca258a39ffd613dbd078c51d19c9f03"
+                "sha256:169e2e7b4839a7910b393eec127fd7cbae62e80fa55f89c6510426abf673fe5f",
+                "sha256:c6c0462b8b361f8691171af1fb87eceb4442da28477e12200c40420176206ba7"
             ],
             "index": "pypi",
-            "version": "==3.1.4"
+            "version": "==3.1.6"
         },
         "django-debug-toolbar": {
             "hashes": [
@@ -382,10 +382,10 @@
         },
         "pbr": {
             "hashes": [
-                "sha256:5fad80b613c402d5b7df7bd84812548b2a61e9977387a80a5fc5c396492b13c9",
-                "sha256:b236cde0ac9a6aedd5e3c34517b423cd4fd97ef723849da6b0d2231142d89c00"
+                "sha256:42df03e7797b796625b1029c0400279c7c34fd7df24a7d7818a1abb5b38710dd",
+                "sha256:c68c661ac5cc81058ac94247278eeda6d2e6aecb3e227b0387c30d277e7ef8d4"
             ],
-            "version": "==5.5.1"
+            "version": "==5.6.0"
         },
         "pexpect": {
             "hashes": [
@@ -553,10 +553,10 @@
         },
         "virtualenv": {
             "hashes": [
-                "sha256:49ec4eb4c224c6f7dd81bb6d0a28a09ecae5894f4e593c89b0db0885f565a107",
-                "sha256:83f95875d382c7abafe06bd2a4cdd1b363e1bb77e02f155ebe8ac082a916b37c"
+                "sha256:09c61377ef072f43568207dc8e46ddeac6bcdcaf288d49011bda0e7f4d38c4a2",
+                "sha256:a935126db63128861987a7d5d30e23e8ec045a73840eeccb467c148514e29535"
             ],
-            "version": "==20.4.3"
+            "version": "==20.4.4"
         },
         "virtualenv-clone": {
             "hashes": [
