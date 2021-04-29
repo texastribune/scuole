@@ -226,7 +226,7 @@ make data/update-directories
 
 If you run into any duplicate key errors during the AskTED update, refer to the [Troubleshooting section](https://github.com/texastribune/scuole#troubleshooting) for instructions on how to clear a table. You'll need to clear the table that is throwing this error, and reload the data.
 
-Some of the data we load will be pulled from the [AskTED website](http://mansfield.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx]). There may be data formatting errors with some of the data as its being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You'll need to edit this function or create new ones if you're running into problems loading the data from AskTED.
+Some of the data we load will be pulled from the [AskTED website](https://tea4avholly.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx]). There may be data formatting errors with some of the data as its being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You'll need to edit this function or create new ones if you're running into problems loading the data from AskTED.
 
 ### Updating TAPR data
 First, follow the instructions in this [Confluence document](https://texastribune.atlassian.net/wiki/spaces/APPS/pages/163844/How+to+update+Public+Schools+2019) to download and format the TAPR data.

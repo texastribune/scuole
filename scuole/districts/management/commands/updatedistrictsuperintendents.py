@@ -21,7 +21,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Downloads data directly from AskTED site
-        # http://mansfield.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx
+        # https://tea4avholly.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx
         req = requests.post(
             ASKTED_PERSONNEL_URL,
             data={

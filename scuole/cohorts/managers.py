@@ -98,14 +98,22 @@ class CohortQuerySet(models.QuerySet):
         """
         defaults = defaults or {}
         params = self._extract_model_params(defaults, **kwargs)
+
+        # we don't want the id that comes over when creating a new object!
+        # this id already exists on another object
+        # we want the new object to have its own unique id
+        defaults.pop('id', None)
+
         self._for_write = True
+
         with transaction.atomic(using=self.db):
             try:
                 obj = self.select_for_update().get(**kwargs)
             except self.model.DoesNotExist:
-                obj, created = self._create_object_from_params(kwargs, params)
+                obj, created = self.get_or_create(**kwargs, defaults=defaults)
                 if created:
                     return obj, created
+
             for k, v in defaults.items():
                 value = v() if callable(v) else v
                 if isinstance(self.model._meta.get_field(k), (
@@ -116,5 +124,7 @@ class CohortQuerySet(models.QuerySet):
                         setattr(obj, k, F(k) + (Value(0) if value is None else value))
                 else:
                     setattr(obj, k, value)
+
             obj.save(using=self.db)
+
         return obj, False

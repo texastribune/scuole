@@ -15,12 +15,13 @@ from scuole.regions.models import Region, RegionCohorts
 from scuole.states.models import State, StateCohorts
 from scuole.stats.models import SchoolYear
 
-
 class Command(BaseCommand):
     help = 'Loads a school year worth of cohorts data.'
+
     # only loads data for the year you give it
     def add_arguments(self, parser):
         parser.add_argument('year', nargs='?', type=str, default=None)
+
     # if there's no year, it yells at you
     def handle(self, *args, **options):
         if options['year'] is None:
@@ -48,6 +49,7 @@ class Command(BaseCommand):
             name=schoolYear)
 
         self.year = year
+
         # loads the region/state combo file and all county data
         self.load_regions_state()
         self.load_counties()
@@ -108,13 +110,15 @@ class Command(BaseCommand):
                     'year': self.year,
                     'defaults': {}
                 }
+
                 # grabs the state model (we only have one state, TX)
                 model = self.get_state_model_instance()
                 payload['state'] = model
+
                 # preps the data and updates or creates a state cohort model
                 self.prep_payload(payload, row)
                 StateCohorts.objects.sum_update_or_create(**payload)
-
+    
                 self.stdout.write(model.name)
             else:
                 # tells us which region we're talking about. TEA's regions
@@ -131,8 +135,10 @@ class Command(BaseCommand):
                 self.stdout.write(model.name)
 
                 self.prep_payload(payload, row)
+    
                 # creates a cohort model for each region
                 RegionCohorts.objects.update_or_create(**payload)
+        
         # for both region and state, sort and load the data
         self.create_regions_gender_overall()
         self.create_regions_ethnicity_overall()
@@ -250,6 +256,7 @@ class Command(BaseCommand):
             # let's be sure we only have eight to work with
             assert len(cohorts_to_combine) == 8, 'There should be only eight cohorts'
 
+            # loop through the eight gender/ethnicity breakdown cohorts for each region
             for cohort in cohorts_to_combine:
                 payload = {
                     'year': self.year,
