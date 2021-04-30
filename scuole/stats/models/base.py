@@ -30,6 +30,18 @@ class SchoolYear(models.Model):
         return f"{start_year}-{end_year}"
 
     @property
+    def previous_start_year(self):
+        start_year = self.start_year - 1
+
+        return int(start_year)
+
+    @property
+    def previous_end_year(self):
+        end_year = self.end_year - 1
+
+        return int(end_year)
+
+    @property
     def start_year(self):
         return int(self.name.split("-")[0])
 

@@ -32,29 +32,35 @@
 {% include "includes/intro_metrics.html" with stat=stat state=state only %}
 
 <section class="page-prose">
-  <p><strong>{{ district.name }}</strong> is a {% if district.charter %}charter {% endif %}school district in <strong>{{ district.location|default:"Texas" }}</strong>. As of the <strong>{{ stat.year.name }} school year</strong>, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received an accountability rating of <strong>{{ stat.smart_accountability_rating_display|capfirst }}</strong>. <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school. <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs.</p>
+  <p><strong>{{ district.name }}</strong> is a {% if district.charter %}charter {% endif %}school district in <strong>{{ district.location|default:"Texas" }}</strong>. As of the <strong>{{ stat.year.name }}</strong> school year, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received an accountability rating of <strong>{{ stat.smart_accountability_rating_display|capfirst }}</strong> for the previous school year. <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school. <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs.</p>
 
-  <p>{% if stat.teacher_avg_base_salary %}An average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>, which is <strong>${{ stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary|absolute|floatformat:"0"|intcomma }} {% if stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary < 0 %}less{% else %}more{% endif %}</strong> than the state average.
-  {% endif %}
+  <p>
+    {% if stat.four_year_graduate_all_students_percent and stat.four_year_graduate_all_students_percent >= 0 %}
+    In the Class of {{ stat.year.start_year }}, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diplomas on time or earlier.
+    {% endif %}
 
-  {% if stat.teacher_avg_experience %}
-  On average, teachers had <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.
-  {% endif %}
+    {% if stat.dropout_all_students_percent and stat.dropout_all_students_percent >= 0 %}
+    The dropout rate for students in grades 9-12 for the previous class was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.{% endif %}
+  </p>
 
-  {% if stat.avg_sat_score_all_students >= 0 %}
-  The average SAT score at {{ district.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong>.
-  {% endif %}
+  <p>
+    {% if stat.avg_sat_score_all_students >= 0 %}
+    The average SAT score at {{ district.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong> for the previous class.
+    {% endif %}
+    {% if stat.avg_act_score_all_students >= 0 %}
+    The average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>.
+    {% endif %}
+  </p>
 
-  {% if stat.avg_act_score_all_students >= 0 %}
-  The average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>.
-  {% endif %}
+  <p>
+    {% if stat.teacher_avg_base_salary %}
+    As of the <strong>{{ stat.year.name }}</strong> school year, an average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>, which is <strong>${{ stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary|absolute|floatformat:"0"|intcomma }} {% if stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary < 0 %}less{% else %}more{% endif %}</strong> than the state average.
+    {% endif %}
 
-  {% if stat.four_year_graduate_all_students_percent and stat.four_year_graduate_all_students_percent >= 0 %}
-  In the Class of {{ stat.year.start_year }}, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diplomas on time or earlier.
-  {% endif %}
-
-  {% if stat.dropout_all_students_percent and stat.dropout_all_students_percent >= 0 %}
-  The dropout rate was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.{% endif %}</p>
+    {% if stat.teacher_avg_experience %}
+    On average, teachers had <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.
+    {% endif %}
+  </p>
 </section>
 </div>
 <div class="contact-block">
