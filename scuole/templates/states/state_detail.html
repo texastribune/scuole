@@ -34,7 +34,7 @@
   <p>As of the <strong>{{ stat.year.name }} school year</strong>, there were <strong>{{ stat.all_students_count|intcomma }} students</strong> in {{ state.get_name_display }}. <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school, and <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs.</p>
 
   <p>In the Class of {{ stat.year.start_year }}, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diploma on time or earlier. 
-  The dropout rate for students in grades 9-12 for the previous class was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.</p>
+  The dropout rate for students in grades 9-12 was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong> for the <strong>{{ stat.year.previous_year }}</strong> school year.</p>
 
   <p>The average SAT score in {{ state.get_name_display }} was <strong>{{ stat.avg_sat_score_all_students }}</strong> for the previous class, and the average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>.</p>
 

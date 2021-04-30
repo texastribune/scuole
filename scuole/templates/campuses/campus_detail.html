@@ -43,7 +43,7 @@
     In the Class of {{ stat.year.start_year }}, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diplomas on time or earlier.
     {% endif %}
     {% if stat.dropout_all_students_percent and stat.dropout_all_students_percent >= 0 %}
-    The dropout rate for students in grades 9-12 for the previous class was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong>.
+    The dropout rate for students in grades 9-12 was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong> for the <strong>{{ stat.year.previous_year }}</strong> school year.
     {% endif %}
   </p>
 
