@@ -164,15 +164,6 @@
             ],
             "version": "==0.4.1"
         },
-        "typing-extensions": {
-            "hashes": [
-                "sha256:7cb407020f00f7bfc3cb3e7881628838e69d8f3fcab2f64742a5e76b2f841918",
-                "sha256:99d4073b617d30288f569d3f13d2bd7548c3a7e4c8de87db09a9d29bb3a4a60c",
-                "sha256:dafc7639cde7f1b6e1acc0f457842a83e722ccca8eef5270af2d74792619a89f"
-            ],
-            "markers": "python_version < '3.8'",
-            "version": "==3.7.4.3"
-        },
         "unicode-slugify": {
             "hashes": [
                 "sha256:34cf3afefa6480efe705a4fc0eaeeaf7f49754aec322ba3e8b2f27dc1cbcf650"
@@ -211,14 +202,6 @@
             ],
             "version": "==1.4.4"
         },
-        "appnope": {
-            "hashes": [
-                "sha256:93aa393e9d6c54c5cd570ccadd8edad61ea0c4b9ea7a01409020c9aa019eb442",
-                "sha256:dd83cd4b5b460958838f6eb3000c660b1f9caf2a5b1de4264e941512f603258a"
-            ],
-            "markers": "sys_platform == 'darwin'",
-            "version": "==0.1.2"
-        },
         "asgiref": {
             "hashes": [
                 "sha256:92906c611ce6c967347bbfea733f13d6313901d54dcca88195eaeb52b2a8e8ee",
@@ -235,11 +218,11 @@
         },
         "awscli": {
             "hashes": [
-                "sha256:69dde227f8dda84eaeeb91e78a731e42499c0822d8d7c62bd3532c15a10fcc99",
-                "sha256:f020e348539546a3e3f545cb7baa36c099dbc9394759e8383ff0b012ccef538a"
+                "sha256:40ec38c7be51fa4827242e54cefd2be89c55b39ecb810757679fc43827c3aa8d",
+                "sha256:f3db1781626546617c4a50d7db0ca5ab0c98f56786078bb0fc6a95fc82d1dcaa"
             ],
             "index": "pypi",
-            "version": "==1.19.59"
+            "version": "==1.19.62"
         },
         "backcall": {
             "hashes": [
@@ -258,10 +241,10 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:0a930847caea829f84dfca798764504be2e1fde3637e06a533001ec95b921d19",
-                "sha256:c392944132ae03610777d0a764bbf47a169e442b93cfa7e64cb7b9ea578c773b"
+                "sha256:e4f8cb923edf035c2ae5f6169c70e77e31df70b88919b92b826a6b9bd14511b1",
+                "sha256:f7c2c5c5ed5212b2628d8fb1c587b31c6e8d413ecbbd1a1cdf6f96ed6f5c8d5e"
             ],
-            "version": "==1.20.59"
+            "version": "==1.20.62"
         },
         "certifi": {
             "hashes": [
@@ -344,14 +327,6 @@
             ],
             "index": "pypi",
             "version": "==3.9.1"
-        },
-        "importlib-metadata": {
-            "hashes": [
-                "sha256:8c501196e49fb9df5df43833bdb1e4328f64847763ec8a50703148b73784d581",
-                "sha256:d7eb1dea6d6a6086f8be21784cc9e3bcfa55872b52309bc5fad53a8ea444465d"
-            ],
-            "markers": "python_version < '3.8'",
-            "version": "==4.0.1"
         },
         "ipython": {
             "hashes": [
@@ -575,15 +550,6 @@
             ],
             "version": "==5.0.5"
         },
-        "typing-extensions": {
-            "hashes": [
-                "sha256:7cb407020f00f7bfc3cb3e7881628838e69d8f3fcab2f64742a5e76b2f841918",
-                "sha256:99d4073b617d30288f569d3f13d2bd7548c3a7e4c8de87db09a9d29bb3a4a60c",
-                "sha256:dafc7639cde7f1b6e1acc0f457842a83e722ccca8eef5270af2d74792619a89f"
-            ],
-            "markers": "python_version < '3.8'",
-            "version": "==3.7.4.3"
-        },
         "urllib3": {
             "hashes": [
                 "sha256:2f4da4594db7e1e110a944bb1b551fdf4e6c136ad42e4234131391e21eb5b0df",
@@ -619,13 +585,6 @@
                 "sha256:c4d647b99872929fdb7bdcaa4fbe7f01413ed3d98077df798530e5b04f116c83"
             ],
             "version": "==0.2.5"
-        },
-        "zipp": {
-            "hashes": [
-                "sha256:3607921face881ba3e026887d8150cca609d517579abe052ac81fc5aeffdbd76",
-                "sha256:51cb66cc54621609dd593d1787f286ee42a5c0adbb4b29abea5a63edc3e03098"
-            ],
-            "version": "==3.4.1"
         }
     }
 }
