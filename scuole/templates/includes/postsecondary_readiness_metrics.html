@@ -42,7 +42,7 @@
   <h3 class="page-section-subheader">SAT</h3>
 
   <section class="page-prose">
-    <p>The average SAT score for the <span style="font-weight: bold;">Class of {{ stat.year.previous_start_year }}</span>, with critical reading, writing and mathematics results combined. 
+    <p>The average SAT score for students graduating in <span style="font-weight: bold;">{{ stat.year.previous_year }}</span>, with critical reading, writing and mathematics results combined. 
     The maximum score is 2400. For the small percentage of students who took the redesigned SAT with a maximum score of 1600, their scores were converted to the equivalent scores on the previous SAT using College Board concordance tables.</p>
   </section>
 
@@ -53,7 +53,7 @@
   <h3 class="page-section-subheader">ACT</h3>
 
   <section class="page-prose">
-    <p>The average ACT composite score for the <span style="font-weight: bold;">Class of {{ stat.year.previous_start_year }}</span>. The maximum score is 36.</p>
+    <p>The average ACT composite score for students graduating in <span style="font-weight: bold;">{{ stat.year.previous_year }}</span>. The maximum score is 36.</p>
   </section>
 
   <section class="row metrics">
@@ -64,7 +64,7 @@
 
   <section class="page-prose">
     <p>A graduate is <a href="{% url 'about' %}#college-ready">considered college ready in Reading or Math</a> if he or she has met or exceeded the college-ready criteria on the Texas Success Initiative Assessment (TSIA) test, the SAT or the ACT test. 
-    These figures are for the <span style="font-weight: bold;">Class of {{ stat.year.previous_start_year }}</span>.</p>
+    These figures are for students graduating in <span style="font-weight: bold;">{{ stat.year.previous_year }}</span>.</p>
   </section>
 
   <section class="row metrics">
