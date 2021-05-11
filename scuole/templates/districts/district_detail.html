@@ -32,7 +32,13 @@
 {% include "includes/intro_metrics.html" with stat=stat state=state only %}
 
 <section class="page-prose">
-  <p><strong>{{ district.name }}</strong> is a {% if district.charter %}charter {% endif %}school district in <strong>{{ district.location|default:"Texas" }}</strong>. As of the <strong>{{ stat.year.name }}</strong> school year, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received an accountability rating of <strong>{{ stat.smart_accountability_rating_display|capfirst }}</strong> for the previous school year. <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school. <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs.</p>
+  <p>
+    <strong>{{ district.name }}</strong> is a {% if district.charter %}charter {% endif %}school district in <strong>{{ district.location|default:"Texas" }}</strong>. 
+    As of the <strong>{{ stat.year.name }}</strong> school year, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. 
+    <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school. 
+    <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs. 
+    The school received an accountability rating of <strong>{{ stat.smart_accountability_rating_display|capfirst }}</strong> for the previous school year.
+  </p>
 
   <p>
     {% if stat.four_year_graduate_all_students_percent and stat.four_year_graduate_all_students_percent >= 0 %}
@@ -40,12 +46,12 @@
     {% endif %}
 
     {% if stat.dropout_all_students_percent and stat.dropout_all_students_percent >= 0 %}
-    The dropout rate for students in grades 9-12 was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong> for the <strong>{{ stat.year.previous_year }}</strong> school year.{% endif %}
+    The dropout rate for students in grades 9-12 was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong> during the <strong>{{ stat.year.previous_year }}</strong> school year.{% endif %}
   </p>
 
   <p>
     {% if stat.avg_sat_score_all_students >= 0 %}
-    The average SAT score at {{ district.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong> for students graduating the previous year.
+    The average SAT score at {{ district.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong> for <strong>{{ stat.year.previous_year }}</strong> graduates.
     {% endif %}
     {% if stat.avg_act_score_all_students >= 0 %}
     The average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>.

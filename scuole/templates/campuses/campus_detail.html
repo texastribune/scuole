@@ -36,21 +36,27 @@
 {% include "includes/intro_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
 
 <section class="page-prose">
-  <p><strong>{{ campus.name }}</strong> is {% if campus.school_type == 'E' or campus.school_type == 'B' %}an{% else %}a{% endif %} {% if campus.charter %}charter {% endif %}{{ campus.get_school_type_display|lower }} in <strong>{{ campus.location|default:"Texas" }}</strong>, in the <strong>{{ campus.district.name }}</strong> school district. As of the <strong>{{ stat.year.name }}</strong> school year, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. The school received an accountability rating of <strong>{{ stat.smart_accountability_rating_display|capfirst }}</strong> for the previous school year. <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school. <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs.</p>
+  <p>
+    <strong>{{ campus.name }}</strong> is {% if campus.school_type == 'E' or campus.school_type == 'B' %}an{% else %}a{% endif %} {% if campus.charter %}charter {% endif %}{{ campus.get_school_type_display|lower }} in <strong>{{ campus.location|default:"Texas" }}</strong>, in the <strong>{{ campus.district.name }}</strong> school district. 
+    As of the <strong>{{ stat.year.name }}</strong> school year, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. 
+    <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school. 
+    <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs. 
+    The school received an accountability rating of <strong>{{ stat.smart_accountability_rating_display|capfirst }}</strong> for the previous school year.
+  </p>
 
   <p>
     {% if stat.four_year_graduate_all_students_percent and stat.four_year_graduate_all_students_percent >= 0 %}
     In the Class of {{ stat.year.start_year }}, <strong>{{ stat.four_year_graduate_all_students_percent|floatformat }}%</strong> of students received their high school diplomas on time or earlier.
     {% endif %}
     {% if stat.dropout_all_students_percent and stat.dropout_all_students_percent >= 0 %}
-    The dropout rate for students in grades 9-12 was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong> for the <strong>{{ stat.year.previous_year }}</strong> school year.
+    The dropout rate for students in grades 9-12 was <strong>{{ stat.dropout_all_students_percent|floatformat }}%</strong> during the <strong>{{ stat.year.previous_year }}</strong> school year.
     {% endif %}
   </p>
 
   <p>
     {% if campus.is_secondary_school %}
       {% if stat.avg_sat_score_all_students >= 0 %}
-      The average SAT score at {{ campus.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong> for students graduating the previous year.
+      The average SAT score at {{ campus.name }} was <strong>{{ stat.avg_sat_score_all_students }}</strong> for <strong>{{ stat.year.previous_year }}</strong> graduates.
       {% endif %}
       {% if stat.avg_act_score_all_students >= 0 %}
       The average ACT score was <strong>{{ stat.avg_act_score_all_students }}</strong>.
@@ -63,7 +69,7 @@
     As of the <strong>{{ stat.year.name }}</strong> school year, an average teacher's salary was <strong>${{ stat.teacher_avg_base_salary|floatformat:"0"|intcomma }}</strong>, which is <strong>${{ stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary|absolute|floatformat:"0"|intcomma }} {% if stat.teacher_avg_base_salary|subtract:state.teacher_avg_base_salary < 0 %}less{% else %}more{% endif %}</strong> than the state average.
     {% endif %}
 
-    {% if stat.teacher_ave_experience %}
+    {% if stat.teacher_avg_experience %}
     On average, teachers had <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.
     {% endif %}
   </p>
