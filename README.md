@@ -403,7 +403,7 @@ The easiest solution is to follow the instructions from the answer for the dupli
 ### Why is my operation getting killed when I run `make compose/test-deploy` and `make compose/production-deploy`?
 This may be due to memory issues. It typically gets killed when packages are being installed in the Docker container.
 
-You can run `make free-space` to get rid of unused Docker containers. You can also remove containers one by one by running `docker ls` to see each container and its ID, followed by `docker rm -f <container-id>`. To see the size of each container, run `docker container ls --all --size`.
+You can run `make free-space` to get rid of unused Docker containers. You can also remove containers one by one by running `docker container ls` to see each container and its ID, followed by `docker rm -f <container-id>`. To see the size of each container, run `docker container ls --all --size`.
 
 ### Django doesn't know where the the database is.
 To ensure Django knows where to look, you may need to set the `DATABASE_URL`. If you are not using the Docker provided database, use `DATABASE_URL` to tell the app what you've done instead. We haven't needed to set this lately.
