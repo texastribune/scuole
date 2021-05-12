@@ -40,8 +40,12 @@
     <strong>{{ campus.name }}</strong> is {% if campus.school_type == 'E' or campus.school_type == 'B' %}an{% else %}a{% endif %} {% if campus.charter %}charter {% endif %}{{ campus.get_school_type_display|lower }} in <strong>{{ campus.location|default:"Texas" }}</strong>, in the <strong>{{ campus.district.name }}</strong> school district. 
     As of the <strong>{{ stat.year.name }}</strong> school year, it had <strong>{{ stat.all_students_count|intcomma }} students</strong>. 
     <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school. 
-    <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs. 
-    The school received an accountability rating of <strong>{{ stat.smart_accountability_rating_display|capfirst }}</strong> for the previous school year.
+    <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs.
+  </p>
+
+  <p>
+    The school received an accountability rating of <strong>{{ stat.smart_accountability_rating_display|capfirst }}</strong> for the previous school year. 
+    Because of the coronavirus pandemic, the state waived accountability ratings for the 2019-2020 school year.
   </p>
 
   <p>
