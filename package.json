@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.2",
-    "@turf/bbox": "^6.0.1",
+    "@turf/bbox": "^6.5.0",
     "d3-array": "^1.2.0",
     "d3-scale": "^1.0.6",
     "d3-shape": "^1.2.0",
