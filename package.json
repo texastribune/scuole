@@ -39,7 +39,7 @@
     "imagemin-jpegtran": "^7.0.0",
     "imagemin-optipng": "^8.0.0",
     "imagemin-svgo": "^8.0.0",
-    "postcss": "^7.0.36",
+    "postcss": "^8.3.10",
     "postcss-flexbugs-fixes": "^4.1.0",
     "prettier": "^1.16.4",
     "sass": "^1.18.0",
