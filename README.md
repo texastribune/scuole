@@ -208,7 +208,7 @@ Lastly, run `make data/bootstrap-entities` to create the district and campus mod
 
 **Updating locally**
 
-Run `pipenv shell`, followed by `make data/update-directories` to update the data. You can also run each command in that block separately, your choice! 
+Run `pipenv shell`, followed by `make data/update-directories` to update the data. You can also run each command in that block separately, your choice!
 
 **Updating on the test and production servers**
 
@@ -224,9 +224,11 @@ Then, run this command to load the latest AskTED data:
 make data/update-directories
 ```
 
-If you run into any duplicate key errors during the AskTED update, refer to the [Troubleshooting section](https://github.com/texastribune/scuole#troubleshooting) for instructions on how to clear a table. You'll need to clear the table that is throwing this error, and reload the data.
+If you run into any duplicate key errors during the AskTED update, refer to the [Troubleshooting section](https://github.com/texastribune/scuole#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database) for instructions on how to clear a table. You'll need to clear the table that is throwing this error, and reload the data.
 
 Some of the data we load will be pulled from the [AskTED website](https://tea4avholly.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx]). There may be data formatting errors with some of the data as its being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You'll need to edit this function or create new ones if you're running into problems loading the data from AskTED.
+
+Also, all of the AskTED URLs and constants that we use when running `make data/update-directories` are subject to change! They are in `constants.py`. If AskTED changes its download data link, or any of the variables that we use in our POST request (like `VIEWSTATE`), the command will error. To check for the correct values, I look on AskTED's website for the correct download URL, hit the download file button, open up the `Network` tab in the console, look at the request the download file button triggered and check the `Payload` tab.
 
 ### Updating TAPR data
 First, follow the instructions in this [Confluence document](https://texastribune.atlassian.net/wiki/spaces/APPS/pages/163844/How+to+update+Public+Schools+2019) to download and format the TAPR data.
