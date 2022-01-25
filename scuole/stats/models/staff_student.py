@@ -283,8 +283,15 @@ class StaffStudentBase(models.Model):
         null=True,
         blank=True,
     )
-    teacher_avg_20_plus_year_salary = models.DecimalField(
-        "Average salary for teachers with over 20 years experience",
+    teacher_avg_21_to_30_year_salary = models.DecimalField(
+        "Average salary for teachers with 21-30 years experience",
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True,
+    )
+    teacher_avg_30_plus_year_salary = models.DecimalField(
+        "Average salary for teachers with over 30 years experience",
         max_digits=10,
         decimal_places=2,
         null=True,

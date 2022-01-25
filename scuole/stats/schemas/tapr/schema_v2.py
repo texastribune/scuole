@@ -53,8 +53,9 @@ SCHEMA = {
     "limited_english_proficient_percent": "{short_code}PETLEPP",
     "bilingual_esl_count": "{short_code}PETBILC",
     "bilingual_esl_percent": "{short_code}PETBILP",
-    "career_technical_education_count": "{short_code}PETVOCC",
-    "career_technical_education_percent": "{short_code}PETVOCP",
+    # removed for 2020-21 data
+    # "career_technical_education_count": "{short_code}PETVOCC",
+    # "career_technical_education_percent": "{short_code}PETVOCP",
     "gifted_and_talented_count": "{short_code}PETGIFC",
     "gifted_and_talented_percent": "{short_code}PETGIFP",
     "special_education_count": "{short_code}PETSPEC",
@@ -82,7 +83,8 @@ SCHEMA = {
     "teacher_avg_1_to_5_year_salary": "{short_code}PST01SA",
     "teacher_avg_6_to_10_year_salary": "{short_code}PST06SA",
     "teacher_avg_11_to_20_year_salary": "{short_code}PST11SA",
-    "teacher_avg_20_plus_year_salary": "{short_code}PST20SA",
+    "teacher_avg_21_to_30_year_salary": "{short_code}PST21SA",
+    "teacher_avg_30_plus_year_salary": "{short_code}PST30SA",
     "teacher_total_fte_count": "{short_code}PSTTOFC",
     "teacher_african_american_fte_count": "{short_code}PSTBLFC",
     "teacher_american_indian_fte_count": "{short_code}PSTINFC",
@@ -312,8 +314,13 @@ SCHEMA = {
     "four_year_graduate_limited_english_proficient_percent": "{short_code}L3C4{suffix}{year}R",
     # reference
     "accountability_rating": "{short_code}_RATING",
-    # accountability
+    # latest accountability
     "student_achievement_rating": "{short_code}D1G",
     "school_progress_rating": "{short_code}D2G",
     "closing_the_gaps_rating": "{short_code}D3G",
+    # 2018-19 accountability, because all schools were not rated in 2019-20 and 2020-21
+    "accountability_rating_18_19": "{short_code}_RATING_18_19", 
+    "student_achievement_rating_18_19": "{short_code}D1G_18_19",
+    "school_progress_rating_18_19": "{short_code}D2G_18_19",
+    "closing_the_gaps_rating_18_19": "{short_code}D3G_18_19",
 }

@@ -13,11 +13,13 @@ from scuole.states.models import State
 
 DATA_FILES = (
     "accountability.csv",
+    "accountability_2018-2019.csv",
     "reference.csv",
     "longitudinal-rate.csv",
     "postsecondary-readiness-and-non-staar-performance-indicators.csv",
     "staff-and-student-information.csv",
     "attendance.csv",
+    "testing.csv",
 )
 
 AF_ACCOUNTABILITY_FIELDS = (
@@ -89,6 +91,7 @@ class Command(BaseCommand):
 
             # loop through each file for each unit
             for file_name in DATA_FILES:
+                # if we're on the reference file and there is no accountability rating
                 if file_name == "reference.csv" and not include_accountability_rating:
                     continue
 
@@ -114,88 +117,103 @@ class Command(BaseCommand):
             bulk_list = []
 
             # loop through the formatted data
-            for row in data:
-                # get the identifier
-                # i.e. for districts, the identifier is 'tea_id'
-                identifier = row.get(id_column)
+            # for row in data:
+            #     # get the identifier
+            #     # i.e. for districts, the identifier is 'DISTRICT'
+            #     identifier = row.get(id_column)
 
-                # get the model instance with the identifier
-                instance = self.get_model_instance(
-                    name, identifier, id_field, active_model
-                )
+            #     # get the model instance with the identifier
+            #     instance = self.get_model_instance(
+            #         name, identifier, id_field, active_model
+            #     )
 
-                # write the instance name out to the terminal so we know
-                self.stdout.write(instance.name)
+            #     # write the instance name out to the terminal so we know
+            #     self.stdout.write(instance.name)
 
-                try:
-                    stats_model._meta.get_field("accountability_rating")
-                    include_accountability_rating = True
-                except FieldDoesNotExist:
-                    include_accountability_rating = False
+            #     # check if the corresponding model has an A-F rating field
+            #     try:
+            #         stats_model._meta.get_field("accountability_rating")
+            #         include_accountability_rating = True
+            #     except FieldDoesNotExist:
+            #         include_accountability_rating = False
 
-                payload = {"year": school_year, "defaults": {}, name: instance}
+            #     payload = {"year": school_year, "defaults": {}, name: instance}
 
-                # loop through the schema again
-                for field_name, template in SCHEMA.items():
-                    # skip the accountability fields for things that don't have those (state and region)
-                    if (
-                        field_name in ACCOUNTABILITY_FIELDS
-                        and not include_accountability_rating
-                    ):
-                        continue
+            #     # loop through the schema again
+            #     for field_name, template in SCHEMA.items():
+            #         # skip the accountability fields for things that don't have those (state and region)
+            #         if (
+            #             field_name in ACCOUNTABILITY_FIELDS
+            #             and not include_accountability_rating
+            #         ):
+            #             continue
 
-                    if "four_year_graduate" in field_name and short_code in ("C", "D"):
-                        suffix = "X"
-                    else:
-                        suffix = ""
+            #         if "four_year_graduate" in field_name and short_code in ("C", "D"):
+            #             suffix = "X"
+            #         else:
+            #             suffix = ""
 
-                    column = template.format(
-                        short_code=short_code, year=short_year, suffix=suffix
-                    )
+            #         column = template.format(
+            #             short_code=short_code, year=short_year, suffix=suffix
+            #         )
 
-                    value = row[column]
+            #         # print('COLUMN', column)
+            #         print('ROWWW', row)
 
-                    if value == ".":
-                        value = None
+            #         print(row[short_code + 'D1G_18_19'])
+                    
+            #         # for the A-F ratings or subratings
+            #         if column in [short_code + 'D1G_18_19', short_code + 'D2G_18_19', short_code + 'D3G_18_19']: 
+            #             print('COLUMN', column)
+            #             if column in row:
+            #                 print('has it!')
+            #             else:
+            #                 print('does not have it')
 
-                    payload["defaults"][field_name] = value
+                    # FAILS ON THIS ROW
+                    # value = row[column]
 
-                if include_accountability_rating:
-                    # In 2018-2019, some accountability ratings showed up as 'Data Integrity Issues', which is 
-                    # not a choice in `references.py`, so we replace it with `Q` which we do list and is
-                    # the code for that problem
-                    if payload['defaults']['accountability_rating'] == "Data Integrity Issues":
-                        payload['defaults']['accountability_rating'] = 'Q'
+                    # if value == ".":
+                    #     value = None
 
-                    for field in ACCOUNTABILITY_FIELDS:
-                        if field not in payload["defaults"]:
-                            continue
+                    # payload["defaults"][field_name] = value
 
-                        # Ratings may not show up as a code (i.e. "Not Rated")
-                        # so we match the rating up to a code with RATING_MATCH
-                        # in `reference.py`
-                        payload["defaults"][field] = stats_model.RATING_MATCH.get(
-                            payload["defaults"][field], payload["defaults"][field]
-                        )
+            #     if include_accountability_rating:
+            #         # In 2018-2019, some accountability ratings showed up as 'Data Integrity Issues', which is 
+            #         # not a choice in `references.py`, so we replace it with `Q` which we do list and is
+            #         # the code for that problem
+            #         if payload['defaults']['accountability_rating'] == "Data Integrity Issues":
+            #             payload['defaults']['accountability_rating'] = 'Q'
 
-                # We have to flag whether we're in A-F land or not
-                if "student_achievement_rating" in payload["defaults"]:
-                    payload["defaults"]["uses_legacy_ratings"] = False
+            #         for field in ACCOUNTABILITY_FIELDS:
+            #             if field not in payload["defaults"]:
+            #                 continue
 
-                if use_bulk:
-                    bulk_payload = payload["defaults"]
-                    bulk_payload["year"] = payload["year"]
-                    bulk_payload[name] = payload[name]
+            #             # Ratings may not show up as a code (i.e. "Not Rated")
+            #             # so we match the rating up to a code with RATING_MATCH
+            #             # in `reference.py`
+            #             payload["defaults"][field] = stats_model.RATING_MATCH.get(
+            #                 payload["defaults"][field], payload["defaults"][field]
+            #             )
 
-                    bulk_list.append(stats_model(**bulk_payload))
-                else:
-                    # print(payload)
-                    # print(stats_model.objects)
-                    # print(instance.name, payload)
-                    stats_model.objects.update_or_create(**payload)
+            #     # We have to flag whether we're in A-F land or not
+            #     if "student_achievement_rating" in payload["defaults"]:
+            #         payload["defaults"]["uses_legacy_ratings"] = False
 
-            if use_bulk:
-                stats_model.objects.bulk_create(bulk_list)
+            #     if use_bulk:
+            #         bulk_payload = payload["defaults"]
+            #         bulk_payload["year"] = payload["year"]
+            #         bulk_payload[name] = payload[name]
+
+            #         bulk_list.append(stats_model(**bulk_payload))
+            #     else:
+            #         # print(payload)
+            #         # print(stats_model.objects)
+            #         # print(instance.name, payload)
+            #         stats_model.objects.update_or_create(**payload)
+
+            # if use_bulk:
+            #     stats_model.objects.bulk_create(bulk_list)
 
     def data_list_joiner(self, id_column, data, valid_keys, file_name):
         # loop through each row in the data
