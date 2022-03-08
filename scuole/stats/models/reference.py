@@ -51,21 +51,22 @@ class ReferenceBase(models.Model):
         "Not Rated: Declared State of Disaster": NOT_RATED_DISASTER
     }
 
+    uses_legacy_ratings = models.BooleanField(
+        help_text="This Stats model uses the old accountability system", default=True
+    )
+
+    # latest accountability ratings
     accountability_rating = models.CharField(
-        _("Accountability rating"),
+        _("Accountability rating from the latest year"),
         max_length=2,
         choices=RATING_CHOICES,
         blank=True,
         default="",
     )
 
-    uses_legacy_ratings = models.BooleanField(
-        help_text="This Stats model uses the old accountability system", default=True
-    )
-
     # Only exists for schools with A-F
     student_achievement_rating = models.CharField(
-        _("Student achievement rating"),
+        _("Student achievement rating from the latest year"),
         max_length=2,
         choices=RATING_CHOICES,
         blank=True,
@@ -73,7 +74,7 @@ class ReferenceBase(models.Model):
     )
 
     school_progress_rating = models.CharField(
-        _("School progress rating"),
+        _("School progress rating from the latest year"),
         max_length=2,
         choices=RATING_CHOICES,
         blank=True,
@@ -81,7 +82,40 @@ class ReferenceBase(models.Model):
     )
 
     closing_the_gaps_rating = models.CharField(
-        _("Closing the gaps rating"),
+        _("Closing the gaps rating from the latest year"),
+        max_length=2,
+        choices=RATING_CHOICES,
+        blank=True,
+        default="",
+    )
+
+    # accountability ratings from 2018-19
+    accountability_rating_18_19 = models.CharField(
+        _("Accountability rating from 2018-19"),
+        max_length=2,
+        choices=RATING_CHOICES,
+        blank=True,
+        default="",
+    )
+
+    student_achievement_rating_18_19 = models.CharField(
+        _("Student achievement rating from 2018-19"),
+        max_length=2,
+        choices=RATING_CHOICES,
+        blank=True,
+        default="",
+    )
+
+    school_progress_rating_18_19 = models.CharField(
+        _("School progress rating from 2018-19"),
+        max_length=2,
+        choices=RATING_CHOICES,
+        blank=True,
+        default="",
+    )
+
+    closing_the_gaps_rating_18_19 = models.CharField(
+        _("Closing the gaps rating from 2018-19"),
         max_length=2,
         choices=RATING_CHOICES,
         blank=True,
