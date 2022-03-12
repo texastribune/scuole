@@ -3,76 +3,82 @@
 <section class="section js-metrics-block" id="academics">
   <h2 class="page-section-header">Academics</h2>
   {% if not is_state %}
-  <h3 class="page-section-subheader">Accountability ratings</h3>
+    <h3 class="page-section-subheader">Accountability ratings</h3>
 
-  <div class="page-prose">
-    <p>Texas assigns ratings to districts and campuses that designate their performance in relation to the state's accountability system.</p>
-    
-    <div class="coronavirus-announcement">
-      <p>
-        <span style="font-weight: bold;">Because of the coronavirus pandemic, the state 
-        <a href="https://tea.texas.gov/texas-schools/accountability/academic-accountability/performance-reporting/2021-accountability-rating-system">waived accountability ratings</a> 
-        for the 2020-2021 school year.</span> All Texas public school districts and campuses received the label “Not Rated: Declared State of Disaster.” 
-        Our schools explorer shows the accountability ratings from the <span style="font-weight: bold;">2018-2019</span> <span style="white-space: nowrap;">school year</span>.
-      </p>
+    <div class="page-prose">
+      <p>Texas assigns ratings to districts and campuses that designate their performance in relation to the state's accountability system.</p>
+      
+      {% include 'includes/disclaimer.html' %}
     </div>
-  </div>
 
-  <section class="row metrics">
-    {% if stat.has_legecy_ratings %}
-    {% include 'includes/metric.html' with title="Accountability rating" field="smart_accountability_rating_display" field_type="" skip_state=True %}
-    {% else %}
-    {% include 'includes/metric.html' with title="Overall" field="smart_accountability_rating_display" field_type="" skip_state=True %}
-    {% include 'includes/metric.html' with title="Student achievement" field="smart_student_achievement_rating_display" field_type="" skip_state=True %}
-    {% include 'includes/metric.html' with title="School progress" field="smart_school_progress_rating_display" field_type="" skip_state=True %}
-    {% include 'includes/metric.html' with title="Closing the gaps" field="smart_closing_the_gaps_rating_display" field_type="" skip_state=True %}
-    {% endif %}
-  </section>
+    <section class="row metrics">
+      {% if stat.has_legecy_ratings %}
+        {% include 'includes/metric.html' with title="Accountability rating" field="smart_accountability_rating_display" field_header="smart_accountability_rating_header_display" field_type="" skip_state=True %}
+      {% else %}
+        {% include 'includes/metric.html' with title="Overall" field="smart_accountability_rating_display" field_header="smart_accountability_rating_header_display" field_type="" skip_state=True %}
+        {% include 'includes/metric.html' with title="Student achievement" field="smart_student_achievement_rating_display" field_header="smart_accountability_rating_header_display" field_type="" skip_state=True %}
+        {% include 'includes/metric.html' with title="School progress" field="smart_school_progress_rating_display" field_header="smart_accountability_rating_header_display" field_type="" skip_state=True %}
+        {% include 'includes/metric.html' with title="Closing the gaps" field="smart_closing_the_gaps_rating_display" field_header="smart_accountability_rating_header_display" field_type="" skip_state=True %}
+      {% endif %}
+    </section>
 
-  <div class="page-prose">
-    <p>The overall grades are based on three categories: student achievement (how well students perform academically), school progress (how well students perform over time and compared to students in similar schools) and closing the gaps (how well schools are boosting performance for subgroups such as students with special needs).</p>
-    <p>For a detailed explanation of this year’s accountability system, see the <a href="https://tea.texas.gov/{{ stat.year.end_year }}accountabilitymanual.aspx">{{ stat.year.end_year }} Accountability Manual</a>.</p>
+    <div class="page-prose">
+      <p>The overall grades are based on three categories: student achievement (how well students perform academically), school progress (how well students perform over time and compared to students in similar schools) and closing the gaps (how well schools are boosting performance for subgroups such as students with special needs).</p>
+      <p>For a detailed explanation of this year’s accountability system, see the <a href="https://tea.texas.gov/{{ stat.year.end_year }}accountabilitymanual.aspx">{{ stat.year.end_year }} Accountability Manual</a>.</p>
     </div>
-  {% endif %}
-  {% if campus.is_secondary_school or include_postsecondary %}
-  <h3 class="page-section-subheader">Four-year graduation rates</h3>
-
-  <div class="page-prose">
-    <p>The percentage of students who started ninth grade in {{ stat.year.ninth_grade_year }} and received a high school diploma on time &mdash; by <strong>Aug. 31, {{ stat.year.end_year }}</strong>. <a href="{% url 'about' %}#four-year-grad">Learn more about how four-year graduation rates are defined</a>.</p>
-  </div>
-
-  <section class="row metrics">
-    {% include 'includes/metric.html' with title="All students" field="four_year_graduate_all_students_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="African American" field="four_year_graduate_african_american_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="American Indian" field="four_year_graduate_american_indian_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Asian" field="four_year_graduate_asian_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Hispanic" field="four_year_graduate_hispanic_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Pacific Islander" field="four_year_graduate_pacific_islander_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="White" field="four_year_graduate_white_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Two or more races" field="four_year_graduate_two_or_more_races_percent" field_type="percent" %}
-  </section>
-
-  {% include "includes/bar_chart.html" with rows=stat.four_year_graduate_percent %}
   {% endif %}
 
   {% if campus.is_secondary_school or include_postsecondary %}
-  <h3 class="page-section-subheader">Dropout rates</h3>
+    <h3 class="page-section-subheader">Four-year graduation rates</h3>
 
-  <div class="page-prose">
-    <p>The dropout rate for students in grades 9-12 during the <span style="font-weight: bold;">{{ stat.year.previous_year }}</span> school year. 
-    It is calculated by dividing the number of dropouts by the number of students who were in attendance at any time during the school year.</p>
-  </div>
+    <div class="page-prose">
+      <p>The percentage of students who started ninth grade in {{ stat.year.ninth_grade_year }} and received a high school diploma on time &mdash; by <strong>Aug. 31, {{ stat.year.end_year }}</strong>. <a href="{% url 'about' %}#four-year-grad">Learn more about how four-year graduation rates are defined</a>.</p>
+    </div>
 
-  <section class="row metrics">
-    {% include 'includes/metric.html' with title="All students" field="dropout_all_students_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="American Indian" field="dropout_american_indian_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="African American" field="dropout_african_american_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Asian" field="dropout_asian_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Hispanic" field="dropout_hispanic_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Pacific Islander" field="dropout_pacific_islander_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="White" field="dropout_white_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="Two or more races" field="dropout_two_or_more_races_percent" field_type="percent" %}
-  </section>
+    <section class="row metrics">
+      {% include 'includes/metric.html' with title="All students" field="four_year_graduate_all_students_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="African American" field="four_year_graduate_african_american_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="American Indian" field="four_year_graduate_american_indian_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="Asian" field="four_year_graduate_asian_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="Hispanic" field="four_year_graduate_hispanic_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="Pacific Islander" field="four_year_graduate_pacific_islander_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="White" field="four_year_graduate_white_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="Two or more races" field="four_year_graduate_two_or_more_races_percent" field_type="percent" %}
+    </section>
+
+    {% include "includes/bar_chart.html" with rows=stat.four_year_graduate_percent %}
   {% endif %}
 
+  {% if campus.is_secondary_school or include_postsecondary %}
+    <h3 class="page-section-subheader">Dropout rates</h3>
+
+    <div class="page-prose">
+      <p>The dropout rate for students in grades 9-12 during the <span style="font-weight: bold;">{{ stat.year.previous_year }}</span> school year. 
+      It is calculated by dividing the number of dropouts by the number of students who were in attendance at any time during the school year.</p>
+    </div>
+
+    <section class="row metrics">
+      {% include 'includes/metric.html' with title="All students" field="dropout_all_students_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="American Indian" field="dropout_american_indian_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="African American" field="dropout_african_american_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="Asian" field="dropout_asian_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="Hispanic" field="dropout_hispanic_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="Pacific Islander" field="dropout_pacific_islander_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="White" field="dropout_white_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="Two or more races" field="dropout_two_or_more_races_percent" field_type="percent" %}
+    </section>
+  {% endif %}
+
+  {% if not is_state %}
+    <h3 class="page-section-subheader">Chronic absenteeism</h3>
+
+    <div class="page-prose">
+      <p>The chronic absenteeism rate for students during the <span style="font-weight: bold;">{{ stat.year.previous_year }}</span> school year. 
+      ADD DEFINITION THAT TEA USES.</p>
+    </div>
+
+    <section class="row metrics">
+      {% include 'includes/metric.html' with title="Chronic absenteeism rate" field="chronic_absenteeism_rate" field_type="percent" %}
+    </section>
+  {% endif %}
 </section>

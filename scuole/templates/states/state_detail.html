@@ -28,7 +28,7 @@
   <h1 class="page-headline">State of {{ state.get_name_display }}</h1>
 </header>
 
-{% include "includes/intro_metrics.html" with stat=stat only %}
+{% include "includes/intro_metrics.html" with stat=stat is_state=True only %}
 
 <section class="page-prose">
   <p>As of the <strong>{{ stat.year.name }} school year</strong>, there were <strong>{{ stat.all_students_count|intcomma }} students</strong> in {{ state.get_name_display }}. <strong>{{ stat.at_risk_percent|floatformat }}%</strong> of students were considered at risk of dropping out of school, and <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs.</p>

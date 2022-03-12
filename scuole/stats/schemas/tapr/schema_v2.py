@@ -267,6 +267,7 @@ SCHEMA = {
     # 'four_year_graduate_limited_english_proficient_percent': 'L3C4X',
     # attendence
     "attendance_rate": "{short_code}A0AT{year}R",
+    "chronic_absenteeism_rate": "{short_code}A0CA{year}R", 
     # longitudinal-rate
     # 'dropout_all_students_count': 'A0912DR',
     "dropout_all_students_percent": "{short_code}A0912DR{year}R",
@@ -319,7 +320,7 @@ SCHEMA = {
     "school_progress_rating": "{short_code}D2G",
     "closing_the_gaps_rating": "{short_code}D3G",
     # 2018-19 accountability, because all schools were not rated in 2019-20 and 2020-21
-    "accountability_rating_18_19": "{short_code}_RATING_18_19", 
+    "accountability_rating_18_19": "{short_code}_RATING_18_19",
     "student_achievement_rating_18_19": "{short_code}D1G_18_19",
     "school_progress_rating_18_19": "{short_code}D2G_18_19",
     "closing_the_gaps_rating_18_19": "{short_code}D3G_18_19",

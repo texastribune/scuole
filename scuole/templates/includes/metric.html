@@ -1,6 +1,12 @@
 {% load humanize stats_tags %}
 <div class="metric{% if full_row %} metric--full-row{% endif %}">
-  <p class="metric-title">{{ title }}</p>
+  <p class="metric-title">{{ title }} 
+    {% if not is_state %}
+      {% if title == "Accountability rating" or title == "Overall" or title == "Student achievement" or title == "School progress" or title == "Closing the gaps" %}
+        ({% accountability_year_stat stat field_header %})
+      {% endif %}
+    {% endif %}
+  </p>
   <p class="metric-value{% if bigger_value %} metric-value--bigger{% endif %}">
     {% display_stat stat field field_type value_label=True %}{% if extra_field %}<span class="metric-subtext"> ({% display_stat stat extra_field extra_field_type %})</span>{% endif %}
   </p>
