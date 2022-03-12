@@ -13,7 +13,7 @@ from scuole.states.models import State
 
 DATA_FILES = (
     "accountability.csv",
-    "accountability_2018-2019_formatted.csv",
+    "accountability_2018-2019.csv",
     "reference.csv",
     "longitudinal-rate.csv",
     "postsecondary-readiness-and-non-staar-performance-indicators.csv",
