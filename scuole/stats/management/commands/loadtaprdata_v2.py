@@ -116,7 +116,8 @@ class Command(BaseCommand):
 
             # get the columns from the data that are included in the prepared_schema
             data = self.matched_data.values()
-            data = [x for x in data if f'{short_code}_RATING' in x]
+            if mapping['folder'] == 'district' or mapping['folder'] == 'campus':
+                data = [x for x in data if f'{short_code}_RATING' in x]
             bulk_list = []
 
             # loop through the formatted data

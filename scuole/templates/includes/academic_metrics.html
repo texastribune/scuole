@@ -69,16 +69,21 @@
     </section>
   {% endif %}
 
-  {% if not is_state %}
-    <h3 class="page-section-subheader">Chronic absenteeism</h3>
+  <h3 class="page-section-subheader">Chronic absenteeism</h3>
 
-    <div class="page-prose">
-      <p>The chronic absenteeism rate for students during the <span style="font-weight: bold;">{{ stat.year.previous_year }}</span> school year. 
-      ADD DEFINITION THAT TEA USES.</p>
-    </div>
+  <div class="page-prose">
+    <p>The chronic absenteeism rate for students during the <span style="font-weight: bold;">{{ stat.year.previous_year }}</span> school year. 
+    ADD DEFINITION THAT TEA USES.</p>
+  </div>
 
-    <section class="row metrics">
-      {% include 'includes/metric.html' with title="Chronic absenteeism rate" field="chronic_absenteeism_rate" field_type="percent" %}
-    </section>
-  {% endif %}
+  <section class="row metrics">
+    {% include 'includes/metric.html' with title="All students" field="chronic_absenteeism_all_students_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="American Indian" field="chronic_absenteeism_american_indian_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="African American" field="chronic_absenteeism_african_american_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Asian" field="chronic_absenteeism_asian_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Hispanic" field="chronic_absenteeism_hispanic_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Pacific Islander" field="chronic_absenteeism_pacific_islander_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="White" field="chronic_absenteeism_white_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="Two or more races" field="chronic_absenteeism_two_or_more_races_percent" field_type="percent" %}
+  </section>
 </section>

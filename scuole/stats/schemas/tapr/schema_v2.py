@@ -267,7 +267,15 @@ SCHEMA = {
     # 'four_year_graduate_limited_english_proficient_percent': 'L3C4X',
     # attendence
     "attendance_rate": "{short_code}A0AT{year}R",
-    "chronic_absenteeism_rate": "{short_code}A0CA{year}R", 
+    # chronic_absenteeism_rate
+    "chronic_absenteeism_all_students_percent": "{short_code}A0CA{year}R",
+    "chronic_absenteeism_african_american_percent": "{short_code}B0CA{year}R",
+    "chronic_absenteeism_asian_percent": "{short_code}30CA{year}R",
+    "chronic_absenteeism_hispanic_percent": "{short_code}H0CA{year}R",
+    "chronic_absenteeism_american_indian_percent": "{short_code}I0CA{year}R",
+    "chronic_absenteeism_pacific_islander_percent": "{short_code}40CA{year}R",
+    "chronic_absenteeism_two_or_more_races_percent": "{short_code}20CA{year}R",
+    "chronic_absenteeism_white_percent": "{short_code}W0CA{year}R", 
     # longitudinal-rate
     # 'dropout_all_students_count': 'A0912DR',
     "dropout_all_students_percent": "{short_code}A0912DR{year}R",

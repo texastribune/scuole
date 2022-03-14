@@ -419,10 +419,10 @@ class StaffStudentBase(models.Model):
     def program_enrollment_percents(self):
         return [
             {"name": "Bilingual/ESL", "value": self.bilingual_esl_percent},
-            {
-                "name": "Career and technical",
-                "value": self.career_technical_education_percent,
-            },
+            # {
+            #     "name": "Career and technical",
+            #     "value": self.career_technical_education_percent,
+            # },
             {"name": "Gifted and talented", "value": self.gifted_and_talented_percent},
             {"name": "Special education", "value": self.special_education_percent},
         ]
