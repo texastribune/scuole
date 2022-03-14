@@ -13,20 +13,25 @@ from scuole.states.models import State
 
 DATA_FILES = (
     "accountability.csv",
+    "accountability_2018-2019.csv",
     "reference.csv",
     "longitudinal-rate.csv",
     "postsecondary-readiness-and-non-staar-performance-indicators.csv",
     "staff-and-student-information.csv",
     "attendance.csv",
+    "testing.csv",
 )
 
 AF_ACCOUNTABILITY_FIELDS = (
     "student_achievement_rating",
     "school_progress_rating",
     "closing_the_gaps_rating",
+    "student_achievement_rating_18_19",
+    "school_progress_rating_18_19",
+    "closing_the_gaps_rating_18_19",
 )
 
-ACCOUNTABILITY_FIELDS = ("accountability_rating",) + AF_ACCOUNTABILITY_FIELDS
+ACCOUNTABILITY_FIELDS = ("accountability_rating","accountability_rating_18_19") + AF_ACCOUNTABILITY_FIELDS
 
 class Command(BaseCommand):
     help = "Loads a school year's worth of TAPR data."
@@ -60,7 +65,6 @@ class Command(BaseCommand):
             active_model = mapping.get("model")
             short_code = mapping.get("short_code")
             stats_model = mapping.get("stats_model")
-
             prepared_schema = {}
 
             # add a suffix for some columns in the schema
@@ -89,6 +93,7 @@ class Command(BaseCommand):
 
             # loop through each file for each unit
             for file_name in DATA_FILES:
+                # if we're on the reference file and there is no accountability rating
                 if file_name == "reference.csv" and not include_accountability_rating:
                     continue
 
@@ -111,12 +116,14 @@ class Command(BaseCommand):
 
             # get the columns from the data that are included in the prepared_schema
             data = self.matched_data.values()
+            if mapping['folder'] == 'district' or mapping['folder'] == 'campus':
+                data = [x for x in data if f'{short_code}_RATING' in x]
             bulk_list = []
 
             # loop through the formatted data
             for row in data:
-                # get the identifier
-                # i.e. for districts, the identifier is 'tea_id'
+                # get the identifier, AKA the TEA ID of the district or campus
+                # i.e. for districts, the identifier is 'DISTRICT'
                 identifier = row.get(id_column)
 
                 # get the model instance with the identifier
@@ -127,6 +134,7 @@ class Command(BaseCommand):
                 # write the instance name out to the terminal so we know
                 self.stdout.write(instance.name)
 
+                # check if the corresponding model has an A-F rating field
                 try:
                     stats_model._meta.get_field("accountability_rating")
                     include_accountability_rating = True
@@ -153,7 +161,13 @@ class Command(BaseCommand):
                         short_code=short_code, year=short_year, suffix=suffix
                     )
 
-                    value = row[column]
+                    if column not in row:
+                        if column in [f'{short_code}D1G', f'{short_code}D2G', f'{short_code}D3G']:
+                            value = row[f'{short_code}_RATING']
+                        else:
+                            value = None
+                    else:
+                        value = row[column]
 
                     if value == ".":
                         value = None
@@ -164,8 +178,10 @@ class Command(BaseCommand):
                     # In 2018-2019, some accountability ratings showed up as 'Data Integrity Issues', which is 
                     # not a choice in `references.py`, so we replace it with `Q` which we do list and is
                     # the code for that problem
-                    if payload['defaults']['accountability_rating'] == "Data Integrity Issues":
+                    if payload['defaults']['accountability_rating'] == 'Data Integrity Issues':
                         payload['defaults']['accountability_rating'] = 'Q'
+                    if payload['defaults']['accountability_rating_18_19'] == 'Data Integrity Issues':
+                        payload['defaults']['accountability_rating_18_19'] = 'Q'
 
                     for field in ACCOUNTABILITY_FIELDS:
                         if field not in payload["defaults"]:
@@ -189,9 +205,6 @@ class Command(BaseCommand):
 
                     bulk_list.append(stats_model(**bulk_payload))
                 else:
-                    # print(payload)
-                    # print(stats_model.objects)
-                    # print(instance.name, payload)
                     stats_model.objects.update_or_create(**payload)
 
             if use_bulk:

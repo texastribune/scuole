@@ -1,7 +1,7 @@
 {% load humanize stats_tags %}
 
 <section class="row metrics">
-  {% include 'includes/metric.html' with title="Accountability rating (2018-2019)" field="smart_accountability_rating_display" field_type="" skip_state=True %}
+  {% include 'includes/metric.html' with title="Accountability rating" field="smart_accountability_rating_display" field_header="smart_accountability_rating_header_display" field_type="" skip_state=True is_state=is_state %}
   {% include 'includes/metric.html' with title="Total students" field="all_students_count" field_type="number" skip_district_state=True %}
   {% include 'includes/metric.html' with title="Avg. teacher experience" field="teacher_avg_experience" field_type="years" %}
   {% include 'includes/metric.html' with title="Four-year graduation rate" field="four_year_graduate_all_students_percent" field_type="percent" %}

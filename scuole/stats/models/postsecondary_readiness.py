@@ -553,6 +553,46 @@ class PostSecondaryReadinessBase(models.Model):
           'students present over students in membership'),
         null=True, blank=True)
 
+    chronic_absenteeism_all_students_percent = models.FloatField(
+        _('Chronic absenteeism rate as calculated by '
+          'students chronically absent over students in membership'),
+        null=True, blank=True)
+
+    chronic_absenteeism_african_american_percent = models.FloatField(
+        _('Chronic absenteeism rate as calculated by '
+          'African American students chronically absent over students in membership'),
+        null=True, blank=True)
+
+    chronic_absenteeism_asian_percent = models.FloatField(
+        _('Chronic absenteeism rate as calculated by '
+          'Asian students chronically absent over students in membership'),
+        null=True, blank=True)
+
+    chronic_absenteeism_hispanic_percent = models.FloatField(
+        _('Chronic absenteeism rate as calculated by '
+          'Hispanic students chronically absent over students in membership'),
+        null=True, blank=True)
+
+    chronic_absenteeism_american_indian_percent = models.FloatField(
+        _('Chronic absenteeism rate as calculated by '
+          'American Indian students chronically absent over students in membership'),
+        null=True, blank=True)
+
+    chronic_absenteeism_pacific_islander_percent = models.FloatField(
+        _('Chronic absenteeism rate as calculated by '
+          'Pacific Islander students chronically absent over students in membership'),
+        null=True, blank=True)
+
+    chronic_absenteeism_two_or_more_races_percent = models.FloatField(
+        _('Chronic absenteeism rate as calculated by '
+          'students of two or more races chronically absent over students in membership'),
+        null=True, blank=True)
+
+    chronic_absenteeism_white_percent = models.FloatField(
+        _('Chronic absenteeism rate as calculated by '
+          'White students chronically absent over students in membership'),
+        null=True, blank=True)
+
     class Meta:
         abstract = True
 

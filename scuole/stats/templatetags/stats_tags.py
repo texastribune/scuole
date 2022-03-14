@@ -76,3 +76,8 @@ def display_stat(stat, key, value_type=None, value_label=False):
         output = format_html('{}{}', display_value, display_descriptor)
 
     return output
+
+@register.simple_tag
+def accountability_year_stat(stat, key):
+    value = get_by_key(stat, key)
+    return value
