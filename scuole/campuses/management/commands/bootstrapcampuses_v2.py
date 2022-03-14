@@ -44,7 +44,7 @@ class Command(BaseCommand):
             for feature in features:
                 properties = feature.get("properties")
 
-                raw_id = str(int(properties.get("School_ID")))
+                raw_id = str(int(properties.get("School_Num").replace("'", '')))
                 tea_id = raw_id
 
                 # a campus ID is typically 9 digits

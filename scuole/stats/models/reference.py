@@ -51,21 +51,22 @@ class ReferenceBase(models.Model):
         "Not Rated: Declared State of Disaster": NOT_RATED_DISASTER
     }
 
+    uses_legacy_ratings = models.BooleanField(
+        help_text="This Stats model uses the old accountability system", default=True
+    )
+
+    # latest accountability ratings
     accountability_rating = models.CharField(
-        _("Accountability rating"),
+        _("Accountability rating from the latest year"),
         max_length=2,
         choices=RATING_CHOICES,
         blank=True,
         default="",
     )
 
-    uses_legacy_ratings = models.BooleanField(
-        help_text="This Stats model uses the old accountability system", default=True
-    )
-
     # Only exists for schools with A-F
     student_achievement_rating = models.CharField(
-        _("Student achievement rating"),
+        _("Student achievement rating from the latest year"),
         max_length=2,
         choices=RATING_CHOICES,
         blank=True,
@@ -73,7 +74,7 @@ class ReferenceBase(models.Model):
     )
 
     school_progress_rating = models.CharField(
-        _("School progress rating"),
+        _("School progress rating from the latest year"),
         max_length=2,
         choices=RATING_CHOICES,
         blank=True,
@@ -81,19 +82,76 @@ class ReferenceBase(models.Model):
     )
 
     closing_the_gaps_rating = models.CharField(
-        _("Closing the gaps rating"),
+        _("Closing the gaps rating from the latest year"),
         max_length=2,
         choices=RATING_CHOICES,
         blank=True,
         default="",
     )
 
+    # accountability ratings from 2018-19
+    accountability_rating_18_19 = models.CharField(
+        _("Accountability rating from 2018-19"),
+        max_length=2,
+        choices=RATING_CHOICES,
+        blank=True,
+        default="",
+        null=True,
+    )
+
+    student_achievement_rating_18_19 = models.CharField(
+        _("Student achievement rating from 2018-19"),
+        max_length=2,
+        choices=RATING_CHOICES,
+        blank=True,
+        default="",
+        null=True,
+    )
+
+    school_progress_rating_18_19 = models.CharField(
+        _("School progress rating from 2018-19"),
+        max_length=2,
+        choices=RATING_CHOICES,
+        blank=True,
+        default="",
+        null=True,
+    )
+
+    closing_the_gaps_rating_18_19 = models.CharField(
+        _("Closing the gaps rating from 2018-19"),
+        max_length=2,
+        choices=RATING_CHOICES,
+        blank=True,
+        default="",
+        null=True,
+    )
+
     class Meta:
         abstract = True
 
+    # handling the year shown next the intro `Accountability rating` header
+    def get_smart_rating_header_display(self, field_name):
+        display_fn = getattr(self, f"get_{field_name}_display")
+
+        if display_fn() is None:
+            return getattr(self, "year")
+        else:
+            return '2018-2019'
+
+    @property
+    def smart_accountability_rating_header_display(self):
+        return self.get_smart_rating_header_display("accountability_rating_18_19")
+    
+    
+    # handling which accountability rating is shown
     def get_smart_rating_display(self, field_name):
         display_fn = getattr(self, f"get_{field_name}_display")
 
+        # if the school or district does not have a 2018-19 rating, use the latest rating
+        if display_fn() is None:
+            display_fn = getattr(self, f"get_{field_name.replace('_18_19', '')}_display")
+
+        # if the old accountability system is used
         if self.uses_legacy_ratings:
             return display_fn()
         else:
@@ -103,19 +161,19 @@ class ReferenceBase(models.Model):
                 return value
 
             return display_fn()
-
+    
     @property
     def smart_accountability_rating_display(self):
-        return self.get_smart_rating_display("accountability_rating")
+        return self.get_smart_rating_display("accountability_rating_18_19")
 
     @property
     def smart_student_achievement_rating_display(self):
-        return self.get_smart_rating_display("student_achievement_rating")
+        return self.get_smart_rating_display("student_achievement_rating_18_19")
 
     @property
     def smart_school_progress_rating_display(self):
-        return self.get_smart_rating_display("school_progress_rating")
+        return self.get_smart_rating_display("school_progress_rating_18_19")
 
     @property
     def smart_closing_the_gaps_rating_display(self):
-        return self.get_smart_rating_display("closing_the_gaps_rating")
+        return self.get_smart_rating_display("closing_the_gaps_rating_18_19")

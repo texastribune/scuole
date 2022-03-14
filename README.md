@@ -122,7 +122,7 @@ If you're having trouble with the data, it might be because your `.env` file is 
 export DATA_FOLDER=~/Documents/tribune/github/scuole-house/scuole-data/
 ```
 
-This environmental variable should be set before running any commands that load in data.
+Replace the path shown above with the path to `scuole-data/` on your computer. This environmental variable should be set before running any commands that load in data.
 
 ### If this is not your first time loading the app, run outstanding migrations
 If this is not your first time loading the app, run this to catch up with any outstanding migrations you might have:
@@ -149,11 +149,16 @@ All good? Let's go! There are also other commands in scuole's `Makefile` at your
 
 ## Updating and deploying
 
-Every year, we need to update cohorts, TAPR, district boundaries, campus coordinates, and the entities files for districts and campuses. Ideally, we would update AskTED every quarter. 
+Every year, we need to update cohorts, TAPR, district boundaries, campus coordinates and the entities files for districts and campuses. Ideally, we would update AskTED every quarter.
 
 There are two types of data updates. One type is when you manually download the data, format it, and load it into the appropriate folder in `scuole-data`. The app then grabs the latest data from `scuole-data`. Another type is when you run a command to download the latest data directly from the website. Updating AskTED is an example of this. See [`scuole-data`](https://github.com/texastribune/scuole-data) for instructions on how to download and format the data used in `scuole`.
 
+** Here is the order of operations for updating data **: district boundaries and campus coordinates, district and campus entities, AskTED, TAPR. The cohorts update is a separate process.
+
+** Note that campus codes should be a 9 digit code. Make sure you pad the beginning of codes with fewer than 9 digits with zeros, using `zfill()` in Python. You should do the same with district codes, which have 6 digits. Also, sometimes TEA data will add an apostrophe to the front of these codes, which you'll need to remove. **
+
 ### Updating entities
+
 In this explorer, we can see data for the entire state, regions, districts, and campuses. Regions typically don't change from year to year, but districts and campuses can be added or removed. As a result, we have to update the district and campus models every year.
 
 First, make sure you've created new district and campus `entities.csv` files and added them to `scuole-data` — instructions are in [scuole-data](https://github.com/texastribune/scuole-data). We use these files to create the models.
@@ -179,7 +184,7 @@ campus.delete()
 exit()
 ```
 
-Then, run `make data/bootstrap-entities` to create the district and campus models.
+Then, switch the year in `make data/bootstrap-entities` to the year you are updating for and run that command to create the district and campus models.
 
 **Updating on the test and production servers**
 
