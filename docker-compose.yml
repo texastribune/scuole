@@ -2,9 +2,7 @@ version: '3'
 
 services:
   web:
-    build:
-      context: .
-      network: host
+    build: .
     image: schools/web:latest
     depends_on:
       - db

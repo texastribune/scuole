@@ -4,9 +4,7 @@ services:
   web:
     environment:
       - DATABASE_URL
-    build:
-      context: .
-      network: host
+    build: .
     depends_on:
       - db
     links:
