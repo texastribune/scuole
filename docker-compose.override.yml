@@ -2,11 +2,8 @@ services:
   web:
     environment:
       - DATABASE_URL
-    build: .
     depends_on:
       - db
-    links:
-      - db:db
 
   db:
     image: mdillon/postgis:9.6-alpine

@@ -1,5 +1,3 @@
-version: '2'
-
 services:
   asktedupdate:
     image: schools/web:latest

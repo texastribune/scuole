@@ -2,10 +2,6 @@ services:
   web:
     build: .
     image: schools/web:latest
-    depends_on:
-      - db
-    links:
-      - db:db
 
   proxy:
     build:
