@@ -18,7 +18,7 @@ COPY scuole/static_src /usr/src/app/scuole/static_src
 # Run build command
 RUN ["npm", "run", "build"]
 
-FROM python:3.7-alpine
+FROM python:3.10.3-alpine
 
 # Install the geo libs needed to interact with GeoDjango
 RUN apk update && \
