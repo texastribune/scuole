@@ -8,6 +8,8 @@ services:
       - db
     links:
       - db:db
+    volumes:
+      - /home/ubuntu/scuole-data:/usr/src/app/data/
 
   proxy:
     build:
