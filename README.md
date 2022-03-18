@@ -161,7 +161,7 @@ All good? Let's go! There are also other commands in scuole's `Makefile` at your
 
 ## Quick deploy
 
-Here are the bare bones instructions for updating data and code on the test and production servers, after you're satisfied with your changes locally. To read more, check out the [Updating data][https://github.com/texastribune/scuole#updating-data] and [Deploying on the test and production servers][https://github.com/texastribune/scuole#deploying-on-the-test-and-production-servers] sections.
+Here are the bare bones instructions for updating data and code on the test and production servers, after you're satisfied with your changes locally. To read more, check out the [Updating data](#updating-data) and [Deploying on the test and production servers](#deploying-on-the-test-and-production-servers) sections.
 
 1) Get onto the host machine: `ssh schools-test` (`schools-test` is the host machine. Use `schools-prod` and `schools-prod-2` to get onto the production machines.)
 2) Get into the code repo: `cd scuole`
