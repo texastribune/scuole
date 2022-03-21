@@ -210,6 +210,7 @@ class Command(BaseCommand):
 
         # get only the counties those cohorts interacted with
         counties = County.objects.filter(cohorts__in=new_cohorts).distinct()
+
         # grabs the data fields (those for numbers)
         default_fields = [i.name for i in CountyCohorts._meta.get_fields() if isinstance(i, (
                 DecimalField, FloatField, IntegerField,))]
@@ -221,6 +222,7 @@ class Command(BaseCommand):
 
             # let's be sure we only have two to work with (male/female)
             assert len(cohorts_to_combine) == 2, 'There should be only two cohorts'
+
             # creates the data for the model, all pivots are blank because
             # these are totals
             for cohort in cohorts_to_combine:
