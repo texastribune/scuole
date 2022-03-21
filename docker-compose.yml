@@ -4,10 +4,6 @@ services:
   web:
     build: .
     image: schools/web:latest
-    depends_on:
-      - db
-    links:
-      - db:db
     volumes:
       - /home/ubuntu/scuole-data:/usr/src/app/data/
 
