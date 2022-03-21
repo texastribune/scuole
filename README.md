@@ -163,11 +163,20 @@ All good? Let's go! There are also other commands in scuole's `Makefile` at your
 
 Here are the bare bones instructions for updating data and code on the test and production servers, after you're satisfied with your changes locally. To read more, check out the [Updating data](#updating-data) and [Deploying on the test and production servers](#deploying-on-the-test-and-production-servers) sections.
 
+### Deploying code changes
+
+These changes need to be made on the `schools-test`, `schools-prod` and `schools-prod-2` servers.
+
 1) Get onto the host machine: `ssh schools-test` (`schools-test` is the host machine. Use `schools-prod` and `schools-prod-2` to get onto the production machines.)
 2) Get into the code repo: `cd scuole`
 3) Get any code changes: `git pull`
-4) Rebuild and restart Docker services and containers: `make compose/test-deploy`
+4) Rebuild and restart Docker services and containers: `make compose/test-deploy` (`make compose/production-deploy` on the production servers)
 5) Make sure Docker containers are running: `docker ps` (There should a container for `web`, `db` and `proxy` services)
+
+### Deploying data changes/new data
+
+These changes only need to be made on the `schools-test` and `schools-prod` servers.
+
 6) Get into the data repo: `cd scuole-data`
 7) Get the latest data: `git pull`
 8) Get into the `web` container to make data updates: `docker exec -i -t scuole_web_1 /bin/ash`
@@ -401,6 +410,8 @@ make compose/test-deploy
 ```
 
 Your changes should now be on the [test server](schools-test.texastribune.org)! Now we're ready for production a.k.a. the big time.
+
+#### Deploying on the production server
 
 Fortunately, you only need to push data changes to one server. For `schools-prod`, we will need to pull down Github changes:
 
