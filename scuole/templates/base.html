@@ -19,7 +19,7 @@
       "url": "https://schools.texastribune.org{{ request.path }}",
       "thumbnailUrl": "http://schools.texastribune.org{% static 'images/facebook-share.jpg' %}",
       "dateCreated": "2015-12-08T06:00:00-06:00",
-      "dateModified": "2019-04-05T06:00:00-06:00",
+      "dateModified": "2022-03-21T06:00:00-06:00",
       "articleSection": "Public Education",
       "creator": ["Ryan Murphy", "Annie Daniel", "Mandi Cai"],
       "keywords": ["education", "public schools", "public education"],
@@ -48,6 +48,7 @@
 <main class="{% block main_class %}{% endblock main_class %}" id="main" role="main">
   <div class="p402_premium">
     {% block breadcrumbs %}{% endblock breadcrumbs %}
+
     {% block content %}{% endblock content %}
   </div>
 
@@ -65,7 +66,7 @@
   <div class="container">
     <nav>
       <ul>
-        <li class="copywrite">&copy; 2019 <a href="http://www.texastribune.org/">The Texas Tribune</a></li>
+        <li class="copywrite">&copy; {% now "Y" %} <a href="http://www.texastribune.org/">The Texas Tribune</a></li>
       </ul>
     </nav>
     <nav class="last-nav">

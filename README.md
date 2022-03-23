@@ -188,6 +188,17 @@ These changes only need to be made on the `schools-test` and `schools-prod` serv
 - TAPR: `make data/latest-school`
 - Cohorts: `python manage.py loadallcohorts <latest-year>`
 
+### More small changes
+
+1) Make sure you bust the cache for the schools explorer metadata on Twitter's card validator. You can do this by adding a query param to the card URL, like this: `https://schools.texastribune.org/?hello` and previewing the card.
+2) If you're updating cohorts data, make sure you're updating the years referenced in `scuole/cohorts/views.py` and `scuole/cohorts/schema/cohorts/schema.py`. Read more detail in the [cohorts data update section](#updating-cohorts-data).
+3) We have several spots in our templates that include metadata about when this explorer was last updated, such as:
+
+- Template: `scuole/templates/base.html`, variable: `dateModified`
+- Template: `scuole/templates/includes/meta.html`, variable: `article:modified_time`
+
+You need to change those! They are (probably) important for search.
+
 ## Updating data
 
 Every year, we need to update cohorts, TAPR, district boundaries, campus coordinates and the entities files for districts and campuses. Ideally, we would update AskTED every quarter.
