@@ -41,7 +41,7 @@ data/update-directories:
 data/latest-school:
 	python manage.py loadtaprdata_v2 2020-2021
 
-# Load in all past TAPR data 
+# Load in all past TAPR data
 data/all-schools:
 	python manage.py loadtaprdata 2020-2021 --bulk
 	python manage.py loadtaprdata 2019-2020 --bulk
@@ -140,7 +140,7 @@ docker/db-data:
 	@docker create \
 		--name ${APP}-db-data \
 		--entrypoint /bin/echo \
-		mdillon/postgis:9.4 "Data-only" 2>/dev/null || true
+		postgis/postgis:12 "Data-only" 2>/dev/null || true
 
 docker/db: docker/db-data
 	@echo "Starting database container..."
@@ -151,7 +151,7 @@ docker/db: docker/db-data
 		--volumes-from ${APP}-db-data \
 		--publish 5432:5432 \
 		--name ${APP}-db \
-		mdillon/postgis:9.4
+		postgis/postgis:12
 
 docker/pg-interactive:
 	@echo "Starting interactive terminal to the database..."
@@ -159,7 +159,7 @@ docker/pg-interactive:
 		--tty \
 		 --rm \
 		--link ${APP}-db:postgres \
-		mdillon/postgis:9.4 \
+		postgis/postgis:12 \
 		/bin/bash
 
 docker/nginx-build:
@@ -195,7 +195,7 @@ compose/local:
 	docker-compose -f docker-compose.local.yml build web proxy
 	docker-compose -f docker-compose.local.yml down
 	docker-compose -f docker-compose.local.yml up
-	
+
 # What we use to deploy scuole changes to the production server
 # define services that make up the app with the docker-compose.yml file, and build them
 # `down` stops and removes previously started containers
