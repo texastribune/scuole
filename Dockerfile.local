@@ -1,4 +1,4 @@
-FROM node:10 as assets
+FROM node:18 as assets
 
 # Create the folder to work in
 RUN mkdir -p /usr/src/app
