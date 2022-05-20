@@ -48,6 +48,14 @@ Public Schools 3!
 
 This project assumes you are using the provided Docker PostgreSQL database build.
 
+### Configure your computer to ssh into our test and production servers
+
+Later, we ssh into servers to put new data and app code on the test and production links. You'll need to add some configuration into your computer's ssh configuration file (`.ssh/config`). Let's just get this out of the way!
+
+The `Hosts` you are adding are `schools-prod`, `schools-prod-2` and `schools-test`. The configurations for those servers are in [this Confluence page](https://texastribune.atlassian.net/wiki/spaces/TECH/pages/167386/AWS+hosts).
+
+When you're done, save that file and quit.
+
 ### Make sure Docker is up and running
 
 ```sh
