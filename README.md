@@ -205,7 +205,7 @@ These changes only need to be made on the `schools-test` and `schools-prod` serv
 ### More small changes
 
 1) Make sure you bust the cache for the schools explorer metadata on Twitter's card validator. You can do this by adding a query param to the card URL, like this: `https://schools.texastribune.org/?hello` and previewing the card.
-2) If you're updating cohorts data, make sure you're updating the years referenced in `scuole/cohorts/views.py` and `scuole/cohorts/schema/cohorts/schema.py`. Read more detail in the [cohorts data update section](#updating-cohorts-data).
+2) If you're updating cohorts data, make sure you're updating the years referenced in `scuole/cohorts/views.py` and `scuole/cohorts/schemas/cohorts/schema.py`. Read more detail in the [cohorts data update section](#updating-cohorts-data).
 3) We have several spots in our templates that include metadata about when this explorer was last updated, such as:
 
 - Template: `scuole/templates/base.html`, variable: `dateModified`
@@ -335,7 +335,7 @@ After you've put the latest cohorts data in `scuole-data`, you'll need to add a 
 
 Lastly, you will need to change the `latest_cohort_year` variable in **all of the functions** in the `scuole/cohorts/views.py` file to reference the latest cohorts school year.
 
-Also, make sure the `scuole/cohorts/schema/cohorts/schema.py` has the correct years (i.e. you'll need to change the year in `8th Grade (FY 2009)` for the reference `'enrolled_8th': '8th Grade (FY 2009)'`, along with the rest of the references.)
+Also, make sure the `scuole/cohorts/schemas/cohorts/schema.py` has the correct years (i.e. you'll need to change the year in `8th Grade (FY 2009)` for the reference `'enrolled_8th': '8th Grade (FY 2009)'`, along with the rest of the references.)
 
 **Updating on the test and production servers**
 
