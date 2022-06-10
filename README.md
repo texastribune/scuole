@@ -522,11 +522,13 @@ You may need to run this process when updating cohorts data — if the cohorts d
 
 You'll need to filter for the latest year by filtering for the objects with the highest `year_id` so you can delete them. You can find the highest `year_id` by looking at the objects in Table Plus. Then, you'll run:
 
-```
+```python
+python manage.py shell
 from scuole.counties.models import CountyCohorts
 latest = CountyCohorts.objects.filter(year_id=14)
 print(latest) # to check if these are the objects we want to delete
 latest.delete()
+exit()
 ```
 
 If you see the error `django.db.utils.OperationalError: could not translate host name "db" to address: Name does not resolve` when deploying/updating data, it could mean that the app doesn't know where to look for the database. Running `make compose/test-deploy` does some of the setup, and might fix the issue.

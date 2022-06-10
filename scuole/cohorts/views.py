@@ -31,7 +31,7 @@ class CountyCohortsDetailView(DetailView):
         cohorts = self.cohorts_model.objects.filter(county=self.object)
 
         first_cohort_year = SchoolYear.objects.get(name="1997-1998")
-        latest_cohort_year = SchoolYear.objects.get(name="2007-2008")
+        latest_cohort_year = SchoolYear.objects.get(name="2008-2009")
 
         context['first_cohort_year'] = first_cohort_year
         context['latest_cohort_year'] = latest_cohort_year
@@ -61,9 +61,9 @@ class RegionCohortsDetailView(DetailView):
         context = super(RegionCohortsDetailView, self).get_context_data(**kwargs)
 
         cohorts = self.cohorts_model.objects.filter(region=self.object)
-        
+
         first_cohort_year = SchoolYear.objects.get(name="1997-1998")
-        latest_cohort_year = SchoolYear.objects.get(name="2007-2008")
+        latest_cohort_year = SchoolYear.objects.get(name="2008-2009")
 
         context['first_cohort_year'] = first_cohort_year
         context['latest_cohort_year'] = latest_cohort_year
@@ -95,7 +95,7 @@ class StateCohortsDetailView(DetailView):
         cohorts = self.cohorts_model.objects.filter(state=self.object)
 
         first_cohort_year = SchoolYear.objects.get(name="1997-1998")
-        latest_cohort_year = SchoolYear.objects.get(name="2007-2008")
+        latest_cohort_year = SchoolYear.objects.get(name="2008-2009")
 
         context['first_cohort_year'] = first_cohort_year
         context['latest_cohort_year'] = latest_cohort_year
@@ -122,7 +122,7 @@ class CohortsLandingView(TemplateView):
         context = super(CohortsLandingView, self).get_context_data(**kwargs)
 
         first_cohort_year = SchoolYear.objects.get(name="1997-1998")
-        latest_cohort_year = SchoolYear.objects.get(name="2007-2008")
+        latest_cohort_year = SchoolYear.objects.get(name="2008-2009")
 
         context['first_cohort_year'] = first_cohort_year
         context['latest_cohort_year'] = latest_cohort_year

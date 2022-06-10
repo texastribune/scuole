@@ -3,7 +3,7 @@ SCHEMA = {
         'gender': 'Gender',
         'ethnicity': 'Ethnicity',
         'economic_status': 'Economic Status',
-        'enrolled_8th': '8th Grade (FY 2008)',
+        'enrolled_8th': '8th Grade (FY 2009)',
         'enrolled_9th': 'Enrolled in 9th Grade (FY 2009)',
         'enrolled_9th_percent': '% Enrolled in 9th Grade (FY 2009)',
         'enrolled_10th': 'Enrolled in 10th Grade(FY 2010)',
