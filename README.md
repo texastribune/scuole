@@ -550,6 +550,21 @@ Here are some commands to help you out:
   
 In addition, check out `docker-compose.yml` and `docker-compose.override.yml`, which are configurations for the services being built and used by default.
 
+### Django can't find the GDAL library
+
+You may encounter the following error when running `make local/reset-db`:
+
+```plaintext
+django.core.exceptions.ImproperlyConfigured: Could not find the GDAL library
+(tried "gdal", "GDAL", "gdal3.3.0", "gdal3.2.0", "gdal3.1.0",
+"gdal3.0.0", "gdal2.4.0", "gdal2.3.0", "gdal2.2.0", "gdal2.1.0", "gdal2.0.0").
+Is GDAL installed? If it is, try setting GDAL_LIBRARY_PATH in your settings.
+```
+
+Run `which psql` to find which Postgres installation you are using. If the command prints `/usr/local/bin/psql`, you are probably using the Homebrew installation of Postgres. In this case, you can install GDAL by running `brew install GDAL`.
+
+Postgres.app includes GDAL by default. If you are using Postgres.app, you may need to [configure your PATH](https://postgresapp.com/documentation/cli-tools.html) so Django can find GDAL.
+
 ## Workspace
 
 The `workspace` directory is used for incorporating the schools database with other datasets we run across in our reporting. These include:
