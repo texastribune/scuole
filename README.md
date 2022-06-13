@@ -206,9 +206,11 @@ These changes only need to be made on the `schools-test` and `schools-prod` serv
 
 1) Make sure you bust the cache for the schools explorer metadata on Twitter's card validator. You can do this by adding a query param to the card URL, like this: `https://schools.texastribune.org/?hello` and previewing the card.
 2) If you're updating cohorts data, make sure you're updating the years referenced in `scuole/cohorts/views.py` and `scuole/cohorts/schemas/cohorts/schema.py`. Read more detail in the [cohorts data update section](#updating-cohorts-data).
-3) We have several spots in our templates that include metadata about when this explorer was last updated, such as:
+3) Update the "Last updated" date on the landing page at `scuole/templates/landing.html`. If you're updating cohorts data, also update the "Last updated" date on the cohorts landing page at `scuole/templates/cohorts_landing.html`.
+4) We have several spots in our templates that include metadata about when this explorer was last updated, such as:
 
 - Template: `scuole/templates/base.html`, variable: `dateModified`
+- Template: `scuole/templates/cohorts_base.html`, variable: `dateModified` (only modify if you are updating the cohorts data)
 - Template: `scuole/templates/includes/meta.html`, variable: `article:modified_time`
 
 You need to change those! They are (probably) important for search.
