@@ -452,7 +452,7 @@ Exit out of the Python shell and your Docker container with `Ctrl + P + Q`. Run 
 make compose/test-deploy
 ```
 
-Your changes should now be on the [test server](schools-test.texastribune.org)! Now we're ready for production a.k.a. the big time.
+Your changes should now be on the [test server](https://schools-test.texastribune.org)! Now we're ready for production a.k.a. the big time.
 
 #### Deploying on the production server
 
