@@ -347,7 +347,7 @@ Load the data after:
 python manage.py loadallcohorts <latest year>
 ```
 
-If you get the error "There should be only XX cohorts", you'll need to delete the `StateCohorts`, `RegionCohorts` and `CountyCohorts` data in the database — the error is likely because old cohorts data does not get cleared out when new data is loaded. [Follow the instructions in the duplicate key error section](https://github.com/texastribune/scuole#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database) to delete the data.
+If you get the error "There should be only XX cohorts", you'll need to delete the `StateCohorts`, `RegionCohorts` and `CountyCohorts` data in the database — the error is likely because old cohorts data does not get cleared out when new data is loaded. [Follow the instructions in the duplicate key error section](https://github.com/texastribune/scuole#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database) to delete the data. Make sure you run `python manage.py loadallcohorts` afterwards (without the latest year) so you load in data dating back to 1997 — otherwise, the stacked area charts will not show up.
 
 Lastly, you will need to change the `latest_cohort_year` variable in **all of the functions** in the `scuole/cohorts/views.py` file to reference the latest cohorts school year.
 
