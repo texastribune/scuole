@@ -206,9 +206,11 @@ These changes only need to be made on the `schools-test` and `schools-prod` serv
 
 1) Make sure you bust the cache for the schools explorer metadata on Twitter's card validator. You can do this by adding a query param to the card URL, like this: `https://schools.texastribune.org/?hello` and previewing the card.
 2) If you're updating cohorts data, make sure you're updating the years referenced in `scuole/cohorts/views.py` and `scuole/cohorts/schemas/cohorts/schema.py`. Read more detail in the [cohorts data update section](#updating-cohorts-data).
-3) We have several spots in our templates that include metadata about when this explorer was last updated, such as:
+3) Update the "Last updated" date on the landing page at `scuole/templates/landing.html`. If you're updating cohorts data, also update the "Last updated" date on the cohorts landing page at `scuole/templates/cohorts_landing.html`.
+4) We have several spots in our templates that include metadata about when this explorer was last updated, such as:
 
 - Template: `scuole/templates/base.html`, variable: `dateModified`
+- Template: `scuole/templates/cohorts_base.html`, variable: `dateModified` (only modify if you are updating the cohorts data)
 - Template: `scuole/templates/includes/meta.html`, variable: `article:modified_time`
 
 You need to change those! They are (probably) important for search.
@@ -450,7 +452,7 @@ Exit out of the Python shell and your Docker container with `Ctrl + P + Q`. Run 
 make compose/test-deploy
 ```
 
-Your changes should now be on the [test server](schools-test.texastribune.org)! Now we're ready for production a.k.a. the big time.
+Your changes should now be on the [test server](https://schools-test.texastribune.org)! Now we're ready for production a.k.a. the big time.
 
 #### Deploying on the production server
 
@@ -536,11 +538,13 @@ You may need to run this process when updating cohorts data — if the cohorts d
 
 You'll need to filter for the latest year by filtering for the objects with the highest `year_id` so you can delete them. You can find the highest `year_id` by looking at the objects in Table Plus. Then, you'll run:
 
-```
+```python
+python manage.py shell
 from scuole.counties.models import CountyCohorts
 latest = CountyCohorts.objects.filter(year_id=14)
 print(latest) # to check if these are the objects we want to delete
 latest.delete()
+exit()
 ```
 
 If you see the error `django.db.utils.OperationalError: could not translate host name "db" to address: Name does not resolve` when deploying/updating data, it could mean that the app doesn't know where to look for the database. Running `make compose/test-deploy` does some of the setup, and might fix the issue.

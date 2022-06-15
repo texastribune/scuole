@@ -3,11 +3,6 @@ import { Component, h } from 'preact';
 import Chart from './Chart';
 import ResponsiveContainer from './ResponsiveContainer';
 
-function last(array) {
-  const length = array == null ? 0 : array.length;
-  return length ? array[length - 1] : undefined;
-}
-
 function BlankChart({ width }) {
   width -= 20;
   const height = width * 0.625;
@@ -47,10 +42,10 @@ export default class ChartGrid extends Component {
       )
     );
 
-    let year = Math.max(
-      ...chartData
-        .map(d => d.data.length != 0 && last(d.data).year)
-        .filter(d => d != false)
+    const year = Math.max(
+      ...[].concat(
+        ...chartData.map(({ data }) => data.map(d => d.year))
+      )
     );
 
     return (

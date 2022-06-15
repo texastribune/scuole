@@ -118,7 +118,7 @@ class Command(BaseCommand):
                 # preps the data and updates or creates a state cohort model
                 self.prep_payload(payload, row)
                 StateCohorts.objects.sum_update_or_create(**payload)
-    
+
                 self.stdout.write(model.name)
             else:
                 # tells us which region we're talking about. TEA's regions
@@ -135,10 +135,10 @@ class Command(BaseCommand):
                 self.stdout.write(model.name)
 
                 self.prep_payload(payload, row)
-    
+
                 # creates a cohort model for each region
                 RegionCohorts.objects.update_or_create(**payload)
-        
+
         # for both region and state, sort and load the data
         self.create_regions_gender_overall()
         self.create_regions_ethnicity_overall()

@@ -1,4 +1,4 @@
-{% extends 'cohorts_standard.html' %}{% load humanize i18n journalize %}
+{% extends 'cohorts_standard.html' %}{% load humanize i18n journalize stats_tags %}
 
 {% block meta %}{% include "includes/cohorts_meta.html" with title=region.region_name %}{% endblock meta %}
 
@@ -36,7 +36,18 @@
     <section class="page-prose">
       {% include 'includes/cohorts/standard_prose.html' %}
 
-      <p>Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>Region {{ region.region_id }}</strong> who began eighth grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong> received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date. For context, a 13-year-old student who started 8th grade in <strong>{{ first_cohort_year.start_year }}</strong> is about <strong>35</strong> years old; one who started 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong> is now about <strong>25</strong>.</p>
+      {% now "Y" as current_year_str %}
+      {% with current_year=current_year_str|add:"0" %}
+      <p>
+        Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>Region {{ region.region_id }}</strong>
+        who began eighth grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong>
+        received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date.
+        For context, a 13-year-old student who started 8th grade in <strong>{{ first_cohort_year.start_year }}</strong>
+        is about <strong>{{ current_year|subtract:first_cohort_year.start_year|add:"13" }}</strong> years old;
+        one who started 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong>
+        is now about <strong>{{ current_year|subtract:latest_cohort.year.start_year|add:"13" }}</strong>.
+      </p>
+      {% endwith %}
 
       {% include 'includes/cohorts/prose_closer.html' %}
     </section>
