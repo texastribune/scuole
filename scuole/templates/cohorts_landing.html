@@ -1,6 +1,6 @@
-{% extends 'cohorts_base.html' %}{% load i18n humanize webpacker %}{% load static %}
+{% extends 'cohorts_base.html' %}{% load i18n humanize webpacker stats_tags %}{% load static %}
 
-{% block meta %}{% include "includes/cohorts_meta.html" %}{% endblock meta %}
+{% block meta %}{% include "includes/cohorts_meta.html" with first_cohort=first_cohort_year.start_year latest_cohort=latest_cohort_year.start_year %}{% endblock meta %}
 
 {% block schema_type %}WebPage{% endblock schema_type %}
 
@@ -31,7 +31,7 @@
 <section class="landing-prose">
   <p class="landing-paragraph">Each year, approximately 300,000 students begin eighth grade in a Texas public school. National employment and earnings statistics suggest that these students will have materially better prospects as adults if they finish high school and enroll in and complete a post-secondary certificate or degree program.</p>
 
-  <p class="landing-paragraph">With support from the <a href="https://www.greatertexasfoundation.org/">Greater Texas Foundation</a> and the <a href="http://houstonendowment.org/">Houston Endowment</a>, two institutional philanthropies, The Texas Tribune has used data from the <a href="http://www.thecb.state.tx.us/">Texas Higher Education Coordinating Board</a> and the <a href="http://www.tea.state.tx.us/">Texas Education Agency</a> to document the education outcomes of every student who started eighth grade in a Texas public school during nine academic years ({{ first_cohort_year.start_year }} through {{latest_cohort_year.start_year}}). Each student was anonymously tracked over 11 years to determine the percentage of Texas eighth-graders who achieved a post-secondary certificate or degree from a Texas college or university within six years of their expected high school graduation date.</p>
+  <p class="landing-paragraph">With support from the <a href="https://www.greatertexasfoundation.org/">Greater Texas Foundation</a> and the <a href="http://houstonendowment.org/">Houston Endowment</a>, two institutional philanthropies, The Texas Tribune has used data from the <a href="http://www.thecb.state.tx.us/">Texas Higher Education Coordinating Board</a> and the <a href="http://www.tea.state.tx.us/">Texas Education Agency</a> to document the education outcomes of every student who started eighth grade in a Texas public school during {{ latest_cohort_year.start_year|subtract:first_cohort_year.start_year|add:"1"|apnumber }} academic years ({{ first_cohort_year.start_year }} through {{latest_cohort_year.start_year}}). Each student was anonymously tracked over 11 years to determine the percentage of Texas eighth-graders who achieved a post-secondary certificate or degree from a Texas college or university within six years of their expected high school graduation date.</p>
 
   <p class="landing-paragraph">Use this explorer to review and compare student outcomes by region or by county. Or, <a href="{% url 'cohorts:states' 'tx' %}">view outcomes at the statewide level</a>. You can also <a href="http://www.txhighereddata.org/index.cfm?objectId=4E600400-D970-11E8-BB650050560100A9">download the data</a>.</p>
 

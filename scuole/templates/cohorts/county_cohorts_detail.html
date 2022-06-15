@@ -1,6 +1,6 @@
 {% extends 'cohorts_standard.html' %}{% load humanize i18n journalize stats_tags %}
 
-{% block meta %}{% include "includes/cohorts_meta.html" with title=county.name_full_cohorts %}{% endblock meta %}
+{% block meta %}{% include "includes/cohorts_meta.html" with title=county.name_full_cohorts first_cohort=first_cohort_year.start_year latest_cohort=latest_cohort_year.start_year %}{% endblock meta %}
 
 {% block title %}{{ county.name_full_cohorts }}{% endblock title %}
 {% block parsely_title %}{{ county.name_full_cohorts }}{% endblock parsely_title %}
@@ -33,7 +33,7 @@
       {% include 'includes/cohorts/metric.html' with title="Graduated from college" field=latest_cohort.total_degrees|intcomma extra_field=latest_cohort.percent_completed_higher_education|percentify subtext_field=latest_state_cohort.percent_completed_higher_education|percentify subtext_label="Statewide" %}
     </section>
     <section class="page-prose">
-      {% include 'includes/cohorts/standard_prose.html' %}
+      {% include 'includes/cohorts/standard_prose.html' with first_cohort=first_cohort_year.start_year latest_cohort=latest_cohort.year.start_year %}
 
       {% now "Y" as current_year_str %}
       {% with current_year=current_year_str|add:"0" %}
