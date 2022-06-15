@@ -8,6 +8,7 @@ Public Schools 3!
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Setup](#setup)
+  - [Configure your computer to ssh into our test and production servers](#configure-your-computer-to-ssh-into-our-test-and-production-servers)
   - [Make sure Docker is up and running](#make-sure-docker-is-up-and-running)
   - [Fire up pipenv](#fire-up-pipenv)
   - [Install dependencies via pipenv](#install-dependencies-via-pipenv)
@@ -18,6 +19,9 @@ Public Schools 3!
   - [If this is not your first time loading the app, run outstanding migrations](#if-this-is-not-your-first-time-loading-the-app-run-outstanding-migrations)
   - [Fire up the server](#fire-up-the-server)
 - [Quick deploy](#quick-deploy)
+  - [Deploying code changes](#deploying-code-changes)
+  - [Deploying data changes/new data](#deploying-data-changesnew-data)
+  - [More small changes](#more-small-changes)
 - [Updating data](#updating-data)
   - [Updating entities](#updating-entities)
   - [Updating AskTED data](#updating-askted-data)
@@ -25,11 +29,12 @@ Public Schools 3!
   - [Updating cohorts data](#updating-cohorts-data)
   - [Updating the CSS styling and other static assets](#updating-the-css-styling-and-other-static-assets)
 - [Deploying on the test and production servers](#deploying-on-the-test-and-production-servers)
-  - [Deploying code changes](#deploying-code-changes)
+  - [Deploying code changes](#deploying-code-changes-1)
     - [Deploying on the test server](#deploying-on-the-test-server)
     - [Deploying on the production server](#deploying-on-the-production-server)
-  - [Deploying data changes/new data](#deploying-data-changesnew-data)
+  - [Deploying data changes/new data](#deploying-data-changesnew-data-1)
     - [Deploying on the test server](#deploying-on-the-test-server-1)
+    - [Deploying on the production server](#deploying-on-the-production-server-1)
   - [Updating the sitemap](#updating-the-sitemap)
 - [Troubleshooting](#troubleshooting-1)
   - [What is the best place to view the data?](#what-is-the-best-place-to-view-the-data)
@@ -39,6 +44,7 @@ Public Schools 3!
   - [I'm seeing a duplicate key error when loading new data into the database](#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database)
   - [My deployment isn't working because there are "active endpoints"](#my-deployment-isnt-working-because-there-are-active-endpoints)
   - [I'm having trouble debugging errors with Docker](#im-having-trouble-debugging-errors-with-docker)
+  - [Django can't find the GDAL library](#django-cant-find-the-gdal-library)
 - [Workspace](#workspace)
 - [Admin](#admin)
 
@@ -199,7 +205,7 @@ These changes only need to be made on the `schools-test` and `schools-prod` serv
 ### More small changes
 
 1) Make sure you bust the cache for the schools explorer metadata on Twitter's card validator. You can do this by adding a query param to the card URL, like this: `https://schools.texastribune.org/?hello` and previewing the card.
-2) If you're updating cohorts data, make sure you're updating the years referenced in `scuole/cohorts/views.py` and `scuole/cohorts/schema/cohorts/schema.py`. Read more detail in the [cohorts data update section](#updating-cohorts-data).
+2) If you're updating cohorts data, make sure you're updating the years referenced in `scuole/cohorts/views.py` and `scuole/cohorts/schemas/cohorts/schema.py`. Read more detail in the [cohorts data update section](#updating-cohorts-data).
 3) We have several spots in our templates that include metadata about when this explorer was last updated, such as:
 
 - Template: `scuole/templates/base.html`, variable: `dateModified`
@@ -343,7 +349,7 @@ If you get the error "There should be only XX cohorts", you'll need to delete th
 
 Lastly, you will need to change the `latest_cohort_year` variable in **all of the functions** in the `scuole/cohorts/views.py` file to reference the latest cohorts school year.
 
-Also, make sure the `scuole/cohorts/schema/cohorts/schema.py` has the correct years (i.e. you'll need to change the year in `8th Grade (FY 2009)` for the reference `'enrolled_8th': '8th Grade (FY 2009)'`, along with the rest of the references.)
+Also, make sure the `scuole/cohorts/schemas/cohorts/schema.py` has the correct years (i.e. you'll need to change the year in `8th Grade (FY 2009)` for the reference `'enrolled_8th': '8th Grade (FY 2009)'`, along with the rest of the references.)
 
 **Updating on the test and production servers**
 
@@ -563,6 +569,21 @@ Here are some commands to help you out:
 - Start all services on containers: `docker-compose up -d`
   
 In addition, check out `docker-compose.yml` and `docker-compose.override.yml`, which are configurations for the services being built and used by default.
+
+### Django can't find the GDAL library
+
+You may encounter the following error when running `make local/reset-db`:
+
+```plaintext
+django.core.exceptions.ImproperlyConfigured: Could not find the GDAL library
+(tried "gdal", "GDAL", "gdal3.3.0", "gdal3.2.0", "gdal3.1.0",
+"gdal3.0.0", "gdal2.4.0", "gdal2.3.0", "gdal2.2.0", "gdal2.1.0", "gdal2.0.0").
+Is GDAL installed? If it is, try setting GDAL_LIBRARY_PATH in your settings.
+```
+
+Run `which psql` to find which Postgres installation you are using. If the command prints `/usr/local/bin/psql`, you are probably using the Homebrew installation of Postgres. In this case, you can install GDAL by running `brew install GDAL`.
+
+Postgres.app includes GDAL by default. If you are using Postgres.app, you may need to [configure your PATH](https://postgresapp.com/documentation/cli-tools.html) so Django can find GDAL.
 
 ## Workspace
 
