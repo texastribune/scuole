@@ -26,5 +26,4 @@ ipython = "*"
 "flake8" = "*"
 isort = "*"
 black = "==19.3b0"
-v = {editable = true,version = "*"}
 pipenv-to-requirements = "*"

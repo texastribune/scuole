@@ -176,12 +176,18 @@ class Command(BaseCommand):
 
                 if include_accountability_rating:
                     # In 2018-2019, some accountability ratings showed up as 'Data Integrity Issues', which is 
-                    # not a choice in `references.py`, so we replace it with `Q` which we do list and is
+                    # not a choice in `reference.py`, so we replace it with `Q` which we do list and is
                     # the code for that problem
                     if payload['defaults']['accountability_rating'] == 'Data Integrity Issues':
                         payload['defaults']['accountability_rating'] = 'Q'
                     if payload['defaults']['accountability_rating_18_19'] == 'Data Integrity Issues':
                         payload['defaults']['accountability_rating_18_19'] = 'Q'
+                    
+                    # In 2021-2022, some accountability ratings are listed as 'Not Rated: Data Under Review' or 'Not Rated: SB 1365'. Trying out to change them to "X" and "Z" respectably
+                    if payload['defaults']['accountability_rating'] == "Not Rated: Data Under Review":
+                        payload['defaults']['accountability_rating'] = 'X'
+                    if payload['defaults']['accountability_rating'] == "Not Rated: Senate Bill 1365":
+                        payload['defaults']['accountability_rating'] = 'Z'
 
                     for field in ACCOUNTABILITY_FIELDS:
                         if field not in payload["defaults"]:
@@ -205,6 +211,7 @@ class Command(BaseCommand):
 
                     bulk_list.append(stats_model(**bulk_payload))
                 else:
+                    print("\nprinting payload:\n",payload)
                     stats_model.objects.update_or_create(**payload)
 
             if use_bulk:
