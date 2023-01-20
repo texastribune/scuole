@@ -182,12 +182,6 @@ class Command(BaseCommand):
                         payload['defaults']['accountability_rating'] = 'Q'
                     if payload['defaults']['accountability_rating_18_19'] == 'Data Integrity Issues':
                         payload['defaults']['accountability_rating_18_19'] = 'Q'
-                    
-                    # In 2021-2022, some accountability ratings are listed as 'Not Rated: Data Under Review' or 'Not Rated: SB 1365'. Trying out to change them to "X" and "Z" respectably
-                    if payload['defaults']['accountability_rating'] == "Not Rated: Data Under Review":
-                        payload['defaults']['accountability_rating'] = 'X'
-                    if payload['defaults']['accountability_rating'] == "Not Rated: Senate Bill 1365":
-                        payload['defaults']['accountability_rating'] = 'Z'
 
                     for field in ACCOUNTABILITY_FIELDS:
                         if field not in payload["defaults"]:
