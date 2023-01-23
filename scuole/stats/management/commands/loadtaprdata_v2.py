@@ -205,7 +205,6 @@ class Command(BaseCommand):
 
                     bulk_list.append(stats_model(**bulk_payload))
                 else:
-                    print("\nprinting payload:\n",payload)
                     stats_model.objects.update_or_create(**payload)
 
             if use_bulk:
