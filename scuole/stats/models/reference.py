@@ -24,6 +24,8 @@ class ReferenceBase(models.Model):
     NOT_RATED_HARVEY = "H"
     NOT_RATED_PAIRED = "P"
     NOT_RATED_DISASTER = "DD"
+    NOT_RATED_REVIEW = "R"
+    NOT_RATED_SB1365 = "SB"
 
     RATING_CHOICES = (
         (MET_STANDARD, "Met standard"),
@@ -37,6 +39,9 @@ class ReferenceBase(models.Model):
         (NOT_RATED_HARVEY, "Not rated (Harvey provision)"),
         (NOT_RATED_PAIRED, "Not rated (Paired campus)"),
         (NOT_RATED_DISASTER, "Not Rated: Declared State of Disaster"),
+        (NOT_RATED_REVIEW, "Not Rated: Data Under Review"),
+        (NOT_RATED_SB1365, "Not Rated: Senate Bill 1365"),
+        (NOT_RATED_SB1365, "Not Rated: SB 1365"),
         ("", None),
     )
 
@@ -48,7 +53,10 @@ class ReferenceBase(models.Model):
         "Not Rated: Annexation": NOT_RATED_ANNEXATION,
         "Not Rated: Harvey Provision": NOT_RATED_HARVEY,
         "Not Rated: Paired Campus": NOT_RATED_PAIRED,
-        "Not Rated: Declared State of Disaster": NOT_RATED_DISASTER
+        "Not Rated: Declared State of Disaster": NOT_RATED_DISASTER,
+        "Not Rated: Data Under Review": NOT_RATED_REVIEW,
+        "Not Rated: Senate Bill 1365": NOT_RATED_SB1365,
+        "Not Rated: SB 1365": NOT_RATED_SB1365,
     }
 
     uses_legacy_ratings = models.BooleanField(

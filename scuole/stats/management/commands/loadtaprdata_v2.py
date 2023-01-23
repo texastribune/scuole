@@ -176,7 +176,7 @@ class Command(BaseCommand):
 
                 if include_accountability_rating:
                     # In 2018-2019, some accountability ratings showed up as 'Data Integrity Issues', which is 
-                    # not a choice in `references.py`, so we replace it with `Q` which we do list and is
+                    # not a choice in `reference.py`, so we replace it with `Q` which we do list and is
                     # the code for that problem
                     if payload['defaults']['accountability_rating'] == 'Data Integrity Issues':
                         payload['defaults']['accountability_rating'] = 'Q'
