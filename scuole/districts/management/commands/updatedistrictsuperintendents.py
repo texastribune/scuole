@@ -53,14 +53,13 @@ class Command(BaseCommand):
             f"Updating superintendent data for {district.name} ({district_id})"
         )
 
-        first_name = data.get("First Name").strip()
-        last_name = data.get("Last Name").strip()
-        name = capwords(f"{first_name} {last_name}")
+    
+        name = capwords(data.get("District Superintendent").strip())
 
-        role = capwords(data.get("Role"))
-        email = data.get("Email Address")
-        phone_number = data.get("Phone")
-        fax_number = data.get("Fax")
+        role = "Superintendent"
+        email = data.get("District Email Address")
+        phone_number = data.get("District Phone")
+        fax_number = data.get("District Fax")
 
         if "ext" in phone_number:
             phone_number, phone_number_extension = phone_number.split(" ext:")
