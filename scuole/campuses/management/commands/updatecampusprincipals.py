@@ -58,7 +58,7 @@ class Command(BaseCommand):
 
     def create_or_update_principal(self, data):
         # AskTED campus IDs have apostrophes in them, strangely
-        campus_id = data.get("Organization Number").replace("'", "").zfill(6)
+        campus_id = data.get("School Number").replace("'", "").zfill(6)
 
         try:
             campus = Campus.objects.get(tea_id=campus_id)
@@ -68,14 +68,12 @@ class Command(BaseCommand):
 
         self.stdout.write(f"Updating principal data for {campus.name} ({campus_id})")
 
-        first_name = data.get("First Name").strip()
-        last_name = data.get("Last Name").strip()
-        name = capwords(f"{first_name} {last_name}")
+        name = capwords(data.get("School Principal").strip())
 
-        role = capwords(data.get("Role"))
-        email = data.get("Email Address")
-        phone_number = data.get("Phone")
-        fax_number = data.get("Fax")
+        role = "Principal"
+        email = data.get("School Email Address")
+        phone_number = data.get("School Phone")
+        fax_number = data.get("School Fax")
 
         if "ext" in phone_number:
             phone_number, phone_number_extension = phone_number.split(" ext:")
