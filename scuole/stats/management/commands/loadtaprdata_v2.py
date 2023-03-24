@@ -186,7 +186,7 @@ class Command(BaseCommand):
                     for field in ACCOUNTABILITY_FIELDS:
                         if field not in payload["defaults"]:
                             continue
-
+                        
                         # Ratings may not show up as a code (i.e. "Not Rated")
                         # so we match the rating up to a code with RATING_MATCH
                         # in `reference.py`

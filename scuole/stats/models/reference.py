@@ -14,7 +14,8 @@ class ReferenceBase(models.Model):
     """
 
     MET_STANDARD = "M"
-    MET_ALTERNATIVE_STANDARD = "A"
+    # Removed this below because it was giving schools with A grades a "Met alternative standard" label, can add this back in if it causes problems
+    # MET_ALTERNATIVE_STANDARD = "A"
     MET_ALTERNATIVE_STANDARD_AF = "T"
     IMPROVEMENT_REQUIRED = "I"
     NOT_RATED_X = "X"
@@ -29,7 +30,7 @@ class ReferenceBase(models.Model):
 
     RATING_CHOICES = (
         (MET_STANDARD, "Met standard"),
-        (MET_ALTERNATIVE_STANDARD, "Met alternative standard"),
+        # (MET_ALTERNATIVE_STANDARD, "Met alternative standard"),
         (MET_ALTERNATIVE_STANDARD_AF, "Met alternative standard"),
         (IMPROVEMENT_REQUIRED, "Improvement required"),
         (NOT_RATED_X, "Not rated"),
@@ -165,7 +166,7 @@ class ReferenceBase(models.Model):
         else:
             value = getattr(self, field_name)
 
-            if value == self.MET_ALTERNATIVE_STANDARD:
+            if value == self.MET_ALTERNATIVE_STANDARD_AF:
                 return value
 
             return display_fn()
