@@ -174,6 +174,10 @@ class Command(BaseCommand):
 
                     payload["defaults"][field_name] = value
 
+                # We have to flag whether we're in A-F land or not
+                if "student_achievement_rating" in payload["defaults"]:
+                    payload["defaults"]["uses_legacy_ratings"] = False
+
                 if include_accountability_rating:
                     # In 2018-2019, some accountability ratings showed up as 'Data Integrity Issues', which is 
                     # not a choice in `reference.py`, so we replace it with `Q` which we do list and is
@@ -190,13 +194,17 @@ class Command(BaseCommand):
                         # Ratings may not show up as a code (i.e. "Not Rated")
                         # so we match the rating up to a code with RATING_MATCH
                         # in `reference.py`
-                        payload["defaults"][field] = stats_model.RATING_MATCH.get(
+                        if payload["defaults"]["uses_legacy_ratings"] == False:
+                          payload["defaults"][field] = stats_model.RATING_MATCH.get(
                             payload["defaults"][field], payload["defaults"][field]
                         )
+                        
+                        else:
+                            payload["defaults"][field] = stats_model.RATING_MATCH_LEGACY.get(
+                            payload["defaults"][field], payload["defaults"][field]
+                        )
+                            
 
-                # We have to flag whether we're in A-F land or not
-                if "student_achievement_rating" in payload["defaults"]:
-                    payload["defaults"]["uses_legacy_ratings"] = False
 
                 if use_bulk:
                     bulk_payload = payload["defaults"]

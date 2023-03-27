@@ -15,7 +15,7 @@ class ReferenceBase(models.Model):
 
     MET_STANDARD = "M"
     # Removed this below because it was giving schools with A grades a "Met alternative standard" label, can add this back in if it causes problems
-    # MET_ALTERNATIVE_STANDARD = "A"
+    MET_ALTERNATIVE_STANDARD = "A"
     MET_ALTERNATIVE_STANDARD_AF = "T"
     IMPROVEMENT_REQUIRED = "I"
     NOT_RATED_X = "X"
@@ -58,6 +58,14 @@ class ReferenceBase(models.Model):
         "Not Rated: Data Under Review": NOT_RATED_REVIEW,
         "Not Rated: Senate Bill 1365": NOT_RATED_SB1365,
         "Not Rated: SB 1365": NOT_RATED_SB1365,
+    }
+
+    RATING_MATCH_LEGACY = {
+        "Met Standard": MET_STANDARD,
+        "Met Alternative Standard": "A",
+        "Improvement Required": IMPROVEMENT_REQUIRED,
+        "Not Rated": NOT_RATED_X,
+        "Not Rated: Annexation": NOT_RATED_ANNEXATION,
     }
 
     uses_legacy_ratings = models.BooleanField(
