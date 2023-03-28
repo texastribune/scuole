@@ -17,6 +17,7 @@ DATA_FILES = (
     "reference.csv",
     "longitudinal-rate.csv",
     "postsecondary-readiness-and-non-staar-performance-indicators.csv",
+    "ap-ib-sat-act.csv",
     "staff-and-student-information.csv",
     "attendance.csv",
     "testing.csv",
