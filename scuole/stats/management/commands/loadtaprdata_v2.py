@@ -206,7 +206,6 @@ class Command(BaseCommand):
                         )
                             
 
-
                 if use_bulk:
                     bulk_payload = payload["defaults"]
                     bulk_payload["year"] = payload["year"]
