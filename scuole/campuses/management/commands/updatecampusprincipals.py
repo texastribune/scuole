@@ -8,6 +8,8 @@ from django.core.management.base import BaseCommand
 from scuole.campuses.models import Campus, Principal
 from scuole.core.constants import ASKTED_PERSONNEL_URL, ASKTED_PERSONNEL_VIEWSTATE
 
+from scuole.core.utils import nameFormat, addComma
+
 def phoneNumberFormat(number):
     if number is ' ' or '000-0000' in number:
         return ''
@@ -67,8 +69,11 @@ class Command(BaseCommand):
             return
 
         self.stdout.write(f"Updating principal data for {campus.name} ({campus_id})")
+        # uses addComma function to add a comma for each principal since they are now in the same line
+        names_sep = addComma(data.get("School Principal").strip())
 
-        name = capwords(data.get("School Principal").strip())
+        # Takes out the MS, MRS, MR, and DR in front of names using nameFormat function
+        name = capwords(nameFormat(names_sep))
 
         role = "Principal"
         email = data.get("School Email Address")

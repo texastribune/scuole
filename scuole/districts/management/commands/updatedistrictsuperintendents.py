@@ -2,12 +2,12 @@ from csv import DictReader
 from string import capwords
 
 import requests
-import re
 
 from django.core.management.base import BaseCommand
 
 from scuole.core.constants import ASKTED_PERSONNEL_URL, ASKTED_PERSONNEL_VIEWSTATE
 from scuole.districts.models import District, Superintendent
+from scuole.core.utils import nameFormat
 
 def phoneNumberFormat(number):
     if number is ' ' or '000-0000' in number:
@@ -54,7 +54,7 @@ class Command(BaseCommand):
         )
 
     
-        name = capwords(data.get("District Superintendent").strip())
+        name = capwords(nameFormat(data.get("District Superintendent").strip()))
 
         role = "Superintendent"
         email = data.get("District Email Address")
