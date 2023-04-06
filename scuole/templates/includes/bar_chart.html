@@ -5,7 +5,7 @@
   <div class="bar-chart-bar">
     <span class="bar-chart-bar-color" style="width: {% if row.value != None and row.value > 0 %}{{ row.value }}{% else %}0{% endif %}%"></span>
   </div>
-  <p class="bar-chart-value">{% if row.value != None and row.value > 0 %}{{ row.value }}%{% elif row.value < 0 %}Masked{% else %}N/A{% endif %}</p>
+  <p class="bar-chart-value">{% if row.value != None and row.value > 0 %}{{ row.value }}%{% elif row.value < 0 %}Masked{% elif row.value == 0 %}0%{% else %}N/A{% endif %}</p>
 </div>
 {% endfor %}
 </section>

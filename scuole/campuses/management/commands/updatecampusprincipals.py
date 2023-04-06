@@ -8,6 +8,8 @@ from django.core.management.base import BaseCommand
 from scuole.campuses.models import Campus, Principal
 from scuole.core.constants import ASKTED_PERSONNEL_URL, ASKTED_PERSONNEL_VIEWSTATE
 
+from scuole.core.utils import nameFormat, addComma
+
 def phoneNumberFormat(number):
     if number is ' ' or '000-0000' in number:
         return ''
@@ -58,7 +60,7 @@ class Command(BaseCommand):
 
     def create_or_update_principal(self, data):
         # AskTED campus IDs have apostrophes in them, strangely
-        campus_id = data.get("Organization Number").replace("'", "").zfill(6)
+        campus_id = data.get("School Number").replace("'", "").zfill(6)
 
         try:
             campus = Campus.objects.get(tea_id=campus_id)
@@ -67,15 +69,16 @@ class Command(BaseCommand):
             return
 
         self.stdout.write(f"Updating principal data for {campus.name} ({campus_id})")
+        # uses addComma function to add a comma for each principal since they are now in the same line
+        names_sep = addComma(data.get("School Principal").strip())
 
-        first_name = data.get("First Name").strip()
-        last_name = data.get("Last Name").strip()
-        name = capwords(f"{first_name} {last_name}")
+        # Takes out the MS, MRS, MR, and DR in front of names using nameFormat function
+        name = capwords(nameFormat(names_sep))
 
-        role = capwords(data.get("Role"))
-        email = data.get("Email Address")
-        phone_number = data.get("Phone")
-        fax_number = data.get("Fax")
+        role = "Principal"
+        email = data.get("School Email Address")
+        phone_number = data.get("School Phone")
+        fax_number = data.get("School Fax")
 
         if "ext" in phone_number:
             phone_number, phone_number_extension = phone_number.split(" ext:")

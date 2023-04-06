@@ -181,3 +181,11 @@ def to_geojson_feature(instance, geo_field, fields, include_bbox=True, simplify=
     feature["properties"] = get_properties(instance, fields)
 
     return feature
+
+def nameFormat(txt):
+    # Takes out MRS, MR, DR, MS with a space after
+    return re.sub(r'MRS |MR |DR |MS ', r'', txt)
+
+def addComma(txt):
+    # Looks for three spaces to add a comma after a name
+    return re.sub(r'   ', r', ', txt)

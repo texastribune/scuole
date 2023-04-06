@@ -61,10 +61,10 @@ class Command(BaseCommand):
         else:
             fax_number_extension = ""
 
-        street = data.get("District Street Address")
-        city = data.get("District City")
-        state = data.get("District State")
-        zip_code = data.get("District Zip")
+        street = data.get("District Site Street Address")
+        city = data.get("District Site City")
+        state = data.get("District Site State")
+        zip_code = data.get("District Site Zip")
         website = data.get("District Web Page Address")
 
         district.phone_number = phone_number

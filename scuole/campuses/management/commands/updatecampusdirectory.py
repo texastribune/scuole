@@ -67,10 +67,10 @@ class Command(BaseCommand):
         else:
             fax_number_extension = ""
 
-        street = data.get("School Street Address")
-        city = data.get("School City")
-        state = data.get("School State")
-        zip_code = data.get("School Zip")
+        street = data.get("School Site Street Address")
+        city = data.get("School Site City")
+        state = data.get("School Site State")
+        zip_code = data.get("School Site Zip")
         website = data.get("School Web Page Address")
 
         # This accounts for invalid phone numbers

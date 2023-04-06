@@ -176,6 +176,7 @@ SCHEMA = {
     "college_ready_graduates_both_limited_english_proficient_percent": "{short_code}LCRB{year}R",
     # 'college_ready_graduates_both_at_risk_count': 'RCRB',
     "college_ready_graduates_both_at_risk_percent": "{short_code}RCRB{year}R",
+    # dA0csa21r
     "avg_sat_score_all_students": "{short_code}A0CSA{year}R",
     "avg_sat_score_african_american": "{short_code}B0CSA{year}R",
     "avg_sat_score_american_indian": "{short_code}I0CSA{year}R",

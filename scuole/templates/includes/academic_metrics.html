@@ -24,7 +24,7 @@
 
     <div class="page-prose">
       <p>The overall grades are based on three categories: student achievement (how well students perform academically), school progress (how well students perform over time and compared to students in similar schools) and closing the gaps (how well schools are boosting performance for subgroups such as students with special needs).</p>
-      <p>For a detailed explanation of this year’s accountability system, see the <a href="https://tea.texas.gov/{{ stat.year.end_year }}accountabilitymanual.aspx">{{ stat.year.end_year }} Accountability Manual</a>.</p>
+      <p>For a detailed explanation of this year’s accountability system, see the <a href="https://tea.texas.gov/texas-schools/accountability/academic-accountability/performance-reporting/{{ stat.year.end_year }}-accountability-manual">{{ stat.year.end_year }} Accountability Manual</a>.</p>
     </div>
   {% endif %}
 
@@ -32,7 +32,7 @@
     <h3 class="page-section-subheader">Four-year graduation rates</h3>
 
     <div class="page-prose">
-      <p>The percentage of students who started ninth grade in {{ stat.year.ninth_grade_year }} and received a high school diploma on time &mdash; by <strong>Aug. 31, {{ stat.year.end_year }}</strong>. <a href="{% url 'about' %}#four-year-grad">Learn more about how four-year graduation rates are defined</a>.</p>
+      <p>The percentage of students who started ninth grade in {{ stat.year.ninth_grade_year }} and received a high school diploma on time &mdash; by <strong>Aug. 31, {{ stat.year.start_year }}</strong>. <a href="{% url 'about' %}#four-year-grad">Learn more about how four-year graduation rates are defined</a>.</p>
     </div>
 
     <section class="row metrics">
@@ -59,8 +59,8 @@
 
     <section class="row metrics">
       {% include 'includes/metric.html' with title="All students" field="dropout_all_students_percent" field_type="percent" %}
-      {% include 'includes/metric.html' with title="American Indian" field="dropout_american_indian_percent" field_type="percent" %}
       {% include 'includes/metric.html' with title="African American" field="dropout_african_american_percent" field_type="percent" %}
+      {% include 'includes/metric.html' with title="American Indian" field="dropout_american_indian_percent" field_type="percent" %}
       {% include 'includes/metric.html' with title="Asian" field="dropout_asian_percent" field_type="percent" %}
       {% include 'includes/metric.html' with title="Hispanic" field="dropout_hispanic_percent" field_type="percent" %}
       {% include 'includes/metric.html' with title="Pacific Islander" field="dropout_pacific_islander_percent" field_type="percent" %}
@@ -78,8 +78,8 @@
 
   <section class="row metrics">
     {% include 'includes/metric.html' with title="All students" field="chronic_absenteeism_all_students_percent" field_type="percent" %}
-    {% include 'includes/metric.html' with title="American Indian" field="chronic_absenteeism_american_indian_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="African American" field="chronic_absenteeism_african_american_percent" field_type="percent" %}
+    {% include 'includes/metric.html' with title="American Indian" field="chronic_absenteeism_american_indian_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="Asian" field="chronic_absenteeism_asian_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="Hispanic" field="chronic_absenteeism_hispanic_percent" field_type="percent" %}
     {% include 'includes/metric.html' with title="Pacific Islander" field="chronic_absenteeism_pacific_islander_percent" field_type="percent" %}
