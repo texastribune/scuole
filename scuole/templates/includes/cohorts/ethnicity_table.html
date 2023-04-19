@@ -13,46 +13,46 @@
   <tbody>
     <tr>{% with cohort=data.black %}
       <th scope="row">Black</th>
-      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{% if cohort.enrolled_8th != null %}{{ cohort.enrolled_8th|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.graduated != null %}{{ cohort.graduated|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.total_enrolled != null %}{{ cohort.total_enrolled|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.total_degrees != null %}{{ cohort.total_degrees|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
     {% endwith %}</tr>
     <tr>{% with cohort=data.hispanic %}
       <th scope="row">Hispanic</th>
-      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{% if cohort.enrolled_8th != null %}{{ cohort.enrolled_8th|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.graduated != null %}{{ cohort.graduated|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.total_enrolled != null %}{{ cohort.total_enrolled|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.total_degrees != null %}{{ cohort.total_degrees|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
     {% endwith %}</tr>
     <tr>{% with cohort=data.white %}
       <th scope="row">White</th>
-      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{% if cohort.enrolled_8th != null %}{{ cohort.enrolled_8th|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.graduated != null %}{{ cohort.graduated|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.total_enrolled != null %}{{ cohort.total_enrolled|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.total_degrees != null %}{{ cohort.total_degrees|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
     {% endwith %}</tr>
     <tr>{% with cohort=data.other %}
       <th scope="row">Other</th>
-      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{% if cohort.enrolled_8th != null %}{{ cohort.enrolled_8th|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.graduated != null %}{{ cohort.graduated|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.total_enrolled != null %}{{ cohort.total_enrolled|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.total_degrees != null %}{{ cohort.total_degrees|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
     {% endwith %}</tr>
     {% if data.unknown %}
     <tr>{% with cohort=data.unknown %}
       <th scope="row">Unknown</th>
-      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{% if cohort.enrolled_8th != null %}{{ cohort.enrolled_8th|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.graduated != null %}{{ cohort.graduated|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.total_enrolled != null %}{{ cohort.total_enrolled|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.total_degrees != null %}{{ cohort.total_degrees|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
     {% endwith %}</tr>{% endif %}
     <tr class="highlight-row">{% with cohort=latest_cohort %}
       <th scope="row">Total</th>
-      <td class="numeric-cell">{{ cohort.enrolled_8th|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.graduated|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_enrolled|intcomma|default:"N/A" }}</td>
-      <td class="numeric-cell">{{ cohort.total_degrees|intcomma|default:"N/A" }}</td>
+      <td class="numeric-cell">{% if cohort.enrolled_8th != null %}{{ cohort.enrolled_8th|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.graduated != null %}{{ cohort.graduated|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.total_enrolled != null %}{{ cohort.total_enrolled|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
+      <td class="numeric-cell">{% if cohort.total_degrees != null %}{{ cohort.total_degrees|intcomma|default:"N/A" }}{% else %}N/A{% endif %}</td>
     {% endwith %}</tr>
   </tbody>
 </table>
