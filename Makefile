@@ -71,6 +71,7 @@ data/all-cohorts:
 	python manage.py loadallcohorts 2009
 	python manage.py loadallcohorts 2010
 	python manage.py loadallcohorts 2011
+	python manage.py loadallcohorts 2012
 
 local/reset-db-bootstrap-areas: local/reset-db data/bootstrap-areas
 
