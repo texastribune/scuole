@@ -1,7 +1,7 @@
 <div class="metric {% if full_row %} metric--full-row{% endif %}">
   <p class="metric-title">{{ title }}{% if year %}{{ year }}{% endif %}</p>
   <p class="metric-value{% if bigger_value %} metric-value--bigger{% endif %}">
-    {{ field }}{% if field_label %}<span class="metric-value-label"> {{ field_label }}</span>{% endif %}{% if extra_field %}<span class="metric-subtext"> ({{ extra_field }}%)</span>{% endif %}
+    {% if field != 'None' %} {{ field }} {% else %} N/A {% endif %}{% if field_label %}<span class="metric-value-label"> {{ field_label }}</span>{% endif %}{% if extra_field %}<span class="metric-subtext"> ({{ extra_field }}%)</span>{% endif %}
   </p>
   {% if subtext_field %}
   <p class="metric-subtext">

@@ -96,7 +96,7 @@ class Command(BaseCommand):
         data_file = os.path.join(self.year_folder, 'regionState.csv')
 
         # opens the data file and adds the data from each row to the data list
-        with open(data_file) as f:
+        with open(data_file, encoding="utf-8-sig") as f:
             reader = csv.DictReader(f)
             data.append([i for i in reader])
 

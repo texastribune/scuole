@@ -38,8 +38,8 @@
       {% now "Y" as current_year_str %}
       {% with current_year=current_year_str|add:"0" %}
       <p>
-        Of the <strong>{{ latest_cohort.enrolled_8th|intcomma }} students</strong> in <strong>{{ county.name_full_cohorts }}</strong>
-        who began 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{{ latest_cohort.percent_completed_higher_education|percentify }} percent</strong>
+        Of the <strong>{% if latest_cohort.enrolled_8th != null %} {{ latest_cohort.enrolled_8th|intcomma }} {% else %} N/A {% endif %} students</strong> in <strong>{{ county.name_full_cohorts }}</strong>
+        who began 8th grade in <strong>{{ latest_cohort.year.start_year }}</strong>, <strong>{% if latest_cohort.percent_completed_higher_education != null %}{{ latest_cohort.percent_completed_higher_education|percentify }} {% else %} N/A {% endif %} percent</strong>
         received a certificate or degree from a Texas college or university within six years of their anticipated high school graduation date.
         For context, a 13-year-old student who started 8th grade in <strong>{{ first_cohort_year.start_year }}</strong>
         is about <strong>{{ current_year|subtract:first_cohort_year.start_year|add:"13" }}</strong> years old;
