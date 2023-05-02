@@ -52,17 +52,28 @@ Public Schools 3!
 
 ## Setup
 
-This project assumes you are using the provided Docker PostgreSQL database build.
+So you want to update the schools database? That's great! This README will take you through the many steps involved in that process. This README assumes that you're new at updating the schools database and are starting from the beginning.
 
-### Configure your computer to ssh into our test and production servers
+If you're a veteran and want some quick deploy instructions you can skip to [here](#quick-deploy).
 
-Later, we ssh into servers to put new data and app code on the test and production links. You'll need to add some configuration into your computer's ssh configuration file (`.ssh/config`). Let's just get this out of the way!
+For everyone else, we'll go through a chronological order of operations:
 
-The `Hosts` you are adding are `schools-prod`, `schools-prod-2` and `schools-test`. The configurations for those servers are in [this Confluence page](https://texastribune.atlassian.net/wiki/spaces/TECH/pages/167386/AWS+hosts).
+1) Set up schools in your local computer
+2) Upload the latest school data from `scuole_data` repo into your local schools database
+3) Update the database in the [test server](https://schools-test.texastribune.org/)
+4) Update the database in our production servers
 
-When you're done, save that file and quit.
+The end result should look [like this](https://schools.texastribune.org/).
+
+Great! Let's get started!
+
+### Clone or download the two scuole repositories in your local computer
+
+The schools database has two repositories: `scuole` (aka this one, which has the actual app) and [`scuole-data`](https://github.com/texastribune/scuole-data) which is a repository for all of the data you've downloaded from Texas Education Agency. You'll want to clone or download both and keep them in a directory where you can find them.
 
 ### Make sure Docker is up and running
+
+This project assumes you are using the provided Docker PostgreSQL database build. Also, make sure that your Postgres is updated and running. You can open up the [PostGres](https://postgresapp.com/) to check in on it.
 
 ```sh
 make docker/db
@@ -71,6 +82,8 @@ make docker/db
 This will create the data volume and instance of PostgreSQL for Django.
 
 ### Fire up pipenv
+
+Make sure you're using at least Python 3.7 to create your pipenv environment.
 
 ```sh
 pipenv --three
@@ -81,6 +94,8 @@ pipenv --three
 ```sh
 pipenv install --dev
 ```
+
+**Note:** If you're running into problems installing `psycopg2` when installing pipenv dependencies, you can troubleshoot [here](#when-setting-up-my-local-server-i-have-a-problem-installing-psycopg2-when-installing-pipenv-dependencies).
 
 Locally, we are using Pipfile and Pipfile.lock files to manage dependencies. On the staging and production servers, we are using a Dockerfile, which installs dependencies from a `requirements.txt` file.
 
@@ -104,23 +119,13 @@ docker-compose.local.yml
 
 At the moment, however, this is still a work in progress.
 
-#### Troubleshooting
-
-If there's a problem installing `psycopg2` when installing pipenv dependencies, you may need to the pg_config path by running pg_config and then reinstalling it.
-
-```sh
-pg_config --bindir
-export PATH=$PATH:path/to/pg/config
-pip3 install psycopg2
-```
-
 ### Run pipenv
+
+You'll next need to activate the shell to run any of the Python commands. 
 
 ```sh
 pipenv shell
 ```
-
-You'll need to activate the shell to run any of the Python commands. When on the staging or production servers, you'll run `docker exec -i -t scuole_web_1 /bin/ash` to get inside the Docker container to run commands.
 
 ### Install npm packages
 
@@ -138,12 +143,12 @@ make local/reset-db
 sh bootstrap.sh
 ```
 
-`bootstrap.sh` is a compilation of commands from the `Makefile` that load in the latest data (for the state, regions, counties, districts, campuses, etc.) and create models from them.
+`bootstrap.sh` is a compilation of commands from the `Makefile` that load in last year's schools data (for the state, regions, counties, districts, campuses, etc.) and create models from them.
 
-If you're having trouble with the data, it might be because your `.env` file is not getting used. That file is where we set up the `DATA_FOLDER`, as explained in the [setup doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools). But you can also get around using that file by typing:
+If you're having trouble with the data, it might be because your `.env` file is not getting used. That file is where we set up the `DATA_FOLDER`, as explained in the [setup doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools). But you can also get around using that file by finding the directory where you downloaded the `scuole-data` repo in your local computer and typing in your terminal:
 
 ```sh
-export DATA_FOLDER=~/Documents/tribune/github/scuole-house/scuole-data/
+export DATA_FOLDER=~/your/local/path/to/scuole-data/
 ```
 
 Replace the path shown above with the path to `scuole-data/` on your computer. This environmental variable should be set before running any commands that load in data.
@@ -171,49 +176,7 @@ python manage.py collectstatic --noinput
 python manage.py runserver
 ```
 
-All good? Let's go! There are also other commands in scuole's `Makefile` at your disposal so check them out.
-
-## Quick deploy
-
-Here are the bare bones instructions for updating data and code on the test and production servers, after you're satisfied with your changes locally. To read more, check out the [Updating data](#updating-data) and [Deploying on the test and production servers](#deploying-on-the-test-and-production-servers) sections.
-
-### Deploying code changes
-
-These changes need to be made on the `schools-test`, `schools-prod` and `schools-prod-2` servers.
-
-1) Get onto the host machine: `ssh schools-test` (`schools-test` is the host machine. Use `schools-prod` and `schools-prod-2` to get onto the production machines.)
-2) Get into the code repo: `cd scuole`
-3) Get any code changes: `git pull`
-4) Rebuild and restart Docker services and containers: `make compose/test-deploy` (`make compose/production-deploy` on the production servers)
-5) Make sure Docker containers are running: `docker ps` (There should a container for `web`, `db` and `proxy` services)
-
-### Deploying data changes/new data
-
-These changes only need to be made on the `schools-test` and `schools-prod` servers.
-
-6) Get into the data repo: `cd scuole-data`
-7) Get the latest data: `git pull`
-8) Get into the `web` container to make data updates: `docker exec -i -t scuole_web_1 /bin/ash`
-9) Run migrations so the database is all set up: `python manage.py migrate`
-10) If you're doing a new update and need to update the campus and district models, run through the commands [here](#updating-entities)
-11) After you've created new models, run through the rest of the data update:
-
-- AskTED: `make data/update-directories`
-- TAPR: `make data/latest-school`
-- Cohorts: `python manage.py loadallcohorts <latest-year>`
-
-### More small changes
-
-1) Make sure you bust the cache for the schools explorer metadata on Twitter's card validator. You can do this by adding a query param to the card URL, like this: `https://schools.texastribune.org/?hello` and previewing the card.
-2) If you're updating cohorts data, make sure you're updating the years referenced in `scuole/cohorts/views.py` and `scuole/cohorts/schemas/cohorts/schema.py`. Read more detail in the [cohorts data update section](#updating-cohorts-data).
-3) Update the "Last updated" date on the landing page at `scuole/templates/landing.html`. If you're updating cohorts data, also update the "Last updated" date on the cohorts landing page at `scuole/templates/cohorts_landing.html`.
-4) We have several spots in our templates that include metadata about when this explorer was last updated, such as:
-
-- Template: `scuole/templates/base.html`, variable: `dateModified`
-- Template: `scuole/templates/cohorts_base.html`, variable: `dateModified` (only modify if you are updating the cohorts data)
-- Template: `scuole/templates/includes/meta.html`, variable: `article:modified_time`
-
-You need to change those! They are (probably) important for search.
+Open up the schools database in your local server and make sure that all of the information is there and the pages are working correctly. You can compare it to the [live version of the school's database](https://schools.texastribune.org/). All good? Let's go! There are also other commands in scuole's `Makefile` at your disposal so check them out.
 
 ## Updating data
 
@@ -375,7 +338,39 @@ If you make changes to the styles, you'll need to run `npm run build` again to r
 
 Then, run `pipenv shell`, followed by `python manage.py collectstatic --noinput` to recollect static files. You'll also need to do a hard refresh in whatever browser you're running the explorer in to fetch the new styles.
 
+
+### More small changes
+
+1) Make sure you bust the cache for the schools explorer metadata on Twitter's card validator. You can do this by adding a query param to the card URL, like this: `https://schools.texastribune.org/?hello` and previewing the card.
+2) If you're updating cohorts data, make sure you're updating the years referenced in `scuole/cohorts/views.py` and `scuole/cohorts/schemas/cohorts/schema.py`. Read more detail in the [cohorts data update section](#updating-cohorts-data).
+3) Update the "Last updated" date on the landing page at `scuole/templates/landing.html`. If you're updating cohorts data, also update the "Last updated" date on the cohorts landing page at `scuole/templates/cohorts_landing.html`.
+4) We have several spots in our templates that include metadata about when this explorer was last updated, such as:
+
+- Template: `scuole/templates/base.html`, variable: `dateModified`
+- Template: `scuole/templates/cohorts_base.html`, variable: `dateModified` (only modify if you are updating the cohorts data)
+- Template: `scuole/templates/includes/meta.html`, variable: `article:modified_time`
+
+You need to change those! They are (probably) important for search.
+
+
+### Updating the sitemap
+
+When we add new urls, we also need to update the sitemap (`sitemap.xml`) to include those paths. Fortunately, Django has functions that allow us to generate all of the urls associated with an object's views.
+
+To see an example, view any of the `sitemaps.py` files. You'll need to add the sitemap to the `config/urls.py` file, and view the updated sitemap locally at `localhost:8000/sitemap.xml`.
+
+After verifying that the sitemap looks OK locally, copy the content starting from the `<urlset>` tag in `sitemap.xml` and paste it into `scuole/static_src/sitemap.xml` before deploying. You can also run `python manage.py collectstatic --noinput` on the test and production servers to get the updated sitemap.
+
+
 ## Deploying on the test and production servers
+
+### Configure your computer to ssh into our test and production servers
+
+Later, we ssh into servers to put new data and app code on the test and production links. You'll need to add some configuration into your computer's ssh configuration file (`.ssh/config`). Let's just get this out of the way!
+
+The `Hosts` you are adding are `schools-prod`, `schools-prod-2` and `schools-test`. The configurations for those servers are in [this Confluence page](https://texastribune.atlassian.net/wiki/spaces/TECH/pages/167386/AWS+hosts).
+
+When you're done, save that file and quit.
 
 ### Deploying code changes
 
@@ -486,15 +481,48 @@ make compose/production-deploy
 
 Once that's done, check the [live site](https://schools.texastribune.org/). Your changes should be there! Now go home, your work here is done.
 
-### Updating the sitemap
 
-When we add new urls, we also need to update the sitemap (`sitemap.xml`) to include those paths. Fortunately, Django has functions that allow us to generate all of the urls associated with an object's views.
 
-To see an example, view any of the `sitemaps.py` files. You'll need to add the sitemap to the `config/urls.py` file, and view the updated sitemap locally at `localhost:8000/sitemap.xml`.
+## Quick deploy
 
-After verifying that the sitemap looks OK locally, copy the content starting from the `<urlset>` tag in `sitemap.xml` and paste it into `scuole/static_src/sitemap.xml` before deploying. You can also run `python manage.py collectstatic --noinput` on the test and production servers to get the updated sitemap.
+Here are the bare bones instructions for updating data and code on the test and production servers, after you're satisfied with your changes locally. To read more, check out the [Updating data](#updating-data) and [Deploying on the test and production servers](#deploying-on-the-test-and-production-servers) sections.
+
+### Deploying code changes
+
+These changes need to be made on the `schools-test`, `schools-prod` and `schools-prod-2` servers.
+
+1) Get onto the host machine: `ssh schools-test` (`schools-test` is the host machine. Use `schools-prod` and `schools-prod-2` to get onto the production machines.)
+2) Get into the code repo: `cd scuole`
+3) Get any code changes: `git pull`
+4) Rebuild and restart Docker services and containers: `make compose/test-deploy` (`make compose/production-deploy` on the production servers)
+5) Make sure Docker containers are running: `docker ps` (There should a container for `web`, `db` and `proxy` services)
+
+### Deploying data changes/new data
+
+These changes only need to be made on the `schools-test` and `schools-prod` servers.
+
+6) Get into the data repo: `cd scuole-data`
+7) Get the latest data: `git pull`
+8) Get into the `web` container to make data updates: `docker exec -i -t scuole_web_1 /bin/ash`
+9) Run migrations so the database is all set up: `python manage.py migrate`
+10) If you're doing a new update and need to update the campus and district models, run through the commands [here](#updating-entities)
+11) After you've created new models, run through the rest of the data update:
+
+- AskTED: `make data/update-directories`
+- TAPR: `make data/latest-school`
+- Cohorts: `python manage.py loadallcohorts <latest-year>`
 
 ## Troubleshooting
+
+### When setting up my local server, I have a problem installing `psycopg2` when installing pipenv dependencies
+
+If there's a problem installing `psycopg2` when installing pipenv dependencies, you may need to the pg_config path by running pg_config and then reinstalling it.
+
+```sh
+pg_config --bindir
+export PATH=$PATH:path/to/pg/config
+pip3 install psycopg2
+```
 
 ### What is the best place to view the data?
 
