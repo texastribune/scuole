@@ -211,9 +211,6 @@ In this explorer, we can see data for the entire state, regions, districts, and 
 
 First, make sure you've created new district and campus `entities.csv` files and added them to `scuole-data` — instructions are in [scuole-data](https://github.com/texastribune/scuole-data). We use these files to create the models.
 
-**Updating locally**
-
-
 Next, go to the `data/bootstrap-entities` in the `Makefile` and change the year to the year you are updating for (ex: 2021-2022) for both `bootstrapdistricts_v2` and `bootstrapcampuses_v2`.
 
 Then, delete the existing district and campus models (they're might be a better way to refresh them, we're going with this for now). Get into the shell, and start the Python terminal.
@@ -240,7 +237,6 @@ And finally, run `make data/bootstrap-entities` to re-create the district and ca
 ### Updating AskTED data
 
 In this explorer, we have a section at the top of the page of every district and campus (under the map of the district or campus location) where we have school addresses and contact information, along with superintendent and principal contact information. We get this data from [AskTED](https://tealprod.tea.state.tx.us/tea.askted.web/Forms/Home.aspx) which contains a file called [`Download School and District File with Site Address`](https://tealprod.tea.state.tx.us/Tea.AskTed.Web/Forms/DownloadSite.aspx).
-
 
 To update the data, run:
  
@@ -401,7 +397,6 @@ First, make sure you have pushed all your changes to Github repos of [scuole](ht
 
 Before you update the data, **YOU MUST UPDATE ALL OF THE CODE CHANGES FIRST.** This is important, especially if you made any code changes that pertain to the updating process.
 
-
 ### Deploying code changes on the test server
 
 First, we will `ssh` into the `schools-test` server.
@@ -471,7 +466,6 @@ First, let's update the data in the schools explorer part of the site. **Remembe
 3) AskTED
 4) TAPR
 
-
 **Updating district boundaries and campus coordinates and district and campus entities**
 
 Just like in the local server, get into the Python terminal and remove the district and campus models:
@@ -507,7 +501,6 @@ make data/latest-school
 
 If you were able to run this in your local server, then you shouldn't run into any errors! Check if your data updated correctly by going into the [test url](https://schools-test.texastribune.org/)
 
-
 **Updating Cohorts**
 
 Run this command to load the latest cohorts data:
@@ -517,7 +510,6 @@ python manage.py loadallcohorts <latest year>
 ```
 
 If you were able to run this in your local server, then you shouldn't run into any errors! Check if your data updated correctly by going into the [test url](https://schools-test.texastribune.org/outcomes)
-
 
 ### Factchecking
 
