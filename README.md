@@ -239,9 +239,17 @@ And finally, run `make data/bootstrap-entities` to re-create the district and ca
 
 ### Updating AskTED data
 
-In this explorer, we have a section at the top of the page of every district and campus (under the map of the district or campus location) where we have school addresses and contact information, along with superintendent and principal contact information. We get this data from [AskTED](https://tealprod.tea.state.tx.us/tea.askted.web/Forms/Home.aspx) which contains a file called [`Download School and District File with Site Address`](https://tealprod.tea.state.tx.us/Tea.AskTed.Web/Forms/DownloadSite.aspx). 
+In this explorer, we have a section at the top of the page of every district and campus (under the map of the district or campus location) where we have school addresses and contact information, along with superintendent and principal contact information. We get this data from [AskTED](https://tealprod.tea.state.tx.us/tea.askted.web/Forms/Home.aspx) which contains a file called [`Download School and District File with Site Address`](https://tealprod.tea.state.tx.us/Tea.AskTed.Web/Forms/DownloadSite.aspx).
 
-Run `pipenv shell`, followed by `make data/update-directories` to update the data. You can also run each command in that block separately, your choice!
+
+To update the data, run:
+ 
+```sh
+pipenv shell
+make data/update-directories
+```
+
+You can also run each command in that block separately, your choice!
 
 If you run into any duplicate key errors during the AskTED update, refer to the [Troubleshooting section](https://github.com/texastribune/scuole#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database) for instructions on how to clear a table. You'll need to clear the table that is throwing this error, and reload the data.
 
@@ -261,7 +269,12 @@ Once you're done, you'll need to change the year in `make data/latest-school` in
 
 You'll also need to add another line to load in the latest year to `make data/all-schools` also in the `Makefile`. An example, if you're updating for 2021-2022, add `python manage.py loadtaprdata 2021-2022 --bulk`. This is so that if you reset your database or if someone who is new to updating the schools database is setting up, they can upload the latest data.
 
-Run `pipenv shell`, followed by `make data/latest-school` to update the data.
+To update the data, run:
+
+```sh
+pipenv shell
+make data/latest-school
+```
 
 FYI, the scripts will update first the state, then the region, then the district and campus data.
 
@@ -349,21 +362,119 @@ When everything looks good locally, it's time to update the data in the test ser
 
 ### Configure your computer to ssh into our test and production servers
 
-Later, we ssh into servers to put new data and app code on the test and production links. You'll need to add some configuration into your computer's ssh configuration file (`.ssh/config`). Let's just get this out of the way!
+In order to get into the test and production server, you will need to `ssh` into the server. That means you'll need to add some configuration into your computer's ssh configuration file (`.ssh/config`). 
 
-The `Hosts` you are adding are `schools-prod`, `schools-prod-2` and `schools-test`. The configurations for those servers are in [this Confluence page](https://texastribune.atlassian.net/wiki/spaces/TECH/pages/167386/AWS+hosts).
+If you haven't created one in your local computer yet, create a directory called `.ssh` by running `mkdir -p ~/.ssh && chmod 700 ~/.ssh` or creating it manually. Create a config file by running `touch ~/.ssh/config` and `chmod 600 ~/.ssh/config` to change its permission.
+
+Open up the `config` file with your favorite text editor. The `Hosts` you are adding are `schools-prod`, `schools-prod-2` and `schools-test`. In 1Password in the Data Visuals vault, find a file called `Scuole SSH configuration` and add the text found in that file to the `config` file.
 
 When you're done, save that file and quit.
 
-**Updating on the test and production servers**
+Next, in 1Password in the Data Visuals vault, find two files called `tribtalk-kb.pem`and `Newsapps SSH key`. Create a new directory called `trib` either manually or by running `mkdir -p ~/.ssh/trib && chmod 700 ~/.ssh/trib`. Copy and paste the two files from 1Password into text editors and save them as `tribtalk-kp.pem` and `newsapps.pem` in your `trib` directory. These are your RSA private keys that will let you `ssh` into the server.
 
-First, get inside the Docker container:
+One last step is to make sure both `pem` files have the correct permissions. This can be done by running `chmod 400 ~/.ssh/trib/tribtalk-kp.pem` and `chmod 400 ~/.ssh/trib/newsapps.pem`.
+
+Next, let Engineering know that you have everything set up and you need to access the servers and they need to whitelist your I.P. address using [Amazon VPC security groups](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html). Once that's set, you will be able to access the server.
+
+In order to test this out, `ssh` into the `schools-test` server by running `ssh schools-test` in your Terminal.
+
+If this is your first time `ssh` into the server, it will give you a prompt something along the lines of:
+
+```
+The authenticity of host 'ec2-XX-XXX-XXX-XXX.compute-1.amazonaws.com (XX.XXX.XXX.XXX)' can't be established. This key is not known by any other names. Are you sure you want to continue connecting (yes/no/[fingerprint])?
+```
+
+Reply 'yes' and you should be in!
+
+If you get an error like this:
+
+```
+kex_exchange_identification: Connection closed by remote host
+Connection closed by UNKNOWN port 65535
+```
+
+It means your I.P. address is still not whitelisted and you'll have to check back with Engineering.
+
+### Deploying on the test server
+
+First, make sure you have pushed all your changes to Github repos of [scuole](https://github.com/texastribune/scuole) and [scuole-data](https://github.com/texastribune/scuole-data) and merged them into master. These are the versions that are going to be pulled into the test server.
+
+Before you update the data, **YOU MUST UPDATE ALL OF THE CODE CHANGES FIRST.** This is important, especially if you made any code changes that pertain to the updating process.
+
+
+### Deploying code changes on the test server
+
+First, we will `ssh` into the `schools-test` server.
+
+```sh
+ssh schools-test
+```
+
+If you haven't been able to get into any `ssh` server, see the previous section to configure your computer or ask Engineering for help.
+
+The server will have a repository of the `scuole` project. We will need to pull all of the code changes you made into the `scuole` in the test server that you pushed and merged to master.
+
+```sh
+cd scuole
+git checkout master
+git pull
+```
+
+When you see all of your code changes get pulled in from the Github repo, it's time to rebuild images of the application and restart the Docker containers with the new images on the test host machines by running:
+
+```sh
+make compose/test-deploy
+```
+
+Make sure Docker containers are running by running `docker ps` (There should a container for `web`, `db` and `proxy` services - see `docker-compose.override.yml` for more details).
+
+Once you run these, make sure  your code changes made it through by going to [test url](https://schools-test.texastribune.org/). Remeber that these are only code changes, you haven't updated your data yet on the test server so don't expect to see the latest data up on the test server.
+
+### Deploying data updates on the test server
+
+Now, we need to get all of our data changes from `scuole-data` to the test server.
+
+First, get into the data repo:
+
+```sh
+cd ..
+cd scuole-data
+```
+
+Next, get the latest data from your master branch:
+
+```sh
+git checkout master
+git pull
+```
+
+You should see the latest data pulled into the test server from Github.
+
+Next, get inside the Docker container:
 
 ```sh
 docker exec -i -t scuole_web_1 /bin/ash
 ```
 
-Then, get into the Python terminal and remove the district and campus models:
+This is where we will run all of the scripts needed to update the data.
+
+Let's run all migrations so the database is all set up.
+
+```
+python manage.py migrate
+```
+
+First, let's update the data in the schools explorer part of the site. **Remember that there's an order to this:**
+
+1) District boundaries and campus coordinates
+2) District and campus entities
+3) AskTED
+4) TAPR
+
+
+**Updating district boundaries and campus coordinates and district and campus entities**
+
+Just like in the local server, get into the Python terminal and remove the district and campus models:
 
 ```sh
 python manage.py shell
@@ -378,164 +489,166 @@ exit()
 
 Lastly, run `make data/bootstrap-entities` to create the district and campus models.
 
-ASK TED
+**Updating AskTED**
 
-**Updating on the test and production servers**
-
-First, get inside the Docker container:
-
-```sh
-docker exec -i -t scuole_web_1 /bin/ash
-```
-
-Then, run this command to load the latest AskTED data:
+Run this command to load the latest AskTED data:
 
 ```sh
 make data/update-directories
 ```
 
-TAPR
+**Updating TAPR**
 
-**Updating on the test and production servers**
-
-First, get inside the Docker container:
-
-```sh
-docker exec -i -t scuole_web_1 /bin/ash
-```
-
-Then, run this command to load the latest TAPR data:
+Run this command to load the latest TAPR data:
 
 ```sh
 make data/latest-school
 ```
 
-**Updating on the test and production servers**
+If you were able to run this in your local server, then you shouldn't run into any errors! Check if your data updated correctly by going into the [test url](https://schools-test.texastribune.org/)
 
-First, get inside the Docker container:
 
-```sh
-docker exec -i -t scuole_web_1 /bin/ash
-```
+**Updating Cohorts**
 
-Then, run the Python command to load the latest batch of cohorts data:
+Run this command to load the latest cohorts data:
 
 ```sh
 python manage.py loadallcohorts <latest year>
 ```
+
+If you were able to run this in your local server, then you shouldn't run into any errors! Check if your data updated correctly by going into the [test url](https://schools-test.texastribune.org/outcomes)
+
+
+### Factchecking
+
+One final task is to fact check a few schools to see if the data loaded in correctly. Every year, we recruit other data team members to help out with this process.
+
+We set up a [Schools Explorer Factchecking Google Doc](https://docs.google.com/spreadsheets/d/1z-Zk5pH4n6VEJqMNAYqwlj1cGHnZJXvDP3BCEApWYaY/edit#gid=1870015234) that we update every year to help out the fact-checking process. You want data team members to check at least a few schools and districts with the TAPR data that [TEA makes available](https://rptsvr1.tea.texas.gov/perfreport/tapr/tapr_srch.html?srch=C).
+
+We set up a similar Google Doc to fact check the [Cohorts data](https://docs.google.com/spreadsheets/d/1cBrMpJ9c-h1tSiubhqMj_K5beYiOTfonND_FsTwfbwI/edit#gid=1870015234).
+
+You should also make sure you fact check the statewide numbers with the numbers TEA has.
+
+In addition, you want to hoedown and ask for copy editors to look over any changes to the text or to the disclaimers.
+
 ## Deploying on production servers
 
+Hooray! We're ready to update the production servers and deploy it live. Scary! but there are two production servers: `schools-prod` and `schools-prod-2` so that means while one is updating, the other is still up.
 
-### Deploying code changes
+The other good news is that deployment is similar to how you deployed in the `test` server.
 
-Push all your changes to [Github](https://github.com/texastribune/scuole). We'll deploy on the test server first, and then the production servers.
-
-Make sure your set up with `ssh` — check out [this doc](https://github.com/texastribune/data-visuals-guides/blob/master/explorers-setup.md#schools) for more info.
-
-To get code changes and new data onto the [test link](https://schools-test.texastribune.org/) and the [production link](https://schools.texastribune.org/), we ssh onto host machines and use Docker to containerize the services that the app requires: `web`, `proxy`, and the database `db` (see `docker-compose.override.yml` for more details).
-
-We need to rebuild images of the application and restart the Docker containers with the new images on the test and production host machines. `make compose/test-deploy` does this. **We must deploy code changes before any data changes.**
-
-#### Deploying on the test server
-
-```sh
-ssh schools-test
-cd scuole
-git checkout master
-git pull
-make compose/test-deploy
-```
-
-Once you run these, make sure everything is working on the [test url](https://schools-test.texastribune.org/).
-
-#### Deploying on the production server
+### Deploying code changes on the production server
 
 After checking the test site, you'll need to repeat those steps on the two production servers: `schools-prod` and `schools-prod-2`. You must do both servers — if you don't, the published app will switch between new and old code.
 
+First, we will `ssh` into the `schools-prod` server.
+
 ```sh
 ssh schools-prod
+```
+
+The server will have a repository of the `scuole` project. We will need to pull all of the code changes you made into the `scuole` into the production server.
+
+```sh
 cd scuole
+git checkout master
 git pull
+```
+
+When you see all of your code changes get pulled in from the Github repo, it's time to rebuild images of the application and restart the Docker containers with the new images on the test host machines by running:
+
+```sh
 make compose/production-deploy
 ```
 
-Congrats, your changes are now [live](schools.texastribune.org)!
+Make sure Docker containers are running by running `docker ps` (There should a container for `web` and `proxy` services - no `db` container is necessary to be running in the production servers).
 
-### Deploying data changes/new data
+If everything runs successfully, run the same steps for the `schools-prod-2` server.
 
-Deploying the data on the test and production servers will be similar to loading it in locally.
+Congrats, your code changes are now [live](schools.texastribune.org)!
 
-#### Deploying on the test server
+### Deploying data updates on the production server
 
-First, make sure all of your changes are pushed to [Github](https://github.com/texastribune/scuole-data). Then, log into the test server and pull the changes in `scuole-data`.
-
-```sh
-ssh schools-test
-cd scuole-data
-git pull
-```
-
-Then, go back to `scuole`.
-
-```
-cd ../scuole
-git checkout master
-git pull 
-```
-
-Next, let's get into the Docker container:
-
-```sh
-docker exec -i -t scuole_web_1 /bin/ash
-```
-
-Then, run the commands to load in new data, as documented above.
-
-```sh
-python manage.py loadallcohorts 2008
-```
-
-Exit out of the Python shell and your Docker container with `Ctrl + P + Q`. Run the following command to build and deploy the data changes to the test site.
-
-```sh
-make compose/test-deploy
-```
-
-Your changes should now be on the [test server](https://schools-test.texastribune.org)! Now we're ready for production a.k.a. the big time.
-
-#### Deploying on the production server
-
-Fortunately, you only need to push data changes to one server. For `schools-prod`, we will need to pull down Github changes:
+We're almost there! Now we just need to update the data in the production server. Deploying the data on the production servers will be similar to loading it in locally and on the test server. Fortunately, you only need to push data changes to one server - `schools-prod`. Let's go back to `schools-prod` server:
 
 ```sh
 ssh schools-prod
-cd scuole-data
-git pull
-cd ../scuole
+```
+
+Let's get all of our new data from the `scuole-data` Github:
+
+```sh
+git checkout master
 git pull
 ```
 
-Get inside the Docker container:
+You should see the latest data pulled into the production server from Github.
+
+Next, get inside the Docker container:
 
 ```sh
 docker exec -i -t scuole_web_1 /bin/ash
 ```
 
-Run the commands to load in new data. Here's an example:
+This is where we will run all of the scripts needed to update the data.
 
-```sh
-python manage.py loadallcohorts 2008
+Let's run all migrations so the database is all set up.
+
+```
+python manage.py migrate
 ```
 
-Now, deploy:
+First, let's update the data in the schools explorer part of the site. **Remember that there's an order to this:**
+
+1) District boundaries and campus coordinates
+2) District and campus entities
+3) AskTED
+4) TAPR
+
+**Updating district boundaries and campus coordinates and district and campus entities**
+
+Just like in the local server, get into the Python terminal and remove the district and campus models:
 
 ```sh
-make compose/production-deploy
+python manage.py shell
+from scuole.districts.models import District
+district = District.objects.all()
+district.delete()
+from scuole.campuses.models import Campus
+campus = Campus.objects.all()
+campus.delete()
+exit()
 ```
 
-Once that's done, check the [live site](https://schools.texastribune.org/). Your changes should be there! Now go home, your work here is done.
+Lastly, run `make data/bootstrap-entities` to create the district and campus models.
 
-### Factchecking
+**Updating AskTED**
+
+Run this command to load the latest AskTED data:
+
+```sh
+make data/update-directories
+```
+
+**Updating TAPR**
+
+Run this command to load the latest TAPR data:
+
+```sh
+make data/latest-school
+```
+
+**Updating Cohorts**
+
+Run this command to load the latest cohorts data:
+
+```sh
+python manage.py loadallcohorts <latest year>
+```
+
+Once that's done, check the [live site](https://schools.texastribune.org/). Your changes should be there!
+
+One final thing is that you should make sure you bust the cache for the schools explorer metadata on Twitter's card validator. You can do this by adding a query param to the card URL, like this: `https://schools.texastribune.org/?hello` and previewing the card.
 
 ## Quick deploy
 
@@ -616,18 +729,29 @@ Sometimes an update can throw a duplicate key error. A brute force solution is c
 - `exit()` to exit out of the Python shell.
 - Run your update command again.
 
-You may need to run this process when updating cohorts data — if the cohorts data upload for the latest year is failing because there are too many regional or county cohorts, it may be because you've tried to upload the data more than once and there are duplicates.
+You can also do this in the local server by getting into the Python terminal by running `python manage.py shell` and then running similar steps for the models you want to delete.
 
-You'll need to filter for the latest year by filtering for the objects with the highest `year_id` so you can delete them. You can find the highest `year_id` by looking at the objects in Table Plus. Then, you'll run:
+```python
+python manage.py shell
+from scuole.districts.models import Superintendent
+super = Superintendent.objects.all()
+print(super) # to check if these are the objects we want to delete
+super.delete()
+exit()
+```
+
+You may need to run this process when updating cohorts data — if the cohorts data upload for the latest year is failing because there are too many regional or county cohorts, it may be because you've tried to upload the data more than once and there are duplicates.
 
 ```python
 python manage.py shell
 from scuole.counties.models import CountyCohorts
-latest = CountyCohorts.objects.filter(year_id=14)
-print(latest) # to check if these are the objects we want to delete
-latest.delete()
+countycohorts = CountyCohorts.objects.all()
+print(countycohorts) # to check if these are the objects we want to delete
+countycohorts.delete()
 exit()
 ```
+
+You'll need to delete the `StateCohorts`, `RegionCohorts` and `CountyCohorts` data in the database. Make sure you run `python manage.py loadallcohorts` afterwards (without the latest year) so you load in data dating back to 1997 — otherwise, the stacked area charts will not show up.
 
 If you see the error `django.db.utils.OperationalError: could not translate host name "db" to address: Name does not resolve` when deploying/updating data, it could mean that the app doesn't know where to look for the database. Running `make compose/test-deploy` does some of the setup, and might fix the issue.
 
