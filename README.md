@@ -182,21 +182,41 @@ Open up the schools database in your local server and make sure that all of the 
 
 Every year, we need to update cohorts, TAPR, district boundaries, campus coordinates and the entities files for districts and campuses. Ideally, we would update AskTED every quarter.
 
-There are two types of data updates. One type is when you manually download the data, format it, and load it into the appropriate folder in `scuole-data`. The app then grabs the latest data from `scuole-data`. Another type is when you run a command to download the latest data directly from the website. Updating AskTED is an example of this. See [`scuole-data`](https://github.com/texastribune/scuole-data) for instructions on how to download and format the data used in `scuole`.
+There are two types of data updates. One type is when you manually download the data, format it, and load it into the appropriate folder in `scuole-data`. The app then grabs the latest data from `scuole-data`.  See [`scuole-data`](https://github.com/texastribune/scuole-data) for instructions on how to download and format the data used in `scuole`. Another type is when you run a command to download the latest data directly from the website. Updating AskTED is an example of this.
 
-**Here is the order of operations for updating data**: district boundaries and campus coordinates, district and campus entities, AskTED, TAPR. The cohorts update is a separate process.
+Before you update the data, make sure you read through all of [`scuole-data`](https://github.com/texastribune/scuole-data) and get the data ready to go. There's a few formatting steps that the data needs to go through before you're ready to upload the data on to the database. If you see keep seeing errors, it's probably because the data isn't formatted correctly (an apostrophe in front of a campus or district code, not enough digits for campus or district codes). There are several Jupyter notebooks that will help you format all of the data in [`scuole-data`](https://github.com/texastribune/scuole-data) so I strongly recommend you read it first.
 
-**Note that campus codes should be a 9 digit code. Make sure you pad the beginning of codes with fewer than 9 digits with zeros, using `zfill()` in Python. You should do the same with district codes, which have 6 digits. Also, sometimes TEA data will add an apostrophe to the front of these codes, which you'll need to remove.**
+When you're done you're ready to run the scripts.
 
-### Updating entities
+There are also two sections to the schools database. There is the [schools explorer](https://schools.texastribune.org/) which has a page for every district and campus (school) that has the latest metric. There is also a Higher Education outcomes section where we publish cohort information for [regions and counties](https://schools.texastribune.org/outcomes/).
 
-In this explorer, we can see data for the entire state, regions, districts, and campuses. Regions typically don't change from year to year, but districts and campuses can be added or removed. As a result, we have to update the district and campus models every year.
+When running the scripts to update the school explorer part, **make sure you follow this order when updating the data:** 
+
+1) District boundaries and campus coordinates
+2) District and campus entities
+3) AskTED
+4) TAPR
+
+For the Higher Education cohorts part, it's a seperate process that you can updated independently from the schools explorer part whenever we get new data. That's why the order of this update doesn't matter and we can run the script last.
+
+### Updating district boundaries and campus coordinates
+
+We're starting with the simplest one! All you have to do is update the GEOJSONs of the districts and coordinates of the campuses by following the instructions in the [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repository. If you're already at this step, it means you've done everything in `scoule-data` so you're already done with this step.
+
+We will be connecting the new district and campus geographic data by running the script in the following step.
+
+### Updating district and campus entities
+
+In this explorer, we can see data for the entire state, regions, districts, and campuses. Regions typically don't change from year to year, but districts and campuses can be added or removed. As a result, we have to update the district and campus models every year by deleting all existing districts and campus models and using a list provided by TEA to readd them to the database.
 
 First, make sure you've created new district and campus `entities.csv` files and added them to `scuole-data` — instructions are in [scuole-data](https://github.com/texastribune/scuole-data). We use these files to create the models.
 
 **Updating locally**
 
-Next, remove the existing district and campus models (they're might be a better way to refresh them, we're going with this for now). Get into the shell, and start the Python terminal.
+
+Next, go to the `data/bootstrap-entities` in the `Makefile` and change the year to the year you are updating for (ex: 2021-2022) for both `bootstrapdistricts_v2` and `bootstrapcampuses_v2`.
+
+Then, delete the existing district and campus models (they're might be a better way to refresh them, we're going with this for now). Get into the shell, and start the Python terminal.
 
 ```sh
 pipenv shell
@@ -215,7 +235,125 @@ campus.delete()
 exit()
 ```
 
-Then, switch the year in `make data/bootstrap-entities` to the year you are updating for and run that command to create the district and campus models.
+And finally, run `make data/bootstrap-entities` to re-create the district and campus models with the latest list of districts and campus.
+
+### Updating AskTED data
+
+In this explorer, we have a section at the top of the page of every district and campus (under the map of the district or campus location) where we have school addresses and contact information, along with superintendent and principal contact information. We get this data from [AskTED](https://tealprod.tea.state.tx.us/tea.askted.web/Forms/Home.aspx) which contains a file called [`Download School and District File with Site Address`](https://tealprod.tea.state.tx.us/Tea.AskTed.Web/Forms/DownloadSite.aspx). 
+
+Run `pipenv shell`, followed by `make data/update-directories` to update the data. You can also run each command in that block separately, your choice!
+
+If you run into any duplicate key errors during the AskTED update, refer to the [Troubleshooting section](https://github.com/texastribune/scuole#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database) for instructions on how to clear a table. You'll need to clear the table that is throwing this error, and reload the data.
+
+There may be data formatting errors with some of the data as its being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You'll need to edit this function or create new ones if you're running into problems loading the data from AskTED.
+
+However, if you're running into an `Operation Timed Out` error, it's possible that the AskTED has changed the urls where the script can download the data.You will have to go into `constants.py` and change them. 
+
+As of 2023, the spreadsheet was available through [`this link`](https://tealprod.tea.state.tx.us/Tea.AskTed.Web/Forms/DownloadSite.aspx) so it's simple for the script to directly download all of the data we need.
+
+However, before 2023, it involved hitting a download button in order to get the correct spreadsheet. We got around that by using a POST request using variables we set up in `constants.py` called `ASKTED_DIRECTORY_VIEWSTATE` or `ASKTED_DIRECTORY_VIEWSTATE`. If they ever change it back to needing to hit a download button, we would need to reset those variables again. To check for the correct values, I look on AskTED's website for the correct download URL, hit the download file button, open up the `Network` tab in the console, look at the request the download file button triggered and check the `Payload` tab.
+
+### Updating TAPR data
+
+This is the big one! This dataset contains all school and district performance scores, student and teacher staff info, graduation rates, attendance, SAT/ACT scores and more. These are the numbers that populate in each district and campus page. Again, if you haven't downloaded, formatted and set up this data following the instructions in the [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repository, I strongly recommend you do so.
+
+Once you're done, you'll need to change the year in `make data/latest-school` in the `Makefile` to the latest year (ex: 2021-2022). 
+
+You'll also need to add another line to load in the latest year to `make data/all-schools` also in the `Makefile`. An example, if you're updating for 2021-2022, add `python manage.py loadtaprdata 2021-2022 --bulk`. This is so that if you reset your database or if someone who is new to updating the schools database is setting up, they can upload the latest data.
+
+Run `pipenv shell`, followed by `make data/latest-school` to update the data.
+
+FYI, the scripts will update first the state, then the region, then the district and campus data.
+
+Again, if you're running into apostrophe errors and zfill errors, please go back to [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repository and format it correctly. 
+
+In addition, sometimes TEA likes to change up accountability ratings by adding new ones. For example, for the 2021-2022 year, scores that were D or Fs were labeled `Not Rated: SB 1365`. When that happens, you might need to go into `reference.py` and add them as RATING CHOICES. If you do that, you're changing the models, so don't forget to run `python manage.py makemigrations` and then run `python manage.py migrate`.
+
+### Checking the local server
+
+Either run 
+
+```sh
+sh docker-entrypoint.sh
+```
+or
+
+```sh
+python manage.py runserver
+```
+
+to fire up the local server. Make sure that statewide, district and campus pages in the school database on your local server are working. If you see any data missing, it might be because TEA changed the column names for some metrics. You can check if there's a disconnect by checking the header name in the spreadsheet you have in the `scuole-data` repository with what's in `schema_v2.py`. FYI, `short_code` is the first letter of the header that pertains to the dataset it belongs to (if it's district data, it's D, if it's campus data, it's C). You can find these in `mapping.py`. 
+
+If they're a mismatch, you can do the following things:
+
+* Either change the column header name in `scuole-data` repository
+* or, if you think the change is permananent change the letters in the column header, change the column header in `schema_v2.py`.
+
+
+### Updating cohorts data
+
+This is where we update the [Higher Education outcomes cohorts](https://schools.texastribune.org/outcomes/) data. Because this isn't directly connected to the school explorer updates, these can be done either before and after those updates.
+
+First, make sure you have already followed the [`scuole-data`](https://github.com/texastribune/scuole-data#cohorts) instructions on how to download and format the latest cohorts data.
+
+After you've put the latest cohorts data in `scuole-data`, you'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year.
+
+Then, get inside the Python shell:
+
+```sh
+pipenv shell
+```
+
+Load the data after:
+
+```sh
+python manage.py loadallcohorts <latest year>
+```
+
+If you get the error "There should be only XX cohorts", you'll need to delete the `StateCohorts`, `RegionCohorts` and `CountyCohorts` data in the database — the error is likely because old cohorts data does not get cleared out when new data is loaded. [Follow the instructions in the duplicate key error section](https://github.com/texastribune/scuole#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database) to delete the data. Make sure you run `python manage.py loadallcohorts` afterwards (without the latest year) so you load in data dating back to 1997 — otherwise, the stacked area charts will not show up.
+
+Lastly, you will need to change the `latest_cohort_year` variable in **all of the functions** in the `scuole/cohorts/views.py` file to reference the latest cohorts school year.
+
+Also, make sure the `scuole/cohorts/schemas/cohorts/schema.py` has the correct years (i.e. you'll need to change the year in `8th Grade (FY 2009)` for the reference `'enrolled_8th': '8th Grade (FY 2009)'`, along with the rest of the references.)
+
+### Updating the CSS styling and other static assets
+
+If you make changes to the styles, you'll need to run `npm run build` again to rebuild the `main.css` file in the `assets/` folder that the templates reference.
+
+Then, run `pipenv shell`, followed by `python manage.py collectstatic --noinput` to recollect static files. You'll also need to do a hard refresh in whatever browser you're running the explorer in to fetch the new styles.
+
+### More small changes
+
+1) Make sure you bust the cache for the schools explorer metadata on Twitter's card validator. You can do this by adding a query param to the card URL, like this: `https://schools.texastribune.org/?hello` and previewing the card.
+2) If you're updating cohorts data, make sure you're updating the years referenced in `scuole/cohorts/views.py` and `scuole/cohorts/schemas/cohorts/schema.py`. Read more detail in the [cohorts data update section](#updating-cohorts-data).
+3) Update the "Last updated" date on the landing page at `scuole/templates/landing.html`. If you're updating cohorts data, also update the "Last updated" date on the cohorts landing page at `scuole/templates/cohorts_landing.html`.
+4) We have several spots in our templates that include metadata about when this explorer was last updated, such as:
+
+- Template: `scuole/templates/base.html`, variable: `dateModified`
+- Template: `scuole/templates/cohorts_base.html`, variable: `dateModified` (only modify if you are updating the cohorts data)
+- Template: `scuole/templates/includes/meta.html`, variable: `article:modified_time`
+
+You need to change those! They are (probably) important for search.
+
+### Updating the sitemap
+
+When we add new urls, we also need to update the sitemap (`sitemap.xml`) to include those paths. Fortunately, Django has functions that allow us to generate all of the urls associated with an object's views.
+
+To see an example, view any of the `sitemaps.py` files. You'll need to add the sitemap to the `config/urls.py` file, and view the updated sitemap locally at `localhost:8000/sitemap.xml`.
+
+After verifying that the sitemap looks OK locally, copy the content starting from the `<urlset>` tag in `sitemap.xml` and paste it into `scuole/static_src/sitemap.xml` before deploying. You can also run `python manage.py collectstatic --noinput` on the test and production servers to get the updated sitemap.
+
+## Deploying on the test servers
+
+When everything looks good locally, it's time to update the data in the test servers. But first, we need to make sure we can get in.
+
+### Configure your computer to ssh into our test and production servers
+
+Later, we ssh into servers to put new data and app code on the test and production links. You'll need to add some configuration into your computer's ssh configuration file (`.ssh/config`). Let's just get this out of the way!
+
+The `Hosts` you are adding are `schools-prod`, `schools-prod-2` and `schools-test`. The configurations for those servers are in [this Confluence page](https://texastribune.atlassian.net/wiki/spaces/TECH/pages/167386/AWS+hosts).
+
+When you're done, save that file and quit.
 
 **Updating on the test and production servers**
 
@@ -240,11 +378,7 @@ exit()
 
 Lastly, run `make data/bootstrap-entities` to create the district and campus models.
 
-### Updating AskTED data
-
-**Updating locally**
-
-Run `pipenv shell`, followed by `make data/update-directories` to update the data. You can also run each command in that block separately, your choice!
+ASK TED
 
 **Updating on the test and production servers**
 
@@ -260,21 +394,7 @@ Then, run this command to load the latest AskTED data:
 make data/update-directories
 ```
 
-If you run into any duplicate key errors during the AskTED update, refer to the [Troubleshooting section](https://github.com/texastribune/scuole#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database) for instructions on how to clear a table. You'll need to clear the table that is throwing this error, and reload the data.
-
-Some of the data we load will be pulled from the [AskTED website](https://tea4avholly.tea.state.tx.us/TEA.AskTED.Web/Forms/DownloadFile2.aspx]). There may be data formatting errors with some of the data as its being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You'll need to edit this function or create new ones if you're running into problems loading the data from AskTED.
-
-Also, all of the AskTED URLs and constants that we use when running `make data/update-directories` are subject to change! They are in `constants.py`. If AskTED changes its download data link, or any of the variables that we use in our POST request (like `VIEWSTATE`), the command will error. To check for the correct values, I look on AskTED's website for the correct download URL, hit the download file button, open up the `Network` tab in the console, look at the request the download file button triggered and check the `Payload` tab.
-
-### Updating TAPR data
-
-First, follow the instructions in this [Confluence document](https://texastribune.atlassian.net/wiki/spaces/APPS/pages/163844/How+to+update+Public+Schools+2019) to download and format the TAPR data.
-
-Once you're done adding the latest data to `scuole-data`, you'll need to change the year in `make data/latest-school` to the latest year. You'll also need to add another line to load in the latest year to `make data/all-schools` — i.e. for 2019-2020, add `python manage.py loadtaprdata 2019-2020 --bulk`.
-
-**Updating locally**
-
-Run `pipenv shell`, followed by `make data/latest-school` to update the data.
+TAPR
 
 **Updating on the test and production servers**
 
@@ -290,32 +410,6 @@ Then, run this command to load the latest TAPR data:
 make data/latest-school
 ```
 
-### Updating cohorts data
-
-First, check out [`scuole-data`](https://github.com/texastribune/scuole-data#cohorts) for instructions on how to download and format the latest cohorts data.
-
-**Updating locally**
-
-After you've put the latest cohorts data in `scuole-data`, you'll need to add a line to `data/all-cohorts` in the `Makefile` in `scuole` with the latest year.
-
-Then, get inside the Python shell:
-
-```sh
-pipenv shell
-```
-
-Load the data after:
-
-```sh
-python manage.py loadallcohorts <latest year>
-```
-
-If you get the error "There should be only XX cohorts", you'll need to delete the `StateCohorts`, `RegionCohorts` and `CountyCohorts` data in the database — the error is likely because old cohorts data does not get cleared out when new data is loaded. [Follow the instructions in the duplicate key error section](https://github.com/texastribune/scuole#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database) to delete the data. Make sure you run `python manage.py loadallcohorts` afterwards (without the latest year) so you load in data dating back to 1997 — otherwise, the stacked area charts will not show up.
-
-Lastly, you will need to change the `latest_cohort_year` variable in **all of the functions** in the `scuole/cohorts/views.py` file to reference the latest cohorts school year.
-
-Also, make sure the `scuole/cohorts/schemas/cohorts/schema.py` has the correct years (i.e. you'll need to change the year in `8th Grade (FY 2009)` for the reference `'enrolled_8th': '8th Grade (FY 2009)'`, along with the rest of the references.)
-
 **Updating on the test and production servers**
 
 First, get inside the Docker container:
@@ -329,48 +423,8 @@ Then, run the Python command to load the latest batch of cohorts data:
 ```sh
 python manage.py loadallcohorts <latest year>
 ```
+## Deploying on production servers
 
-### Updating the CSS styling and other static assets
-
-**Updating locally**
-
-If you make changes to the styles, you'll need to run `npm run build` again to rebuild the `main.css` file in the `assets/` folder that the templates reference.
-
-Then, run `pipenv shell`, followed by `python manage.py collectstatic --noinput` to recollect static files. You'll also need to do a hard refresh in whatever browser you're running the explorer in to fetch the new styles.
-
-
-### More small changes
-
-1) Make sure you bust the cache for the schools explorer metadata on Twitter's card validator. You can do this by adding a query param to the card URL, like this: `https://schools.texastribune.org/?hello` and previewing the card.
-2) If you're updating cohorts data, make sure you're updating the years referenced in `scuole/cohorts/views.py` and `scuole/cohorts/schemas/cohorts/schema.py`. Read more detail in the [cohorts data update section](#updating-cohorts-data).
-3) Update the "Last updated" date on the landing page at `scuole/templates/landing.html`. If you're updating cohorts data, also update the "Last updated" date on the cohorts landing page at `scuole/templates/cohorts_landing.html`.
-4) We have several spots in our templates that include metadata about when this explorer was last updated, such as:
-
-- Template: `scuole/templates/base.html`, variable: `dateModified`
-- Template: `scuole/templates/cohorts_base.html`, variable: `dateModified` (only modify if you are updating the cohorts data)
-- Template: `scuole/templates/includes/meta.html`, variable: `article:modified_time`
-
-You need to change those! They are (probably) important for search.
-
-
-### Updating the sitemap
-
-When we add new urls, we also need to update the sitemap (`sitemap.xml`) to include those paths. Fortunately, Django has functions that allow us to generate all of the urls associated with an object's views.
-
-To see an example, view any of the `sitemaps.py` files. You'll need to add the sitemap to the `config/urls.py` file, and view the updated sitemap locally at `localhost:8000/sitemap.xml`.
-
-After verifying that the sitemap looks OK locally, copy the content starting from the `<urlset>` tag in `sitemap.xml` and paste it into `scuole/static_src/sitemap.xml` before deploying. You can also run `python manage.py collectstatic --noinput` on the test and production servers to get the updated sitemap.
-
-
-## Deploying on the test and production servers
-
-### Configure your computer to ssh into our test and production servers
-
-Later, we ssh into servers to put new data and app code on the test and production links. You'll need to add some configuration into your computer's ssh configuration file (`.ssh/config`). Let's just get this out of the way!
-
-The `Hosts` you are adding are `schools-prod`, `schools-prod-2` and `schools-test`. The configurations for those servers are in [this Confluence page](https://texastribune.atlassian.net/wiki/spaces/TECH/pages/167386/AWS+hosts).
-
-When you're done, save that file and quit.
 
 ### Deploying code changes
 
@@ -481,7 +535,7 @@ make compose/production-deploy
 
 Once that's done, check the [live site](https://schools.texastribune.org/). Your changes should be there! Now go home, your work here is done.
 
-
+### Factchecking
 
 ## Quick deploy
 
@@ -495,7 +549,7 @@ These changes need to be made on the `schools-test`, `schools-prod` and `schools
 2) Get into the code repo: `cd scuole`
 3) Get any code changes: `git pull`
 4) Rebuild and restart Docker services and containers: `make compose/test-deploy` (`make compose/production-deploy` on the production servers)
-5) Make sure Docker containers are running: `docker ps` (There should a container for `web`, `db` and `proxy` services)
+5) Make sure Docker containers are running: `docker ps` (There should a container for `web`, `db` and `proxy` services for `schools-test` but only `web` and `proxy` for `schools-prod` and `schools-prod-2`)
 
 ### Deploying data changes/new data
 
