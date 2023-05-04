@@ -1,3 +1,18 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Changelog](#changelog)
+  - [Unreleased](#unreleased)
+    - [Added](#added)
+    - [Changed](#changed)
+    - [Removed](#removed)
+    - [Fixed](#fixed)
+  - [[1.1.0] - 2020-03-13](#110---2020-03-13)
+    - [Changed](#changed-1)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Changelog
 All notable changes to this project will be documented in this file.
 
