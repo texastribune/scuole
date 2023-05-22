@@ -376,7 +376,7 @@ In order to get into the test and production servers, you will need to `ssh` int
 
 If you haven't created one in your local computer yet, create a directory called `.ssh` by running `mkdir -p ~/.ssh && chmod 700 ~/.ssh` or creating it manually in your User folder. Create a config file by running `touch ~/.ssh/config` and `chmod 600 ~/.ssh/config` to change its permissions.
 
-Open up the `config` file with your favorite text editor. The `Hosts` you are adding are `schools-prod`, `schools-prod-2` and `schools-test`. In 1Password's Data Visuals vault, find a file called `Scuole SSH configuration` and copy and paste the contents to the `config` file.
+Open up the `config` file with your favorite text editor. The `Hosts` you are adding are `schools-prod-1`, `schools-prod-2` and `schools-test`. In 1Password's Data Visuals vault, find a file called `Scuole SSH configuration` and copy and paste the contents to the `config` file.
 
 When you're done, save that file and quit.
 
@@ -541,20 +541,20 @@ In addition, you want to hoedown and ask for copy editors to look over any chang
 
 ## Deploying on production servers
 
-Hooray! We're ready to update the production servers and deploy it live. Scary! but there are two production servers: `schools-prod` and `schools-prod-2` so that means while one is updating, the other is still up.
+Hooray! We're ready to update the production servers and deploy it live. Scary! but there are two production servers: `schools-prod-1` and `schools-prod-2` so that means while one is updating, the other is still up.
 
 The other good news is that deployment is similar to how you deployed in the `test` server so much of it should look familiar.
 
 ### Deploying code changes on the production server
 
-After checking the test site, you'll need to deploy the code changes on the two production servers: `schools-prod` and `schools-prod-2`. You must do both servers — if you don't, the published app will switch between new and old code.
+After checking the test site, you'll need to deploy the code changes on the two production servers: `schools-prod-1` and `schools-prod-2`. You must do both servers — if you don't, the published app will switch between new and old code.
 
 Remember, **YOU MUST DEPLOY ALL OF THE CODE CHANGES FIRST.**
 
-First, we will `ssh` into the `schools-prod` server.
+First, we will `ssh` into the `schools-prod-1` server.
 
 ```sh
-ssh schools-prod
+ssh schools-prod-1
 ```
 
 The server will have a repository of the `scuole` project. We will need to pull all of the code changes you made into the `scuole` into the production server.
@@ -579,10 +579,10 @@ Congrats, your code changes are now [live](schools.texastribune.org)!
 
 ### Deploying data updates on the production server
 
-We're almost there! Now we just need to update the data in the production server. Deploying the data on the production servers will be similar to loading it in locally and on the test server. Fortunately, you only need to push data changes to one server - `schools-prod`. Let's go back to `schools-prod` server:
+We're almost there! Now we just need to update the data in the production server. Deploying the data on the production servers will be similar to loading it in locally and on the test server. Fortunately, you only need to push data changes to one server - `schools-prod-1`. Let's go back to `schools-prod-1` server:
 
 ```sh
-ssh schools-prod
+ssh schools-prod-1
 ```
 
 Let's get all of our new data from the `scuole-data` Github:
@@ -667,17 +667,17 @@ Here are the bare bones instructions for updating data and code on the test and 
 
 ### Deploying code changes
 
-These changes need to be made on the `schools-test`, `schools-prod` and `schools-prod-2` servers.
+These changes need to be made on the `schools-test`, `schools-prod-1` and `schools-prod-2` servers.
 
-1) Get onto the host machine: `ssh schools-test` (`schools-test` is the host machine. Use `schools-prod` and `schools-prod-2` to get onto the production machines.)
+1) Get onto the host machine: `ssh schools-test` (`schools-test` is the host machine. Use `schools-prod-1` and `schools-prod-2` to get onto the production machines.)
 2) Get into the code repo: `cd scuole`
 3) Get any code changes: `git pull`
 4) Rebuild and restart Docker services and containers: `make compose/test-deploy` (`make compose/production-deploy` on the production servers)
-5) Make sure Docker containers are running: `docker ps` (There should a container for `web`, `db` and `proxy` services for `schools-test` but only `web` and `proxy` for `schools-prod` and `schools-prod-2`)
+5) Make sure Docker containers are running: `docker ps` (There should a container for `web`, `db` and `proxy` services for `schools-test` but only `web` and `proxy` for `schools-prod-1` and `schools-prod-2`)
 
 ### Deploying data changes/new data
 
-These changes only need to be made on the `schools-test` and `schools-prod` servers.
+These changes only need to be made on the `schools-test` and `schools-prod-1` servers.
 
 6) Get into the data repo: `cd scuole-data`
 7) Get the latest data: `git pull`
