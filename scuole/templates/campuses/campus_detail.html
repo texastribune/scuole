@@ -31,6 +31,13 @@
     {% if campus.location %}<li class="page-subtext">{{ campus.location }}</li>{% endif %}
     <li class="page-subtext">{{ campus.get_low_grade_display }} - {{ campus.get_high_grade_display }}</li>
   </ul>
+  {% if campus.name == 'Robb Elementary School' and campus.district.name == 'Uvalde CISD' %}
+  <div class="school-disclaimer">
+    <p>
+      Robb Elementary School <a href="https://www.texastribune.org/2022/06/01/uvalde-shooting-robb-elementary-school/">permanently closed</a> in 2022 months after a shooting where <a href="https://www.texastribune.org/2022/05/24/uvalde-texas-school-shooting/">nineteen children and two adults</a> were killed. The data below is for the <span style="font-weight: bold;">2021-2022</span> school year.
+    </p>
+  </div>
+  {% endif %}
 </header>
 
 {% include "includes/intro_metrics.html" with stat=stat state=state district_name=campus.district.name district=district only %}
