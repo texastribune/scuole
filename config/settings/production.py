@@ -142,6 +142,7 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # https://docs.sentry.io/platforms/python/django/
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from sentry.integrations.logging import ignore_logger
 
 ENABLE_SENTRY = True
 
@@ -150,6 +151,8 @@ sentry_sdk.init(
     integrations=[DjangoIntegration()],
     environment=env("SENTRY_ENVIRONMENT", "None")
 )
+
+ignore_logger("django.security.DisallowedHost")
 
 ############################
 # MIDDLEWARE CONFIGURATION #
