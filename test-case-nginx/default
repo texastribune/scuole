@@ -5,7 +5,7 @@ server {
 
     #access_log  /var/log/nginx/host.access.log  main;
 
-    if ($host !~* ^(.*\.?example\.com)$ ) {
+    if ($host !~* ^(.*\.example\.com)$ ) {
         return 444;
     }
 
