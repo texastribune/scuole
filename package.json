@@ -9,7 +9,7 @@
     "@turf/bbox": "^6.0.1",
     "d3-array": "^1.2.0",
     "d3-scale": "^1.0.6",
-    "d3-shape": "^1.2.0",
+    "d3-shape": "^3.2.0",
     "desandro-classie": "^1.0.1",
     "lodash.debounce": "^4.0.8",
     "lodash.find": "^4.6.0",
