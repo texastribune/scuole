@@ -1,3 +1,11 @@
+### changing pipenv syntax- this is no longer valid
+Make sure you're using at least Python 3.7 to create your pipenv environment.
+
+```sh
+pipenv --three
+```
+
+### from older versions
 But first, let's create a Docker container on your local machine to make sure it's working. This will mirror what we'll do on test/production servers later. Make sure you're in the `scuole` directory and run:
 
 ```sh

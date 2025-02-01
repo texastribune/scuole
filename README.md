@@ -87,10 +87,10 @@ This will create the data volume and instance of PostgreSQL for Django.
 
 ### Fire up pipenv
 
-Make sure you're using at least Python 3.7 to create your pipenv environment.
+Make sure you're using at least Python 3.7 to create your pipenv environment. The following will create the environment using the default Python 3 interpreter on your system.
 
 ```sh
-pipenv --three
+pipenv --python 3
 ```
 
 ### Install dependencies via pipenv
