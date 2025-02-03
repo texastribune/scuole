@@ -62,7 +62,7 @@ def cap_after_parenthesis(text):
     print cap_after_parenthesis(replace_str)
     # 'Richard Milburn Academy (Ector County)'
     """
-    return re.sub("\([a-z]", lambda s: s.group(0).upper(), text)
+    return re.sub(r"\([a-z]", lambda s: s.group(0).upper(), text)
 
 
 def acad_to_academy(text):
@@ -93,14 +93,14 @@ def cap_following_o_apostrophe(text):
     print cap_following_o_apostrophe(replace_str)
     # "O'Donnell ISD"
     """
-    return re.sub("O'[a-z]", lambda x: x.group(0).upper(), text)
+    return re.sub(r"O'[a-z]", lambda x: x.group(0).upper(), text)
 
 
 def remove_charter_c(text):
     """
     A function to remove (C) from charter school names.
     """
-    return re.sub(" \(C\)", "", text)
+    return re.sub(r" \(C\)", "", text)
 
 
 def massage_name(text, key_dict):
