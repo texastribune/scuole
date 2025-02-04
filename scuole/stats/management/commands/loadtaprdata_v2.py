@@ -133,7 +133,12 @@ class Command(BaseCommand):
                 )
 
                 # write the instance name out to the terminal so we know
-                self.stdout.write(instance.name)
+                # self.stdout.write(instance.name)
+                try:
+                    self.stdout.write(instance.name)
+                except AttributeError:
+                    print(f"\033[91mWarning: Could not find name for instance ID {instance_id}\033[0m")
+                    continue
 
                 # check if the corresponding model has an A-F rating field
                 try:

@@ -99,7 +99,7 @@ class Command(BaseCommand):
             "reference.csv",
         )
 
-        with open(tea_file, "rU") as f:
+        with open(tea_file, "r") as f:
             reader = csv.DictReader(f)
 
             for row in reader:
@@ -133,7 +133,7 @@ class Command(BaseCommand):
     def load_newCampus_file(self, file):
         payload = {}
 
-        with open(file, "rU") as f:
+        with open(file, "r") as f:
             reader = csv.DictReader(f)
 
             for row in reader:
@@ -145,7 +145,7 @@ class Command(BaseCommand):
     def load_changedCampus_file(self, file):
         payload = {}
 
-        with open(file, "rU") as f:
+        with open(file, "r") as f:
             reader = csv.DictReader(f)
 
             for row in reader:

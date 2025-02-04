@@ -44,7 +44,13 @@ class Command(BaseCommand):
             for feature in features:
                 properties = feature.get("properties")
 
-                raw_id = str(int(properties.get("School_Num").replace("'", '')))
+                #raw_id = str(int(properties.get("School_Num").replace("'", '')))
+                raw_id = properties.get("School_Num")
+                if raw_id:
+                    raw_id = str(int(raw_id.replace("'", '')))
+                else:
+                    print(f"\033[31mWarning: Missing School_Num for properties: {properties}\033[0m")
+                    continue
                 tea_id = raw_id
 
                 # a campus ID is typically 9 digits

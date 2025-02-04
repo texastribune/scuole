@@ -98,7 +98,7 @@ class Command(BaseCommand):
                 data_file = os.path.join(self.year_folder, name, file_name)
 
                 try:
-                    with open(data_file, "rU") as f:
+                    with open(data_file, "r") as f:
                         reader = csv.DictReader(f)
                         data.append([i for i in reader])
                 except FileNotFoundError:
