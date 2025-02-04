@@ -35,7 +35,7 @@ class Command(BaseCommand):
     def load_geojson_file(self, file):
         payload = {}
 
-        with open(file, 'rU') as f:
+        with open(file, 'r') as f:
             data = json.load(f)
 
             for feature in data['features']:
@@ -44,7 +44,7 @@ class Command(BaseCommand):
         return payload
 
     def load_commissioner_file(self, file):
-        with open(file, 'rU') as f:
+        with open(file, 'r') as f:
             reader = csv.DictReader(f)
             return next(reader)
 

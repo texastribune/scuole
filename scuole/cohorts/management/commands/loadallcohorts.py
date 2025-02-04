@@ -104,7 +104,7 @@ class Command(BaseCommand):
 
         for row in sum(data, []):
             # if it's a row where 'Region Code' is blank, it's state data
-            if row[id_match] is '' or None:
+            if row[id_match] == '' or None:
                 # sets up the payload
                 payload = {
                     'year': self.year,

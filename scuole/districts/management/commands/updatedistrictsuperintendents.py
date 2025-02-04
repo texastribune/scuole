@@ -10,7 +10,7 @@ from scuole.districts.models import District, Superintendent
 from scuole.core.utils import nameFormat
 
 def phoneNumberFormat(number):
-    if number is ' ' or '000-0000' in number:
+    if number == ' ' or '000-0000' in number:
         return ''
     else:
         return number.replace('(000) 000-0000','')\

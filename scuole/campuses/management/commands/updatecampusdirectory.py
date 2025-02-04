@@ -8,7 +8,7 @@ from scuole.campuses.models import Campus
 from scuole.core.constants import ASKTED_DIRECTORY_URL, ASKTED_DIRECTORY_VIEWSTATE
 
 def phoneNumberFormat(number):
-    if number is ' ' or '000-0000' in number:
+    if number == ' ' or '000-0000' in number:
         return ''
     else:
         return number.replace('(000) 000-0000','')
