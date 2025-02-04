@@ -49,7 +49,8 @@ class Command(BaseCommand):
                 if raw_id:
                     raw_id = str(int(raw_id.replace("'", '')))
                 else:
-                    print(f"\033[31mWarning: Missing School_Num for properties: {properties}\033[0m")
+                    #print(f"\033[31mWarning: Missing School_Num for properties: {properties}\033[0m")
+                    print(f"\033[31mWarning: Missing School_Num for USER_District_Name: {properties.get("USER_District_Name")}\033[0m")
                     continue
                 tea_id = raw_id
 
