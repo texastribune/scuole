@@ -33,7 +33,7 @@ class Command(BaseCommand):
 
         self.shape_data = self.load_geojson_file(region_json)
 
-        with open(regions_file, 'rU') as f:
+        with open(regions_file, 'r') as f:
             reader = csv.DictReader(f)
 
             for row in reader:
