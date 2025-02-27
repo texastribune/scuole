@@ -7,7 +7,7 @@ Public Schools 3!
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Setup on your local server](#setup-on-your-local-server)
+- [Setup on your local server](#initial-setup-on-your-local-server)
   - [Clone or download the two scuole repositories in your local computer](#clone-or-download-the-two-scuole-repositories-in-your-local-computer)
   - [Make sure Docker is up and running](#make-sure-docker-is-up-and-running)
   - [Fire up pipenv](#fire-up-pipenv)
@@ -16,7 +16,7 @@ Public Schools 3!
   - [Install npm packages](#install-npm-packages)
   - [If this is your first time loading the app, load in last year's data](#if-this-is-your-first-time-loading-the-app-load-in-last-years-data)
   - [If this is not your first time loading the app, run outstanding migrations](#if-this-is-not-your-first-time-loading-the-app-run-outstanding-migrations)
-  - [Fire up the server](#fire-up-the-server)
+- [Fire up the server](#fire-up-the-server)
 - [Updating data on your local server](#updating-data-on-your-local-server)
   - [Updating district boundaries and campus coordinates](#updating-district-boundaries-and-campus-coordinates)
   - [Updating district and campus entities](#updating-district-and-campus-entities)
@@ -54,7 +54,7 @@ Public Schools 3!
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Setup on your local server
+## Initial setup on your local server
 
 So you want to update the schools database? That's great! This README will take you through the many steps involved in that process. This README also assumes that you're new at updating the schools database and are starting from the beginning.
 
@@ -177,20 +177,21 @@ python manage.py migrate
 
 ### Fire up the server
 
+If you haven't already, make sure Docker is running and step into a pipenv shell.
+
 ```sh
-sh docker-entrypoint.sh
+make docker/db 
+pipenv shell
 ```
 
-This will collect static files, as well as fire up a local server.
-
-If that doesn't work, try:
+Next, collect static files and fire up the server. Previous instructions suggested ```sh docker-entrypoint.sh``` but in my experience this breaks the css. Try this instead:
 
 ```sh
 python manage.py collectstatic --noinput
 python manage.py runserver
 ```
 
-Open up the schools database in your local server and make sure that all of the information is there and the pages are working correctly. You can compare it to the [live version of the school's database](https://schools.texastribune.org/). All good? Let's go! There are also other commands in scuole's [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) at your disposal so check them out.
+Open up the schools database in your [local server](http://localhost:8000/) and make sure that all of the information is there and the pages are working correctly. You can compare it to the [live version of the school's database](https://schools.texastribune.org/). All good? Let's go! There are also other commands in scuole's [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) at your disposal so check them out.
 
 ## Updating data on your local server
 
