@@ -150,18 +150,19 @@ export DATA_FOLDER=~/your/local/path/to/scuole-data/
 
 Replace the path shown above with the path to `scuole-data/` on your computer. This environmental variable should be set before running any commands that load in data.
 
-Next, these commands will drop your database (which doesn't exist yet), create a new one and run migrations before loading in the data:
+Next, these commands will drop your database (which doesn't exist yet), create a new one and run migrations before loading in the data. `bootstrap.sh` is a compilation of commands from the `Makefile` that load in last year's schools data (for the state, regions, counties, districts, campuses, etc.) and create models from them:
 
 ```sh
 make local/reset-db
 sh bootstrap.sh
 ```
 
-`bootstrap.sh` is a compilation of commands from the `Makefile` that load in last year's schools data (for the state, regions, counties, districts, campuses, etc.) and create models from them.
-
 Some warnings/errors you might see at this stage: 
 * `No such file or directory`- verify that the path specified in the output matches the path to `DATA_FOLDER`, i.e. data files in your `scuole-data` directory. This should be set in the .env file as described above. If you're really stuck, running `export DATA_FOLDER=/your/local/path/to/scuole-data/` in the Terminal command line will correct the path temporarily, but you'll need to do this again every time you start a new session.
 * `No shape data for Odyssey Academy Inc`- this is expected for Charter schools, but you should see shapes successfully created for all ISDs (e.g. `Creating Galveston ISD (084902)`)
+
+Pay close attention to all of these errors. If you need to debug and update code, you'll need to iterate on those two commands (`make local/reset-db` and `sh bootstrap.sh`) until it works without major errors.
+
 
 ### If this is not your first time loading the app, run outstanding migrations
 
