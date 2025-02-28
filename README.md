@@ -218,12 +218,11 @@ To get started, assuming your `.env` file is not getting loaded correctly, you c
 
 ```sh
 export DATA_FOLDER=~/your/local/path/to/scuole-data/
+```
 
 ### Updating district boundaries and campus coordinates
 
-We're starting with the simplest one! All you have to do is update the GEOJSONs of the districts and coordinates of the campuses by following the instructions in the [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repository. If you're already at this step, it means you've done everything in [`scuole-data`](https://github.com/texastribune/scuole-data) so you're already done with this step.
-
-We will be connecting the new district and campus geographic data by running the script in the following step.
+If you've already updated the GEOJSONs of the districts and coordinates of the campuses as instructed in the [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repo, you're already done with this step. We will be connecting this new district and campus geographic data by running the script in the following step.
 
 ### Updating district and campus entities
 
@@ -250,7 +249,16 @@ campus.delete()
 exit()
 ```
 
-And finally, run `make data/bootstrap-entities` to re-create the district and campus models with the latest list of districts and campus. This will also connect the district boundaries and campus coordinates from the previous step to their proper entities.
+Workaround: I need to hardcode my path for this section (related to deprecated Python code?) so I need to set DATA_FOLDER again (update the path to match your own directory structure where scuole-data is located)
+```
+export DATA_FOLDER=/Users/robreid/Documents/data-projects/schools-explorer/scuole-data 
+```
+
+And finally, run the following to re-create the district and campus models with the latest list of districts and campus. This will also connect the district boundaries and campus coordinates from the previous step to their proper entities.
+
+```
+make data/bootstrap-entities
+```
 
 ### Updating AskTED data
 
