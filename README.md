@@ -214,6 +214,11 @@ When running the scripts to update the School Explorer, **make sure you follow t
 
 Updating the Higher Education cohorts explorer is a separate process which can be run independently from the schools explorer part whenever we get new data. 
 
+To get started, assuming your `.env` file is not getting loaded correctly, you can specify the location of `scuole-data` by typing the following in your terminal (in my case the path is ~/Documents/data-projects/schools-explorer/scuole-data):
+
+```sh
+export DATA_FOLDER=~/your/local/path/to/scuole-data/
+
 ### Updating district boundaries and campus coordinates
 
 We're starting with the simplest one! All you have to do is update the GEOJSONs of the districts and coordinates of the campuses by following the instructions in the [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repository. If you're already at this step, it means you've done everything in [`scuole-data`](https://github.com/texastribune/scuole-data) so you're already done with this step.
