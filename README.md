@@ -159,13 +159,9 @@ sh bootstrap.sh
 
 `bootstrap.sh` is a compilation of commands from the `Makefile` that load in last year's schools data (for the state, regions, counties, districts, campuses, etc.) and create models from them.
 
-If get an error that the app can't find the data, it might be because your `.env` file is not getting used correctly. But you can also get around using that file by finding the directory where you downloaded the `scuole-data` repo in your local computer and typing in your terminal:
-
-```sh
-export DATA_FOLDER=~/your/local/path/to/scuole-data/
-```
-
-Again, replace the path shown above with the path to `scuole-data/` on your computer. If you do it this way, remember that you have to type that every time you start a new session on your terminal.
+Some warnings/errors you might see at this stage: 
+* `No such file or directory`- verify that the path specified in the output matches the path to `DATA_FOLDER`, i.e. data files in your `scuole-data` directory. This should be set in the .env file as described above. If you're really stuck, running `export DATA_FOLDER=/your/local/path/to/scuole-data/` in the Terminal command line will correct the path temporarily, but you'll need to do this again every time you start a new session.
+* `No shape data for Odyssey Academy Inc`- this is expected for Charter schools, but you should see shapes successfully created for all ISDs (e.g. `Creating Galveston ISD (084902)`)
 
 ### If this is not your first time loading the app, run outstanding migrations
 
