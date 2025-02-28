@@ -197,47 +197,43 @@ Open up the schools database in your [local server](http://localhost:8000/) and 
 
 Every year, we need to update cohorts, TAPR, district boundaries, campus coordinates and the entities files for districts and campuses.
 
-There are two types of data updates. One type is when you manually download the data, format it, and load it into the appropriate folder in `scuole-data`. The app then grabs the latest data from `scuole-data`.  See [`scuole-data`](https://github.com/texastribune/scuole-data) for instructions on how to download and format the data used in `scuole`. 
+There are two types of data downloads supporting the scuole app:
+1) **Manually download**. The [`scuole-data`](https://github.com/texastribune/scuole-data) repo contains Jupyter notebooks that guide you through formatting and organizing data where the app can access it. If data is incorrectly formatted, you may see errors while working through this repo.
+2) **Automatic download**. This involves running a command which downloads the latest data directly from a website. We use this process for updating AskTED directory info.
 
-The other type is when you run a command to download the latest data directly from the website. Updating AskTED is an example of this.
-
-Before you update the data, make sure you read through all of [`scuole-data`](https://github.com/texastribune/scuole-data) and get the data ready to go. There's a few formatting steps that the data needs to go through before you're ready to upload the data on to the database. If you see keep seeing errors, it's probably because the data isn't formatted correctly (an apostrophe in front of a campus or district code, not enough digits for campus or district codes). There are several Jupyter notebooks that will help you format all of the data in [`scuole-data`](https://github.com/texastribune/scuole-data) so I strongly recommend you read and go through it first.
-
-When you're done, you're ready to run the scripts.
-
-There are also two sections to the schools database. There is the [Schools Explorer](https://schools.texastribune.org/) which has a page for every district and campus (school) that has the latest metric. There is also a [Higher Education Outcomes Explorer](https://schools.texastribune.org/outcomes/) where we publish cohort information for regions and counties.
-
-When running the scripts to update the school explorer, **make sure you follow this order when updating the data:** 
+There are also two sections to the schools database:
+1) [Schools Explorer](https://schools.texastribune.org/) which has a page for every district and campus (school) that has the latest metric.  
+2) [Higher Education Outcomes Explorer](https://schools.texastribune.org/outcomes/) where we publish cohort information for regions and counties.  
+  
+When running the scripts to update the School Explorer, **make sure you follow this order when updating the data:** 
 
 1) District boundaries and campus coordinates
 2) District and campus entities
 3) AskTED
 4) TAPR
 
-For the Higher Education cohorts explorer, it's a seperate process that you can updated independently from the schools explorer part whenever we get new data. That's why the order of this update doesn't matter, and we can run the script whenever we want. For the sake of this README, we will run it last.
+Updating the Higher Education cohorts explorer is a separate process which can be run independently from the schools explorer part whenever we get new data. 
 
 ### Updating district boundaries and campus coordinates
 
-We're starting with the simplest one! All you have to do is update the GEOJSONs of the districts and coordinates of the campuses by following the instructions in the [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repository. If you're already at this step, it means you've done everything in [`scuole-data`](https://github.com/texastribune/scuole-data)` so you're already done with this step.
+We're starting with the simplest one! All you have to do is update the GEOJSONs of the districts and coordinates of the campuses by following the instructions in the [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repository. If you're already at this step, it means you've done everything in [`scuole-data`](https://github.com/texastribune/scuole-data) so you're already done with this step.
 
 We will be connecting the new district and campus geographic data by running the script in the following step.
 
 ### Updating district and campus entities
 
-In this explorer, we can see data for the entire state, regions, districts, and campuses. Regions typically don't change from year to year, but districts and campuses can be added or removed. As a result, we have to update the district and campus models every year by deleting all existing districts and campus models and using a list provided by TEA to readd them to the database.
+In this explorer, we can see data for the entire state, regions, districts, and campuses. Regions typically don't change from year to year, but districts and campuses can be added or removed. As a result, we have to update the district and campus models every year by deleting all existing districts and campus models and using a list provided by TEA to read them to the database. This section relies on district and campus `entities.csv` files created in `scuole-data` to create the models.
 
-First, make sure you've created new district and campus `entities.csv` files and added them to `scuole-data` — instructions are in [scuole-data](https://github.com/texastribune/scuole-data). We use these files to create the models.
+First, go to the `data/bootstrap-entities` in the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) and change the year to the year you are updating for (ex: 2021-2022) for both `bootstrapdistricts_v2` and `bootstrapcampuses_v2`.
 
-Next, go to the `data/bootstrap-entities` in the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) and change the year to the year you are updating for (ex: 2021-2022) for both `bootstrapdistricts_v2` and `bootstrapcampuses_v2`.
-
-Then, delete the existing district and campus models (they're might be a better way to refresh them, we're going with this for now). Get into the shell, and start the Python terminal.
+Then, you'll get into the shell and start the Python terminal.
 
 ```sh
 pipenv shell
 python manage.py shell
 ```
 
-Once you're in the Python terminal, run this:
+Once you're in the Python terminal, run the following to delete the existing district and campus models:
 
 ```sh
 from scuole.districts.models import District
