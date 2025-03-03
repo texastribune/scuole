@@ -39,7 +39,7 @@ data/update-directories:
 
 # Load in the latest year's TAPR data with v2 script
 data/latest-school:
-	python manage.py loadtaprdata_v2 2022-2023
+	python manage.py loadtaprdata_v2 2021-2022
 
 # Load in all past TAPR data
 # python manage.py loadtaprdata 2022-2023 --bulk
