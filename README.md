@@ -172,7 +172,7 @@ If this is not your first time loading the app, run this to catch up with any ou
 python manage.py migrate
 ```
 
-### Fire up the server
+## Fire up the server
 
 If you haven't already, make sure Docker is running and step into a pipenv shell.
 
@@ -211,11 +211,13 @@ When running the scripts to update the School Explorer, **make sure you follow t
 
 Updating the Higher Education cohorts explorer is a separate process which can be run independently from the schools explorer part whenever we get new data. 
 
-To get started, assuming your `.env` file is not getting loaded correctly, you can specify the location of `scuole-data` by typing the following in your terminal (in my case the path is ~/Documents/data-projects/schools-explorer/scuole-data):
+To get started, make sure your `.env` file is getting loaded correctly.  the following in your terminal (in my case the path is ~/Documents/data-projects/schools-explorer/scuole-data):
 
 ```sh
-export DATA_FOLDER=~/your/local/path/to/scuole-data/
+echo $DATA_FOLDER
 ```
+
+If this returns nothing or points to the wrong folder, you can manually specify the location of `scuole-data` by typing `export DATA_FOLDER=~/your/local/path/to/scuole-data/`in terminal.
 
 ### Updating district boundaries and campus coordinates
 
@@ -246,11 +248,6 @@ campus.delete()
 exit()
 ```
 
-Workaround: I need to hardcode my path for this section (related to deprecated Python code?) so I need to set DATA_FOLDER again (update the path to match your own directory structure where scuole-data is located)
-```
-export DATA_FOLDER=/Users/robreid/Documents/data-projects/schools-explorer/scuole-data 
-```
-
 And finally, run the following to re-create the district and campus models with the latest list of districts and campus. This will also connect the district boundaries and campus coordinates from the previous step to their proper entities.
 
 ```
@@ -267,8 +264,6 @@ To update the data, run:
 pipenv shell
 make data/update-directories
 ```
-
-You can also run each command in that block separately, your choice!
 
 If you run into any duplicate key errors during the AskTED update, refer to the [Troubleshooting section](https://github.com/texastribune/scuole#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database) for instructions on how to clear the models. You'll need to clear the model that is throwing this error, and reload the data.
 
