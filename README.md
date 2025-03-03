@@ -145,7 +145,7 @@ If this is your first time loading the app, you'll probably want to load in last
 First things first, create a `.env` file in this app. Find the directory where you downloaded the `scuole-data` repository in your computer and then add it as a variable called `DATA_FOLDER`:
 
 ```sh
-export DATA_FOLDER=~/your/local/path/to/scuole-data/
+export DATA_FOLDER=/your/local/path/to/scuole-data/
 ```
 
 Replace the path shown above with the path to `scuole-data/` on your computer. This environmental variable should be set before running any commands that load in data.
@@ -292,24 +292,11 @@ make data/latest-school
 
 FYI, the scripts will update data first for the state, then the regions, then the districts and then finally, for the campuses.
 
-Again, if you're running into apostrophe errors and zfill errors, please go back to [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repository and format it correctly. 
-
-In addition, sometimes TEA likes to change up accountability ratings by adding new ones. For example, for the 2021-2022 year, scores that were D or Fs were labeled `Not Rated: SB 1365`. When that happens, you might need to go into [`reference.py`](https://github.com/texastribune/scuole/blob/master/scuole/stats/models/reference.py) and add them as RATING CHOICES. If you do that, you're changing the models, so don't forget to run `python manage.py makemigrations` and then run `python manage.py migrate`.
+Sometimes TEA likes to change up accountability ratings by adding new ones. For example, for the 2021-2022 year, scores that were D or Fs were labeled `Not Rated: SB 1365`. When that happens, you might need to go into [`reference.py`](https://github.com/texastribune/scuole/blob/master/scuole/stats/models/reference.py) and add them as RATING CHOICES. If you do that, you're changing the models, so don't forget to run `python manage.py makemigrations` and then run `python manage.py migrate`.
 
 ### Checking the local server
 
-Either run 
-
-```sh
-sh docker-entrypoint.sh
-```
-or
-
-```sh
-python manage.py runserver
-```
-
-to fire up the local server. Make sure that statewide, district and campus pages in the school database on your local server are working. If you see any data missing, it might be because TEA changed the column names for some metrics. You can check if there's a disconnect by checking the header name in the spreadsheet you have in the `scuole-data` repository with what's in [`schema_v2.py`](https://github.com/texastribune/scuole/blob/master/scuole/stats/schemas/tapr/schema_v2.py). FYI, `short_code` in the schema file is the first letter of the header that pertains to the dataset it belongs to (if it's district data, it's D, if it's campus data, it's C). You can find a full list by going to [`mapping.py`](https://github.com/texastribune/scuole/blob/master/scuole/stats/schemas/tapr/mapping.py). 
+Either run ```docker-entrypoint.sh``` or ```python manage.py runserver``` to fire up the [local server](http://localhost:8000/). Make sure that statewide, district and campus pages in the school database on your local server are working. If you see any data missing, it might be because TEA changed the column names for some metrics. You can check if there's a disconnect by checking the header name in the spreadsheet you have in the `scuole-data` repository with what's in [`schema_v2.py`](https://github.com/texastribune/scuole/blob/master/scuole/stats/schemas/tapr/schema_v2.py). FYI, `short_code` in the schema file is the first letter of the header that pertains to the dataset it belongs to (if it's district data, it's D, if it's campus data, it's C). You can find a full list by going to [`mapping.py`](https://github.com/texastribune/scuole/blob/master/scuole/stats/schemas/tapr/mapping.py). 
 
 If they're a mismatch, you can do the following things:
 
