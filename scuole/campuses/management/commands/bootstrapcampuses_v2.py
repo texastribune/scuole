@@ -45,7 +45,7 @@ class Command(BaseCommand):
                 properties = feature.get("properties")
 
                 #raw_id = str(int(properties.get("School_Num").replace("'", '')))
-                raw_id = properties.get("School_Num")
+                raw_id = properties.get("USER_School_Number")
                 if raw_id:
                     raw_id = str(int(raw_id.replace("'", '')))
                 else:
@@ -81,11 +81,18 @@ class Command(BaseCommand):
 
         self.stdout.write(f"Creating {campus_name} in ({campus_id})")
 
-        if campus_id in self.shape_data:
-            geometry = GEOSGeometry(dumps(self.shape_data.get(campus_id)))
+        geometry_data = self.shape_data.get(campus_id)
+        if geometry_data:
+            geometry = GEOSGeometry(dumps(geometry_data))
         else:
             geometry = None
             self.stderr.write(f"No shape data for {campus_name}")
+
+        # if campus_id in self.shape_data:
+        #     geometry = GEOSGeometry(dumps(self.shape_data.get(campus_id)))
+        # else:
+        #     geometry = None
+        #     self.stderr.write(f"No shape data for {campus_name}")
 
         instance, _ = Campus.objects.update_or_create(
             tea_id=campus_id,

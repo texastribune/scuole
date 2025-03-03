@@ -150,18 +150,19 @@ export DATA_FOLDER=~/your/local/path/to/scuole-data/
 
 Replace the path shown above with the path to `scuole-data/` on your computer. This environmental variable should be set before running any commands that load in data.
 
-Next, these commands will drop your database (which doesn't exist yet), create a new one and run migrations before loading in the data:
+Next, these commands will drop your database (which doesn't exist yet), create a new one and run migrations before loading in the data. `bootstrap.sh` is a compilation of commands from the `Makefile` that load in last year's schools data (for the state, regions, counties, districts, campuses, etc.) and create models from them:
 
 ```sh
 make local/reset-db
 sh bootstrap.sh
 ```
 
-`bootstrap.sh` is a compilation of commands from the `Makefile` that load in last year's schools data (for the state, regions, counties, districts, campuses, etc.) and create models from them.
-
 Some warnings/errors you might see at this stage: 
 * `No such file or directory`- verify that the path specified in the output matches the path to `DATA_FOLDER`, i.e. data files in your `scuole-data` directory. This should be set in the .env file as described above. If you're really stuck, running `export DATA_FOLDER=/your/local/path/to/scuole-data/` in the Terminal command line will correct the path temporarily, but you'll need to do this again every time you start a new session.
 * `No shape data for Odyssey Academy Inc`- this is expected for Charter schools, but you should see shapes successfully created for all ISDs (e.g. `Creating Galveston ISD (084902)`)
+
+Pay close attention to all of these errors. If you need to debug and update code, you'll need to iterate on those two commands (`make local/reset-db` and `sh bootstrap.sh`) until it works without major errors.
+
 
 ### If this is not your first time loading the app, run outstanding migrations
 
@@ -171,7 +172,7 @@ If this is not your first time loading the app, run this to catch up with any ou
 python manage.py migrate
 ```
 
-### Fire up the server
+## Fire up the server
 
 If you haven't already, make sure Docker is running and step into a pipenv shell.
 
@@ -210,11 +211,13 @@ When running the scripts to update the School Explorer, **make sure you follow t
 
 Updating the Higher Education cohorts explorer is a separate process which can be run independently from the schools explorer part whenever we get new data. 
 
-To get started, assuming your `.env` file is not getting loaded correctly, you can specify the location of `scuole-data` by typing the following in your terminal (in my case the path is ~/Documents/data-projects/schools-explorer/scuole-data):
+To get started, make sure your `.env` file is getting loaded correctly.  the following in your terminal (in my case the path is ~/Documents/data-projects/schools-explorer/scuole-data):
 
 ```sh
-export DATA_FOLDER=~/your/local/path/to/scuole-data/
+echo $DATA_FOLDER
 ```
+
+If this returns nothing or points to the wrong folder, you can manually specify the location of `scuole-data` by typing `export DATA_FOLDER=~/your/local/path/to/scuole-data/`in terminal.
 
 ### Updating district boundaries and campus coordinates
 
@@ -245,11 +248,6 @@ campus.delete()
 exit()
 ```
 
-Workaround: I need to hardcode my path for this section (related to deprecated Python code?) so I need to set DATA_FOLDER again (update the path to match your own directory structure where scuole-data is located)
-```
-export DATA_FOLDER=/Users/robreid/Documents/data-projects/schools-explorer/scuole-data 
-```
-
 And finally, run the following to re-create the district and campus models with the latest list of districts and campus. This will also connect the district boundaries and campus coordinates from the previous step to their proper entities.
 
 ```
@@ -267,8 +265,6 @@ pipenv shell
 make data/update-directories
 ```
 
-You can also run each command in that block separately, your choice!
-
 If you run into any duplicate key errors during the AskTED update, refer to the [Troubleshooting section](https://github.com/texastribune/scuole#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database) for instructions on how to clear the models. You'll need to clear the model that is throwing this error, and reload the data.
 
 There may be data formatting errors with some of the data as its being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You'll need to edit this function or create new ones if you're running into problems loading the data from AskTED.
@@ -283,9 +279,9 @@ Before 2023, it involved hitting a download button in order to get the correct s
 
 This is the big one! This dataset contains all school and district performance scores, student and teacher staff info, graduation rates, attendance, SAT/ACT scores and more. These are the numbers that populate in each district and campus page. Again, if you haven't downloaded, formatted and set up this data following the instructions in the [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repository, I strongly recommend you do so.
 
-Once you're done, you'll need to change the year in `make data/latest-school` in the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) to the latest year (ex: 2021-2022). 
-
-You'll also need to add another line to load in the latest year to `make data/all-schools` also in the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile). An example, if you're updating for 2021-2022, add `python manage.py loadtaprdata 2021-2022 --bulk`. This is so that if you reset your database or if someone who is new to updating the schools database is setting up, they can upload the data that you are about to add.
+Once you're done, you'll need to update the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile): 
+1) For `data/latest-school`, change the year to the latest year (e.g. 2022-2023). 
+2) For `data/all-schools` update the add another line to load in the latest year. As an example, if you're updating for 2022-2023, add `python manage.py loadtaprdata 2022-2023 --bulk`. This is so that if you reset your database or if someone who is new to updating the schools database is setting up, they can upload the data that you are about to add.
 
 To update the data, run:
 
