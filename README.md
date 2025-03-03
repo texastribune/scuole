@@ -279,9 +279,9 @@ Before 2023, it involved hitting a download button in order to get the correct s
 
 This is the big one! This dataset contains all school and district performance scores, student and teacher staff info, graduation rates, attendance, SAT/ACT scores and more. These are the numbers that populate in each district and campus page. Again, if you haven't downloaded, formatted and set up this data following the instructions in the [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repository, I strongly recommend you do so.
 
-Once you're done, you'll need to change the year in `make data/latest-school` in the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) to the latest year (ex: 2021-2022). 
-
-You'll also need to add another line to load in the latest year to `make data/all-schools` also in the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile). An example, if you're updating for 2021-2022, add `python manage.py loadtaprdata 2021-2022 --bulk`. This is so that if you reset your database or if someone who is new to updating the schools database is setting up, they can upload the data that you are about to add.
+Once you're done, you'll need to update the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile): 
+1) For `data/latest-school`, change the year to the latest year (e.g. 2022-2023). 
+2) For `data/all-schools` update the add another line to load in the latest year. As an example, if you're updating for 2022-2023, add `python manage.py loadtaprdata 2022-2023 --bulk`. This is so that if you reset your database or if someone who is new to updating the schools database is setting up, they can upload the data that you are about to add.
 
 To update the data, run:
 
