@@ -9,8 +9,8 @@ Public Schools 3!
 
 - [Intro](#intro)
 - [Run outstanding migrations](#run-outstanding-migrations)
-- [Fire up the server](#fire-up-the-server)
-- [Updating data on your local server](#updating-data-on-your-local-server)
+- [Fire up the server](#fire-up-the-server-with-latest-stable-dataset)
+- [Integrate new data](#integrate-new-data)
   - [Updating district boundaries and campus coordinates](#updating-district-boundaries-and-campus-coordinates)
   - [Updating district and campus entities](#updating-district-and-campus-entities)
   - [Updating AskTED data](#updating-askted-data)
@@ -73,7 +73,7 @@ If you or another developer have made changes to data structures (models) in Dja
 python manage.py migrate
 ```
 
-## Fire up the server
+## Fire up the server with latest stable dataset
 
 Make sure Docker is running and step into a pipenv shell.
 
@@ -84,7 +84,7 @@ pipenv shell
 
 If you're actively troubleshooting/debugging newly integrated data, you may need to roll back the database to the last stable instance. To do so, first go to the `data/bootstrap-entities` in the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) and change the year to the last stable year (e.g. 2021-2022) for both `bootstrapdistricts_v2` and `bootstrapcampuses_v2`.
 
-Then, load in the prior year's data.
+If you need to start from a clean slate, load in the prior year's data. This may take ~10 minutes to run.
 
 ```sh
 make local/reset-db
@@ -102,6 +102,8 @@ Open up the schools database in your [local server](http://localhost:8000/) and 
 
 All good? Let's go! There are also other commands in scuole's [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) at your disposal so check them out.
 
+## Integrate new data
+
 ### Updating district boundaries and campus coordinates
 
 If you've already updated the GEOJSONs of the districts and coordinates of the campuses as instructed in the [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repo, you're already done with this step. We will be connecting this new district and campus geographic data by running the script in the following step.
@@ -112,7 +114,15 @@ In this explorer, we can see data for the entire state, regions, districts, and 
 
 First, go to the `data/bootstrap-entities` in the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) and change the year to the year you are updating for (ex: 2021-2022) for both `bootstrapdistricts_v2` and `bootstrapcampuses_v2`.
 
-Then, you'll get into the shell and start the Python terminal.
+```sh
+data/bootstrap-entities:
+	python manage.py bootstrapdistricts_v2 2021-2022
+	python manage.py dedupedistrictslugs
+	python manage.py bootstrapcampuses_v2 2021-2022
+	python manage.py dedupecampusslugs
+  ```
+
+If you're server's running in Terminal, open up a new terminal, get back into the shell, and start the Python terminal.
 
 ```sh
 pipenv shell
