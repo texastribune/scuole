@@ -84,6 +84,13 @@ pipenv shell
 
 If you're actively troubleshooting/debugging newly integrated data, you may need to roll back the database to the last stable instance. To do so, first go to the `data/bootstrap-entities` in the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) and change the year to the last stable year (e.g. 2021-2022) for both `bootstrapdistricts_v2` and `bootstrapcampuses_v2`.
 
+Then, load in the prior year's data.
+
+```sh
+make local/reset-db
+sh bootstrap.sh
+```
+
 Next, collect static files and fire up the server. Previous instructions suggested ```sh docker-entrypoint.sh``` but in my experience this breaks the css. Try this instead:
 
 ```sh
@@ -91,7 +98,9 @@ python manage.py collectstatic --noinput
 python manage.py runserver
 ```
 
-Open up the schools database in your [local server](http://localhost:8000/) and make sure that all of the information is there and the pages are working correctly. You can compare it to the [live version of the school's database](https://schools.texastribune.org/). All good? Let's go! There are also other commands in scuole's [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) at your disposal so check them out.
+Open up the schools database in your [local server](http://localhost:8000/) and make sure that all of the information is there and the pages are working correctly. You can compare it to the [live version of the school's database](https://schools.texastribune.org/).
+
+All good? Let's go! There are also other commands in scuole's [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) at your disposal so check them out.
 
 ### Updating district boundaries and campus coordinates
 
