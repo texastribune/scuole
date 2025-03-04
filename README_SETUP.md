@@ -8,6 +8,7 @@
   - [If this is your first time loading the app, load in last year's data](#if-this-is-your-first-time-loading-the-app-load-in-last-years-data)
   - [If this is not your first time loading the app, run outstanding migrations](#if-this-is-not-your-first-time-loading-the-app-run-outstanding-migrations)
 - [Fire up the server](#fire-up-the-server)
+- [Configure your computer to ssh into our test and production servers](#configure-your-computer-to-ssh-into-our-test-and-production-servers)
 
 ## Initial setup on your local server
 
@@ -135,3 +136,40 @@ python manage.py runserver
 ```
 
 Open up the schools database in your [local server](http://localhost:8000/) and make sure that all of the information is there and the pages are working correctly. You can compare it to the [live version of the school's database](https://schools.texastribune.org/). All good? Let's go! There are also other commands in scuole's [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) at your disposal so check them out.
+
+## Configure your computer to ssh into our test and production servers
+
+In order to get into the test and production servers, you will need to `ssh` into the server. That means you'll need to add some configuration into your computer's ssh configuration file (`.ssh/config`). 
+
+If you haven't created one in your local computer yet, create a directory called `.ssh` by running `mkdir -p ~/.ssh && chmod 700 ~/.ssh` or creating it manually in your User folder. Create a config file by running `touch ~/.ssh/config` and `chmod 600 ~/.ssh/config` to change its permissions.
+
+Open up the `config` file with your favorite text editor. The `Hosts` you are adding are `schools-prod-1`, `schools-prod-2` and `schools-test`. In 1Password's Data Visuals vault, find a file called `Scuole SSH configuration` and copy and paste the contents to the `config` file.
+
+When you're done, save that file and quit.
+
+Next, in 1Password's Data Visuals vault, find two files called `tribtalk-kb.pem`and `Newsapps SSH key`. Create a new directory called `trib` either manually or by running `mkdir -p ~/.ssh/trib && chmod 700 ~/.ssh/trib`. Copy and paste the two files from 1Password using a text editor and save them as `tribtalk-kp.pem` and `newsapps.pem` respectively in your `trib` directory. These are your RSA private keys that will give you permission to `ssh` into the server.
+
+One last step is to make sure both `pem` files have the correct permissions. This can be done by running `chmod 400 ~/.ssh/trib/tribtalk-kp.pem` and `chmod 400 ~/.ssh/trib/newsapps.pem` respectively.
+
+Next, let Engineering know that you have everything set up, and you need to access the servers and they need to whitelist your I.P. address using [Amazon VPC security groups](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html). Once that's set, you will be able to access the server.
+
+In order to test this out, `ssh` into the `schools-test` server by running `ssh schools-test` in your Terminal.
+
+If this is your first time `ssh`-ing into the server, it will give you a prompt something along the lines of:
+
+```
+The authenticity of host 'ec2-XX-XXX-XXX-XXX.compute-1.amazonaws.com (XX.XXX.XXX.XXX)' can't be established. 
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
+```
+
+Reply 'yes' and you should be in!
+
+If you get an error like this:
+
+```
+kex_exchange_identification: Connection closed by remote host
+Connection closed by UNKNOWN port 65535
+```
+
+It means your I.P. address is still not whitelisted, and you'll have to check back with Engineering.

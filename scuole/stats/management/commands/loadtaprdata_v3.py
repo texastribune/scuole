@@ -150,7 +150,6 @@ class Command(BaseCommand):
                 # get the identifier, AKA the TEA ID of the district or campus
                 # i.e. for districts, the identifier is 'DISTRICT'
                 identifier = row.get(id_column)
-                #self.stdout.write(f"processing {jurisdiction} {identifier}")
 
                 # get the model instance with the identifier
                 instance = self.get_model_instance(
@@ -178,11 +177,12 @@ class Command(BaseCommand):
                 #     continue
                 
                 # check if the corresponding model has an A-F rating field
-                try:
-                    stats_model._meta.get_field("accountability_rating")
-                    include_accountability_rating = True
-                except FieldDoesNotExist:
-                    include_accountability_rating = False
+                include_accountability_rating = False
+                # try:
+                #     stats_model._meta.get_field("accountability_rating")
+                #     include_accountability_rating = True
+                # except FieldDoesNotExist:
+                #     include_accountability_rating = False
 
                 payload = {"year": school_year, "defaults": {}, jurisdiction: instance}
 
