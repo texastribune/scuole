@@ -141,7 +141,7 @@ campus.delete()
 exit()
 ```
 
-And finally, run the following to re-create the district and campus models with the latest list of districts and campus. This will also connect the district boundaries and campus coordinates from the previous step to their proper entities.
+And finally, run the following to re-create the district and campus models with the latest list of districts and campus. This will also connect the district boundaries and campus coordinates from the previous step to their proper entities (runtime ~2 minutes).
 
 ```
 make data/bootstrap-entities
@@ -151,13 +151,14 @@ make data/bootstrap-entities
 
 In this explorer, we have a section at the top of the page of every district and campus (under the map of the district or campus location) where we have school addresses and contact information, along with superintendent and principal contact information. We get this data from [AskTED](https://tealprod.tea.state.tx.us/tea.askted.web/Forms/Home.aspx) which contains a file called [`Download School and District File with Site Address`](https://tealprod.tea.state.tx.us/Tea.AskTed.Web/Forms/DownloadSite.aspx).
 
-To update the data, run:
+To update the data, run (runtime ~2 minutes):
  
 ```sh
 pipenv shell
 make data/update-directories
 ```
 
+**troubleshooting notes**
 If you run into any duplicate key errors during the AskTED update, refer to the [troubleshooting readme](README_TROUBLESHOOTING.md) for instructions on how to clear the models. You'll need to clear the model that is throwing this error, and reload the data.
 
 There may be data formatting errors with some of the data as its being pulled in. For instance, some of the phone numbers may be invalid. Right now, we have a `phoneNumberFormat` function in the `updatedistrictsuperintendents`, `updatecampusdirectory` and `updatecampusprincipals`. You'll need to edit this function or create new ones if you're running into problems loading the data from AskTED.
@@ -170,9 +171,9 @@ Before 2023, it involved hitting a download button in order to get the correct s
 
 ### Updating TAPR data
 
-This is the big one! This dataset contains all school and district performance scores, student and teacher staff info, graduation rates, attendance, SAT/ACT scores and more. These are the numbers that populate in each district and campus page. Again, if you haven't downloaded, formatted and set up this data following the instructions in the [`scuole-data`](https://github.com/texastribune/scuole-data#district-boundaries-and-campus-coordinates) repository, I strongly recommend you do so.
+This is the big one! This dataset contains all school and district performance scores, student and teacher staff info, graduation rates, attendance, SAT/ACT scores and more. These are the numbers that populate in each district and campus page.
 
-Once you're done, you'll need to update the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile): 
+To get started, you'll need to update the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile): 
 1) For `data/latest-school`, change the year to the latest year (e.g. 2022-2023). 
 2) For `data/all-schools` update the add another line to load in the latest year. As an example, if you're updating for 2022-2023, add `python manage.py loadtaprdata 2022-2023 --bulk`. This is so that if you reset your database or if someone who is new to updating the schools database is setting up, they can upload the data that you are about to add.
 
