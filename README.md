@@ -284,7 +284,7 @@ make compose/test-deploy
 
 Make sure Docker containers are running by running `docker ps` (There should be a container for `web`, `db` and `proxy` services - see `docker-compose.override.yml` for more details).
 
-Once you run these, make sure  your code changes made it through by going to [schools-test](https://schools-test.texastribune.org/). Remeber that these are only code changes, you haven't updated your data yet on the test server so don't expect to see the latest data up on the test server.
+Once you run these, make sure  your code changes made it through by going to [schools-test](https://schools-test.texastribune.org/). Remember that these are only code changes, you haven't updated your data yet on the test server so don't expect to see the latest data up on the test server.
 
 ### Deploying data updates on the test server
 
@@ -416,7 +416,7 @@ When you see all of your code changes get pulled in from the Github repo, it's t
 make compose/production-deploy
 ```
 
-Make sure Docker containers are running by running `docker ps` (There should be a container for `web` and `proxy` services - no `db` container is necessary to be running in the production servers).
+Make sure Docker containers are running by running `docker ps` (There should be a container for `web` and `proxy` services - no `db` container is necessary to be running in the production servers). If one or more containers are missing you can check their status with ``docker ps -a`.
 
 If everything runs successfully, run the same steps above for the `schools-prod-2` server.
 
