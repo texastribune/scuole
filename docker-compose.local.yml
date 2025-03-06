@@ -1,11 +1,10 @@
-version: '2'
-
 services:
     db:
         image: mdillon/postgis:9.4
         environment:
             - POSTGRES_DB=docker
             - POSTGRES_PASSWORD=postgres
+            - POSTGRES_USER=postgres
         volumes:
             - db-data:/var/lib/postgresql/data
         ports:
@@ -16,13 +15,23 @@ services:
         image: schools/web:latest
         depends_on:
             - db
-
+        ports:
+            - "8000:8000"  # Expose Django's development server
+        environment:
+            - DATABASE_URL=postgis://postgres:postgres@db:5432/docker
+            #- DATABASE_HOST=db
+        env_file:
+            - .env
+        volumes:
+            - ../scuole-data:/usr/src/app/data
+    # For local development, you probably don't need the proxy
+    # But if you want to keep it for consistency:
     proxy:
         build:
             context: .
-            dockerfile: Dockerfile.local
+            dockerfile: Dockerfile.nginx  # Use the Nginx Dockerfile
         ports:
-            - '80:80'
+            - '80:80'  # Nginx listens on port 80
         depends_on:
             - web
 
