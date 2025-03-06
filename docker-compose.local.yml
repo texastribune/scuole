@@ -20,7 +20,10 @@ services:
         environment:
             - DATABASE_URL=postgis://postgres:postgres@db:5432/docker
             #- DATABASE_HOST=db
-
+        env_file:
+            - .env
+        volumes:
+            - ../scuole-data:/usr/src/app/data
     # For local development, you probably don't need the proxy
     # But if you want to keep it for consistency:
     proxy:
