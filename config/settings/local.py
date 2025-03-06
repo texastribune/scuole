@@ -83,3 +83,8 @@ if not env('DISABLE_DEBUG_TOOLBAR', False):
 INSTALLED_APPS += (
     'django_extensions',
 )
+
+#################
+# SERVICE DEBUG #
+#################
+# RUNSERVER_PLUS_EXTRA_ARGS = ['--nothreading', '--noreload', '0.0.0.0:8000']

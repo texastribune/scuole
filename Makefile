@@ -198,23 +198,23 @@ free-space:
 
 # Fire up Docker locally
 compose/local:
-	docker-compose -f docker-compose.local.yml build web proxy
+	docker-compose -f docker-compose.local.yml build --build-arg ENVIRONMENT=local web proxy
 	docker-compose -f docker-compose.local.yml down
 	docker-compose -f docker-compose.local.yml up
 
-# What we use to deploy scuole changes to the production server
+# Deploy scuole to the production server
 # define services that make up the app with the docker-compose.yml file, and build them
 # `down` stops and removes previously started containers
 # `up -d` starts containers in the background with the defined services and leaves them running
 compose/production-deploy:
 	make free-space
-	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build web proxy
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build --build-arg ENVIRONMENT=production web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
-# What we use to deploy scuole changes to the test server
+# Deploy scuole to the test server
 compose/test-deploy:
-	docker-compose -f docker-compose.yml -f docker-compose.override.yml build web proxy
+	docker-compose -f docker-compose.yml -f docker-compose.override.yml build --build-arg ENVIRONMENT=staging web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 
