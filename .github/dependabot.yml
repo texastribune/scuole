@@ -17,11 +17,13 @@ updates:
     - "docker"
     - "dependencies"
 - package-ecosystem: pip
-  directory: "/requirements"
+  directory: "requirements"
   schedule:
     interval: daily
     time: "11:00"
   labels:
     - "python"
     - "dependencies"
+  allow:
+    -dependency-name: "*"
     
