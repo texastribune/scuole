@@ -31,7 +31,7 @@
     "autoprefixer": "^9.5.0",
     "babel-loader": "^8.0.5",
     "case-sensitive-paths-webpack-plugin": "^2.2.0",
-    "clean-css": "^4.2.1",
+    "clean-css": "^5.3.3",
     "fast-glob": "^3.2.7",
     "fs-extra": "^7.0.1",
     "imagemin": "^7.0.0",
