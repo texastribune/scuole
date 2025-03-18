@@ -25,5 +25,5 @@ updates:
     - "python"
     - "dependencies"
   allow:
-    -dependency-name: "*"
+    - dependency-name: "*"
     
