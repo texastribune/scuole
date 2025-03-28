@@ -39,13 +39,13 @@
     "imagemin-jpegtran": "^7.0.0",
     "imagemin-optipng": "^8.0.0",
     "imagemin-svgo": "^8.0.0",
-    "postcss": "^7.0.36",
+    "postcss": "^8.5.3",
     "postcss-flexbugs-fixes": "^4.1.0",
     "prettier": "^1.16.4",
     "sass": "^1.18.0",
     "sass-mq": "^5.0.0",
     "terser-webpack-plugin": "^1.4.5",
-    "webpack": "^4.44.2",
+    "webpack": "^5.98.0",
     "webpack-format-messages": "^2.0.5"
   },
   "prettier": {
