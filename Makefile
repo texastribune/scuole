@@ -17,8 +17,9 @@ compose/production-deploy:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
 # Deploy scuole to the test server
+# might want to create a separate ENVIRONMENT for staging, but production had been the default and relies on config/settings/production.py with no alterations
 compose/test-deploy:
-	docker-compose -f docker-compose.yml -f docker-compose.override.yml build --build-arg ENVIRONMENT=staging web proxy
+	docker-compose -f docker-compose.yml -f docker-compose.override.yml build --build-arg ENVIRONMENT=production web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 
