@@ -1,27 +1,31 @@
 version: 2
 updates:
 - package-ecosystem: npm
-  directory: "/"
+  directory: "./"
   schedule:
     interval: daily
     time: "11:00"
   labels:
     - "javascript"
     - "dependencies"
+
 - package-ecosystem: docker
-  directory: "/"
+  directory: "./"
   schedule:
     interval: daily
     time: "11:00"
   labels:
     - "docker"
     - "dependencies"
+
 - package-ecosystem: pip
-  directory: "/"
+  directory: "./requirements"
   schedule:
     interval: daily
     time: "11:00"
   labels:
     - "python"
     - "dependencies"
+  allow:
+    - dependency-name: "*"
     
