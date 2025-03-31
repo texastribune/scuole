@@ -10,7 +10,7 @@ django-postgres-copy==2.7.6
 gunicorn==23.0.0; python_version >= '3.7'
 idna==3.10; python_version >= '3.6'
 packaging==24.2; python_version >= '3.8'
-phonenumberslite==8.13.54
+phonenumberslite==9.0.2
 psycopg2==2.9.10; python_version >= '3.8'
 psycopg2-binary==2.9.9; python_version >= '3.7'
 python-stdnum==1.20
