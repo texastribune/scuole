@@ -1,7 +1,7 @@
 version: 2
 updates:
 - package-ecosystem: npm
-  directory: "./"
+  directory: "/"
   schedule:
     interval: daily
     time: "11:00"
@@ -10,7 +10,7 @@ updates:
     - "dependencies"
 
 - package-ecosystem: docker
-  directory: "./"
+  directory: "/"
   schedule:
     interval: daily
     time: "11:00"
@@ -19,7 +19,7 @@ updates:
     - "dependencies"
 
 - package-ecosystem: pip
-  directory: "./requirements"
+  directory: "requirements"
   schedule:
     interval: daily
     time: "11:00"
