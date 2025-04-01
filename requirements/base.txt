@@ -3,7 +3,7 @@ asgiref==3.5.2; python_version >= '3.7'
 certifi==2025.1.31; python_version >= '3.6'
 charset-normalizer==3.4.1; python_version >= '3.7'
 dj-database-url==0.5.0
-django==3.2.15; python_version >= '3.6'
+django==3.2.24; python_version >= '3.6'
 django-localflavor==3.1
 django-phonenumber-field==6.3.0; python_version >= '3.7'
 django-postgres-copy==2.7.6
