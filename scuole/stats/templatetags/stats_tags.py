@@ -49,7 +49,13 @@ def get_value_display(value, value_type):
         return (value, '')
 
     if value_type == 'number':
-        return (intcomma(floatformat(value)), '')
+       if isinstance(value, int) or value.is_integer():
+           # For integers, format without decimal places
+           return (intcomma(int(value)), '')
+       else:
+           # For decimals, apply floatformat first then intcomma
+           formatted = floatformat(value)
+           return (intcomma(float(formatted)), '')
 
     return value
 
