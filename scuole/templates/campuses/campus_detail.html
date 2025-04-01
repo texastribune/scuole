@@ -50,9 +50,9 @@
     <strong>{{ stat.bilingual_esl_percent|floatformat }}%</strong> of students were enrolled in bilingual and English language learning programs.
   </p>
 
-  <p>
+  <!---<p>
     The school received an accountability rating of <strong>{{ stat.smart_accountability_rating_display|capfirst }}</strong> for the <strong>{{ stat.smart_accountability_rating_header_display }}</strong> school year.
-  </p>
+  </p>--->
 
   <p>
     {% if stat.four_year_graduate_all_students_percent and stat.four_year_graduate_all_students_percent >= 0 %}
@@ -83,7 +83,6 @@
     On average, teachers had <strong>{{ stat.teacher_avg_experience|floatformat }} years</strong> of experience.
     {% endif %}
   </p>
-  {% include "includes/airtable_survey.html" %}
 </section>
 
 </div>
