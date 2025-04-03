@@ -24,7 +24,8 @@ RUN ["npm", "run", "build"]
 # BASE IMAGE #
 ##############
 
-FROM python:3.10-alpine
+#FROM python:3.10-alpine
+FROM python:3.10.0-alpine3.14
 
 ##################################
 # ARGS AND ENVIRONMENT VARIABLES #
