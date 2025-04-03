@@ -431,7 +431,7 @@ When you see all of your code changes get pulled in from the Github repo, it's t
 make compose/production-deploy
 ```
 
-Make sure Docker containers are running by running `docker ps` (There should be a container for `web` and `proxy` services - no `db` container is necessary to be running in the production servers). If one or more containers are missing you can check their status with ``docker ps -a`.
+Make sure Docker containers are running by running `docker ps` (There should be a container for `web` and `proxy` services - no `db` container is necessary to be running in the production servers). If one or more containers are missing you can check their status with `docker ps -a`.
 
 If everything runs successfully, run the same steps above for the `schools-prod-2` server.
 
