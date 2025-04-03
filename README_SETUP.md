@@ -153,7 +153,9 @@ One last step is to make sure both `pem` files have the correct permissions. Thi
 
 Next, let Engineering know that you have everything set up, and you need to access the servers and they need to whitelist your I.P. address using [Amazon VPC security groups](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html). Once that's set, you will be able to access the server.
 
-In order to test this out, `ssh` into the `schools-test` server by running `ssh schools-test` in your Terminal.
+In order to test this out, `ssh` into the `schools-test` server by running `ssh schools-test` in your Terminal. 
+
+You should also `ssh` into the `schools-prod-1` server by running `ssh schools-prod-1`, and into the `schools-prod-2` server by running `ssh schools-prod-2` just to be sure you can connect to all the servers you'll need for deployment.
 
 If this is your first time `ssh`-ing into the server, it will give you a prompt something along the lines of:
 
@@ -172,4 +174,4 @@ kex_exchange_identification: Connection closed by remote host
 Connection closed by UNKNOWN port 65535
 ```
 
-It means your I.P. address is still not whitelisted, and you'll have to check back with Engineering.
+It means your I.P. address is still not whitelisted. If it's your first time connecting and you know you've been whitelisted, try one more time, but if you're still stuck check back with Engineering.

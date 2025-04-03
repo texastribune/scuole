@@ -8,6 +8,8 @@ Public Schools 3!
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Intro](#intro)
+  - [About the Servers](#about-the-servers)
+  - [About the Data](#about-the-data)
 - [Run outstanding migrations](#run-outstanding-migrations)
 - [Fire up the server](#fire-up-the-server-with-latest-stable-dataset)
 - [Integrate new data](#integrate-new-data)
@@ -40,6 +42,12 @@ Public Schools 3!
 ## Intro
 If this is your first time setting up the schools database, please start with [README_SETUP.md](README_SETUP.md). The remainder of this Readme is focused on running updates to data in the Schools Explorer. Every year, we need to update cohorts, TAPR, district boundaries, campus coordinates and the entities files for districts and campuses.
 
+### About the Servers
+The Schools Explorer has a local, staging, and production setup, which can be mostly standardized through Docker containerization. Production has two servers, which is handy in case you want to test deployment to one while keeping the other intact in case you need to quickly roll back changes. 
+
+The local and staging environment both connect to local PostgreSQL databases with the PostGIS extension, whereas production uses an external Postgres database hosted on AWS.
+
+### About the Data
 There are two types of data downloads supporting the scuole app:
 1) **Manually download**. The [`scuole-data`](https://github.com/texastribune/scuole-data) repo contains Jupyter notebooks that guide you through formatting and organizing data where the app can access it. If data is incorrectly formatted, you may see errors while working through this repo.
 2) **Automatic download**. This involves running a command which downloads the latest data directly from a website. We use this process for updating AskTED directory info.
