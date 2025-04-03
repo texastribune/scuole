@@ -18,7 +18,9 @@ compose/production-deploy:
 
 # Deploy scuole to the test server
 # might want to create a separate ENVIRONMENT for staging, but production had been the default and relies on config/settings/production.py with no alterations
+# docker image prune -a will clean more aggressively on staging, to address resource buildup from repetitive testing
 compose/test-deploy:
+	docker image prune -a
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml build --build-arg ENVIRONMENT=production web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
