@@ -116,24 +116,106 @@ def massage_name(text, key_dict):
 
     return text
 
+# def diagnose_gis_imports():
+#     """Temporary function to diagnose available GIS imports"""
+#     import django
+#     print(f"Django version: {django.__version__}")
+    
+#     # Check what's in the gis module
+#     import django.contrib.gis.db.models as gis_models
+#     print("Available in django.contrib.gis.db.models:")
+#     print([name for name in dir(gis_models) if not name.startswith('_')])
+    
+#     # Check what's in the functions module
+#     import django.contrib.gis.db.models.functions as functions
+#     print("\nAvailable in django.contrib.gis.db.models.functions:")
+#     print([name for name in dir(functions) if not name.startswith('_')])
+    
+#     # Check if there's an aggregates module
+#     try:
+#         import django.contrib.gis.db as db
+#         print("\nModules in django.contrib.gis.db:")
+#         print([name for name in dir(db) if not name.startswith('_')])
+#     except ImportError:
+#         print("No access to django.contrib.gis.db")
 
-def build_geojson(queryset, shape_field, fields=[]):
+# # Call the function
+# diagnose_gis_imports()
+
+# from django.contrib.gis.db.models import Extent
+# from django.contrib.gis.db.models.functions import Simplify
+
+# def build_geojson(queryset, shape_field, fields=None):
+#     if fields is None:
+#         fields = []
+#     output = {"type": "FeatureCollection", "features": []}
+
+#     instances = queryset.annotate(simple_shape=Simplify(shape_field, 0.01))
+    
+#     # Try without specifying output_field
+#     extent = instances.aggregate(extent=Extent("simple_shape"))
+
+#     output["bbox"] = extent["extent"]
+
+#     for instance in instances:
+#         shape = json.loads(instance.simple_shape.geojson)
+#         fields = {f: getattr(instance, f, None) for f in fields}
+#         fields["url"] = reverse("cohorts:regions", kwargs={"slug": instance.slug})
+
+#         output["features"].append(
+#             {"type": "Feature", "geometry": shape, "properties": fields}
+#         )
+
+#     return output
+
+# this version broke on update to django 3.2.24
+# def build_geojson(queryset, shape_field, fields=[]):
+#     output = {"type": "FeatureCollection", "features": []}
+
+#     instances = queryset.annotate(simple_shape=Simplify(shape_field, 0.01))
+#     extent = instances.aggregate(extent=Extent("simple_shape"))
+
+#     output["bbox"] = extent["extent"]
+
+#     for instance in instances:
+#         shape = json.loads(instance.simple_shape.geojson)
+#         fields = {f: getattr(instance, f, None) for f in fields}
+#         fields["url"] = reverse("cohorts:regions", kwargs={"slug": instance.slug})
+
+#         output["features"].append(
+#             {"type": "Feature", "geometry": shape, "properties": fields}
+#         )
+
+#     return output
+
+# had to rewrite this code on update to django 3.2.24 (4/3/25)
+def build_geojson(queryset, shape_field, fields=None):
+    if fields is None:
+        fields = []
     output = {"type": "FeatureCollection", "features": []}
 
-    instances = queryset.annotate(simple_shape=Simplify(shape_field, 0.01))
-    extent = instances.aggregate(extent=Extent("simple_shape"))
-
-    output["bbox"] = extent["extent"]
-
+    # Skip the simplification temporarily
+    instances = queryset
+    
+    # Skip the extent calculation temporarily
+    # We'll add a manual bounding box calculation later if needed
+    output["bbox"] = None  # Placeholder
+    
+    features = []
     for instance in instances:
-        shape = json.loads(instance.simple_shape.geojson)
-        fields = {f: getattr(instance, f, None) for f in fields}
-        fields["url"] = reverse("cohorts:regions", kwargs={"slug": instance.slug})
-
-        output["features"].append(
-            {"type": "Feature", "geometry": shape, "properties": fields}
-        )
-
+        shape_value = getattr(instance, shape_field)
+        if shape_value:
+            shape = json.loads(shape_value.geojson)
+            fields_data = {f: getattr(instance, f, None) for f in fields}
+            fields_data["url"] = reverse("cohorts:regions", kwargs={"slug": instance.slug})
+            
+            features.append({
+                "type": "Feature", 
+                "geometry": shape, 
+                "properties": fields_data
+            })
+    
+    output["features"] = features
     return output
 
 
