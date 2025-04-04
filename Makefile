@@ -4,7 +4,7 @@ APP := scuole
 backup-containers:
 	@echo "📦 Creating backup of current docker images..."
 	@TIMESTAMP=$$(date +%Y%m%d_%H%M%S); \
-	BACKUP_DIR=~/docker-backups; \
+	BACKUP_DIR=./docker-backups; \
 	mkdir -p $$BACKUP_DIR; \
 	docker save -o $$BACKUP_DIR/web-backup-$$TIMESTAMP.tar $$(docker-compose -f docker-compose.yml -f docker-compose.prod.yml images -q web); \
 	docker save -o $$BACKUP_DIR/proxy-backup-$$TIMESTAMP.tar $$(docker-compose -f docker-compose.yml -f docker-compose.prod.yml images -q proxy); \
