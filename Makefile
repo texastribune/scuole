@@ -13,7 +13,7 @@ backup-containers:
 # clear up disk space by purging all backups 4/3/25
 backup-purge:
 	@echo "🧹 Cleaning up old container backups..."
-	@BACKUP_DIR=~/docker-backups; \
+	@BACKUP_DIR=./docker-backups; \
 	if [ -d "$$BACKUP_DIR" ]; then \
 		echo "Removing all backup files older than 7 days..."; \
 		find $$BACKUP_DIR -name "*.tar" -type f -mtime +7 -delete; \
@@ -295,7 +295,7 @@ local/reset-db-bootstrap-over-time: local/reset-db data/all-schools data/all-coh
 # Restore from backup (works for both staging and production)
 restore-from-backup:
 	@echo "🔍 Looking for available backups..."
-	@BACKUP_DIR=~/docker-backups; \
+	@BACKUP_DIR=./docker-backups; \
 	if [ ! -d "$$BACKUP_DIR" ]; then \
 		echo "❌ ERROR: Backup directory not found at $$BACKUP_DIR"; \
 		exit 1; \
