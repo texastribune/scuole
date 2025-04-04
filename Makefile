@@ -6,34 +6,36 @@ backup-containers:
 	@TIMESTAMP=$$(date +%Y%m%d_%H%M%S); \
 	BACKUP_DIR=./docker-backups; \
 	mkdir -p $$BACKUP_DIR; \
-	echo "Identifying web image..."; \
-	WEB_IMAGE=$$(docker-compose -f docker-compose.yml -f docker-compose.prod.yml images -q web); \
-	if [ -z "$$WEB_IMAGE" ]; then \
-		echo "❌ ERROR: Could not identify web image"; \
-		exit 1; \
-	fi; \
-	echo "Found web image: $$WEB_IMAGE"; \
-	echo "Identifying proxy image..."; \
-	PROXY_IMAGE=$$(docker-compose -f docker-compose.yml -f docker-compose.prod.yml images -q proxy); \
-	if [ -z "$$PROXY_IMAGE" ]; then \
-		echo "❌ ERROR: Could not identify proxy image"; \
-		exit 1; \
-	fi; \
-	echo "Found proxy image: $$PROXY_IMAGE"; \
-	echo "Saving web image to $$BACKUP_DIR/web-backup-$$TIMESTAMP.tar..."; \
-	docker save -o $$BACKUP_DIR/web-backup-$$TIMESTAMP.tar $$WEB_IMAGE; \
-	echo "Saving proxy image to $$BACKUP_DIR/proxy-backup-$$TIMESTAMP.tar..."; \
-	docker save -o $$BACKUP_DIR/proxy-backup-$$TIMESTAMP.tar $$PROXY_IMAGE; \
-	echo "Verifying backups..."; \
-	if [ -f "$$BACKUP_DIR/web-backup-$$TIMESTAMP.tar" ]; then \
-		echo "✅ Web image backup successful"; \
+	echo "Getting running containers..."; \
+	WEB_CONTAINER=$$(docker ps --filter name=web -q); \
+	if [ -z "$$WEB_CONTAINER" ]; then \
+		echo "❌ WARNING: No running web container found"; \
 	else \
-		echo "❌ Web image backup failed"; \
+		echo "Found web container: $$WEB_CONTAINER"; \
+		WEB_IMAGE=$$(docker inspect --format='{{.Image}}' $$WEB_CONTAINER); \
+		echo "Found web image: $$WEB_IMAGE"; \
+		echo "Saving web image to $$BACKUP_DIR/web-backup-$$TIMESTAMP.tar..."; \
+		docker save -o $$BACKUP_DIR/web-backup-$$TIMESTAMP.tar $$WEB_IMAGE; \
+		if [ -f "$$BACKUP_DIR/web-backup-$$TIMESTAMP.tar" ]; then \
+			echo "✅ Web image backup successful"; \
+		else \
+			echo "❌ Web image backup failed"; \
+		fi; \
 	fi; \
-	if [ -f "$$BACKUP_DIR/proxy-backup-$$TIMESTAMP.tar" ]; then \
-		echo "✅ Proxy image backup successful"; \
+	PROXY_CONTAINER=$$(docker ps --filter name=proxy -q); \
+	if [ -z "$$PROXY_CONTAINER" ]; then \
+		echo "❌ WARNING: No running proxy container found"; \
 	else \
-		echo "❌ Proxy image backup failed"; \
+		echo "Found proxy container: $$PROXY_CONTAINER"; \
+		PROXY_IMAGE=$$(docker inspect --format='{{.Image}}' $$PROXY_CONTAINER); \
+		echo "Found proxy image: $$PROXY_IMAGE"; \
+		echo "Saving proxy image to $$BACKUP_DIR/proxy-backup-$$TIMESTAMP.tar..."; \
+		docker save -o $$BACKUP_DIR/proxy-backup-$$TIMESTAMP.tar $$PROXY_IMAGE; \
+		if [ -f "$$BACKUP_DIR/proxy-backup-$$TIMESTAMP.tar" ]; then \
+			echo "✅ Proxy image backup successful"; \
+		else \
+			echo "❌ Proxy image backup failed"; \
+		fi; \
 	fi; \
 	echo "Backup process completed to $$BACKUP_DIR with timestamp $$TIMESTAMP"
 
