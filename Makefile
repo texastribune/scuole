@@ -46,12 +46,12 @@ backup-purge:
 	if [ -d "$$BACKUP_DIR" ]; then \
 		echo "Removing all backup files older than 7 days..."; \
 		find $$BACKUP_DIR -name "*.tar" -type f -mtime +7 -delete; \
-		echo "Keeping a maximum of 3 most recent backups..."; \
-		cd $$BACKUP_DIR && ls -t web-backup-*.tar 2>/dev/null | tail -n +4 | xargs -r rm; \
-		cd $$BACKUP_DIR && ls -t proxy-backup-*.tar 2>/dev/null | tail -n +4 | xargs -r rm; \
+		echo "Keeping a maximum of 3 most recent backups for each type..."; \
+		ls -t $$BACKUP_DIR/web-backup-*.tar 2>/dev/null | tail -n +4 | xargs -r rm; \
+		ls -t $$BACKUP_DIR/proxy-backup-*.tar 2>/dev/null | tail -n +4 | xargs -r rm; \
 		echo "Backup cleanup complete."; \
 	else \
-		echo "Backup directory not found. Nothing to clean."; \
+		echo "Backup directory $$BACKUP_DIR not found. Nothing to clean."; \
 	fi
 
 # Fire up Docker locally
