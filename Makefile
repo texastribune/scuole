@@ -62,24 +62,24 @@ compose/local:
 # `up -d` starts containers in the background with the defined services and leaves them running
 compose/production-deploy:
 	make free-space
-	backup-containers
+	make backup-containers
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build --build-arg ENVIRONMENT=production web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 	@echo "✅ Deployment completed successfully!"
-	@make backups-purge
+	@echo "✅ to clean up container backups, make backup-purge"
 
 # Deploy scuole to the test server
 # might want to create a separate ENVIRONMENT for staging, but production had been the default and relies on config/settings/production.py with no alterations
 # docker image prune -a will clean more aggressively on staging, to address resource buildup from repetitive testing
 compose/test-deploy:
 	docker image prune -a
-	backup-containers
+	make backup-containers
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml build --build-arg ENVIRONMENT=production web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 	@echo "✅ Deployment completed successfully!"
-	@make backups-purge
+	@echo "✅ to clean up container backups, make backup-purge"
 
 compose/admin-update-askted:
 	docker-compose -f docker-compose.yml -f docker-compose.admin.yml run --rm asktedupdate
