@@ -1,5 +1,31 @@
 APP := scuole
 
+# create a backup container in case we need to roll back 4/3/25
+backup-containers:
+	@echo "📦 Creating backup of current docker images..."
+	@TIMESTAMP=$$(date +%Y%m%d_%H%M%S); \
+	BACKUP_DIR=~/docker-backups; \
+	mkdir -p $$BACKUP_DIR; \
+	docker save -o $$BACKUP_DIR/web-backup-$$TIMESTAMP.tar $$(docker-compose -f docker-compose.yml -f docker-compose.prod.yml images -q web); \
+	docker save -o $$BACKUP_DIR/proxy-backup-$$TIMESTAMP.tar $$(docker-compose -f docker-compose.yml -f docker-compose.prod.yml images -q proxy); \
+	echo "Backup saved to $$BACKUP_DIR with timestamp $$TIMESTAMP"
+
+# clear up disk space by purging all backups 4/3/25
+backup-purge:
+	@echo "🧹 Cleaning up old container backups..."
+	@BACKUP_DIR=~/docker-backups; \
+	if [ -d "$$BACKUP_DIR" ]; then \
+		echo "Removing all backup files older than 7 days..."; \
+		find $$BACKUP_DIR -name "*.tar" -type f -mtime +7 -delete; \
+		find $$BACKUP_DIR -name "*.yml.backup-*" -type f -mtime +7 -delete; \
+		echo "Keeping a maximum of 3 most recent backups..."; \
+		cd $$BACKUP_DIR && ls -t web-backup-*.tar | tail -n +4 | xargs -r rm; \
+		cd $$BACKUP_DIR && ls -t proxy-backup-*.tar | tail -n +4 | xargs -r rm; \
+		echo "Backup cleanup complete."; \
+	else \
+		echo "Backup directory not found. Nothing to clean."; \
+	fi
+
 # Fire up Docker locally
 compose/local:
 	docker-compose -f docker-compose.local.yml build --build-arg ENVIRONMENT=local web proxy
@@ -12,18 +38,24 @@ compose/local:
 # `up -d` starts containers in the background with the defined services and leaves them running
 compose/production-deploy:
 	make free-space
+	backup-containers
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build --build-arg ENVIRONMENT=production web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+	@echo "✅ Deployment completed successfully!"
+	@make backups-purge
 
 # Deploy scuole to the test server
 # might want to create a separate ENVIRONMENT for staging, but production had been the default and relies on config/settings/production.py with no alterations
 # docker image prune -a will clean more aggressively on staging, to address resource buildup from repetitive testing
 compose/test-deploy:
 	docker image prune -a
+	backup-containers
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml build --build-arg ENVIRONMENT=production web proxy
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml down
 	docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+	@echo "✅ Deployment completed successfully!"
+	@make backups-purge
 
 compose/admin-update-askted:
 	docker-compose -f docker-compose.yml -f docker-compose.admin.yml run --rm asktedupdate
@@ -203,7 +235,24 @@ docker/shell:
 free-space:
 	-docker system prune -f
 
-
+# added 4/3/25
+health-check:
+	@echo "🩺 Performing health check..."
+	@sleep 10
+	@if [ -z "$$(docker-compose -f docker-compose.yml -f docker-compose.prod.yml ps -q web)" ]; then \
+		echo "❌ ERROR: Web container failed to start!"; \
+		echo "See backup files in ~/docker-backups for manual recovery"; \
+		exit 1; \
+	fi
+	@echo "✅ Container health check passed!"
+	@echo "Checking for errors in logs..."
+	@if docker logs $$(docker-compose -f docker-compose.yml -f docker-compose.prod.yml ps -q web) 2>&1 | grep -i "error\|exception\|failed" > /dev/null; then \
+		echo "⚠️ Warning: Possible errors detected in web container logs."; \
+		echo "Check logs with: docker logs $$(docker-compose -f docker-compose.yml -f docker-compose.prod.yml ps -q web)"; \
+	else \
+		echo "✅ No obvious errors in container logs."; \
+	fi
+	@echo "✅ Health check complete."
 
 local/all: local/reset-db-bootstrap-areas data/bootstrap-edu data/all-schools data/all-cohorts
 
@@ -242,3 +291,44 @@ local/reset-db-bootstrap-areas-entities-directories: local/reset-db-bootstrap-ar
 local/reset-db-bootstrap-latest: local/reset-db-bootstrap-areas-entities-directories data/latest-school
 
 local/reset-db-bootstrap-over-time: local/reset-db data/all-schools data/all-cohorts
+
+# Restore from backup (works for both staging and production)
+restore-from-backup:
+	@echo "🔍 Looking for available backups..."
+	@BACKUP_DIR=~/docker-backups; \
+	if [ ! -d "$$BACKUP_DIR" ]; then \
+		echo "❌ ERROR: Backup directory not found at $$BACKUP_DIR"; \
+		exit 1; \
+	fi; \
+	if [ -z "$(TIMESTAMP)" ]; then \
+		echo "Available backups:"; \
+		ls -lt $$BACKUP_DIR/web-backup-*.tar | head -5 | awk '{print $$9}' | sed 's/.*web-backup-\(.*\)\.tar/\1/'; \
+		echo ""; \
+		echo "Usage: make restore-from-backup TIMESTAMP=YYYYMMDD_HHMMSS"; \
+		echo "Example: make restore-from-backup TIMESTAMP=20240403_123045"; \
+		exit 1; \
+	fi; \
+	if [ ! -f "$$BACKUP_DIR/web-backup-$(TIMESTAMP).tar" ] || [ ! -f "$$BACKUP_DIR/proxy-backup-$(TIMESTAMP).tar" ]; then \
+		echo "❌ ERROR: Backup files for timestamp $(TIMESTAMP) not found"; \
+		echo "Available backups:"; \
+		ls -lt $$BACKUP_DIR/web-backup-*.tar | head -5 | awk '{print $$9}' | sed 's/.*web-backup-\(.*\)\.tar/\1/'; \
+		exit 1; \
+	fi; \
+	echo "⚠️ WARNING: This will restore to backup from $(TIMESTAMP)"; \
+	echo "Continue? [y/N] "; \
+	read answer; \
+	if [ "$$answer" != "y" ]; then \
+		echo "Restoration aborted."; \
+		exit 1; \
+	fi; \
+	echo "🔄 Restoring from backup $(TIMESTAMP)..."; \
+	echo "Loading backup images..."; \
+	docker load -i $$BACKUP_DIR/web-backup-$(TIMESTAMP).tar; \
+	docker load -i $$BACKUP_DIR/proxy-backup-$(TIMESTAMP).tar; \
+	echo "Stopping current containers..."; \
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml down; \
+	echo "Starting containers with backed up images..."; \
+	docker tag $$(docker images | grep "web.*backup-$(TIMESTAMP)" | awk '{print $$1":"$$2}') web:latest; \
+	docker tag $$(docker images | grep "proxy.*backup-$(TIMESTAMP)" | awk '{print $$1":"$$2}') proxy:latest; \
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d; \
+	echo "✅ Restoration complete. Run 'make health-check' to verify."
