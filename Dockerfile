@@ -2,7 +2,7 @@
 # ASSET BUILD #
 ###############
 # front-end files including CSS, javascript, images, etc.
-FROM node:10 as assets
+FROM node:24 as assets
 
 WORKDIR /usr/src/app
 
