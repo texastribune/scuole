@@ -37,5 +37,19 @@ services:
         depends_on:
             - web
 
+    pgweb: #added 5/15/25
+        image: sosedoff/pgweb
+        container_name: pgweb-2 # so named to avoid conflict with pgweb container in SFDW
+        ports:
+            - "8082:8081" #for browser access. using port 8082 to avoid conflict with pgweb in SFDW
+        environment:
+            PGHOST: db  # Adjust this to match your PostgreSQL service
+            PGPORT: 5432
+            PGUSER: postgres
+            PGPASSWORD: postgres
+            PGDATABASE: docker
+        depends_on:
+            - db
+
 volumes:
     db-data: {}
