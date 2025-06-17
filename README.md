@@ -83,11 +83,11 @@ python manage.py migrate
 
 ## Fire up the server with latest stable dataset
 
-Make sure Docker is running and step into a pipenv shell.
+Make sure Docker is running and step into a Docker shell.
 
 ```sh
 make docker/db 
-pipenv shell
+make docker/shell
 ```
 
 If you're actively troubleshooting/debugging newly integrated data, you may need to roll back the database to the last stable instance. To do so, first go to the `data/bootstrap-entities` in the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) and change the year to the last stable year (e.g. 2021-2022) for both `bootstrapdistricts_v2` and `bootstrapcampuses_v2`.
@@ -112,10 +112,10 @@ All good? Let's go! There are also other commands in scuole's [`Makefile`](https
 
 ## Integrate new data
 
-If you're server's running in Terminal, you'll need open a new tab in terminal and get into another pipenv shell.
+If you're server's running in Terminal, you'll need open a new tab in terminal and get into another Docker shell.
 
 ```sh
-pipenv shell
+make docker/shell
 ```
 
 ### Update Makefile to reflect current year
@@ -221,10 +221,11 @@ First, make sure you have already followed the [`scuole-data`](https://github.co
 
 After you've put the latest cohorts data in `scuole-data`, you'll need to add a line to `data/all-cohorts` in the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) in `scuole` with the latest year. An example, if you're updating for 2012, add `python manage.py loadallcohorts 2012`. Again, this is so that if you reset your database or if someone who is new to updating the schools database is setting up, they can upload the data that you are about to add.
 
-Then, get inside the Python shell:
+Then, get inside the ?Python? shell:
 
 ```sh
-pipenv shell
+# pipenv shell
+make docker/shell
 ```
 
 Load the data by running:
@@ -243,7 +244,7 @@ Lastly, make sure the [`scuole/cohorts/schemas/cohorts/schema.py`](https://githu
 
 If you make changes to the styles, you'll need to run `npm run build` again to rebuild the `main.css` file in the `assets/` folder that the templates reference.
 
-Then, run `pipenv shell`, followed by `python manage.py collectstatic --noinput` to recollect static files. You'll also need to do a hard refresh in whatever browser you're running the explorer in to fetch the new styles.
+Then, run `make docker/shell`, followed by `python manage.py collectstatic --noinput` to recollect static files. You'll also need to do a hard refresh in whatever browser you're running the explorer in to fetch the new styles.
 
 ### More small changes
 
