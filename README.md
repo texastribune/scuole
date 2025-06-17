@@ -92,12 +92,7 @@ make docker/shell
 
 If you're actively troubleshooting/debugging newly integrated data, you may need to roll back the database to the last stable instance. To do so, first go to the `data/bootstrap-entities` in the [`Makefile`](https://github.com/texastribune/scuole/blob/master/Makefile) and change the year to the last stable year (e.g. 2021-2022) for both `bootstrapdistricts_v2` and `bootstrapcampuses_v2`.
 
-If you need to start from a clean slate, load in the prior year's data. This may take ~10 minutes to run.
-
-```sh
-make local/reset-db
-sh bootstrap.sh
-```
+If you need to start from a clean slate, load in the prior year's data; first `make local/reset-db`, then `sh bootstrap.sh`. This may take ~10 minutes to run.
 
 Next, collect static files and fire up the server. Previous instructions suggested ```sh docker-entrypoint.sh``` but in my experience this breaks the css. Try this instead:
 
