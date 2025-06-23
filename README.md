@@ -397,7 +397,7 @@ In addition, you want to hoedown and ask for copy editors to look over any chang
 
 ## Deploying on production servers
 
-Hooray! We're ready to update the production servers and deploy it live. Scary! but there are two production servers: `schools-prod-1` and `schools-prod-2` so that means while one is updating, the other is still up.
+Hooray! We're ready to update the production servers and deploy it live. Scary! As a safeguard, we've had two production servers: `schools-prod-1` and `schools-prod-2` so that means while one is updating, the other is still up. But `schools-prod-2` is decommissioned due to incompatibility with legacy software. 
 
 The other good news is that deployment is similar to how you deployed in the `test` server so much of it should look familiar.
 
@@ -413,6 +413,8 @@ First, we will `ssh` into the `schools-prod-1` server.
 ssh schools-prod-1
 ```
 
+When you first connect, you should see a message `*** System restart required ***`. **DO NOT DO THIS!!!** Restarting will break the delicate balance of legacy software that we want to hold together 'til the end of 2025. 
+  
 The server will have a repository of the `scuole` project. We will need to pull all of the code changes you made into the `scuole` into the production server.
 
 ```sh
@@ -427,9 +429,9 @@ When you see all of your code changes get pulled in from the Github repo, it's t
 make compose/production-deploy
 ```
 
-Make sure Docker containers are running by running `docker ps` (There should be a container for `web` and `proxy` services - no `db` container is necessary to be running in the production servers). If one or more containers are missing you can check their status with `docker ps -a`.
+This should only take about a minute. Make sure Docker containers are running by running `docker ps` (There should be a container for `web` and `proxy` services - no `db` container is necessary to be running in the production servers). If one or more containers are missing you can check their status with `docker ps -a`.
 
-If everything runs successfully, run the same steps above for the `schools-prod-2` server.
+<!---If everything runs successfully, run the same steps above for the `schools-prod-2` server.--->
 
 Congrats, your code changes are now [live](schools.texastribune.org)!
 
