@@ -1,5 +1,5 @@
 #may not need this with AWS or Heroku
 
-FROM nginx:1.15-alpine
+FROM nginx:1.29-alpine
 
 COPY nginx /etc/nginx
