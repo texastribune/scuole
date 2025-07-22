@@ -12,6 +12,8 @@
 
 ## Initial setup on your local server
 
+[THESE INSTRUCTIONS ARE OUTDATED. I've since Dockerized the local setup, but we plan to sunset this version of the app by end of year.]
+
 So you want to update the schools database? That's great! This README will take you through the many steps involved in that process. This README also assumes that you're new at updating the schools database and are starting from the beginning.
 
 If you're a veteran and want some quick deploy instructions you can skip to [here](#quick-deploy).
