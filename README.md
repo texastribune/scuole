@@ -221,7 +221,6 @@ If you're starting in this section, make sure you've fired up the Docker contain
 Then, get inside the Docker shell:
 
 ```sh
-# pipenv shell
 make docker/shell
 ```
 
@@ -231,7 +230,7 @@ Load the data by running:
 python manage.py loadallcohorts <latest year>
 ```
 
-If you get the error "There should be only XX cohorts", you'll need to delete the `StateCohorts`, `RegionCohorts` and `CountyCohorts` data in the database — the error is likely because old cohorts data does not get cleared out when new data is loaded. [Follow the instructions in the duplicate key error section](https://github.com/texastribune/scuole/blob/master/README_TROUBLESHOOTING.md#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database) to delete the data. Make sure you run `python manage.py loadallcohorts` afterwards (without the latest year) so you load in data dating back to 1997 — otherwise, the stacked area charts will not show up.
+If you get the error "There should be only XX cohorts", you'll need to delete the `StateCohorts`, `RegionCohorts` and `CountyCohorts` data in the database — the error is likely because old cohorts data does not get cleared out when new data is loaded. [Follow the instructions in the duplicate key error section](https://github.com/texastribune/scuole/blob/master/README_TROUBLESHOOTING.md#im-seeing-a-duplicate-key-error-when-loading-new-data-into-the-database) to delete the data. Make sure you run `make data/all-cohorts` afterwards from within the Docker shell so you load in data dating back to 1997 — otherwise, the stacked area charts will not show up.
 
 Also, you will need to change the `latest_cohort_year` variable in **all of the functions** in the [`scuole/cohorts/views.py`](https://github.com/texastribune/scuole/blob/master/scuole/cohorts/views.py) file to reference the latest cohorts school year.
 
