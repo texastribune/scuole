@@ -86,7 +86,7 @@ python manage.py migrate
 Make sure Docker is running and step into a Docker shell.
 
 ```sh
-make docker/local
+make compose/local
 make docker/shell
 ```
 

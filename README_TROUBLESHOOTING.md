@@ -80,7 +80,7 @@ countycohorts.delete()
 exit()
 ```
 
-You'll need to delete the `StateCohorts`, `RegionCohorts` and `CountyCohorts` data in the database. Make sure you run `python manage.py loadallcohorts` afterwards (without the latest year) so you load in data dating back to 1997 — otherwise, the stacked area charts will not show up (RR note: loadallcohorts requires a param, I think it's best to step into the Docker shell and run `make data/all-cohorts`).
+You'll need to delete the `StateCohorts`, `RegionCohorts` and `CountyCohorts` data in the database. Make sure you run `make data/all-cohorts` afterwards from within the Docker shell so you load in data dating back to 1997 — otherwise, the stacked area charts will not show up.
 
 If you see the error `django.db.utils.OperationalError: could not translate host name "db" to address: Name does not resolve` when deploying/updating data, it could mean that the app doesn't know where to look for the database. Running `make compose/test-deploy` does some of the setup, and might fix the issue.
 
