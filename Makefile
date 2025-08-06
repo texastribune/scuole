@@ -148,6 +148,13 @@ data/all-cohorts:
 	python manage.py loadallcohorts 2011
 	python manage.py loadallcohorts 2012
 
+# 8/1/25 RR
+
+# run this if you have duplicates and need to start over
+data/delete-cohorts:
+	@echo "Deleting all cohorts data..."
+	python manage.py deletecohorts
+
 # Load in all past TAPR data
 data/all-schools:
 	python manage.py loadtaprdata 2023-2024 --bulk
