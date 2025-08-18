@@ -12,6 +12,9 @@ from scuole.regions.models import Region, RegionCohorts
 from scuole.states.models import State, StateCohorts
 from scuole.stats.models import SchoolYear
 
+str_latest_cohort_year = "2011-2012"
+str_first_cohort_year = "1997-1998"
+
 distinct_cohort_counties = (
     County.objects.filter(cohorts__in=CountyCohorts.objects.all())
     .distinct()
@@ -30,8 +33,8 @@ class CountyCohortsDetailView(DetailView):
 
         cohorts = self.cohorts_model.objects.filter(county=self.object)
 
-        first_cohort_year = SchoolYear.objects.get(name="1997-1998")
-        latest_cohort_year = SchoolYear.objects.get(name="2011-2012")
+        first_cohort_year = SchoolYear.objects.get(name=str_first_cohort_year)
+        latest_cohort_year = SchoolYear.objects.get(name=str_latest_cohort_year)
 
         context['first_cohort_year'] = first_cohort_year
         context['latest_cohort_year'] = latest_cohort_year
@@ -62,8 +65,8 @@ class RegionCohortsDetailView(DetailView):
 
         cohorts = self.cohorts_model.objects.filter(region=self.object)
 
-        first_cohort_year = SchoolYear.objects.get(name="1997-1998")
-        latest_cohort_year = SchoolYear.objects.get(name="2011-2012")
+        first_cohort_year = SchoolYear.objects.get(name=str_first_cohort_year)
+        latest_cohort_year = SchoolYear.objects.get(name=str_latest_cohort_year)
 
         context['first_cohort_year'] = first_cohort_year
         context['latest_cohort_year'] = latest_cohort_year
@@ -94,8 +97,8 @@ class StateCohortsDetailView(DetailView):
 
         cohorts = self.cohorts_model.objects.filter(state=self.object)
 
-        first_cohort_year = SchoolYear.objects.get(name="1997-1998")
-        latest_cohort_year = SchoolYear.objects.get(name="2011-2012")
+        first_cohort_year = SchoolYear.objects.get(name=str_first_cohort_year)
+        latest_cohort_year = SchoolYear.objects.get(name=str_latest_cohort_year)
 
         context['first_cohort_year'] = first_cohort_year
         context['latest_cohort_year'] = latest_cohort_year
@@ -121,8 +124,8 @@ class CohortsLandingView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CohortsLandingView, self).get_context_data(**kwargs)
 
-        first_cohort_year = SchoolYear.objects.get(name="1997-1998")
-        latest_cohort_year = SchoolYear.objects.get(name="2011-2012")
+        first_cohort_year = SchoolYear.objects.get(name=str_first_cohort_year)
+        latest_cohort_year = SchoolYear.objects.get(name=str_latest_cohort_year)
 
         context['first_cohort_year'] = first_cohort_year
         context['latest_cohort_year'] = latest_cohort_year

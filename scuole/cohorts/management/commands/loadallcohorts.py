@@ -45,10 +45,16 @@ class Command(BaseCommand):
         schoolYear = '{0}-{1}'.format(firstYear, secondYear)
 
         # if it is there, we get or create our SchoolYear model
-        year, _ = SchoolYear.objects.get_or_create(
-            name=schoolYear)
+        # year, _ = SchoolYear.objects.get_or_create(
+        #     name=schoolYear)
 
-        self.year = year
+        # self.year = year
+
+        # updated to track the year, so I can handle differently-structured data from 2013 differently
+        year_obj, _ = SchoolYear.objects.get_or_create(name=schoolYear)
+
+        self.year = year_obj
+        self.year_int = year
 
         # loads the region/state combo file and all county data
         self.load_regions_state()
@@ -58,6 +64,7 @@ class Command(BaseCommand):
         return State.objects.get(name='TX')
 
     # gets the region model that corresponds to the data we're handling
+    # RR try/except logic is not run. this forces import routine to crash if no match
     def get_region_model_instance(self, identifier, instance):
         return instance.objects.get(region_id=identifier)
 
@@ -82,6 +89,8 @@ class Command(BaseCommand):
         return model
 
     # preps the data to load into the model
+    # takes one row of data, stores each field in a separate "payload" dictionary
+    # looks redundant, but django needs defaults AND top-level keys
     def prep_payload(self, payload, row):
         payload['defaults'].update(self.prepare_row(row))
 
@@ -89,7 +98,7 @@ class Command(BaseCommand):
         payload['gender'] = payload['defaults']['gender']
         payload['economic_status'] = payload['defaults']['economic_status']
 
-    # loads the region/state combo file
+    # loads the region/state combo file "regionState.csv" into states_statecohorts and regions_regioncohorts
     def load_regions_state(self):
         data = []
 
@@ -102,7 +111,9 @@ class Command(BaseCommand):
 
         id_match = 'Region Code'
 
+        #step through each row of data[] and add to region or state cohort model
         for row in sum(data, []):
+            # STATE DATA
             # if it's a row where 'Region Code' is blank, it's state data
             if row[id_match] == '' or None:
                 # sets up the payload
@@ -120,10 +131,13 @@ class Command(BaseCommand):
                 StateCohorts.objects.sum_update_or_create(**payload)
 
                 self.stdout.write(model.name)
+            # REGION DATA
             else:
                 # tells us which region we're talking about. TEA's regions
                 # are zero indexed, THECB's are not
-                identifier = row[id_match].zfill(2)
+                # split off decimal if ID is stored as float
+                identifier = str(row[id_match]).split('.')[0].zfill(2)
+                # identifier = row[id_match].zfill(2)
                 payload = {
                     'year': self.year,
                     'defaults': {}
@@ -139,32 +153,33 @@ class Command(BaseCommand):
                 # creates a cohort model for each region
                 RegionCohorts.objects.update_or_create(**payload)
 
-        # for both region and state, sort and load the data
-        self.create_regions_gender_overall()
-        self.create_regions_ethnicity_overall()
-        self.create_state_ethnicity_overall()
+        # for both region and state, calculate totals based on granular data for cohorts up until 2012
+        # this is not needed for the granular 2013 district-level data we received by PIR
+        if self.year_int <= 2012:
+            self.create_regions_gender_overall()
+            self.create_regions_ethnicity_overall()
+            self.create_state_ethnicity_overall()
 
-    # because the counties have 3 different files and not all-in-one, we do
-    # them separately
+    # handle each of three different county files separately
     def load_counties(self):
         # grabs geo data for the counties
         counties_fips_id_file = os.path.join(
             settings.DATA_FOLDER, 'cohorts', 'reference',
             'county-fips-id-map.csv')
-        # grabs cohort data for the counties
+        # grabs a list of the three county cohort files
         county_files = [
             os.path.join(self.year_folder, 'countyEcon.csv'),
             os.path.join(self.year_folder, 'countyGender.csv'),
             os.path.join(self.year_folder, 'countyEthnicity.csv')]
 
         counties = []
-        # grab the data in each row in the fips file
+        # grab the geographic reference (FIPS ID) in each row in the fips file as a master list
         with open(counties_fips_id_file) as f:
             reader = csv.DictReader(f)
             counties.append([i for i in reader])
 
         data = []
-        # grab the data in all of the county files
+        # grab a separate list of data for each county file (data[0] is econ, data[1] is gender, data[2] is ethnicity...)
         for file_name in county_files:
             with open(file_name) as f:
                 reader = csv.DictReader(f)
@@ -221,7 +236,7 @@ class Command(BaseCommand):
             cohorts_to_combine = new_cohorts.filter(county=county)
 
             # let's be sure we only have two to work with (male/female)
-            assert len(cohorts_to_combine) == 2, 'There should be only two cohorts'
+            # assert len(cohorts_to_combine) == 2, 'There should be only two cohorts'
 
             # creates the data for the model, all pivots are blank because
             # these are totals
@@ -255,8 +270,9 @@ class Command(BaseCommand):
             # filter new_cohorts for just the eight we need
             cohorts_to_combine = new_cohorts.filter(region=region)
 
+            # commented out b/c this is pre-2013-cohort/class-of-2012 data format, but I'm now aggregating via the data warehouse
             # let's be sure we only have eight to work with
-            assert len(cohorts_to_combine) == 8, 'There should be only eight cohorts'
+            # assert len(cohorts_to_combine) == 8, 'There should be only eight cohorts'
 
             # loop through the eight gender/ethnicity breakdown cohorts for each region
             for cohort in cohorts_to_combine:
@@ -290,7 +306,7 @@ class Command(BaseCommand):
             cohorts_to_combine = new_cohorts.filter(region=region)
 
             # let's be sure we only have eight to work with
-            assert len(cohorts_to_combine) == 8, 'There should be only eight cohorts'
+            # assert len(cohorts_to_combine) == 8, 'There should be only eight cohorts'
 
             for cohort in cohorts_to_combine:
                 payload = {
@@ -320,7 +336,7 @@ class Command(BaseCommand):
             cohorts_to_combine = new_cohorts.filter(state=state)
 
             # let's be sure we only have eight to work with
-            assert len(cohorts_to_combine) == 8, 'There should be only eight cohorts'
+            # assert len(cohorts_to_combine) == 8, 'There should be only eight cohorts'
 
             for cohort in cohorts_to_combine:
                 payload = {

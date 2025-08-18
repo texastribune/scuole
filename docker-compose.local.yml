@@ -26,6 +26,9 @@ services:
             - .env
         volumes:
             - ../scuole-data:/usr/src/app/data
+            # Mount source code for live development - avoids rebuilds when code changes
+            # In production, code is baked into the image at build time for immutability
+            - .:/usr/src/app
     # For local development, you probably don't need the proxy
     # But if you want to keep it for consistency:
     proxy:

@@ -69,18 +69,14 @@ super.delete()
 exit()
 ```
 
-You may need to run this process when updating cohorts data — if the cohorts data upload for the latest year is failing because there are too many regional or county cohorts, it may be because you've tried to upload the data more than once and there are duplicates.
+You may need to run this process when *updating cohorts data* — if the cohorts data upload for the latest year is failing because there are too many regional or county cohorts, it may be because you've tried to upload the data more than once and there are duplicates. You'll need to delete the `StateCohorts`, `RegionCohorts` and `CountyCohorts` data in the database.  
 
 ```python
-python manage.py shell
-from scuole.counties.models import CountyCohorts
-countycohorts = CountyCohorts.objects.all()
-print(countycohorts) # to check if these are the objects we want to delete
-countycohorts.delete()
-exit()
+make docker/shell
+make data/delete-cohorts
 ```
 
-You'll need to delete the `StateCohorts`, `RegionCohorts` and `CountyCohorts` data in the database. Make sure you run `make data/all-cohorts` afterwards from within the Docker shell so you load in data dating back to 1997 — otherwise, the stacked area charts will not show up.
+Make sure you run `make data/all-cohorts` afterwards from within the Docker shell to refill the database back to 1997 — otherwise, the stacked area charts will not show up.
 
 If you see the error `django.db.utils.OperationalError: could not translate host name "db" to address: Name does not resolve` when deploying/updating data, it could mean that the app doesn't know where to look for the database. Running `make compose/test-deploy` does some of the setup, and might fix the issue.
 
