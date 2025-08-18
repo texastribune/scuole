@@ -39,6 +39,9 @@ AF_ACCOUNTABILITY_FIELDS = (
 
 ACCOUNTABILITY_FIELDS = ("accountability_rating","accountability_rating_18_19") + AF_ACCOUNTABILITY_FIELDS
 
+# 8/18/25 RR hardcoding to pull newer accountability data, instead of older data from TAPR dataset
+ACCOUNTABILITY_YEAR_OVERRIDE = "2024-2025"
+
 class Command(BaseCommand):
     help = "Loads a school year's worth of TAPR data."
 
@@ -103,13 +106,24 @@ class Command(BaseCommand):
 
             # loop through each file for each unit
             for file_name in DATA_FILES:
-                # if we're on the reference file and there is no accountability rating
-                self.stdout.write(f"loading {file_name}")
+                # 8/18/25 accountability data override, if I want newer A-F ratings than were published with TAPR
+                current_data_folder_for_file = data_folder
+
+                if file_name == "accountability.csv" and ACCOUNTABILITY_YEAR_OVERRIDE:
+                    base_dir_before_year = path.dirname(data_folder)
+                    
+                    # Construct the new data folder path using the override year
+                    current_data_folder_for_file = path.join(base_dir_before_year, ACCOUNTABILITY_YEAR_OVERRIDE)
+                    self.stdout.write(f"Override: Using year '{ACCOUNTABILITY_YEAR_OVERRIDE}' for '{file_name}'. Effective path base: {current_data_folder_for_file}")
+
+                self.stdout.write(f"loading {file_name} from effective folder: {current_data_folder_for_file}/{jurisdiction}")
+
+                # Original logic for skipping reference.csv if not including accountability rating
                 if file_name == "reference.csv" and not include_accountability_rating:
                     self.stdout.write(f"skipping reference for non-accountability files")
                     continue
 
-                data_file_path = path.join(data_folder, jurisdiction, file_name)
+                data_file_path = path.join(current_data_folder_for_file, jurisdiction, file_name)
 
                 # if the file doesn't exist just move on, it'll crash elsewhere if it matters
                 if not path.isfile(data_file_path):

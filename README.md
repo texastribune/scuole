@@ -187,7 +187,9 @@ Before 2023, it involved hitting a download button in order to get the correct s
 ### Updating TAPR data
 
 This is the big one! This dataset contains all school and district performance scores, student and teacher staff info, graduation rates, attendance, SAT/ACT scores and more. These are the numbers that populate in each district and campus page.
-
+  
+Note that in August 2025, we pulled in more-recent A-F accountability data by rewiring the code to look in the 2024-25 folder for just `accountability.csv`, while pulling all other data from 2023-24. This leverages a variable `ACCOUNTABILITY_YEAR_OVERRIDE`, which you'll need to update in both [loadtaprdata_v3.py](scuole/stats/management/commands/loadtaprdata_v3.py) and [scuole/stats/models/reference.py](scuole/stats/models/reference.py).
+  
 To update the data, run:
 
 ```sh

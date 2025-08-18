@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+ACCOUNTABILITY_YEAR_OVERRIDE = "2024-2025"
 
 class ReferenceBase(models.Model):
     """
@@ -148,6 +149,9 @@ class ReferenceBase(models.Model):
 
     # handling the year shown next the intro `Accountability rating` header
     def get_smart_rating_header_display(self, field_name):
+        if ACCOUNTABILITY_YEAR_OVERRIDE:
+            return ACCOUNTABILITY_YEAR_OVERRIDE
+    
         display_fn = getattr(self, f"get_{field_name}_display")
 
         if display_fn() is None:
