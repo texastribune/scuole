@@ -90,14 +90,14 @@ class Command(BaseCommand):
                 prepared_schema[field_name] = column
 
             # check if the corresponding model has an A-F rating field (campuses and districts should have this)
-            # removed accountability ratings for SY2022-23 and beyond (3/3/25 RR)
-            self.stdout.write(self.style.ERROR("ignoring accountability rating (for SY2022-23 and beyond)"))
+            # tempoerarily removed accountability ratings for SY2022-23 and beyond (3/3/25 RR, to 8/18/25)
+            # self.stdout.write(self.style.ERROR("ignoring accountability rating (for SY2022-23 and beyond)"))
             include_accountability_rating = False
-            # try:
-            #     stats_model._meta.get_field("accountability_rating")
-            #     include_accountability_rating = True
-            # except FieldDoesNotExist:
-            #     include_accountability_rating = False
+            try:
+                stats_model._meta.get_field("accountability_rating")
+                include_accountability_rating = True
+            except FieldDoesNotExist:
+                include_accountability_rating = False
 
             self.matched_data = defaultdict(dict)
 
@@ -122,16 +122,16 @@ class Command(BaseCommand):
                     # data_list_joiner filters out any not matching columns
                     self.data_list_joiner(id_column, reader, prepared_schema.values(), file_name)
 
-                # if mapping.get("folder") == 'district' and file_name == 'accountability.csv':
-                    # print(prepared_schema.values())
-                    # print(data)
-                    # print(self.matched_data.values())
+                if mapping.get("folder") == 'district' and file_name == 'accountability.csv':
+                    print(prepared_schema.values())
+                    print(data)
+                    print(self.matched_data.values())
 
             # get the columns from the data that are included in the prepared_schema
             data = self.matched_data.values()
-            # 3/3/25 comment this out b/c no ratings for SY2022-23 and beyond
-            # if mapping['folder'] == 'district' or mapping['folder'] == 'campus':
-            #     data = [x for x in data if f'{short_code}_RATING' in x]
+            # 3/3/25 to 8/17/25 commented this out b/c no ratings for SY2022-23 and beyond
+            if mapping['folder'] == 'district' or mapping['folder'] == 'campus':
+                data = [x for x in data if f'{short_code}_RATING' in x]
 
             self.stdout.write(f"Count of entities to process: {len(data)}")
             if len(data) == 0:
@@ -178,11 +178,11 @@ class Command(BaseCommand):
                 
                 # check if the corresponding model has an A-F rating field
                 include_accountability_rating = False
-                # try:
-                #     stats_model._meta.get_field("accountability_rating")
-                #     include_accountability_rating = True
-                # except FieldDoesNotExist:
-                #     include_accountability_rating = False
+                try:
+                    stats_model._meta.get_field("accountability_rating")
+                    include_accountability_rating = True
+                except FieldDoesNotExist:
+                    include_accountability_rating = False
 
                 payload = {"year": school_year, "defaults": {}, jurisdiction: instance}
 
