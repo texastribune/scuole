@@ -132,75 +132,75 @@ compose/container:
 # Add the latest cohort year here when you're adding new data
 # Run the command for the latest year to update the explorer
 data/all-cohorts:
-	python3 manage.py loadallcohorts 1998
-	python3 manage.py loadallcohorts 1999
-	python3 manage.py loadallcohorts 2000
-	python3 manage.py loadallcohorts 2001
-	python3 manage.py loadallcohorts 2002
-	python3 manage.py loadallcohorts 2003
-	python3 manage.py loadallcohorts 2004
-	python3 manage.py loadallcohorts 2005
-	python3 manage.py loadallcohorts 2006
-	python3 manage.py loadallcohorts 2007
-	python3 manage.py loadallcohorts 2008
-	python3 manage.py loadallcohorts 2009
-	python3 manage.py loadallcohorts 2010
-	python3 manage.py loadallcohorts 2011
-	python3 manage.py loadallcohorts 2012
+	python manage.py loadallcohorts 1998
+	python manage.py loadallcohorts 1999
+	python manage.py loadallcohorts 2000
+	python manage.py loadallcohorts 2001
+	python manage.py loadallcohorts 2002
+	python manage.py loadallcohorts 2003
+	python manage.py loadallcohorts 2004
+	python manage.py loadallcohorts 2005
+	python manage.py loadallcohorts 2006
+	python manage.py loadallcohorts 2007
+	python manage.py loadallcohorts 2008
+	python manage.py loadallcohorts 2009
+	python manage.py loadallcohorts 2010
+	python manage.py loadallcohorts 2011
+	python manage.py loadallcohorts 2012
 	
-# python3 manage.py loadallcohorts 2013
+# python manage.py loadallcohorts 2013
 
 # 8/1/25 RR
 
 # run this if you have duplicates and need to start over
 data/delete-cohorts:
 	@echo "Deleting all cohorts data..."
-	python3 manage.py deletecohorts
+	python manage.py deletecohorts
 
 # Load in all past TAPR data
 data/all-schools:
-	python3 manage.py loadtaprdata 2023-2024 --bulk
-	python3 manage.py loadtaprdata 2022-2023 --bulk
-	python3 manage.py loadtaprdata 2021-2022 --bulk
-	python3 manage.py loadtaprdata 2020-2021 --bulk
-	python3 manage.py loadtaprdata 2019-2020 --bulk
-	python3 manage.py loadtaprdata 2018-2019 --bulk
-	python3 manage.py loadtaprdata 2017-2018 --bulk
-	python3 manage.py loadtaprdata 2016-2017 --bulk
-	python3 manage.py loadtaprdata 2015-2016 --bulk
-	python3 manage.py loadtaprdata 2014-2015 --bulk
-	python3 manage.py loadtaprdata 2013-2014 --bulk
-	python3 manage.py loadtaprdata 2012-2013 --bulk
+	python manage.py loadtaprdata 2023-2024 --bulk
+	python manage.py loadtaprdata 2022-2023 --bulk
+	python manage.py loadtaprdata 2021-2022 --bulk
+	python manage.py loadtaprdata 2020-2021 --bulk
+	python manage.py loadtaprdata 2019-2020 --bulk
+	python manage.py loadtaprdata 2018-2019 --bulk
+	python manage.py loadtaprdata 2017-2018 --bulk
+	python manage.py loadtaprdata 2016-2017 --bulk
+	python manage.py loadtaprdata 2015-2016 --bulk
+	python manage.py loadtaprdata 2014-2015 --bulk
+	python manage.py loadtaprdata 2013-2014 --bulk
+	python manage.py loadtaprdata 2012-2013 --bulk
 
 data/bootstrap: data/bootstrap-areas data/bootstrap-entities data/update-directories data/all-cohorts data/latest-school
 	@echo "Bootstrap complete"
 
 # Create state, region, and county models (w/ name, geographic coordinates, etc.)
 data/bootstrap-areas:
-	python3 manage.py bootstrapstates
-	python3 manage.py bootstrapregions
-	python3 manage.py bootstrapcounties
+	python manage.py bootstrapstates
+	python manage.py bootstrapregions
+	python manage.py bootstrapcounties
 
 # Create district and campus models (w/ name, geographic coordinates, etc.)
 data/bootstrap-entities:
-	python3 manage.py bootstrapdistricts_v2 2023-2024
-	python3 manage.py dedupedistrictslugs
-	python3 manage.py bootstrapcampuses_v2 2023-2024
-	python3 manage.py dedupecampusslugs
+	python manage.py bootstrapdistricts_v2 2023-2024
+	python manage.py dedupedistrictslugs
+	python manage.py bootstrapcampuses_v2 2023-2024
+	python manage.py dedupecampusslugs
 
 data/create-superuser:
-	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | python3 manage.py shell --plain
+	echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | python manage.py shell --plain
 
 # Load in the latest year's TAPR data with v3 script (RR version added 3/3/25)
 data/latest-school:
-	python3 manage.py loadtaprdata_v3 2023-2024
+	python manage.py loadtaprdata_v3 2023-2024
 	
 # Update AskTED information
 data/update-directories:
-	python3 manage.py updatedistrictdirectory
-	python3 manage.py updatedistrictsuperintendents
-	python3 manage.py updatecampusdirectory
-	python3 manage.py updatecampusprincipals
+	python manage.py updatedistrictdirectory
+	python manage.py updatedistrictsuperintendents
+	python manage.py updatecampusdirectory
+	python manage.py updatecampusprincipals
 
 
 
@@ -342,16 +342,16 @@ local/db-restore:
 # Useful for when you're making js or css changes
 local/npm_reset:
 	npm run build
-	python3 manage.py collectstatic --noinput
-	python3 manage.py runserver
+	python manage.py collectstatic --noinput
+	python manage.py runserver
 
 # 3/6/25 updated from pipenv to Docker
-#pipenv run python3 manage.py migrate
+#pipenv run python manage.py migrate
 local/reset-db:
 	dropdb ${APP} --if-exists
 	createdb ${APP}
 	psql -d ${APP} -c 'CREATE EXTENSION postgis;'
-	docker-compose exec web python3 manage.py migrate	
+	docker-compose exec web python manage.py migrate	
 
 local/reset-db-bootstrap-areas: local/reset-db data/bootstrap-areas
 
