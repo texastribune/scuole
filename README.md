@@ -365,6 +365,8 @@ Run this command to load the latest AskTED data:
 ```sh
 make data/update-directories
 ```
+  
+(8/18/25) Note that if you have any permissions trouble running these `make` targets, a workaround is to manually paste in the targets and replace `python` with `python3`. The cause of this problem is presently unclear.
 
 **Updating TAPR**
 

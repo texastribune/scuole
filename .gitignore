@@ -112,6 +112,7 @@ bower_components
 *.dump
 
 # Docker
+docker-backups
 env-docker
 
 # geoip
