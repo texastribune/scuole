@@ -226,7 +226,7 @@ Then, get inside the Docker shell:
 make docker/shell
 ```
 
-Load the data by running:
+Load the data by running (latest year should be 2012 in this sunset/last version):
 
 ```sh
 python manage.py loadallcohorts <latest year>
@@ -380,7 +380,7 @@ If you were able to run this in your local server, then you shouldn't run into a
 
 **Updating Cohorts**
 
-Run this command to load the latest cohorts data:
+Run this command to load the latest cohorts data (latest year should be 2012 in this sunset/last version):
 
 ```sh
 python manage.py loadallcohorts <latest year>
@@ -514,7 +514,7 @@ make data/latest-school
 
 **Updating Cohorts**
 
-Run this command to load the latest cohorts data:
+Run this command to load the latest cohorts data (latest year should be 2012 in this sunset/last version):
 
 ```sh
 python manage.py loadallcohorts <latest year>
@@ -551,7 +551,7 @@ These changes only need to be made on the `schools-test` and `schools-prod-1` se
 
 - AskTED: `make data/update-directories`
 - TAPR: `make data/latest-school`
-- Cohorts: `python manage.py loadallcohorts <latest-year>`
+- Cohorts: `python manage.py loadallcohorts <latest-year>` (latest year should be 2012 in this sunset/last version)
 
 Before publishing, make sure you make these [small changes](#more-small-changes). 
 
