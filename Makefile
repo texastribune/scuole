@@ -97,6 +97,9 @@ compose/local:
 	docker-compose -f docker-compose.local.yml down
 	docker-compose -f docker-compose.local.yml up
 
+compose/local/stop:
+	docker-compose -f docker-compose.local.yml down
+
 # Deploy scuole to the production server
 # define services that make up the app with the docker-compose.yml file, and build them
 # `down` stops and removes previously started containers
