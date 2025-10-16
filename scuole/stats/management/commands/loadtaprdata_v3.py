@@ -93,7 +93,7 @@ class Command(BaseCommand):
                 prepared_schema[field_name] = column
 
             # check if the corresponding model has an A-F rating field (campuses and districts should have this)
-            # tempoerarily removed accountability ratings for SY2022-23 and beyond (3/3/25 RR, to 8/18/25)
+            # temporarily removed accountability ratings for SY2022-23 and beyond (3/3/25 RR, to 8/18/25)
             # self.stdout.write(self.style.ERROR("ignoring accountability rating (for SY2022-23 and beyond)"))
             include_accountability_rating = False
             try:
