@@ -1,23 +1,22 @@
-/* global BLANK_STORY_IMAGE */
-
 import map from 'lodash.map';
 import reqwest from 'reqwest';
 
-const FEED_URL =
-  'https://www.texastribune.org/api/stories/?format=json&limit=6&tag=subject-public-education';
+const FEED_URL = 'https://www.texastribune.org/wp-json/wp/v2/posts?categories=21&per_page=6&orderby=date&order=desc';
 
 function htmlify(data) {
   let content = '';
 
+  // Strip HTML tags from excerpt
+  const excerpt = data.excerpt.rendered.replace(/<[^>]*>/g, '').trim();
+
   content += `<div class="story-box-container">
-                <a class="story-box" href="${data.url}">
+                <a class="story-box" href="${data.link}">
                   <div class="story-box__media">
-                    <img class="story-box__image" src="${data.lead_art.url ||
-                      window.BLANK_STORY_IMAGE}" alt="Placeholder image">
+                    <img class="story-box__image" src="${data.jetpack_featured_media_url || window.BLANK_STORY_IMAGE}" alt="Placeholder image">
                   </div>
                   <div class="story-box__body">
-                    <h3 class="story-box__header">${data.headline}</h3>
-                    <p class="story-box__prose">${data.short_summary}</p>
+                    <h3 class="story-box__header">${data.title.rendered}</h3>
+                    <p class="story-box__prose">${excerpt}</p>
                   </div>
                 </a>
               </div>`;
@@ -33,7 +32,7 @@ function loadStories(destEl) {
     contentType: 'application/json',
     crossOrigin: true,
     success: res => {
-      let output = map(res.results.slice(0, 6), results => {
+      let output = map(res.slice(0, 6), results => {
         return htmlify(results);
       });
 
